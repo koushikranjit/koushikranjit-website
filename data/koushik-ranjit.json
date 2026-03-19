@@ -1,0 +1,339 @@
+{
+  "id": "koushik-ranjit",
+  "lastUpdated": "2026-03-19",
+  "version": "1.0",
+
+  "personal": {
+    "fullName": "Koushik Ranjit",
+    "firstName": "Koushik",
+    "lastName": "Ranjit",
+    "birthDate": "2001-07-12",
+    "age": 24,
+    "gender": "Male",
+    "birthPlace": "Hasnabad, West Bengal, India",
+    "currentLocation": "West Bengal, India",
+    "nationality": "Indian",
+    "languages": ["Bengali", "Hindi", "English"],
+    "email": "contact@koushikranjit.in",
+    "phone": null,
+    "website": "https://koushikranjit.in"
+  },
+
+  "professional": {
+    "currentTitle": "Proprietary Day Trader & Investor",
+    "titles": [
+      "Proprietary Day Trader",
+      "Futures Trader",
+      "Investor",
+      "Author"
+    ],
+    "specialization": "Nasdaq Futures Trading",
+    "tradingStyle": "Disciplined, rule-based day trading",
+    "markets": ["Nasdaq Futures", "Commodities", "Currency"],
+    "tradingApproach": "Discipline-focused, analytical, structure-driven",
+    "status": "Active"
+  },
+
+  "education": {
+    "degree": "Bachelor of Science in Mathematics (Honours)",
+    "institution": "Taki Government College",
+    "institutionUrl": "https://www.tgc.ac.in",
+    "location": "Taki, West Bengal, India",
+    "subject": "Mathematics",
+    "graduationYear": null
+  },
+
+  "experience": [
+    {
+      "id": 1,
+      "role": "Digital Marketer",
+      "type": "Professional",
+      "period": "2019 - 2023",
+      "startYear": 2019,
+      "endYear": 2023,
+      "status": "Completed",
+      "description": "Specialised in branding and social media management, developing consistent brand identities and data-driven content strategies that strengthened analytical and systematic thinking.",
+      "skills": ["Branding", "Social Media Management", "Content Strategy", "Data-driven Marketing"]
+    },
+    {
+      "id": 2,
+      "role": "Proprietary Trader",
+      "type": "Professional",
+      "period": "2021 - Present",
+      "startYear": 2021,
+      "endYear": null,
+      "status": "Active",
+      "description": "Koushik Ranjit is an Indian proprietary day trader specialising in Nasdaq futures, recognised for a disciplined, analytical, and structure-driven trading approach.",
+      "skills": ["Nasdaq Futures", "Day Trading", "Risk Management", "Market Analysis", "Technical Analysis"]
+    }
+  ],
+
+  "certifications": [
+    {
+      "id": 1,
+      "name": "MFF Starter Certificate",
+      "issuer": "MyForexFunds",
+      "image": "https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/prop%20certificate%20MFF%20starter.jpg?raw=true"
+    },
+    {
+      "id": 2,
+      "name": "ACG Certificate",
+      "issuer": "ACG",
+      "image": "https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/prop%20certificate%20acg.jpg?raw=true"
+    },
+    {
+      "id": 3,
+      "name": "Trading Certificate",
+      "issuer": "Prop Firm",
+      "image": "https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/prop%20certificate%20off.jpg?raw=true"
+    },
+    {
+      "id": 4,
+      "name": "Trading Scale Certificate",
+      "issuer": "Prop Firm",
+      "image": "https://github.com/koushikranjit/KR-Website/blob/d704a3528349abf38a72e6f6b4f460698e48b391/prop%20certificate%20%20off%20scale.jpg?raw=true"
+    }
+  ],
+
+  "book": {
+    "title": "Nobboi Doshok",
+    "titleBengali": "নব্বই দশক",
+    "subtitle": "আমি আবার নব্বই দশকে ফিরে যেতে চাই!! কিছু আলোকের ভালোবাসার যুগ সেই নব্বই দশকে ফিরে যেতে চাই।",
+    "descriptionBengali": "বইটি \"নব্বই দশক\" তে এক মনোরম এবং চিত্রবর্ণিত ভাষায় রয়েছে। এই বইতে 48টি সতর্কবার্তা আছে, যা প্রতি কথায় নানা সময়ের রহস্যগুলি উদ্ঘাটবল করতে সক্ষম। \"নব্বই দশক\" পড়তে একটি আদর্শ ভাষার মহাকাব্য হিসেবে পূর্ণভাবে আত্ম-সন্ধানের এবং বৈচিত্র্যের সাথে আপনার পথ নির্মাণ করতে সাহায্য করতে পারে। এই সময়ের যোগ্য সম্পর্ক ও প্রেমের গল্পের মাধ্যমে, লেখক আপনাদের কাছে একটি অনুস্বেকার দিয়েছে যা আপনার জীবনে একটি নতুন আলোকিত দিকে পরিণত হতে সাহায্য করতে পারে।",
+    "author": "Koushik Ranjit",
+    "format": "Paperback",
+    "genre": "Young Adult Fiction",
+    "language": "Bengali",
+    "totalWarnings": 48,
+    "buyUrl": "https://notionpress.com/in/read/nobboi-doshok",
+    "publisher": "Notion Press",
+    "coverImage": "https://github.com/koushikranjit/KR-Website/blob/47cf2dac2e19f508531c0115ed27d562b5df691d/book%20nd%201.jpg?raw=true",
+    "promotionalImages": [
+      "https://github.com/koushikranjit/KR-Website/blob/47cf2dac2e19f508531c0115ed27d562b5df691d/book%20nd%202.PNG?raw=true",
+      "https://github.com/koushikranjit/KR-Website/blob/47cf2dac2e19f508531c0115ed27d562b5df691d/book%20nd%203.PNG?raw=true",
+      "https://github.com/koushikranjit/KR-Website/blob/47cf2dac2e19f508531c0115ed27d562b5df691d/book%20nd%204.PNG?raw=true",
+      "https://github.com/koushikranjit/KR-Website/blob/f2b22f91209d70f4dd065ff4776f74463a57a760/book%20nd%205.PNG?raw=true",
+      "https://github.com/koushikranjit/KR-Website/blob/f2b22f91209d70f4dd065ff4776f74463a57a760/book%20nd%206.PNG?raw=true",
+      "https://github.com/koushikranjit/KR-Website/blob/f2b22f91209d70f4dd065ff4776f74463a57a760/book%20nd%207.jpg?raw=true"
+    ]
+  },
+
+  "socialLinks": [
+    {
+      "platform": "Google",
+      "url": "https://share.google/8i6opxy7sVL2wZihV",
+      "username": null,
+      "icon": "google",
+      "active": true
+    },
+    {
+      "platform": "Instagram",
+      "url": "https://www.instagram.com/koushik_ranjit",
+      "username": "koushik_ranjit",
+      "icon": "instagram",
+      "active": true
+    },
+    {
+      "platform": "LinkedIn",
+      "url": "https://www.linkedin.com/in/koushik-ranjit-011957188/",
+      "username": "koushik-ranjit-011957188",
+      "icon": "linkedin",
+      "active": true
+    },
+    {
+      "platform": "Twitter/X",
+      "url": "https://x.com/koushik_ranjit",
+      "username": "koushik_ranjit",
+      "icon": "twitter",
+      "active": true
+    },
+    {
+      "platform": "Facebook",
+      "url": "https://www.facebook.com/koushikranjitkr",
+      "username": "koushikranjitkr",
+      "icon": "facebook",
+      "active": true
+    },
+    {
+      "platform": "Discord",
+      "url": "https://discord.gg/4V67sVmU7B",
+      "username": null,
+      "icon": "discord",
+      "active": true
+    },
+    {
+      "platform": "Beacons",
+      "url": "https://beacons.ai/koushikranjit",
+      "username": "koushikranjit",
+      "icon": "link",
+      "active": true
+    }
+  ],
+
+  "community": {
+    "name": "Trading Community",
+    "platform": "Discord",
+    "description": "Join our exclusive Discord community where disciplined traders share insights, strategies, and market analysis. Connect with like-minded individuals focused on consistent, rule-based trading approaches.",
+    "joinUrl": "https://discord.gg/4V67sVmU7B",
+    "bannerImage": "https://github.com/koushikranjit/KR-Website/blob/1ed17443c4a5adb6fcd2f2a8bd6c3dd77cf4d52c/trading%20community%20banner.PNG?raw=true",
+    "active": true
+  },
+
+  "mediaCoverage": {
+    "publications": ["Wikipedia", "APN News", "Vocal Media", "Interviewer PR", "Bhaskar Live"],
+    "articles": [
+      {
+        "id": 1,
+        "source": "APN News",
+        "title": "How Koushik Ranjit is Bringing Analytical Discipline to the Global Nasdaq Futures Market",
+        "description": "Featured story on Koushik's journey bringing disciplined trading approaches to global audiences...",
+        "url": "#",
+        "date": null,
+        "type": "Feature"
+      },
+      {
+        "id": 2,
+        "source": "Vocal Media",
+        "title": "The Discipline Behind Nasdaq Futures Trader Koushik Ranjit",
+        "description": "Exploring the analytical mindset and systematic approach that defines Koushik's trading philosophy...",
+        "url": "#",
+        "date": null,
+        "type": "Profile"
+      },
+      {
+        "id": 3,
+        "source": "Interviewer PR",
+        "title": "How Koushik Ranjit Built a Disciplined Edge in Nasdaq Futures",
+        "description": "An in-depth look at the strategic thinking and risk management principles behind successful futures trading...",
+        "url": "#",
+        "date": null,
+        "type": "Interview"
+      }
+    ]
+  },
+
+  "recognition": {
+    "magazine": {
+      "name": "Unmesh",
+      "edition": "2022-2023",
+      "page": 13,
+      "publisher": "Taki Government College",
+      "description": "Featured in the college magazine \"Unmesh\" (2022–2023 edition), page 13. Published by Taki Government College, showcasing academic achievements and personal journey.",
+      "url": "https://www.tgc.ac.in/pdf/magazine/UNMESH_Taki%20College%20Magazine%20Complete_compressed.pdf#page=29",
+      "coverImage": "https://github.com/koushikranjit/KR-Website/blob/1f43e54fee823fc611343292c6e3afa92b5463bc/College%20magazine.png?raw=true"
+    },
+    "collegeMemories": [
+      {
+        "id": 1,
+        "caption": "Farewell Moments with Respected Teachers",
+        "image": "https://github.com/koushikranjit/KR-Website/blob/263a05f4d358b149a5714d3e6ee42d37cc82ca33/Farewell%20Moments%20with%20Respected%20Teachers.jpg?raw=true"
+      },
+      {
+        "id": 2,
+        "caption": "Taki Government College",
+        "image": "https://github.com/koushikranjit/KR-Website/blob/263a05f4d358b149a5714d3e6ee42d37cc82ca33/Taki%20Government%20College.jpg?raw=true"
+      },
+      {
+        "id": 3,
+        "caption": "With My Respected Mathematics Department Teachers",
+        "image": "https://github.com/koushikranjit/KR-Website/blob/263a05f4d358b149a5714d3e6ee42d37cc82ca33/With%20My%20Respected%20Mathematics%20Department%20Teachers.jpg?raw=true"
+      }
+    ]
+  },
+
+  "gallery": [
+    {
+      "id": 1,
+      "alt": "Koushik Ranjit Gallery Image 1",
+      "image": "https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%201.jpg?raw=true",
+      "category": "personal"
+    },
+    {
+      "id": 2,
+      "alt": "Koushik Ranjit Gallery Image 2",
+      "image": "https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%202.jpg?raw=true",
+      "category": "personal"
+    },
+    {
+      "id": 3,
+      "alt": "Koushik Ranjit Gallery Image 3",
+      "image": "https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%203.jpg?raw=true",
+      "category": "personal"
+    },
+    {
+      "id": 4,
+      "alt": "Koushik Ranjit Gallery Image 4",
+      "image": "https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%204.jpg?raw=true",
+      "category": "personal"
+    },
+    {
+      "id": 5,
+      "alt": "Koushik Ranjit Gallery Image 5",
+      "image": "https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%205.jpg?raw=true",
+      "category": "personal"
+    },
+    {
+      "id": 6,
+      "alt": "Koushik Ranjit Gallery Image 6",
+      "image": "https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%206.jpg?raw=true",
+      "category": "personal"
+    }
+  ],
+
+  "images": {
+    "heroDesktop": "https://github.com/koushikranjit/KR-Website/blob/7e7cb92568a6b3d64b2b0eb1f1071c48cd2b7508/full%20fit%20hero%20image.jpg?raw=true",
+    "heroMobile": "https://github.com/koushikranjit/KR-Website/blob/4ecc46c3ca400a0956ad9bdbd50eb080713706c3/ph%20hero%20for%20website%20.jpg?raw=true",
+    "headshot": "https://github.com/koushikranjit/KR-Website/blob/263a05f4d358b149a5714d3e6ee42d37cc82ca33/KR%20Headshot%20.jpg?raw=true",
+    "ogImage": "https://github.com/koushikranjit/KR-Website/blob/851c87d89048a11631e7fa1bfe6b57db03bb9e15/KR%20IMAGE.jpg.JPG?raw=true",
+    "favicon": "https://github.com/koushikranjit/KR-Website/blob/851c87d89048a11631e7fa1bfe6b57db03bb9e15/kr%20fevicon%20.png?raw=true"
+  },
+
+  "seo": {
+    "title": "Koushik Ranjit | Proprietary Day Trader & Investor",
+    "description": "Koushik Ranjit (born 12 July 2001) is an Indian proprietary day trader and futures investor known for a disciplined, rule-based approach to Nasdaq futures trading.",
+    "keywords": [
+      "Koushik Ranjit",
+      "Koushik Ranjit trader",
+      "Koushik Ranjit day trader",
+      "Koushik Ranjit proprietary trader",
+      "Koushik Ranjit futures trader",
+      "Koushik Ranjit Nasdaq futures",
+      "Koushik Ranjit investor"
+    ],
+    "canonical": "https://koushikranjit.in",
+    "ogType": "website",
+    "twitterCard": "summary_large_image",
+    "robots": "index, follow"
+  },
+
+  "navigation": [
+    { "label": "Home", "href": "#hero" },
+    { "label": "About", "href": "#about-detailed" },
+    { "label": "Experience", "href": "#experience" },
+    { "label": "Community", "href": "#community" },
+    { "label": "Recognition", "href": "#recognition" },
+    { "label": "Media", "href": "#media" },
+    { "label": "Book", "href": "#book" },
+    { "label": "Gallery", "href": "#gallery" },
+    { "label": "Connect", "href": "#contact" }
+  ],
+
+  "theme": {
+    "primaryBlack": "#0a0a0a",
+    "secondaryBlack": "#1a1a1a",
+    "accentGreen": "#00ff88",
+    "softGreen": "#00cc66",
+    "textPrimary": "#ffffff",
+    "textSecondary": "#a8a8a8",
+    "textMuted": "#666666",
+    "fonts": {
+      "primary": "JetBrains Mono",
+      "secondary": "Playfair Display"
+    }
+  },
+
+  "footer": {
+    "copyright": "© 2026 Koushik Ranjit. All rights reserved.",
+    "tagline": "Futures Trader & Investor"
+  }
+}
