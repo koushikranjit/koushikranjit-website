@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full AI Clone Workflow — Complete Professional Manual | Koushik Ranjit</title>
+    <meta name="description" content="Complete professional-grade AI clone workflow manual. Transform a simple selfie into a fully speaking, moving AI avatar for authority-building content.">
+    <meta name="keywords" content="AI Clone, AI Avatar, NanoBanana Pro, Flux 2.0, Voice Cloning, ElevenLabs, Kling AI, VEO 3, AI Content Creation, Personal Branding">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://koushikranjit.in/ai-clone-workflow.html">
+    <link rel="icon" type="image/png" href="https://github.com/koushikranjit/KR-Website/blob/851c87d89048a11631e7fa1bfe6b57db03bb9e15/kr%20fevicon%20.png?raw=true">
+    <meta property="og:title" content="Full AI Clone Workflow — Complete Professional Manual">
+    <meta property="og:description" content="Transform a selfie into a fully speaking, moving AI avatar. Complete 6-step professional workflow by Koushik Ranjit.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://koushikranjit.in/ai-clone-workflow.html">
+    <meta property="og:image" content="https://github.com/koushikranjit/KR-Website/blob/851c87d89048a11631e7fa1bfe6b57db03bb9e15/KR%20IMAGE.jpg.JPG?raw=true">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Full AI Clone Workflow — Koushik Ranjit">
+    <meta name="twitter:description" content="Complete 6-step AI clone workflow. From selfie to speaking avatar.">
+    <meta name="twitter:image" content="https://github.com/koushikranjit/KR-Website/blob/851c87d89048a11631e7fa1bfe6b57db03bb9e15/KR%20IMAGE.jpg.JPG?raw=true">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --bg:#050505;--bg2:#0a0a0a;--bg3:#111;--bg4:#1a1a1a;
+            --accent:#00e87b;--accent2:#00c468;--accent-glow:rgba(0,232,123,.15);
+            --accent-glow2:rgba(0,232,123,.08);
+            --purple:#a855f7;--purple-glow:rgba(168,85,247,.15);
+            --blue:#3b82f6;--blue-glow:rgba(59,130,246,.15);
+            --orange:#f97316;--orange-glow:rgba(249,115,22,.15);
+            --pink:#ec4899;--pink-glow:rgba(236,72,153,.15);
+            --cyan:#06b6d4;--cyan-glow:rgba(6,182,212,.15);
+            --text:#f5f5f5;--text2:#999;--text3:#555;
+            --border:rgba(255,255,255,.06);--border2:rgba(255,255,255,.1);
+            --glass:rgba(255,255,255,.03);--glass2:rgba(255,255,255,.05);
+            --radius:20px;--radius2:14px;
+        }
+        html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.7}
+        .container{max-width:1100px;margin:0 auto;padding:0 2rem}
+
+        /* Preloader */
+        .preloader{position:fixed;inset:0;background:var(--bg);z-index:10000;display:flex;align-items:center;justify-content:center;transition:opacity .6s,visibility .6s}
+        .preloader.done{opacity:0;visibility:hidden;pointer-events:none}
+        .preloader-ring{width:48px;height:48px;border:3px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+        @keyframes spin{to{transform:rotate(360deg)}}
+
+        /* Cursor */
+        .cursor{position:fixed;width:18px;height:18px;border:2px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transition:transform .15s,opacity .3s;mix-blend-mode:difference;opacity:0}
+        .cursor.visible{opacity:1}
+        .cursor.hover{transform:scale(2.2);border-color:var(--text)}
+
+        /* Particles */
+        .particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+        .particle{position:absolute;width:2px;height:2px;background:var(--accent);border-radius:50%;opacity:.12;animation:drift linear infinite}
+        @keyframes drift{0%{transform:translateY(100vh) rotate(0deg);opacity:0}10%{opacity:.12}90%{opacity:.12}100%{transform:translateY(-10vh) rotate(720deg);opacity:0}}
+
+        /* Navigation */
+        .nav{position:fixed;top:0;width:100%;z-index:1000;padding:1rem 0;background:rgba(5,5,5,.85);backdrop-filter:blur(30px);border-bottom:1px solid var(--border)}
+        .nav-inner{display:flex;justify-content:space-between;align-items:center}
+        .logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-.5px}
+        .logo span{color:var(--accent)}
+        .nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+        .nav-links a{color:var(--text2);text-decoration:none;font-size:.82rem;font-weight:500;letter-spacing:.5px;text-transform:uppercase;transition:color .3s}
+        .nav-links a:hover{color:var(--accent)}
+        .back-btn{display:inline-flex;align-items:center;gap:.5rem;color:var(--text2);text-decoration:none;font-size:.82rem;font-weight:500;transition:color .3s}
+        .back-btn:hover{color:var(--accent)}
+
+        /* Hero */
+        .guide-hero{min-height:80vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:6rem}
+        .guide-hero::before{content:'';position:absolute;top:-50%;right:-30%;width:800px;height:800px;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);opacity:.3;animation:pulse-bg 8s ease-in-out infinite}
+        .guide-hero::after{content:'';position:absolute;bottom:-40%;left:-20%;width:600px;height:600px;background:radial-gradient(circle,var(--purple-glow) 0%,transparent 70%);opacity:.2;animation:pulse-bg 10s ease-in-out infinite reverse}
+        @keyframes pulse-bg{0%,100%{transform:scale(1);opacity:.2}50%{transform:scale(1.2);opacity:.35}}
+        .guide-hero-content{position:relative;z-index:2;text-align:center;max-width:800px;margin:0 auto}
+        .hero-badge{display:inline-flex;align-items:center;gap:.6rem;padding:.6rem 1.5rem;border:1px solid rgba(0,232,123,.3);border-radius:100px;font-size:.72rem;font-weight:700;color:var(--accent);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:2rem;backdrop-filter:blur(10px);background:rgba(0,232,123,.05)}
+        .hero-badge::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse-dot 2s infinite}
+        @keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.3}}
+        .guide-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,6vw,4.5rem);font-weight:700;line-height:1.1;letter-spacing:-2px;margin-bottom:1.5rem}
+        .guide-hero h1 .accent{color:var(--accent)}
+        .guide-hero .subtitle{font-size:1.15rem;color:var(--text2);line-height:1.8;max-width:650px;margin:0 auto 2.5rem}
+        .guide-hero .subtitle strong{color:var(--text);font-weight:600}
+
+        /* Schema steps */
+        .schema-bar{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+        .schema-step{display:flex;align-items:center;gap:.4rem;padding:.4rem 1rem;background:var(--glass2);border:1px solid var(--border);border-radius:100px;font-size:.7rem;font-weight:600;color:var(--text2);letter-spacing:.5px;text-transform:uppercase;transition:all .3s}
+        .schema-step .num{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:800;color:var(--bg)}
+        .schema-step:nth-child(1) .num{background:var(--accent)}
+        .schema-step:nth-child(2) .num{background:var(--blue)}
+        .schema-step:nth-child(3) .num{background:var(--purple)}
+        .schema-step:nth-child(4) .num{background:var(--orange)}
+        .schema-step:nth-child(5) .num{background:var(--pink)}
+        .schema-step:nth-child(6) .num{background:var(--cyan)}
+        .schema-arrow{color:var(--text3);font-size:.8rem}
+
+        /* Sections */
+        .section{padding:6rem 0;position:relative}
+        .section-header{text-align:center;margin-bottom:4rem}
+        .section-label{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;position:relative;padding:0 2rem}
+        .section-label::before,.section-label::after{content:'';position:absolute;top:50%;width:1.5rem;height:1px;background:var(--accent)}
+        .section-label::before{left:0}
+        .section-label::after{right:0}
+        .section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:600;letter-spacing:-1.5px;line-height:1.2}
+        .section-sub{color:var(--text2);font-size:1rem;margin-top:1rem;max-width:600px;margin-left:auto;margin-right:auto}
+
+        /* Why Section */
+        .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+        .why-card{background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:2.5rem;position:relative;overflow:hidden;transition:all .5s cubic-bezier(.4,0,.2,1)}
+        .why-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .5s}
+        .why-card:hover{border-color:rgba(0,232,123,.2);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+        .why-card:hover::before{opacity:1}
+        .why-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;font-size:1.5rem}
+        .why-card h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:.8rem;letter-spacing:-.5px}
+        .why-card p{color:var(--text2);font-size:.92rem;line-height:1.7}
+
+        /* Step Cards */
+        .step-section{padding:5rem 0;position:relative}
+        .step-section:nth-child(even){background:var(--bg2)}
+        .step-number{display:inline-flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:50%;font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:1.5rem;position:relative}
+        .step-number::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid;opacity:.3;animation:pulse-ring 3s ease-in-out infinite}
+        @keyframes pulse-ring{0%,100%{transform:scale(1);opacity:.3}50%{transform:scale(1.15);opacity:.1}}
+
+        .step-1 .step-number{background:var(--accent);color:var(--bg)}
+        .step-1 .step-number::after{border-color:var(--accent)}
+        .step-2 .step-number{background:var(--blue);color:#fff}
+        .step-2 .step-number::after{border-color:var(--blue)}
+        .step-3 .step-number{background:var(--purple);color:#fff}
+        .step-3 .step-number::after{border-color:var(--purple)}
+        .step-4 .step-number{background:var(--orange);color:#fff}
+        .step-4 .step-number::after{border-color:var(--orange)}
+        .step-5 .step-number{background:var(--pink);color:#fff}
+        .step-5 .step-number::after{border-color:var(--pink)}
+        .step-6 .step-number{background:var(--cyan);color:#fff}
+        .step-6 .step-number::after{border-color:var(--cyan)}
+
+        .step-header{margin-bottom:3rem}
+        .step-header h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:600;letter-spacing:-1px;margin-bottom:1rem}
+        .step-header p{color:var(--text2);font-size:1.05rem;max-width:700px;line-height:1.8}
+
+        /* Tool Cards */
+        .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-bottom:3rem}
+        .tool-card{background:var(--glass2);border:1px solid var(--border);border-radius:var(--radius2);padding:2rem;transition:all .4s cubic-bezier(.4,0,.2,1)}
+        .tool-card:hover{border-color:rgba(255,255,255,.12);transform:translateY(-3px);box-shadow:0 15px 40px rgba(0,0,0,.3)}
+        .tool-name{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
+        .tool-badge{font-size:.6rem;font-weight:700;padding:.2rem .6rem;border-radius:100px;text-transform:uppercase;letter-spacing:1px}
+        .strengths{list-style:none;margin-bottom:1.5rem}
+        .strengths li{color:var(--text2);font-size:.88rem;padding:.35rem 0;padding-left:1.4rem;position:relative;line-height:1.5}
+        .strengths li::before{content:'';position:absolute;left:0;top:.65rem;width:6px;height:6px;border-radius:50%}
+
+        .step-1 .tool-badge{background:var(--accent-glow);color:var(--accent)}
+        .step-1 .strengths li::before{background:var(--accent)}
+        .step-2 .tool-badge{background:var(--blue-glow);color:var(--blue)}
+        .step-2 .strengths li::before{background:var(--blue)}
+        .step-3 .tool-badge{background:var(--purple-glow);color:var(--purple)}
+        .step-3 .strengths li::before{background:var(--purple)}
+        .step-4 .tool-badge{background:var(--orange-glow);color:var(--orange)}
+        .step-4 .strengths li::before{background:var(--orange)}
+        .step-5 .tool-badge{background:var(--pink-glow);color:var(--pink)}
+        .step-5 .strengths li::before{background:var(--pink)}
+        .step-6 .tool-badge{background:var(--cyan-glow);color:var(--cyan)}
+        .step-6 .strengths li::before{background:var(--cyan)}
+
+        /* Prompt Box */
+        .prompt-box{background:var(--bg);border:1px solid var(--border2);border-radius:var(--radius2);padding:1.5rem 2rem;margin:1.5rem 0;position:relative;overflow:hidden}
+        .prompt-box::before{content:'PROMPT';position:absolute;top:.8rem;right:1rem;font-size:.6rem;font-weight:700;letter-spacing:2px;color:var(--text3);text-transform:uppercase}
+        .prompt-box p{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--text2);line-height:1.8}
+
+        /* JSON Box */
+        .json-box{background:var(--bg);border:1px solid var(--border2);border-radius:var(--radius2);padding:1.5rem 2rem;margin:1.5rem 0;position:relative;overflow-x:auto}
+        .json-box::before{content:'JSON';position:absolute;top:.8rem;right:1rem;font-size:.6rem;font-weight:700;letter-spacing:2px;color:var(--text3)}
+        .json-box pre{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--text2);line-height:1.7;white-space:pre-wrap}
+        .json-box .key{color:var(--accent)}
+        .json-box .str{color:var(--purple)}
+
+        /* Importance Box */
+        .importance-box{background:linear-gradient(135deg,rgba(0,232,123,.05),rgba(0,232,123,.02));border:1px solid rgba(0,232,123,.15);border-radius:var(--radius2);padding:2rem;margin-top:2rem}
+        .importance-box h4{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:.8rem;color:var(--accent)}
+        .importance-box p{color:var(--text2);font-size:.92rem;line-height:1.7}
+
+        /* Summary Schema */
+        .summary-flow{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;margin-top:3rem}
+        .flow-item{text-align:center;padding:1.5rem 1rem;background:var(--glass);border:1px solid var(--border);border-radius:var(--radius2);position:relative;transition:all .4s}
+        .flow-item:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.12)}
+        .flow-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto .8rem;font-size:.8rem;font-weight:800;color:#fff}
+        .flow-item:nth-child(1) .flow-num{background:var(--accent);color:var(--bg)}
+        .flow-item:nth-child(2) .flow-num{background:var(--blue)}
+        .flow-item:nth-child(3) .flow-num{background:var(--purple)}
+        .flow-item:nth-child(4) .flow-num{background:var(--orange)}
+        .flow-item:nth-child(5) .flow-num{background:var(--pink)}
+        .flow-item:nth-child(6) .flow-num{background:var(--cyan)}
+        .flow-title{font-weight:700;font-size:.8rem;margin-bottom:.3rem;letter-spacing:-.3px}
+        .flow-desc{font-size:.7rem;color:var(--text3);line-height:1.4}
+        .flow-item::after{content:'\2192';position:absolute;right:-1rem;top:50%;transform:translateY(-50%);color:var(--text3);font-size:.9rem}
+        .flow-item:last-child::after{display:none}
+
+        /* CTA Section */
+        .cta-section{padding:8rem 0;text-align:center;position:relative;overflow:hidden}
+        .cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,var(--accent-glow) 0%,transparent 60%);opacity:.2}
+        .cta-section h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:600;letter-spacing:-1.5px;margin-bottom:1rem;position:relative;z-index:1}
+        .cta-section p{color:var(--text2);font-size:1.1rem;max-width:600px;margin:0 auto 2.5rem;position:relative;z-index:1;line-height:1.8}
+        .btn-primary{display:inline-flex;align-items:center;gap:.5rem;background:var(--accent);color:var(--bg);padding:1rem 2.5rem;border-radius:100px;text-decoration:none;font-weight:700;font-size:.9rem;transition:all .3s;border:none;cursor:pointer;position:relative;overflow:hidden;z-index:1}
+        .btn-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(45deg,transparent,rgba(255,255,255,.2),transparent);transform:translateX(-100%);transition:transform .5s}
+        .btn-primary:hover::before{transform:translateX(100%)}
+        .btn-primary:hover{box-shadow:0 8px 30px var(--accent-glow),0 0 60px var(--accent-glow2);transform:translateY(-2px)}
+
+        /* Footer */
+        .footer{border-top:1px solid var(--border);padding:3rem 0;text-align:center}
+        .footer-copy{color:var(--text3);font-size:.8rem}
+        .footer-links{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:1.5rem}
+        .footer-links a{color:var(--text3);text-decoration:none;font-size:.82rem;font-weight:500;transition:color .3s}
+        .footer-links a:hover{color:var(--accent)}
+
+        /* Reveal Animations */
+        .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1)}
+        .reveal.visible{opacity:1;transform:translateY(0)}
+        .reveal-left{opacity:0;transform:translateX(-40px);transition:all .8s cubic-bezier(.4,0,.2,1)}
+        .reveal-left.visible{opacity:1;transform:translateX(0)}
+        .reveal-right{opacity:0;transform:translateX(40px);transition:all .8s cubic-bezier(.4,0,.2,1)}
+        .reveal-right.visible{opacity:1;transform:translateX(0)}
+        .reveal-scale{opacity:0;transform:scale(.9);transition:all .8s cubic-bezier(.4,0,.2,1)}
+        .reveal-scale.visible{opacity:1;transform:scale(1)}
+
+        /* Divider */
+        .section-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:0}
+
+        /* Responsive */
+        @media(max-width:1024px){
+            .why-grid{grid-template-columns:1fr}
+            .tools-grid{grid-template-columns:1fr}
+            .summary-flow{grid-template-columns:repeat(3,1fr)}
+            .flow-item::after{display:none}
+        }
+        @media(max-width:768px){
+            .container{padding:0 1.2rem}
+            .section{padding:4rem 0}
+            .step-section{padding:4rem 0}
+            .schema-bar{gap:.3rem}
+            .schema-step{padding:.3rem .6rem;font-size:.6rem}
+            .schema-arrow{display:none}
+            .summary-flow{grid-template-columns:repeat(2,1fr)}
+            .nav-links{gap:1rem}
+            .cursor{display:none!important}
+        }
+        @media(max-width:480px){
+            .container{padding:0 1rem}
+            .summary-flow{grid-template-columns:1fr 1fr}
+            .guide-hero{min-height:auto;padding-top:7rem;padding-bottom:4rem}
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader"><div class="preloader-ring"></div></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+
+    <!-- Particles -->
+    <div class="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="index.html" class="logo">K<span>.</span> Ranjit</a>
+                <div class="nav-links">
+                    <a href="index.html" class="back-btn">&larr; Back to Main</a>
+                    <a href="#step1">Steps</a>
+                    <a href="#summary">Summary</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="guide-hero">
+        <div class="container">
+            <div class="guide-hero-content reveal">
+                <div class="hero-badge">Complete Professional Manual</div>
+                <h1>Full <span class="accent">AI Clone</span> Workflow</h1>
+                <p class="subtitle">Transform a simple selfie into a <strong>fully speaking, moving AI avatar</strong> capable of producing authority-building content daily &mdash; without ever recording yourself.</p>
+                <div class="schema-bar">
+                    <div class="schema-step"><span class="num">1</span> Face</div>
+                    <span class="schema-arrow">&rarr;</span>
+                    <div class="schema-step"><span class="num">2</span> Dataset</div>
+                    <span class="schema-arrow">&rarr;</span>
+                    <div class="schema-step"><span class="num">3</span> Upscale</div>
+                    <span class="schema-arrow">&rarr;</span>
+                    <div class="schema-step"><span class="num">4</span> Voice</div>
+                    <span class="schema-arrow">&rarr;</span>
+                    <div class="schema-step"><span class="num">5</span> Motion</div>
+                    <span class="schema-arrow">&rarr;</span>
+                    <div class="schema-step"><span class="num">6</span> Assembly</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why AI Cloning Matters -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label">Why It Matters</div>
+                <h2 class="section-title">Why AI Cloning Matters</h2>
+                <p class="section-sub">Each phase plays a strategic role. If one step is weak, everything collapses.</p>
+            </div>
+            <div class="why-grid">
+                <div class="why-card reveal-left">
+                    <div class="why-icon" style="background:var(--accent-glow)">&#x1F310;</div>
+                    <h3>Omnipresence</h3>
+                    <p>Appear present across all platforms, create unlimited content, speak in multiple languages, and maintain brand consistency &mdash; without filming yourself.</p>
+                </div>
+                <div class="why-card reveal-right">
+                    <div class="why-icon" style="background:var(--purple-glow)">&#x26A1;</div>
+                    <h3>Authority at Scale</h3>
+                    <p>It elevates authority, increases perceived expertise, and drastically reduces content production time. Your AI clone becomes an automated content machine.</p>
+                </div>
+            </div>
+            <div class="importance-box reveal" style="margin-top:2rem">
+                <h4>Why Every Phase is Essential</h4>
+                <p>Strong face creation ensures identity consistency. Dataset building ensures variety. Upscaling ensures clarity in motion. Voice cloning brings authenticity. Video generation adds realism. Final assembly completes the illusion. Skip one &mdash; and the clone falls apart.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- STEP 1 — Face Creation -->
+    <section class="step-section step-1" id="step1">
+        <div class="container">
+            <div class="step-header reveal">
+                <div class="step-number">1</div>
+                <h2>Face Creation <span style="color:var(--text3);font-weight:400;font-size:.6em">&mdash; The Foundation</span></h2>
+                <p>Face creation determines whether the avatar is believable. High-quality, identity-accurate portraits ensure consistency in every image, video, and animation.</p>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-card reveal-left">
+                    <div class="tool-name">NanoBanana Pro <span class="tool-badge">Recommended</span></div>
+                    <ul class="strengths">
+                        <li>Industry-leading identity accuracy</li>
+                        <li>RAW photorealistic rendering</li>
+                        <li>Perfect for matching subjects with outfits/locations</li>
+                        <li>Supports multi-angle datasets</li>
+                        <li>Ideal for social media photorealism</li>
+                    </ul>
+                    <div class="prompt-box">
+                        <p>A photorealistic 85mm f/1.4 RAW portrait of this exact person, same identity, same hair, same proportions. Soft studio lighting, clean white background, high micro-detail with real skin texture and pores. Preserve facial structure accurately.</p>
+                    </div>
+                </div>
+
+                <div class="tool-card reveal">
+                    <div class="tool-name">Flux 2.0 <span class="tool-badge">Cinematic</span></div>
+                    <ul class="strengths">
+                        <li>Cinematic lighting simulation</li>
+                        <li>Strong with portraits requiring emotional realism</li>
+                        <li>Great at detailed skin, pores, and micro-imperfections</li>
+                        <li>Produces natural color grading and tonality</li>
+                    </ul>
+                    <div class="prompt-box">
+                        <p>Create a hyper-realistic portrait of this person using cinematic soft lighting, an 85mm depth aesthetic, RAW texture quality, natural wrinkles and pores. Preserve identity exactly with high dynamic range realism.</p>
+                    </div>
+                </div>
+
+                <div class="tool-card reveal-right">
+                    <div class="tool-name">Seedrem 4 <span class="tool-badge">Detail King</span></div>
+                    <ul class="strengths">
+                        <li>Sharpest skin and texture model</li>
+                        <li>Excellent for close-up professional photography</li>
+                        <li>High-detail diffusion engine ideal for RAW realism</li>
+                        <li>Maintains identity with extreme accuracy</li>
+                    </ul>
+                    <div class="prompt-box">
+                        <p>Generate a RAW front-facing portrait with photorealistic skin texture, natural asymmetry, and high clarity. Maintain exact identity, hair shape, and facial geometry.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="importance-box reveal">
+                <h4>Why This Step Matters</h4>
+                <p>If identity is wrong at the start, the clone collapses. Motion video, voice sync, and authority-based content depend on a realistic and consistent facial model.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- STEP 2 — Dataset Building -->
+    <section class="step-section step-2">
+        <div class="container">
+            <div class="step-header reveal">
+                <div class="step-number">2</div>
+                <h2>Build a Full Dataset <span style="color:var(--text3);font-weight:400;font-size:.6em">&mdash; Visual Variety</span></h2>
+                <p>You need 10&ndash;20 images showing the same cloned face in different poses, outfits, angles, and environments. A dataset allows motion tools to understand depth and variability, improving the naturalness of the final video.</p>
+            </div>
+
+            <div class="tool-card reveal" style="max-width:700px">
+                <div class="tool-name">Dataset Generation <span class="tool-badge">10&ndash;20 Images</span></div>
+                <ul class="strengths">
+                    <li>Different poses, outfits, angles, and environments</li>
+                    <li>Allows motion tools to understand depth and variability</li>
+                    <li>Creates flexibility &mdash; walking, talking, gestures, moods</li>
+                    <li>Increases authority presence across multiple contexts</li>
+                </ul>
+                <div class="prompt-box">
+                    <p>A photorealistic mid-shot of that person walking naturally, same identity and proportions. Shot on 50mm lens outdoors, soft natural lighting, real fabric movement, clean shadows.</p>
+                </div>
+            </div>
+
+            <div class="importance-box reveal">
+                <h4>Why Datasets Matter</h4>
+                <p>A single image can look stiff. A dataset creates flexibility &mdash; walking scenes, talking scenes, gestures, different moods. It also increases your authority presence because people see you in multiple contexts.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- STEP 3 — Upscale -->
+    <section class="step-section step-3">
+        <div class="container">
+            <div class="step-header reveal">
+                <div class="step-number">3</div>
+                <h2>Upscale to 4K&ndash;8K <span style="color:var(--text3);font-weight:400;font-size:.6em">&mdash; Critical for Video</span></h2>
+                <p>Upscaling is mandatory. Without 4K+ resolution, motion models create artifacts. Upscaling improves skin texture, removes noise, and ensures cinematic clarity.</p>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-card reveal-left">
+                    <div class="tool-name">OpenArt <span class="tool-badge">Fast</span></div>
+                    <ul class="strengths">
+                        <li>Fast processing speed</li>
+                        <li>Balanced quality output</li>
+                        <li>Good overall clarity</li>
+                    </ul>
+                </div>
+                <div class="tool-card reveal">
+                    <div class="tool-name">Magnific <span class="tool-badge">Ultra Detail</span></div>
+                    <ul class="strengths">
+                        <li>Ultra-detail enhancement</li>
+                        <li>Great for pores and skin texture</li>
+                        <li>Premium quality output</li>
+                    </ul>
+                </div>
+                <div class="tool-card reveal-right">
+                    <div class="tool-name">Lupa AI <span class="tool-badge">Best Realism</span></div>
+                    <ul class="strengths">
+                        <li>Best realism for human faces</li>
+                        <li>Perfect skin tone preservation</li>
+                        <li>Cinematic output quality</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="importance-box reveal">
+                <h4>Upscale Instruction</h4>
+                <p>Upload &rarr; choose x4 or x8 &rarr; apply detail mode &rarr; export in 4K&ndash;8K PNG. This step ensures your images survive motion generation without artifacts or quality loss.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- STEP 4 — Voice Clone -->
+    <section class="step-section step-4">
+        <div class="container">
+            <div class="step-header reveal">
+                <div class="step-number">4</div>
+                <h2>Clone the Voice <span style="color:var(--text3);font-weight:400;font-size:.6em">&mdash; The Soul</span></h2>
+                <p>Voice is the soul of your avatar. ElevenLabs and MathCare replicate tone, breathing, pacing, emotion, and clarity. A high-quality voice clone boosts authority and makes the avatar believable.</p>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-card reveal-left">
+                    <div class="tool-name">ElevenLabs <span class="tool-badge">Industry Leader</span></div>
+                    <ul class="strengths">
+                        <li>World-class voice replication</li>
+                        <li>Natural breathing and pacing</li>
+                        <li>Multi-language support</li>
+                        <li>Emotional tonality preservation</li>
+                    </ul>
+                </div>
+                <div class="tool-card reveal-right">
+                    <div class="tool-name">MathCare <span class="tool-badge">All-in-One</span></div>
+                    <ul class="strengths">
+                        <li>Combines voice + movement + mouth animation</li>
+                        <li>Very realistic lip sync</li>
+                        <li>Professional talking-head clones</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="prompt-box reveal">
+                <p>Clone this voice with warm, medium-deep clarity, natural micro-pauses, clean American accent, soft breathing, and articulate pacing. Preserve emotional tonality for tutorials and business-style speaking.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- STEP 5 — Image to Video -->
+    <section class="step-section step-5">
+        <div class="container">
+            <div class="step-header reveal">
+                <div class="step-number">5</div>
+                <h2>Image to Video <span style="color:var(--text3);font-weight:400;font-size:.6em">&mdash; Motion Generation</span></h2>
+                <p>This stage animates your still image. Motion tools interpret the face, body, and environment to create natural movement.</p>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-card reveal-left">
+                    <div class="tool-name">VEO 3.1 <span class="tool-badge">Cinematic</span></div>
+                    <ul class="strengths">
+                        <li>Best for cinematic ads</li>
+                        <li>JSON-based full-scene control</li>
+                        <li>Multi-layer movements</li>
+                        <li>Controls environment, light, physics</li>
+                        <li>Ideal for luxury authority content</li>
+                    </ul>
+                    <div class="json-box">
+<pre>{
+  <span class="key">"description"</span>: <span class="str">"Cinematic standing subject with soft motion and subtle head turn."</span>,
+  <span class="key">"camera"</span>: <span class="str">"static with slow dolly"</span>,
+  <span class="key">"lighting"</span>: <span class="str">"soft diffused key light"</span>,
+  <span class="key">"subject_behavior"</span>: {
+    <span class="key">"movement"</span>: <span class="str">"gentle breathing, micro head turn"</span>
+  },
+  <span class="key">"environment"</span>: <span class="str">"clean studio"</span>
+}</pre>
+                    </div>
+                </div>
+
+                <div class="tool-card reveal">
+                    <div class="tool-name">Kling AI <span class="tool-badge">Easiest</span></div>
+                    <ul class="strengths">
+                        <li>Easiest for natural human motion</li>
+                        <li>Smooth head turns, walking, gestures</li>
+                        <li>Clean parallax and background movement</li>
+                        <li>No JSON &mdash; simple text prompts</li>
+                        <li>Perfect for TikTok/IG content</li>
+                    </ul>
+                    <div class="prompt-box">
+                        <p>Cinematic movement with a 35mm lens. Natural blinking and subtle head motion, slight shoulder movement, calm posture. Background shifts with parallax. Emotion warm, confident, human-like.</p>
+                    </div>
+                </div>
+
+                <div class="tool-card reveal-right">
+                    <div class="tool-name">PixVerse <span class="tool-badge">Best Lip Sync</span></div>
+                    <ul class="strengths">
+                        <li>Best mouth-sync from image</li>
+                        <li>Natural lip movement</li>
+                        <li>Full-talk video avatar generation</li>
+                        <li>Perfect for tutorials and reels</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- STEP 6 — Final Assembly -->
+    <section class="step-section step-6">
+        <div class="container">
+            <div class="step-header reveal">
+                <div class="step-number">6</div>
+                <h2>Final Assembly <span style="color:var(--text3);font-weight:400;font-size:.6em">&mdash; Authority Engine</span></h2>
+                <p>Export the animated video &rarr; sync voice &rarr; add captions &rarr; publish daily. Your AI clone becomes an automated content machine.</p>
+            </div>
+
+            <div class="tool-card reveal" style="max-width:700px">
+                <div class="tool-name">Assembly Pipeline <span class="tool-badge">Final Step</span></div>
+                <ul class="strengths">
+                    <li>Export animated video from motion tools</li>
+                    <li>Sync cloned voice to lip movements</li>
+                    <li>Add captions and branding overlays</li>
+                    <li>Publish daily across all platforms</li>
+                    <li>Scale authority without recording yourself</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Summary -->
+    <section class="section" id="summary">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label">Overview</div>
+                <h2 class="section-title">Complete Workflow Schema</h2>
+                <p class="section-sub">Each step builds on the previous. Weak steps break the illusion; strong steps create a perfect AI clone.</p>
+            </div>
+            <div class="summary-flow reveal">
+                <div class="flow-item">
+                    <div class="flow-num">1</div>
+                    <div class="flow-title">Face Creation</div>
+                    <div class="flow-desc">Identity foundation</div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-num">2</div>
+                    <div class="flow-title">Dataset</div>
+                    <div class="flow-desc">Visual variety</div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-num">3</div>
+                    <div class="flow-title">Upscale</div>
+                    <div class="flow-desc">Video-ready clarity</div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-num">4</div>
+                    <div class="flow-title">Voice Clone</div>
+                    <div class="flow-desc">Authentic presence</div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-num">5</div>
+                    <div class="flow-title">Motion Video</div>
+                    <div class="flow-desc">Human realism</div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-num">6</div>
+                    <div class="flow-title">Assembly</div>
+                    <div class="flow-desc">Authority content</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <h2>Ready to Build Your AI Clone?</h2>
+            <p>If you need help applying this workflow or want to discover how I help personal brands stop recording and scale their authority using AI clones, feel free to reach out anytime.</p>
+            <a href="mailto:contact@koushikranjit.in" class="btn-primary">Get In Touch <span>&rarr;</span></a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="#step1">Steps</a>
+                <a href="#summary">Summary</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p class="footer-copy">&copy; 2026 Koushik Ranjit. All rights reserved. | AI Clone Workflow Guide</p>
+        </div>
+    </footer>
+
+    <script>
+    // Preloader
+    window.addEventListener('load',()=>{document.querySelector('.preloader').classList.add('done')});
+
+    // Custom Cursor
+    if(window.innerWidth>768){
+        const cursor=document.querySelector('.cursor');
+        let cx=0,cy=0,px=0,py=0;
+        document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;cursor.classList.add('visible')});
+        (function loop(){px+=(cx-px)*.12;py+=(cy-py)*.12;cursor.style.left=px-9+'px';cursor.style.top=py-9+'px';requestAnimationFrame(loop)})();
+        document.querySelectorAll('a,button,.tool-card,.why-card,.flow-item').forEach(el=>{
+            el.addEventListener('mouseenter',()=>cursor.classList.add('hover'));
+            el.addEventListener('mouseleave',()=>cursor.classList.remove('hover'));
+        });
+    }
+
+    // Particles
+    (function(){
+        const c=document.querySelector('.particles');
+        for(let i=0;i<15;i++){
+            const p=document.createElement('div');
+            p.className='particle';
+            p.style.left=Math.random()*100+'%';
+            p.style.animationDuration=(15+Math.random()*20)+'s';
+            p.style.animationDelay=Math.random()*15+'s';
+            c.appendChild(p);
+        }
+    })();
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+        a.addEventListener('click',e=>{
+            e.preventDefault();
+            const t=document.querySelector(a.getAttribute('href'));
+            if(t){window.scrollTo({top:t.offsetTop-80,behavior:'smooth'})}
+        });
+    });
+
+    // Reveal on scroll
+    const revealObserver=new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObserver.unobserve(e.target)}});
+    },{threshold:.1,rootMargin:'0px 0px -60px 0px'});
+    document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(el=>revealObserver.observe(el));
+    </script>
+</body>
+</html>
