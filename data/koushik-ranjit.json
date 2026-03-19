@@ -121,7 +121,7 @@
   "socialLinks": [
     {
       "platform": "Google",
-      "url": "https://share.google/8i6opxy7sVL2wZihV",
+      "url": "https://share.google/hot7O7ZcHmkO79csu",
       "username": null,
       "icon": "google",
       "active": true
@@ -156,7 +156,7 @@
     },
     {
       "platform": "Discord",
-      "url": "https://discord.gg/4V67sVmU7B",
+      "url": "https://discord.gg/jxuDkpUr5X",
       "username": null,
       "icon": "discord",
       "active": true
@@ -174,7 +174,7 @@
     "name": "Trading Community",
     "platform": "Discord",
     "description": "Join our exclusive Discord community where disciplined traders share insights, strategies, and market analysis. Connect with like-minded individuals focused on consistent, rule-based trading approaches.",
-    "joinUrl": "https://discord.gg/4V67sVmU7B",
+    "joinUrl": "https://discord.gg/jxuDkpUr5X",
     "bannerImage": "https://github.com/koushikranjit/KR-Website/blob/1ed17443c4a5adb6fcd2f2a8bd6c3dd77cf4d52c/trading%20community%20banner.PNG?raw=true",
     "active": true
   },
@@ -289,7 +289,7 @@
   },
 
   "seo": {
-    "title": "Koushik Ranjit | Proprietary Day Trader & Investor",
+    "title": "KOUSHIK RANJIT",
     "description": "Koushik Ranjit (born 12 July 2001) is an Indian proprietary day trader and futures investor known for a disciplined, rule-based approach to Nasdaq futures trading.",
     "keywords": [
       "Koushik Ranjit",
