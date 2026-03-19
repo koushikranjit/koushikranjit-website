@@ -73,25 +73,25 @@
       "id": 1,
       "name": "MFF Starter Certificate",
       "issuer": "MyForexFunds",
-      "image": "assets/images/cert-mff.jpg"
+      "image": "https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/prop%20certificate%20MFF%20starter.jpg?raw=true"
     },
     {
       "id": 2,
       "name": "ACG Certificate",
       "issuer": "ACG",
-      "image": "assets/images/cert-acg.jpg"
+      "image": "https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/prop%20certificate%20acg.jpg?raw=true"
     },
     {
       "id": 3,
       "name": "Trading Certificate",
       "issuer": "Prop Firm",
-      "image": "assets/images/cert-off.jpg"
+      "image": "https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/prop%20certificate%20off.jpg?raw=true"
     },
     {
       "id": 4,
       "name": "Trading Scale Certificate",
       "issuer": "Prop Firm",
-      "image": "assets/images/cert-scale.jpg"
+      "image": "https://github.com/koushikranjit/KR-Website/blob/d704a3528349abf38a72e6f6b4f460698e48b391/prop%20certificate%20%20off%20scale.jpg?raw=true"
     }
   ],
 
@@ -107,14 +107,14 @@
     "totalWarnings": 48,
     "buyUrl": "https://notionpress.com/in/read/nobboi-doshok",
     "publisher": "Notion Press",
-    "coverImage": "assets/images/book-cover.jpg",
+    "coverImage": "https://github.com/koushikranjit/KR-Website/blob/47cf2dac2e19f508531c0115ed27d562b5df691d/book%20nd%201.jpg?raw=true",
     "promotionalImages": [
-      "assets/images/book-promo-2.png",
-      "assets/images/book-promo-3.png",
-      "assets/images/book-promo-4.png",
-      "assets/images/book-promo-5.png",
-      "assets/images/book-promo-6.png",
-      "assets/images/book-promo-7.jpg"
+      "https://github.com/koushikranjit/KR-Website/blob/47cf2dac2e19f508531c0115ed27d562b5df691d/book%20nd%202.PNG?raw=true",
+      "https://github.com/koushikranjit/KR-Website/blob/47cf2dac2e19f508531c0115ed27d562b5df691d/book%20nd%203.PNG?raw=true",
+      "https://github.com/koushikranjit/KR-Website/blob/47cf2dac2e19f508531c0115ed27d562b5df691d/book%20nd%204.PNG?raw=true",
+      "https://github.com/koushikranjit/KR-Website/blob/f2b22f91209d70f4dd065ff4776f74463a57a760/book%20nd%205.PNG?raw=true",
+      "https://github.com/koushikranjit/KR-Website/blob/f2b22f91209d70f4dd065ff4776f74463a57a760/book%20nd%206.PNG?raw=true",
+      "https://github.com/koushikranjit/KR-Website/blob/f2b22f91209d70f4dd065ff4776f74463a57a760/book%20nd%207.jpg?raw=true"
     ]
   },
 
@@ -175,7 +175,7 @@
     "platform": "Discord",
     "description": "Join our exclusive Discord community where disciplined traders share insights, strategies, and market analysis. Connect with like-minded individuals focused on consistent, rule-based trading approaches.",
     "joinUrl": "https://discord.gg/jxuDkpUr5X",
-    "bannerImage": "assets/images/community-banner.png",
+    "bannerImage": "https://github.com/koushikranjit/KR-Website/blob/1ed17443c4a5adb6fcd2f2a8bd6c3dd77cf4d52c/trading%20community%20banner.PNG?raw=true",
     "active": true
   },
 
@@ -220,23 +220,23 @@
       "publisher": "Taki Government College",
       "description": "Featured in the college magazine \"Unmesh\" (2022–2023 edition), page 13. Published by Taki Government College, showcasing academic achievements and personal journey.",
       "url": "https://www.tgc.ac.in/pdf/magazine/UNMESH_Taki%20College%20Magazine%20Complete_compressed.pdf#page=29",
-      "coverImage": "assets/images/magazine-cover.png"
+      "coverImage": "https://github.com/koushikranjit/KR-Website/blob/1f43e54fee823fc611343292c6e3afa92b5463bc/College%20magazine.png?raw=true"
     },
     "collegeMemories": [
       {
         "id": 1,
         "caption": "Farewell Moments with Respected Teachers",
-        "image": "assets/images/college-farewell.jpg"
+        "image": "https://github.com/koushikranjit/KR-Website/blob/263a05f4d358b149a5714d3e6ee42d37cc82ca33/Farewell%20Moments%20with%20Respected%20Teachers.jpg?raw=true"
       },
       {
         "id": 2,
         "caption": "Taki Government College",
-        "image": "assets/images/college-taki.jpg"
+        "image": "https://github.com/koushikranjit/KR-Website/blob/263a05f4d358b149a5714d3e6ee42d37cc82ca33/Taki%20Government%20College.jpg?raw=true"
       },
       {
         "id": 3,
         "caption": "With My Respected Mathematics Department Teachers",
-        "image": "assets/images/college-teachers.jpg"
+        "image": "https://github.com/koushikranjit/KR-Website/blob/263a05f4d358b149a5714d3e6ee42d37cc82ca33/With%20My%20Respected%20Mathematics%20Department%20Teachers.jpg?raw=true"
       }
     ]
   },
@@ -245,47 +245,47 @@
     {
       "id": 1,
       "alt": "Koushik Ranjit Gallery Image 1",
-      "image": "assets/images/gallery-1.jpg",
+      "image": "https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%201.jpg?raw=true",
       "category": "personal"
     },
     {
       "id": 2,
       "alt": "Koushik Ranjit Gallery Image 2",
-      "image": "assets/images/gallery-2.jpg",
+      "image": "https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%202.jpg?raw=true",
       "category": "personal"
     },
     {
       "id": 3,
       "alt": "Koushik Ranjit Gallery Image 3",
-      "image": "assets/images/gallery-3.jpg",
+      "image": "https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%203.jpg?raw=true",
       "category": "personal"
     },
     {
       "id": 4,
       "alt": "Koushik Ranjit Gallery Image 4",
-      "image": "assets/images/gallery-4.jpg",
+      "image": "https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%204.jpg?raw=true",
       "category": "personal"
     },
     {
       "id": 5,
       "alt": "Koushik Ranjit Gallery Image 5",
-      "image": "assets/images/gallery-5.jpg",
+      "image": "https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%205.jpg?raw=true",
       "category": "personal"
     },
     {
       "id": 6,
       "alt": "Koushik Ranjit Gallery Image 6",
-      "image": "assets/images/gallery-6.jpg",
+      "image": "https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%206.jpg?raw=true",
       "category": "personal"
     }
   ],
 
   "images": {
-    "heroDesktop": "assets/images/hero-desktop.jpg",
-    "heroMobile": "assets/images/hero-mobile.jpg",
-    "headshot": "assets/images/headshot.jpg",
-    "ogImage": "assets/images/og-image.jpg",
-    "favicon": "assets/images/favicon.png"
+    "heroDesktop": "https://github.com/koushikranjit/KR-Website/blob/7e7cb92568a6b3d64b2b0eb1f1071c48cd2b7508/full%20fit%20hero%20image.jpg?raw=true",
+    "heroMobile": "https://github.com/koushikranjit/KR-Website/blob/4ecc46c3ca400a0956ad9bdbd50eb080713706c3/ph%20hero%20for%20website%20.jpg?raw=true",
+    "headshot": "https://github.com/koushikranjit/KR-Website/blob/263a05f4d358b149a5714d3e6ee42d37cc82ca33/KR%20Headshot%20.jpg?raw=true",
+    "ogImage": "https://github.com/koushikranjit/KR-Website/blob/851c87d89048a11631e7fa1bfe6b57db03bb9e15/KR%20IMAGE.jpg.JPG?raw=true",
+    "favicon": "https://github.com/koushikranjit/KR-Website/blob/851c87d89048a11631e7fa1bfe6b57db03bb9e15/kr%20fevicon%20.png?raw=true"
   },
 
   "seo": {
