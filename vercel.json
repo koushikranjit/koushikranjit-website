@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/meetup",
+      "destination": "/meetup/index.html"
+    },
+    {
+      "source": "/meetup/",
+      "destination": "/meetup/index.html"
+    }
+  ]
+}
