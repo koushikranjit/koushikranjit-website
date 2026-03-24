@@ -13,8 +13,8 @@ import {
 } from 'lucide-react'
 
 // ── Config ──────────────────────────────────────────────────────────────
-const EVENT_DATE = new Date('2026-05-24T10:00:00+05:30')
-const TICKET_SALE_DATE = new Date('2026-05-17T00:00:00+05:30') // 7 days before
+const EVENT_DATE = new Date('2026-05-17T10:00:00+05:30')
+const TICKET_SALE_DATE = new Date('2026-05-11T00:00:00+05:30') // 6 days before
 const EVENT_VENUE = 'Kolkata, West Bengal'
 const EVENT_VENUE_DETAIL = 'Science City Auditorium, JBS Haldane Avenue, Kolkata 700046'
 
