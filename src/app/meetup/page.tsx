@@ -76,7 +76,7 @@ const TEAM = [
 
 // ── Partners ────────────────────────────────────────────────────────────
 const PARTNERS = [
-  { name: 'MyTradesBooks', url: 'https://mytradebook.vercel.app' },
+  { name: 'MyTradesBook', url: 'https://www.mytradesbook.com' },
 ]
 
 // ── Component ───────────────────────────────────────────────────────────
