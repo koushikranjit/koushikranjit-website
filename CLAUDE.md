@@ -28,9 +28,14 @@
 
 ## Latest Changes
 
-### 2026-03-19 — AI Clone Workflow guide page
-- `ai-clone-workflow.html` — New page: complete 6-step AI clone workflow guide with premium dark theme, color-coded steps, tool cards, prompt boxes, JSON examples, scroll animations, responsive design
-- `CLAUDE.md` — Updated with new page info and storage rules
+### 2026-03-19 — Session 2: DNS fix, SSL verify, AI Clone workflow started
+- DNS verified: GoDaddy A record → 76.76.21.21, CNAME www → cname.vercel-dns.com (nameservers moved from freehostia to domaincontrol.com)
+- SSL confirmed working: Let's Encrypt cert, TLSv1.3, server: Vercel
+- Deployed latest code via `vercel deploy --prod` and `git push` (auto-deploy confirmed)
+- `ai-clone-workflow.html` — Created then removed (was reference guide, not a website page)
+- `CLAUDE.md` — Updated storage rules section, added session changes
+- **AI Clone project started** — Step 1 (Face Creation): 10 prompts prepared for Gemini Pro with identity-preserving instructions, 10 outfit variations. User generating images manually in Gemini app using 10 HEIC reference photos from `~/Desktop/face creation/`
+- NanoBanana MCP free tier quota hit — user using Gemini Pro subscription directly instead
 
 ### 2026-03-19 — Full session: Setup, redesign, deployment, domain, images
 
@@ -61,7 +66,13 @@
 - [x] Premium UI redesign with animations
 - [x] GitHub auto-deploy connected
 - [x] Image hosting resolved (GitHub raw URLs, no local storage)
-- [x] AI Clone Workflow guide page created
+- [x] AI Clone Workflow guide page created (then removed — was reference only)
+- [ ] **AI Clone — Step 1: Face Creation** (10 prompts sent, user generating in Gemini Pro)
+- [ ] AI Clone — Step 2: Dataset Building (10-20 varied images)
+- [ ] AI Clone — Step 3: Upscale to 4K-8K (OpenArt / Magnific / Lupa AI)
+- [ ] AI Clone — Step 4: Voice Clone (ElevenLabs / MathCare)
+- [ ] AI Clone — Step 5: Image to Video (VEO 3.1 / Kling AI / PixVerse)
+- [ ] AI Clone — Step 6: Final Assembly
 - [ ] Add actual media article URLs (currently placeholder `#` links)
 - [ ] Consider CDN or image optimization for faster loading (GitHub raw URLs can be slow)
 - [ ] Add Google Analytics or similar tracking
