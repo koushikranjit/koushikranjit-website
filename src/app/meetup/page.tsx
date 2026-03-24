@@ -58,9 +58,9 @@ const TEAM = [
     image: 'https://github.com/koushikranjit/KR-Website/blob/851c87d89048a11631e7fa1bfe6b57db03bb9e15/KR%20IMAGE.jpg.JPG?raw=true',
   },
   {
-    name: 'Speaker TBA',
-    role: 'Options Strategist',
-    image: null,
+    name: 'Subhadip Sarkar',
+    role: 'Day Trader',
+    image: 'https://github.com/koushikranjit/KR-Website/blob/7411191bfc553f9efb0ea6cb73634b694a36b38a/Subhadip%20Sarkar.png?raw=true',
   },
   {
     name: 'Speaker TBA',
