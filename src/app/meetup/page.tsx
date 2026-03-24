@@ -16,7 +16,7 @@ import {
 const EVENT_DATE = new Date('2026-05-17T10:00:00+05:30')
 const TICKET_SALE_DATE = new Date('2026-05-11T00:00:00+05:30') // 6 days before
 const EVENT_VENUE = 'Kolkata, West Bengal'
-const EVENT_VENUE_DETAIL = 'Science City Auditorium, JBS Haldane Avenue, Kolkata 700046'
+const EVENT_VENUE_DETAIL = 'Will be announced when tickets drop'
 
 // ── Phase logic ─────────────────────────────────────────────────────────
 type Phase = 'warmup' | 'tickets' | 'past'
@@ -166,12 +166,12 @@ export default function Home() {
               {/* Stats Row */}
               <div className="flex gap-6 mt-6 mb-8">
                 <div>
-                  <p className="text-2xl font-bold text-emerald-400">500+</p>
+                  <p className="text-2xl font-bold text-emerald-400">100+</p>
                   <p className="text-xs text-neutral-500">Expected Traders</p>
                 </div>
                 <div className="w-px bg-neutral-800" />
                 <div>
-                  <p className="text-2xl font-bold text-emerald-400">10+</p>
+                  <p className="text-2xl font-bold text-emerald-400">5+</p>
                   <p className="text-xs text-neutral-500">Expert Speakers</p>
                 </div>
                 <div className="w-px bg-neutral-800" />
@@ -445,7 +445,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-2">Networking</h3>
                 <p className="text-sm text-neutral-400 leading-relaxed">
-                  Meet 500+ traders, share strategies, and build lasting connections in the trading community.
+                  Meet 100+ traders, share strategies, and build lasting connections in the trading community.
                 </p>
               </CardContent>
             </Card>
