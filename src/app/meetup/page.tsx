@@ -322,7 +322,7 @@ export default function MeetupPage() {
             },
             {
               name: 'Koushik Ranjit',
-              role: 'Organizer & Nasdaq Futures Trader',
+              role: 'Organizer & Day Trader',
               image: 'https://github.com/koushikranjit/KR-Website/blob/9b2c923/koushik-host2.png?raw=true',
               link: null,
             },
