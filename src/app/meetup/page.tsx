@@ -323,8 +323,8 @@ export default function MeetupPage() {
             {
               name: 'Koushik Ranjit',
               role: 'Organizer & Nasdaq Futures Trader',
-              image: 'https://github.com/koushikranjit/KR-Website/blob/851c87d89048a11631e7fa1bfe6b57db03bb9e15/KR%20IMAGE.jpg.JPG?raw=true',
-              link: 'https://koushikranjit.in',
+              image: 'https://github.com/koushikranjit/KR-Website/blob/ee10af7/koushik-host.png?raw=true',
+              link: null,
             },
           ].map((host) => (
             <div key={host.name} className="group rounded-2xl border border-white/10 bg-neutral-950/80 overflow-hidden hover:border-emerald-500/30 transition-all duration-500 shadow-xl shadow-black/20 hover:shadow-emerald-500/10">
