@@ -306,6 +306,50 @@ export default function MeetupPage() {
         </div>
       </section>
 
+      {/* ═══════════════════ HOSTS ═══════════════════ */}
+      <section className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-16">
+        <h2 className="text-center text-2xl sm:text-3xl font-bold text-white mb-4">
+          Your Hosts
+        </h2>
+        <p className="text-center text-neutral-500 text-sm mb-12 max-w-md mx-auto">
+          Meet the traders behind this meetup
+        </p>
+        <div className="flex flex-wrap justify-center gap-8">
+          {[
+            {
+              name: 'Koushik Ranjit',
+              role: 'Organizer & Nasdaq Futures Trader',
+              image: 'https://github.com/koushikranjit/KR-Website/blob/851c87d89048a11631e7fa1bfe6b57db03bb9e15/KR%20IMAGE.jpg.JPG?raw=true',
+              link: 'https://koushikranjit.in',
+            },
+            {
+              name: 'Subhadip Sarkar',
+              role: 'Day Trader',
+              image: 'https://github.com/koushikranjit/KR-Website/blob/7411191bfc553f9efb0ea6cb73634b694a36b38a/Subhadip%20Sarkar.png?raw=true',
+              link: null,
+            },
+          ].map((host) => (
+            <div key={host.name} className="flex flex-col items-center group">
+              <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-2 border-emerald-500/20 group-hover:border-emerald-500/50 transition-all duration-300 shadow-lg shadow-emerald-500/5 group-hover:shadow-emerald-500/15">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={host.image}
+                  alt={host.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="mt-4 text-white font-semibold text-lg">{host.name}</h3>
+              <p className="text-emerald-400 text-sm">{host.role}</p>
+              {host.link && (
+                <a href={host.link} target="_blank" rel="noopener noreferrer" className="mt-2 text-xs text-neutral-500 hover:text-emerald-400 transition-colors">
+                  View Profile &rarr;
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ═══════════════════ FOOTER ═══════════════════ */}
       <footer className="relative z-10 border-t border-white/5">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
