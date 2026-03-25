@@ -76,108 +76,85 @@ export default function MeetupPage() {
         </div>
       </nav>
 
-      {/* ═══════════════════ HERO ═══════════════════ */}
-      <section className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24 pb-12">
+      {/* ═══════════════════ HERO + FORM ═══════════════════ */}
+      <section className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-20 pb-12">
+        <div className="flex flex-col lg:flex-row items-start gap-10 lg:gap-16">
 
-        {/* Badge */}
-        <div className="flex justify-center mb-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-sm font-medium animate-pulse">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            Registrations Open &mdash; Limited Seats
-          </div>
-        </div>
-
-        {/* Heading */}
-        <h1 className="text-center text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight">
-          <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-400">
-            Kolkata&apos;s Biggest
-          </span>
-          <br />
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-green-300 to-emerald-500">
-            Traders&apos; Meetup
-          </span>
-        </h1>
-
-        <p className="mt-6 text-center text-neutral-400 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed">
-          An exclusive, invite-only gathering for serious traders.
-          Connect with top professionals, share strategies, and build
-          your trading network &mdash; all in one room.
-        </p>
-
-        {/* Quick info pills */}
-        <div className="flex flex-wrap justify-center gap-3 mt-8">
-          <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm text-neutral-300">
-            <Calendar className="w-4 h-4 text-emerald-400" />
-            Coming Soon &mdash; Kolkata
-          </span>
-          <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm text-neutral-300">
-            <Ticket className="w-4 h-4 text-emerald-400" />
-            Ticketed Event
-          </span>
-          <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm text-neutral-300">
-            <Lock className="w-4 h-4 text-emerald-400" />
-            By Selection Only
-          </span>
-        </div>
-      </section>
-
-      {/* ═══════════════════ KEY HIGHLIGHTS ═══════════════════ */}
-      <section className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {[
-            {
-              icon: <Users className="w-6 h-6" />,
-              title: 'Limited Seats',
-              desc: 'Only a select few will be chosen. Not everyone who registers will get in.',
-            },
-            {
-              icon: <Ticket className="w-6 h-6" />,
-              title: 'Ticketed Entry',
-              desc: 'Tickets will be available for purchase once the final announcement is made.',
-            },
-            {
-              icon: <Star className="w-6 h-6" />,
-              title: 'Exclusive Access',
-              desc: 'Network with professional traders, fund managers, and market experts in person.',
-            },
-          ].map((item) => (
-            <div key={item.title} className="group p-6 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] hover:border-emerald-500/20 transition-all duration-300">
-              <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4 group-hover:bg-emerald-500/20 transition-colors">
-                {item.icon}
+          {/* ── Left: Hero Content ── */}
+          <div className="flex-1 w-full lg:pt-4">
+            {/* Badge */}
+            <div className="flex justify-start mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-sm font-medium animate-pulse">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                Registrations Open &mdash; Limited Seats
               </div>
-              <h3 className="text-white font-semibold text-lg mb-2">{item.title}</h3>
-              <p className="text-neutral-500 text-sm leading-relaxed">{item.desc}</p>
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* ═══════════════════ REGISTRATION FORM ═══════════════════ */}
-      <section className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-12">
-        <div className="max-w-lg mx-auto">
+            {/* Heading */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight">
+              <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-400">
+                Kolkata&apos;s Biggest
+              </span>
+              <br />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-green-300 to-emerald-500">
+                Traders&apos; Meetup
+              </span>
+            </h1>
 
-          {/* Section heading */}
-          <div className="text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-              Register Your Interest
-            </h2>
-            <p className="text-neutral-400 text-sm leading-relaxed">
-              Fill in your details to express interest. Selected registrants will be
-              notified with ticket purchase details once the final announcement is made.
+            <p className="mt-5 text-neutral-400 text-lg leading-relaxed max-w-lg">
+              An exclusive, invite-only gathering for serious traders.
+              Connect with top professionals, share strategies, and build
+              your trading network &mdash; all in one room.
             </p>
-          </div>
 
-          {/* Notice */}
-          <div className="flex items-start gap-3 p-4 rounded-xl border border-amber-500/20 bg-amber-500/5 mb-6">
-            <AlertTriangle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
-            <div className="text-sm">
-              <p className="text-amber-300 font-medium">Seats are extremely limited</p>
-              <p className="text-amber-200/60 mt-1">
-                Registration does not guarantee a spot. Only selected individuals
-                will receive a confirmation and ticket purchase link.
-              </p>
+            {/* Quick info pills */}
+            <div className="flex flex-wrap gap-3 mt-6">
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm text-neutral-300">
+                <Calendar className="w-4 h-4 text-emerald-400" />
+                Coming Soon &mdash; Kolkata
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm text-neutral-300">
+                <Ticket className="w-4 h-4 text-emerald-400" />
+                Ticketed Event
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm text-neutral-300">
+                <Lock className="w-4 h-4 text-emerald-400" />
+                By Selection Only
+              </span>
+            </div>
+
+            {/* Highlights - desktop only */}
+            <div className="hidden lg:grid grid-cols-3 gap-4 mt-10">
+              {[
+                { icon: <Users className="w-5 h-5" />, title: 'Limited Seats', desc: 'Only selected individuals get in' },
+                { icon: <Ticket className="w-5 h-5" />, title: 'Ticketed Entry', desc: 'Purchase after announcement' },
+                { icon: <Star className="w-5 h-5" />, title: 'Exclusive Access', desc: 'Network with top traders' },
+              ].map((item) => (
+                <div key={item.title} className="p-4 rounded-xl border border-white/5 bg-white/[0.02]">
+                  <div className="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-3">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-white font-medium text-sm mb-1">{item.title}</h3>
+                  <p className="text-neutral-500 text-xs">{item.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
+
+          {/* ── Right: Form (appears right after hero on mobile) ── */}
+          <div className="w-full lg:w-[420px] flex-shrink-0">
+
+            {/* Notice */}
+            <div className="flex items-start gap-3 p-4 rounded-xl border border-amber-500/20 bg-amber-500/5 mb-5">
+              <AlertTriangle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+              <div className="text-sm">
+                <p className="text-amber-300 font-medium">Seats are extremely limited</p>
+                <p className="text-amber-200/60 mt-1">
+                  Registration does not guarantee a spot. Only selected individuals
+                  will receive a confirmation and ticket purchase link.
+                </p>
+              </div>
+            </div>
 
           {/* Form Card */}
           <div className="p-6 sm:p-8 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-xl shadow-2xl shadow-emerald-500/5">
@@ -282,6 +259,27 @@ export default function MeetupPage() {
               </form>
             )}
           </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ═══════════════════ KEY HIGHLIGHTS (mobile only) ═══════════════════ */}
+      <section className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-8 lg:hidden">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {[
+            { icon: <Users className="w-6 h-6" />, title: 'Limited Seats', desc: 'Only a select few will be chosen. Not everyone who registers will get in.' },
+            { icon: <Ticket className="w-6 h-6" />, title: 'Ticketed Entry', desc: 'Tickets will be available for purchase once the final announcement is made.' },
+            { icon: <Star className="w-6 h-6" />, title: 'Exclusive Access', desc: 'Network with professional traders, fund managers, and market experts in person.' },
+          ].map((item) => (
+            <div key={item.title} className="group p-5 rounded-2xl border border-white/5 bg-white/[0.02]">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-3">
+                {item.icon}
+              </div>
+              <h3 className="text-white font-semibold mb-1">{item.title}</h3>
+              <p className="text-neutral-500 text-sm leading-relaxed">{item.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
