@@ -323,7 +323,7 @@ export default function MeetupPage() {
             {
               name: 'Koushik Ranjit',
               role: 'Organizer & Day Trader',
-              image: 'https://github.com/koushikranjit/KR-Website/blob/9b2c923/koushik-host2.png?raw=true',
+              image: 'https://github.com/koushikranjit/KR-Website/blob/847c7b2/koushik-host3.png?raw=true',
               link: null,
             },
             {
