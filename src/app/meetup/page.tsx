@@ -312,7 +312,7 @@ export default function MeetupPage() {
         <p className="text-center text-neutral-500 text-sm mb-14 max-w-md mx-auto">
           The traders behind this meetup
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {[
             {
               name: 'Subhadip Sarkar',
@@ -324,6 +324,12 @@ export default function MeetupPage() {
               name: 'Koushik Ranjit',
               role: 'Organizer & Day Trader',
               image: 'https://github.com/koushikranjit/KR-Website/blob/9b2c923/koushik-host2.png?raw=true',
+              link: null,
+            },
+            {
+              name: 'Souvik Guha',
+              role: 'Organizer & Day Trader',
+              image: 'https://github.com/koushikranjit/KR-Website/blob/575db0f/souvik-host.png?raw=true',
               link: null,
             },
           ].map((host) => (
