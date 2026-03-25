@@ -305,44 +305,47 @@ export default function MeetupPage() {
       </section>
 
       {/* ═══════════════════ HOSTS ═══════════════════ */}
-      <section className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-16">
-        <h2 className="text-center text-2xl sm:text-3xl font-bold text-white mb-4">
-          Your Hosts
+      <section className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-20">
+        <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-3">
+          Meet Your <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-green-300 italic">Hosts</span>
         </h2>
-        <p className="text-center text-neutral-500 text-sm mb-12 max-w-md mx-auto">
-          Meet the traders behind this meetup
+        <p className="text-center text-neutral-500 text-sm mb-14 max-w-md mx-auto">
+          The traders behind this meetup
         </p>
-        <div className="flex flex-wrap justify-center gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {[
+            {
+              name: 'Subhadip Sarkar',
+              role: 'Day Trader',
+              image: 'https://github.com/koushikranjit/KR-Website/blob/0c3e783b58865a3401275f44310440f8019c17a8/subhodip-host.png?raw=true',
+              link: null,
+            },
             {
               name: 'Koushik Ranjit',
               role: 'Organizer & Nasdaq Futures Trader',
               image: 'https://github.com/koushikranjit/KR-Website/blob/851c87d89048a11631e7fa1bfe6b57db03bb9e15/KR%20IMAGE.jpg.JPG?raw=true',
               link: 'https://koushikranjit.in',
             },
-            {
-              name: 'Subhadip Sarkar',
-              role: 'Day Trader',
-              image: 'https://github.com/koushikranjit/KR-Website/blob/7411191bfc553f9efb0ea6cb73634b694a36b38a/Subhadip%20Sarkar.png?raw=true',
-              link: null,
-            },
           ].map((host) => (
-            <div key={host.name} className="flex flex-col items-center group">
-              <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-2 border-emerald-500/20 group-hover:border-emerald-500/50 transition-all duration-300 shadow-lg shadow-emerald-500/5 group-hover:shadow-emerald-500/15">
+            <div key={host.name} className="group rounded-2xl border border-white/10 bg-neutral-950/80 overflow-hidden hover:border-emerald-500/30 transition-all duration-500 shadow-xl shadow-black/20 hover:shadow-emerald-500/10">
+              <div className="relative w-full aspect-[3/4] overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={host.image}
                   alt={host.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
               </div>
-              <h3 className="mt-4 text-white font-semibold text-lg">{host.name}</h3>
-              <p className="text-emerald-400 text-sm">{host.role}</p>
-              {host.link && (
-                <a href={host.link} target="_blank" rel="noopener noreferrer" className="mt-2 text-xs text-neutral-500 hover:text-emerald-400 transition-colors">
-                  View Profile &rarr;
-                </a>
-              )}
+              <div className="p-6 -mt-16 relative z-10">
+                <h3 className="text-white font-bold text-xl">{host.name}</h3>
+                <p className="text-emerald-400 text-sm mt-1">{host.role}</p>
+                {host.link && (
+                  <a href={host.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 mt-3 text-xs text-neutral-500 hover:text-emerald-400 transition-colors">
+                    View Profile &rarr;
+                  </a>
+                )}
+              </div>
             </div>
           ))}
         </div>
