@@ -43,6 +43,8 @@ export default function MeetupPage() {
         })
       }
       setSubmitted(true)
+      // Scroll to top so user sees the confirmation
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch {
       setError('Something went wrong. Please try again.')
     } finally {
