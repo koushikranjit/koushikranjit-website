@@ -10,7 +10,7 @@ import {
 } from 'lucide-react'
 
 // ── Config ──────────────────────────────────────────────────────────────
-const GOOGLE_SCRIPT_URL = '' // TODO: Add your Google Apps Script Web App URL
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz6SNS5ig9-tOWitAnPUo0r9Sz4-B1zAmPhwM2njVwVAAtHsLAYPGr5N0Hbmk37LI3hwg/exec'
 
 // ── Component ───────────────────────────────────────────────────────────
 export default function MeetupPage() {
