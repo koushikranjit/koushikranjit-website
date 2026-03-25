@@ -316,7 +316,7 @@ export default function MeetupPage() {
           {[
             {
               name: 'Subhadip Sarkar',
-              role: 'Day Trader',
+              role: 'Organizer & Day Trader',
               image: 'https://github.com/koushikranjit/KR-Website/blob/0c3e783b58865a3401275f44310440f8019c17a8/subhodip-host.png?raw=true',
               link: null,
             },
