@@ -28,15 +28,40 @@ export default function MeetupPage() {
     setError('')
 
     try {
-      const params = new URLSearchParams({
+      const iframe = document.createElement('iframe')
+      iframe.name = 'hidden_iframe'
+      iframe.style.display = 'none'
+      document.body.appendChild(iframe)
+
+      const form = document.createElement('form')
+      form.method = 'POST'
+      form.action = GOOGLE_FORM_URL
+      form.target = 'hidden_iframe'
+
+      const fields: Record<string, string> = {
         'entry.1441117670': formData.name,
         'entry.1516472938': formData.email,
         'entry.1756944561': formData.phone,
         'entry.987583185': formData.location,
+      }
+
+      Object.entries(fields).forEach(([key, value]) => {
+        const input = document.createElement('input')
+        input.type = 'hidden'
+        input.name = key
+        input.value = value
+        form.appendChild(input)
       })
-      await fetch(`${GOOGLE_FORM_URL}?${params.toString()}`, { mode: 'no-cors' })
+
+      document.body.appendChild(form)
+      form.submit()
+
+      setTimeout(() => {
+        document.body.removeChild(form)
+        document.body.removeChild(iframe)
+      }, 2000)
+
       setSubmitted(true)
-      // Scroll to top so user sees the confirmation
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch {
       setError('Something went wrong. Please try again.')
