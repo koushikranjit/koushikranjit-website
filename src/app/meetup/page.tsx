@@ -10,7 +10,7 @@ import {
 } from 'lucide-react'
 
 // ── Config ──────────────────────────────────────────────────────────────
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzXfGJbUxzcws5mgoivp5IQfCw9o3_Qa5-oN2XsiETAg0akx7rgmPGGd00sRqT6mLk16w/exec'
+const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdu8gIdAU_t_7FDBNzPexoP6whefYX6q45ahU1kpI9nX-rbfg/formResponse'
 
 // ── Component ───────────────────────────────────────────────────────────
 export default function MeetupPage() {
@@ -28,16 +28,13 @@ export default function MeetupPage() {
     setError('')
 
     try {
-      if (GOOGLE_SCRIPT_URL) {
-        const params = new URLSearchParams({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          location: formData.location,
-          timestamp: new Date().toISOString(),
-        })
-        await fetch(`${GOOGLE_SCRIPT_URL}?${params.toString()}`, { mode: 'no-cors' })
-      }
+      const params = new URLSearchParams({
+        'entry.1441117670': formData.name,
+        'entry.1516472938': formData.email,
+        'entry.1756944561': formData.phone,
+        'entry.987583185': formData.location,
+      })
+      await fetch(`${GOOGLE_FORM_URL}?${params.toString()}`, { mode: 'no-cors' })
       setSubmitted(true)
       // Scroll to top so user sees the confirmation
       window.scrollTo({ top: 0, behavior: 'smooth' })
