@@ -10,7 +10,7 @@
 - Live URL: https://koushikranjit.in
 - Hosting: Vercel (project: koushikranjit-website, ID: prj_eum56TZVFJntzAvBzhYdui9o8jIX)
 - Domain: koushikranjit.in + www.koushikranjit.in (DNS via GoDaddy, SSL via Let's Encrypt auto-provisioned)
-- Stack: Static HTML/CSS/JS (single-page, no framework)
+- Stack: Next.js 16 + Tailwind CSS + shadcn/ui (converted from static HTML)
 - Git: https://github.com/koushikranjit/koushikranjit-website.git (connected to Vercel for auto-deploy on push to main)
 - Images: Hosted on GitHub raw URLs (KR-Website repo) — **never download images locally**
 
@@ -27,6 +27,16 @@
 - **Single-file site.** All CSS and JS are inline in `index.html`. No external CSS/JS files.
 
 ## Latest Changes
+
+### 2026-03-26 — Meetup page rebuild, Google Forms, hosts, multi-domain
+- `src/app/meetup/page.tsx` — Complete rebuild: clean landing page with interest form (name, email, phone, location), limited seats messaging, selection-only entry, ticketed event notice, How It Works section, Hosts section with big image cards
+- Form backend: Google Forms (hidden iframe submission) → auto-saves to Google Sheet + email notifications to contact@koushikranjit.in & teamkoushikranjit@gmail.com
+- Google Form URL: `https://docs.google.com/forms/d/e/1FAIpQLSdu8gIdAU_t_7FDBNzPexoP6whefYX6q45ahU1kpI9nX-rbfg/formResponse`
+- 3 Hosts added: Subhadip Sarkar, Koushik Ranjit, Souvik Guha (all "Organizer & Day Trader")
+- Host images uploaded to KR-Website GitHub repo: `subhodip-host.png`, `koushik-host3.png`, `souvik-host.png`, `meetup-og.png`
+- Meetup page also deployed to **mytradesbook.com/meetup** (separate copy with MyTradesBook branding)
+- Deleted `trader-meeting/` folder from Desktop (1.6GB freed — was already merged)
+- Previous session: updated partner link, venue TBA, stats 100+/5+, added Subhadip as speaker
 
 ### 2026-03-19 — Session 2: DNS fix, SSL verify, AI Clone workflow started
 - DNS verified: GoDaddy A record → 76.76.21.21, CNAME www → cname.vercel-dns.com (nameservers moved from freehostia to domaincontrol.com)
@@ -67,6 +77,8 @@
 - [x] GitHub auto-deploy connected
 - [x] Image hosting resolved (GitHub raw URLs, no local storage)
 - [x] AI Clone Workflow guide page created (then removed — was reference only)
+- [x] Traders Meetup page — rebuilt with form, hosts, Google Forms backend
+- [x] Meetup deployed to mytradesbook.com/meetup (separate branding)
 - [ ] **AI Clone — Step 1: Face Creation** (10 prompts sent, user generating in Gemini Pro)
 - [ ] AI Clone — Step 2: Dataset Building (10-20 varied images)
 - [ ] AI Clone — Step 3: Upscale to 4K-8K (OpenArt / Magnific / Lupa AI)
