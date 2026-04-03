@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Trader Meeting | Exclusive Trading Community",
-  description: "Join our exclusive trader meeting. Connect with professional traders, learn proven strategies, and elevate your trading game.",
+  title: "Koushik Ranjit - Day Trader",
+  description: "Koushik Ranjit is an Indian proprietary day trader and futures investor known for a disciplined, rule-based approach to Nasdaq futures trading.",
 };
 
 export default function RootLayout({
