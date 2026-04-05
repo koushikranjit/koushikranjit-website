@@ -6,17 +6,50 @@ const TRADE_RESULTS = Array.from({ length: 9 }, (_, i) =>
   `https://github.com/koushikranjit/KR-Website/blob/37b9a4a/kr-trade-result-${i + 1}.png?raw=true`
 )
 
-const TAGMANGO_URL = 'https://tagmango.app/73581673df'
+const RAZORPAY_KEY = 'rzp_live_SSL6Wg71WI8B11'
 
 export default function KRTradesPage() {
   const [mounted, setMounted] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [lightbox, setLightbox] = useState<number | null>(null)
+  const [paying, setPaying] = useState(false)
   const statsRef = useRef<HTMLDivElement>(null)
   const [statsVisible, setStatsVisible] = useState(false)
 
+  const handleSubscribe = async () => {
+    setPaying(true)
+    try {
+      const res = await fetch('/api/subscribe', { method: 'POST' })
+      const data = await res.json()
+      if (!res.ok) { alert(data.error || 'Failed to start payment'); setPaying(false); return }
+
+      const options = {
+        key: RAZORPAY_KEY,
+        subscription_id: data.subscription_id,
+        name: 'KR Trades',
+        description: 'Live Futures Trading Room — Monthly',
+        theme: { color: '#00e87b' },
+        handler: () => {
+          window.location.href = 'https://discord.gg/jxuDkpUr5X'
+        },
+        modal: { ondismiss: () => setPaying(false) },
+      }
+
+      const rzp = new (window as Record<string, unknown>).Razorpay(options) as { open: () => void }
+      rzp.open()
+    } catch {
+      alert('Payment failed. Please try again.')
+      setPaying(false)
+    }
+  }
+
   useEffect(() => {
     setMounted(true)
+    // Load Razorpay script
+    const s = document.createElement('script')
+    s.src = 'https://checkout.razorpay.com/v1/checkout.js'
+    s.async = true
+    document.head.appendChild(s)
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setStatsVisible(true) },
       { threshold: 0.3 }
@@ -53,9 +86,10 @@ export default function KRTradesPage() {
           <div className="flex items-center gap-4">
             <a href="#results" className="hidden sm:inline text-sm text-neutral-400 hover:text-white transition-colors cursor-pointer">Results</a>
             <a href="#pricing" className="hidden sm:inline text-sm text-neutral-400 hover:text-white transition-colors cursor-pointer">Pricing</a>
-            <a href={TAGMANGO_URL} target="_blank" rel="noopener noreferrer" className="px-5 py-2 rounded-full bg-[#00e87b] text-black font-semibold text-sm hover:bg-[#00ff88] transition-all cursor-pointer">
-              Subscribe Now
-            </a>
+            <a href="/KRtrades/manage" className="hidden sm:inline text-sm text-neutral-400 hover:text-white transition-colors cursor-pointer">Manage</a>
+            <button onClick={handleSubscribe} disabled={paying} className="px-5 py-2 rounded-full bg-[#00e87b] text-black font-semibold text-sm hover:bg-[#00ff88] transition-all cursor-pointer disabled:opacity-60">
+              {paying ? 'Loading...' : 'Subscribe Now'}
+            </button>
           </div>
         </div>
       </nav>
@@ -81,10 +115,10 @@ export default function KRTradesPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
-              <a href={TAGMANGO_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#00e87b] text-black font-bold text-lg hover:bg-[#00ff88] hover:shadow-[0_0_40px_rgba(0,232,123,0.3)] transition-all duration-300 cursor-pointer">
-                Join Now
+              <button onClick={handleSubscribe} disabled={paying} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#00e87b] text-black font-bold text-lg hover:bg-[#00ff88] hover:shadow-[0_0_40px_rgba(0,232,123,0.3)] transition-all duration-300 cursor-pointer disabled:opacity-60">
+                {paying ? 'Processing...' : 'Join Now'}
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-              </a>
+              </button>
               <a href="#results" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-white/10 text-white/80 font-medium hover:border-[#00e87b]/40 transition-all cursor-pointer">
                 See Trade Results
               </a>
@@ -303,10 +337,10 @@ export default function KRTradesPage() {
                 ))}
               </div>
 
-              <a href={TAGMANGO_URL} target="_blank" rel="noopener noreferrer" className="block w-full py-4 rounded-xl bg-[#00e87b] text-black font-bold text-lg text-center hover:bg-[#00ff88] hover:shadow-[0_0_40px_rgba(0,232,123,0.3)] transition-all duration-300 cursor-pointer">
-                Subscribe Now
-              </a>
-              <p className="text-center text-neutral-600 text-xs mt-4">Secure payment via Razorpay / UPI / Cards</p>
+              <button onClick={handleSubscribe} disabled={paying} className="block w-full py-4 rounded-xl bg-[#00e87b] text-black font-bold text-lg text-center hover:bg-[#00ff88] hover:shadow-[0_0_40px_rgba(0,232,123,0.3)] transition-all duration-300 cursor-pointer disabled:opacity-60">
+                {paying ? 'Processing...' : 'Subscribe Now'}
+              </button>
+              <p className="text-center text-neutral-600 text-xs mt-4">Secure payment via Razorpay · UPI · Cards · Netbanking</p>
             </div>
           </div>
         </div>
@@ -354,10 +388,10 @@ export default function KRTradesPage() {
           <p className="text-neutral-400 mt-6 text-lg">
             No theory. No indicators dump. Just a trader, a screen, and full transparency.
           </p>
-          <a href={TAGMANGO_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 mt-10 px-10 py-5 rounded-xl bg-[#00e87b] text-black font-bold text-lg hover:bg-[#00ff88] hover:shadow-[0_0_60px_rgba(0,232,123,0.3)] transition-all duration-300 cursor-pointer">
-            Join KR Trades
+          <button onClick={handleSubscribe} disabled={paying} className="inline-flex items-center gap-2 mt-10 px-10 py-5 rounded-xl bg-[#00e87b] text-black font-bold text-lg hover:bg-[#00ff88] hover:shadow-[0_0_60px_rgba(0,232,123,0.3)] transition-all duration-300 cursor-pointer disabled:opacity-60">
+            {paying ? 'Processing...' : 'Join KR Trades'}
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-          </a>
+          </button>
           <p className="text-neutral-600 text-sm mt-4">Educational purpose only. Trading involves risk.</p>
         </div>
       </section>
@@ -375,6 +409,7 @@ export default function KRTradesPage() {
               <a href="https://x.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" className="hover:text-[#00e87b] transition-colors cursor-pointer">X</a>
               <a href="https://discord.gg/jxuDkpUr5X" target="_blank" rel="noopener noreferrer" className="hover:text-[#00e87b] transition-colors cursor-pointer">Discord</a>
               <a href="https://koushikranjit.in" className="hover:text-[#00e87b] transition-colors cursor-pointer">Website</a>
+              <a href="/KRtrades/manage" className="hover:text-[#00e87b] transition-colors cursor-pointer">Manage Subscription</a>
             </div>
           </div>
           <p className="text-center text-neutral-700 text-xs mt-6">
