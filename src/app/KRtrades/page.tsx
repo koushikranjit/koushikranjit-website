@@ -35,7 +35,9 @@ export default function KRTradesPage() {
         modal: { ondismiss: () => setPaying(false) },
       }
 
-      const rzp = new (window as Record<string, unknown>).Razorpay(options) as { open: () => void }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const Razorpay = (window as any).Razorpay
+      const rzp = new Razorpay(options)
       rzp.open()
     } catch {
       alert('Payment failed. Please try again.')
