@@ -142,25 +142,69 @@ export default function KRTradesPage() {
         </div>
       </section>
 
-      {/* ═══════ TRADE RESULTS GALLERY ═══════ */}
-      <section id="results" className="relative z-10 py-20 border-y border-white/5">
+      {/* ═══════ MINI COURSE CURRICULUM ═══════ */}
+      <section className="relative z-10 py-20 border-t border-white/5">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-14">
+            <div className="text-[#00e87b] text-sm font-semibold uppercase tracking-wider mb-3">Included Course</div>
+            <h2 className="text-3xl sm:text-4xl font-bold">KR Trades Premium Starter Course</h2>
+            <p className="text-neutral-500 mt-3 max-w-lg mx-auto">Understand how I trade before joining live sessions. 4 sections, 10 lectures, 42 min of focused content.</p>
+          </div>
+          <div className="max-w-2xl mx-auto space-y-4">
+            {[
+              { section: 'Introduction to Premium', lectures: '2 lectures · 9min 15s', items: ['How to Navigate Discord — 6min 43s', 'How Live Trading Works — 2min 32s'] },
+              { section: 'Chart Setup', lectures: '3 lectures · 17min 16s', items: ['ICT Indicator & Settings — 9min 55s', 'Setting up FVGs, IFVG, HIGHS/LOWS — 4min 18s', 'Overnight Highs/Lows — 3min 2s'] },
+              { section: 'IFVG MODEL', lectures: '4 lectures · 14min 41s', items: ['FVGs Explained — 4min 27s', 'IVFG Model — 3min 35s', 'IVFG Buyside Example — 3min 8s', 'Advanced IFVG Lesson — 3min 29s'] },
+              { section: 'Final Thoughts', lectures: '1 lecture · 1min 25s', items: ['You are ready to trade! — 1min 25s'] },
+            ].map((mod) => (
+              <div key={mod.section} className="rounded-xl border border-white/5 bg-white/[0.02] overflow-hidden">
+                <div className="flex items-center justify-between p-5 border-b border-white/5">
+                  <h3 className="text-white font-bold">{mod.section}</h3>
+                  <span className="text-neutral-500 text-sm">{mod.lectures}</span>
+                </div>
+                <div className="divide-y divide-white/5">
+                  {mod.items.map((item) => (
+                    <div key={item} className="flex items-center gap-3 px-5 py-3">
+                      <svg className="w-4 h-4 text-[#00e87b] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd"/></svg>
+                      <span className="text-neutral-400 text-sm">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════ TRADE RESULTS — AUTO-SCROLLING MARQUEE ═══════ */}
+      <style>{`
+        @keyframes scroll-left {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .marquee-results { animation: scroll-left 30s linear infinite; }
+        .marquee-results:hover { animation-play-state: paused; }
+      `}</style>
+      <section id="results" className="relative z-10 py-20 border-y border-white/5">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-14">
+          <div className="text-center">
             <div className="text-[#00e87b] text-sm font-semibold uppercase tracking-wider mb-3">Proof</div>
             <h2 className="text-3xl sm:text-4xl font-bold">Real Trade Results</h2>
             <p className="text-neutral-500 mt-3 max-w-md mx-auto">Actual trades from our live trading room. No cherry-picking. Full transparency.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {TRADE_RESULTS.map((img, i) => (
+        </div>
+        <div className="overflow-hidden w-full">
+          <div className="marquee-results flex gap-4 w-max">
+            {[...TRADE_RESULTS, ...TRADE_RESULTS].map((img, i) => (
               <button
                 key={i}
-                onClick={() => setLightbox(i)}
-                className="group rounded-xl overflow-hidden border border-white/5 hover:border-[#00e87b]/30 transition-all duration-300 cursor-pointer"
+                onClick={() => setLightbox(i % TRADE_RESULTS.length)}
+                className="group flex-shrink-0 w-[320px] sm:w-[380px] rounded-xl overflow-hidden border border-white/5 hover:border-[#00e87b]/30 transition-all duration-300 cursor-pointer"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={img}
-                  alt={`KR Trades Live Trade Result ${i + 1} - Nasdaq Futures`}
+                  alt={`KR Trades Live Trade Result ${(i % TRADE_RESULTS.length) + 1} - Nasdaq Futures`}
                   className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
