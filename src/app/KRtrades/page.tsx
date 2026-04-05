@@ -82,7 +82,7 @@ export default function KRTradesPage() {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
               <a href={TAGMANGO_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#00e87b] text-black font-bold text-lg hover:bg-[#00ff88] hover:shadow-[0_0_40px_rgba(0,232,123,0.3)] transition-all duration-300 cursor-pointer">
-                Join for ₹1,207/month
+                Join Now
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
               </a>
               <a href="#results" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-white/10 text-white/80 font-medium hover:border-[#00e87b]/40 transition-all cursor-pointer">
@@ -90,7 +90,7 @@ export default function KRTradesPage() {
               </a>
             </div>
 
-            <p className="mt-4 text-neutral-600 text-sm">Cancel anytime. No lock-in.</p>
+            <p className="mt-4 text-neutral-600 text-sm">Monthly subscription. Cancel anytime.</p>
           </div>
         </div>
       </section>
@@ -100,7 +100,7 @@ export default function KRTradesPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
             {[
-              { num: '₹1,207', label: 'Per Month' },
+              { num: '5+', label: 'Years Trading' },
               { num: 'Daily', label: 'Live Sessions' },
               { num: 'NQ/MNQ', label: 'Futures Focus' },
               { num: '100%', label: 'Transparent P&L' },
@@ -237,10 +237,9 @@ export default function KRTradesPage() {
 
               <div className="text-center mb-8 mt-2">
                 <div className="flex items-baseline justify-center gap-1">
-                  <span className="text-5xl font-extrabold text-white">₹1,207</span>
-                  <span className="text-neutral-500 text-lg">/month</span>
+                  <span className="text-4xl font-extrabold text-white">Monthly Subscription</span>
                 </div>
-                <p className="text-neutral-500 text-sm mt-2">~$14 USD &mdash; Cancel anytime</p>
+                <p className="text-neutral-500 text-sm mt-2">Cancel anytime &mdash; Price shown at checkout</p>
               </div>
 
               <div className="space-y-3 mb-8">
@@ -261,7 +260,7 @@ export default function KRTradesPage() {
               </div>
 
               <a href={TAGMANGO_URL} target="_blank" rel="noopener noreferrer" className="block w-full py-4 rounded-xl bg-[#00e87b] text-black font-bold text-lg text-center hover:bg-[#00ff88] hover:shadow-[0_0_40px_rgba(0,232,123,0.3)] transition-all duration-300 cursor-pointer">
-                Subscribe Now — ₹1,207/mo
+                Subscribe Now
               </a>
               <p className="text-center text-neutral-600 text-xs mt-4">Secure payment via Razorpay / UPI / Cards</p>
             </div>
@@ -312,7 +311,7 @@ export default function KRTradesPage() {
             No theory. No indicators dump. Just a trader, a screen, and full transparency.
           </p>
           <a href={TAGMANGO_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 mt-10 px-10 py-5 rounded-xl bg-[#00e87b] text-black font-bold text-lg hover:bg-[#00ff88] hover:shadow-[0_0_60px_rgba(0,232,123,0.3)] transition-all duration-300 cursor-pointer">
-            Join KR Trades — ₹1,207/mo
+            Join KR Trades
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
           </a>
           <p className="text-neutral-600 text-sm mt-4">Educational purpose only. Trading involves risk.</p>
