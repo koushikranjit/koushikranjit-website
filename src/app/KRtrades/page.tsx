@@ -40,7 +40,8 @@ export default function KRTradesPage() {
   const [activeSlide, setActiveSlide] = useState(0)
   const [paying, setPaying] = useState(false)
   const [lightbox, setLightbox] = useState<number | null>(null)
-  const [memberCount, setMemberCount] = useState(10)
+  const [premiumCount, setPremiumCount] = useState(0)
+  const [discordCount, setDiscordCount] = useState(10)
   const [showDiscordModal, setShowDiscordModal] = useState(false)
   const [discordInput, setDiscordInput] = useState('')
 
@@ -51,7 +52,7 @@ export default function KRTradesPage() {
     s.async = true
     document.head.appendChild(s)
     // Fetch live member count
-    fetch('/api/subscribe/count').then(r => r.json()).then(d => setMemberCount(d.count)).catch(() => {})
+    fetch('/api/subscribe/count').then(r => r.json()).then(d => { setPremiumCount(d.premium || 0); setDiscordCount(d.discord || 10) }).catch(() => {})
   }, [])
 
   useEffect(() => {
@@ -169,7 +170,7 @@ export default function KRTradesPage() {
           <div style={{ display:'flex',alignItems:'center',gap:12,marginTop:20,fontSize:14,color:'#9ca3af',flexWrap:'wrap' }}>
             <span style={{ display:'flex',alignItems:'center',gap:6 }}>
               <svg width="16" height="16" fill="#9ca3af" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-              <span style={{ color:'#fff' }}>{memberCount} members</span>
+              <span style={{ color:'#fff' }}>{premiumCount} purchased</span>
             </span>
             <div style={{ width:1,height:20,background:'#333' }} />
             <span style={{ display:'flex',alignItems:'center',gap:6 }}>
@@ -327,7 +328,7 @@ export default function KRTradesPage() {
                   <span style={{ color:'#fbbf24' }}>★★★★★</span>
                   <span style={{ color:'#9ca3af',fontSize:13 }}>4.9</span>
                   <span style={{ color:'#555',fontSize:12 }}>·</span>
-                  <span style={{ color:'#9ca3af',fontSize:12 }}>{memberCount} members</span>
+                  <span style={{ color:'#9ca3af',fontSize:12 }}>{discordCount} members</span>
                 </div>
               </div>
             </div>
