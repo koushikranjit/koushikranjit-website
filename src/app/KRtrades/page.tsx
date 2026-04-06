@@ -48,8 +48,6 @@ export default function KRTradesPage() {
     s.async = true
     document.head.appendChild(s)
     // Auto-advance slider
-    const id = setInterval(() => setActiveSlide(p => (p + 1) % SLIDER_IMAGES.length), 3000)
-    return () => clearInterval(id)
   }, [])
 
   useEffect(() => {
