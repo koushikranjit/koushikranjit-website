@@ -745,14 +745,15 @@ export default function KRTradesPage() {
   if (!mounted) return null
 
   return (
-    <div className="kr-trades-page relative w-full bg-[#0f0f0f] min-h-screen text-white" style={{ maxWidth: '100vw', overflowX: 'hidden' }}>
+    <div className="kr-trades-page relative w-full bg-[#0f0f0f] min-h-screen text-white" style={{ maxWidth: '100vw', overflowClipMargin: 0, overflowX: 'clip' } as React.CSSProperties}>
       <style>{`
         @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
         .animate-marquee{animation:marquee 25s linear infinite}
         .scrollbar-hide::-webkit-scrollbar{display:none}
         .scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}
+        .kr-trades-page *{box-sizing:border-box}
         @media(max-width:1023px){
-          .kr-trades-page *{box-sizing:border-box;max-width:100%}
+          .kr-trades-page *{max-width:100%}
           .kr-trades-page img,.kr-trades-page video{max-width:100%;height:auto}
         }
       `}</style>

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function KRTradesLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="!block w-screen max-w-full overflow-x-hidden">
+    <div className="!block w-screen max-w-full" style={{ overflowX: 'clip' } as React.CSSProperties}>
       {children}
     </div>
   )
