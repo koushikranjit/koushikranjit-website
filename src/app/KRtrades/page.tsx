@@ -296,7 +296,7 @@ export default function KRTradesPage() {
 
           {/* MORE FROM KR TRADES */}
           <h2 style={{ fontSize:22,fontWeight:700,marginTop:48,marginBottom:16 }}>More from KR Trades</h2>
-          <a href="https://discord.gg/jxuDkpUr5X" target="_blank" rel="noopener noreferrer" style={{ display:'block',maxWidth:280,textDecoration:'none',color:'#fff' }}>
+          <a href="https://discord.gg/sffdu4wXx2" target="_blank" rel="noopener noreferrer" style={{ display:'block',maxWidth:280,textDecoration:'none',color:'#fff' }}>
             <div className="whop-card-sm" style={{ padding:0,overflow:'hidden' }}>
               <div style={{ background:'linear-gradient(135deg,#0a2e1a,#111)',aspectRatio:'16/9',display:'flex',alignItems:'center',justifyContent:'center' }}>
                 <span style={{ fontWeight:800,fontSize:18,color:'#00e87b',letterSpacing:1 }}>KR TRADES FREE</span>
