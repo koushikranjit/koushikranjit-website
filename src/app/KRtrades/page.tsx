@@ -41,6 +41,8 @@ export default function KRTradesPage() {
   const [paying, setPaying] = useState(false)
   const [lightbox, setLightbox] = useState<number | null>(null)
   const [memberCount, setMemberCount] = useState(10)
+  const [showDiscordModal, setShowDiscordModal] = useState(false)
+  const [discordInput, setDiscordInput] = useState('')
 
   useEffect(() => {
     setMounted(true)
@@ -57,17 +59,19 @@ export default function KRTradesPage() {
     else document.body.style.overflow = ''
   }, [lightbox])
 
-  const handleSubscribe = async () => {
-    // Ask for Discord username
-    const discord = prompt('Enter your Discord username (e.g. koushik_ranjit)\n\nThis is required to give you Premium access in our Discord server.')
-    if (!discord || !discord.trim()) { alert('Discord username is required to proceed.'); return }
+  const handleSubscribe = () => {
+    setShowDiscordModal(true)
+  }
 
+  const handleDiscordSubmit = async () => {
+    if (!discordInput.trim()) return
+    setShowDiscordModal(false)
     setPaying(true)
     try {
       const res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ discord_username: discord.trim() }),
+        body: JSON.stringify({ discord_username: discordInput.trim() }),
       })
       const data = await res.json()
       if (!res.ok) { alert(data.error || 'Failed'); setPaying(false); return }
@@ -380,6 +384,52 @@ export default function KRTradesPage() {
           </div>
         </div>
       </div>
+
+      {/* ═══ DISCORD USERNAME MODAL ═══ */}
+      {showDiscordModal && (
+        <div onClick={() => setShowDiscordModal(false)} style={{ position:'fixed',inset:0,zIndex:100,background:'rgba(0,0,0,.85)',backdropFilter:'blur(6px)',display:'flex',alignItems:'center',justifyContent:'center',padding:16 }}>
+          <div onClick={e => e.stopPropagation()} style={{ background:'#1a1a1a',borderRadius:16,padding:28,maxWidth:420,width:'100%',border:'1px solid #333' }}>
+            <h3 style={{ fontSize:20,fontWeight:700,marginBottom:4 }}>Enter Your Discord Username</h3>
+            <p style={{ color:'#9ca3af',fontSize:13,marginBottom:16 }}>Required to give you Premium access in our Discord server.</p>
+
+            {/* Guide image */}
+            <div style={{ borderRadius:10,overflow:'hidden',marginBottom:16,border:'1px solid #333' }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://github.com/koushikranjit/KR-Website/blob/3a9d265/discord-username-guide.png?raw=true"
+                alt="How to find your Discord username"
+                style={{ width:'100%',display:'block' }}
+              />
+            </div>
+
+            <p style={{ color:'#6b7280',fontSize:12,marginBottom:12 }}>
+              Open Discord → click your profile (bottom left) → copy your username (without #)
+            </p>
+
+            <input
+              type="text"
+              placeholder="e.g. koushik_ranjit"
+              value={discordInput}
+              onChange={e => setDiscordInput(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && handleDiscordSubmit()}
+              autoFocus
+              style={{ width:'100%',background:'#111',border:'1px solid #333',borderRadius:10,height:48,padding:'0 16px',color:'#fff',fontSize:15,outline:'none',marginBottom:12 }}
+            />
+
+            <div style={{ display:'flex',gap:10 }}>
+              <button
+                onClick={() => setShowDiscordModal(false)}
+                style={{ flex:1,height:44,borderRadius:10,border:'1px solid #333',background:'transparent',color:'#9ca3af',fontSize:14,cursor:'pointer' }}
+              >Cancel</button>
+              <button
+                onClick={handleDiscordSubmit}
+                disabled={!discordInput.trim()}
+                style={{ flex:2,height:44,borderRadius:10,border:'none',background:'#3b5bdb',color:'#fff',fontSize:14,fontWeight:600,cursor:'pointer',opacity: discordInput.trim() ? 1 : 0.5 }}
+              >Continue to Payment</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ═══ LIGHTBOX ═══ */}
       {lightbox !== null && (
