@@ -9,10 +9,13 @@ const TRADE_RESULTS = Array.from({ length: 9 }, (_, i) =>
 )
 
 const REVIEWS = [
-  { name: 'Rahul S', handle: '@rahul_trades', time: '2 days ago', text: 'Best live trading room I\'ve joined. Koushik\'s entries are always on point and the risk management teaching is next level.' },
-  { name: 'Amit K', handle: '@amitkfx', time: '5 days ago', text: 'From being a losing trader for 3 years to finally seeing consistent green weeks. The IFVG model changed everything for me. Worth every rupee.' },
-  { name: 'Souvik G', handle: '@souvik_nq', time: '1 week ago', text: 'KR the goat. Best NQ trading community in India.' },
-  { name: 'Priya M', handle: '@priyamtrades', time: '2 weeks ago', text: 'The starter course is incredibly well structured. Bengali explanation made complex concepts so easy to understand. Live sessions are gold.' },
+  { name: 'Soumyadeep Samanta', stars: 5, time: 'Mar 13, 2024', text: 'He doesn\'t give only signal.. also give them proper guidance.. he is too good in his system.' },
+  { name: 'Sagar Bairagi', stars: 5, time: 'Mar 13, 2024', text: 'Very good experience in terms of accuracy of the signals. In my opinion you should try for it and then judge by yourself. My experience is very good till now.' },
+  { name: 'God is', stars: 4, time: 'Mar 13, 2024', text: 'Using the signal room for 4 months with 10% fund balance growth at minimum risk. Returns exceed bank FD rates. Recommended for forex traders.' },
+  { name: 'Soumit Acharjee', stars: 5, time: 'Mar 13, 2024', text: 'Signals are Accurate like an archer hitting a bullseye.' },
+  { name: 'Sunil Ghosh', stars: 5, time: 'Mar 12, 2024', text: 'Profitable signal room. Complete money management system and every trade discussion option available. Tension free — grow your account.' },
+  { name: 'Amitanjan Chakraborty', stars: 5, time: 'Mar 12, 2024', text: 'My knowledge — Best trader in India.' },
+  { name: 'Mainak Paul', stars: 5, time: 'Mar 12, 2024', text: 'The signals are absolutely genuine and helpful for beginner traders, he always post the charts along with the signal so you can learn a lot from him. Thank you so much Koushik.' },
 ]
 
 const FAQS = [
@@ -191,30 +194,33 @@ export default function KRTradesPage() {
           </div>
 
           {/* REVIEWS */}
-          <h2 style={{ fontSize:22,fontWeight:700,marginTop:48,marginBottom:16 }}>Customer Reviews</h2>
+          <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',marginTop:48,marginBottom:16 }}>
+            <h2 style={{ fontSize:22,fontWeight:700 }}>Customer Reviews</h2>
+            <a href="https://www.trustpilot.com/review/koushikranjit.in" target="_blank" rel="noopener noreferrer" style={{ color:'#3b82f6',fontSize:14,textDecoration:'none' }}>See all on Trustpilot</a>
+          </div>
 
           {/* Rating Summary */}
           <div className="whop-card" style={{ display:'flex',gap:32,flexWrap:'wrap',marginBottom:24 }}>
             <div style={{ textAlign:'center',minWidth:120 }}>
-              <div style={{ fontSize:56,fontWeight:800,lineHeight:1 }}>5.0</div>
+              <div style={{ fontSize:56,fontWeight:800,lineHeight:1 }}>4.9</div>
               <div style={{ margin:'8px 0' }}><Stars5 /></div>
-              <div style={{ color:'#9ca3af',fontSize:14 }}>Based on reviews</div>
+              <div style={{ color:'#9ca3af',fontSize:14 }}>7 ratings on Trustpilot</div>
             </div>
             <div style={{ flex:1,minWidth:200,display:'flex',flexDirection:'column',gap:6,justifyContent:'center' }}>
               {[
-                { star:5, pct:97, color:'#22c55e' },
-                { star:4, pct:2, color:'#84cc16' },
-                { star:3, pct:0.5, color:'#6b7280' },
-                { star:2, pct:0.3, color:'#6b7280' },
-                { star:1, pct:0.2, color:'#6b7280' },
+                { star:5, pct:86, count:6, color:'#22c55e' },
+                { star:4, pct:14, count:1, color:'#84cc16' },
+                { star:3, pct:0, count:0, color:'#6b7280' },
+                { star:2, pct:0, count:0, color:'#6b7280' },
+                { star:1, pct:0, count:0, color:'#6b7280' },
               ].map(r => (
                 <div key={r.star} style={{ display:'flex',alignItems:'center',gap:8,fontSize:13 }}>
                   <span style={{ width:12,color:'#9ca3af' }}>{r.star}</span>
                   <Star />
                   <div style={{ flex:1,height:6,background:'#374151',borderRadius:3,overflow:'hidden' }}>
-                    <div className="bar-fill" style={{ width:`${r.pct}%`,background:r.color }} />
+                    <div className="bar-fill" style={{ width:`${Math.max(r.pct, 2)}%`,background:r.color }} />
                   </div>
-                  <span style={{ color:'#9ca3af',width:32,textAlign:'right' }}>{r.pct}%</span>
+                  <span style={{ color:'#9ca3af',width:50,textAlign:'right' }}>{r.pct}% ({r.count})</span>
                 </div>
               ))}
             </div>
@@ -225,14 +231,13 @@ export default function KRTradesPage() {
             {REVIEWS.map((rev, i) => (
               <div key={i} className="whop-card-sm">
                 <div style={{ display:'flex',alignItems:'center',gap:10,marginBottom:8 }}>
-                  <div style={{ width:40,height:40,borderRadius:'50%',background:`hsl(${i*80},50%,35%)`,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700,fontSize:14 }}>{rev.name[0]}</div>
+                  <div style={{ width:40,height:40,borderRadius:'50%',background:`hsl(${i*50+120},45%,32%)`,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700,fontSize:14 }}>{rev.name[0]}</div>
                   <div style={{ flex:1 }}>
                     <div style={{ fontWeight:600,fontSize:14 }}>{rev.name}</div>
-                    <div style={{ color:'#6b7280',fontSize:12 }}>{rev.handle}</div>
                   </div>
                   <span style={{ color:'#6b7280',fontSize:12 }}>{rev.time}</span>
                 </div>
-                <div style={{ marginBottom:8 }}><Stars5 /></div>
+                <div style={{ marginBottom:8,display:'flex',gap:2 }}>{Array(rev.stars).fill(0).map((_, j) => <Star key={j} />)}{Array(5 - rev.stars).fill(0).map((_, j) => <span key={j} style={{ color:'#374151' }}>★</span>)}</div>
                 <p style={{ fontSize:14,color:'#d0d0d0',lineHeight:1.5 }}>{rev.text}</p>
               </div>
             ))}
@@ -255,8 +260,8 @@ export default function KRTradesPage() {
             {/* Rating */}
             <div style={{ display:'flex',alignItems:'center',gap:8,marginBottom:12 }}>
               <Stars5 />
-              <span style={{ fontSize:14,color:'#fff' }}>5.0</span>
-              <span style={{ fontSize:13,color:'#9ca3af' }}>(reviews)</span>
+              <span style={{ fontSize:14,color:'#fff' }}>4.9</span>
+              <a href="https://www.trustpilot.com/review/koushikranjit.in" target="_blank" rel="noopener noreferrer" style={{ fontSize:13,color:'#9ca3af',textDecoration:'none' }}>(7 reviews)</a>
             </div>
 
             {/* Title */}
