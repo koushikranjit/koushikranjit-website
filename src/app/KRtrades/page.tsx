@@ -23,12 +23,6 @@ const FAQS = [
   { q: 'What market do you trade?', a: 'We focus exclusively on Nasdaq (NQ/MNQ) futures. This is one of the most liquid and volatile markets — perfect for day trading with precision.' },
 ]
 
-const COURSE_SECTIONS = [
-  { title: 'Introduction to Premium', lectures: '2 lectures · 9min 15s', items: ['How to Navigate Discord', 'How Live Trading Works'] },
-  { title: 'Chart Setup', lectures: '3 lectures · 17min 16s', items: ['ICT Indicator & Settings', 'Setting up FVGs, IFVG, HIGHS/LOWS', 'Overnight Highs/Lows'] },
-  { title: 'IFVG MODEL', lectures: '4 lectures · 14min 41s', items: ['FVGs Explained', 'IVFG Model', 'IVFG Buyside Example', 'Advanced IFVG Lesson'] },
-  { title: 'Final Thoughts', lectures: '1 lecture · 1min 25s', items: ['You are ready to trade!'] },
-]
 
 export default function KRTradesPage() {
   const [mounted, setMounted] = useState(false)
@@ -36,7 +30,6 @@ export default function KRTradesPage() {
   const [activeSlide, setActiveSlide] = useState(0)
   const [paying, setPaying] = useState(false)
   const [lightbox, setLightbox] = useState<number | null>(null)
-  const [openSection, setOpenSection] = useState<number | null>(0)
 
   useEffect(() => {
     setMounted(true)
@@ -164,33 +157,6 @@ export default function KRTradesPage() {
               <div key={f} style={{ display:'flex',alignItems:'center',gap:8,fontSize:14,color:'#d0d0d0' }}>
                 <svg width="16" height="16" fill="#00e87b" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
                 {f}
-              </div>
-            ))}
-          </div>
-
-          {/* COURSE CURRICULUM */}
-          <h2 style={{ fontSize:22,fontWeight:700,marginTop:48,marginBottom:16 }}>Premium Starter Course</h2>
-          <p style={{ color:'#9ca3af',fontSize:14,marginBottom:16 }}>4 sections · 10 lectures · 42min 38s</p>
-          <div style={{ display:'flex',flexDirection:'column',gap:8 }}>
-            {COURSE_SECTIONS.map((sec, si) => (
-              <div key={si} className="whop-card-sm">
-                <button onClick={() => setOpenSection(openSection === si ? null : si)} style={{ width:'100%',display:'flex',justifyContent:'space-between',alignItems:'center',background:'none',border:'none',color:'#fff',cursor:'pointer',fontSize:15,fontWeight:600,padding:0 }}>
-                  <span>{sec.title}</span>
-                  <span style={{ display:'flex',alignItems:'center',gap:12 }}>
-                    <span style={{ color:'#9ca3af',fontSize:13,fontWeight:400 }}>{sec.lectures}</span>
-                    <span style={{ fontSize:18,color:'#9ca3af',transition:'transform .2s',transform: openSection === si ? 'rotate(45deg)' : 'none' }}>+</span>
-                  </span>
-                </button>
-                <div className={`accordion-body ${openSection === si ? 'open' : ''}`}>
-                  <div style={{ paddingTop:12,display:'flex',flexDirection:'column',gap:8 }}>
-                    {sec.items.map(item => (
-                      <div key={item} style={{ display:'flex',alignItems:'center',gap:8,fontSize:14,color:'#9ca3af' }}>
-                        <svg width="14" height="14" fill="#00e87b" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd"/></svg>
-                        {item}
-                      </div>
-                    ))}
-                  </div>
-                </div>
               </div>
             ))}
           </div>
