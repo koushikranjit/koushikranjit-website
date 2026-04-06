@@ -40,6 +40,7 @@ export default function KRTradesPage() {
   const [activeSlide, setActiveSlide] = useState(0)
   const [paying, setPaying] = useState(false)
   const [lightbox, setLightbox] = useState<number | null>(null)
+  const [memberCount, setMemberCount] = useState(10)
 
   useEffect(() => {
     setMounted(true)
@@ -47,7 +48,8 @@ export default function KRTradesPage() {
     s.src = 'https://checkout.razorpay.com/v1/checkout.js'
     s.async = true
     document.head.appendChild(s)
-    // Auto-advance slider
+    // Fetch live member count
+    fetch('/api/subscribe/count').then(r => r.json()).then(d => setMemberCount(d.count)).catch(() => {})
   }, [])
 
   useEffect(() => {
@@ -155,7 +157,7 @@ export default function KRTradesPage() {
           <div style={{ display:'flex',alignItems:'center',gap:12,marginTop:20,fontSize:14,color:'#9ca3af',flexWrap:'wrap' }}>
             <span style={{ display:'flex',alignItems:'center',gap:6 }}>
               <svg width="16" height="16" fill="#9ca3af" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-              <span style={{ color:'#fff' }}>10 members</span>
+              <span style={{ color:'#fff' }}>{memberCount} members</span>
             </span>
             <div style={{ width:1,height:20,background:'#333' }} />
             <span style={{ display:'flex',alignItems:'center',gap:6 }}>
