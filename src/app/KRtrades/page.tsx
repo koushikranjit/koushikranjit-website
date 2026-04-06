@@ -104,10 +104,9 @@ export default function KRTradesPage() {
       <style>{`
         *{margin:0;padding:0;box-sizing:border-box}
         body{background:#0d0d0d;color:#fff;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased}
-        .whop-page{max-width:1200px;margin:0 auto;padding:80px 24px 60px;display:flex;gap:32px}
+        .whop-page{max-width:1200px;margin:0 auto;padding:80px 24px 60px;display:flex;gap:32px;position:relative;z-index:2}
         .whop-main{flex:1;min-width:0}
         .whop-sidebar{width:380px;flex-shrink:0;position:sticky;top:80px;align-self:flex-start}
-        @media(max-width:900px){.whop-page{flex-direction:column;padding:72px 16px 40px}.whop-sidebar{width:100%;position:static}}
         .whop-card{background:#1a1a1a;border-radius:16px;padding:24px}
         .whop-card-sm{background:#1c1c1c;border-radius:12px;padding:20px}
         .accordion-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
@@ -118,10 +117,27 @@ export default function KRTradesPage() {
         .marquee-track{display:flex;gap:12px;animation:marquee 25s linear infinite;width:max-content}
         .marquee-track:hover{animation-play-state:paused}
         @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+        .bg-video{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.15;pointer-events:none}
+        .bg-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(13,13,13,0.7) 0%,rgba(13,13,13,0.95) 50%,#0d0d0d 100%);z-index:1;pointer-events:none}
+        @media(max-width:900px){
+          .whop-page{flex-direction:column;padding:72px 12px 40px;gap:24px}
+          .whop-sidebar{width:100%;position:static}
+          .whop-card{padding:16px}
+          .whop-card-sm{padding:14px}
+        }
+        @media(max-width:480px){
+          .whop-page{padding:68px 10px 32px}
+        }
       `}</style>
 
+      {/* ═══ BACKGROUND VIDEO ═══ */}
+      <video className="bg-video" autoPlay muted loop playsInline>
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_094440_a3592600-bd1e-49e5-9bce-a73662061d83.mp4" type="video/mp4" />
+      </video>
+      <div className="bg-overlay" />
+
       {/* ═══ HEADER ═══ */}
-      <header style={{ position:'fixed',top:0,left:0,right:0,zIndex:50,background:'#141414',borderBottom:'1px solid #222',height:60,display:'flex',alignItems:'center',padding:'0 24px' }}>
+      <header style={{ position:'fixed',top:0,left:0,right:0,zIndex:50,background:'rgba(20,20,20,0.9)',backdropFilter:'blur(12px)',borderBottom:'1px solid #222',height:60,display:'flex',alignItems:'center',padding:'0 24px' }}>
         <div style={{ maxWidth:1200,margin:'0 auto',width:'100%',display:'flex',alignItems:'center',gap:12 }}>
           <a href="https://koushikranjit.in" style={{ width:32,height:32,borderRadius:'50%',background:'#222',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',textDecoration:'none',fontSize:14 }}>←</a>
           <div style={{ width:40,height:40,borderRadius:'50%',background:'linear-gradient(135deg,#00e87b,#0a5c3a)',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:800,fontSize:11,color:'#fff',letterSpacing:'-0.5px' }}>KR</div>
@@ -277,7 +293,7 @@ export default function KRTradesPage() {
           </div>
 
           {/* Review Cards */}
-          <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(260px,1fr))',gap:12 }}>
+          <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(240px,1fr))',gap:12 }}>
             {REVIEWS.map((rev, i) => (
               <div key={i} className="whop-card-sm">
                 <div style={{ display:'flex',alignItems:'center',gap:10,marginBottom:8 }}>
