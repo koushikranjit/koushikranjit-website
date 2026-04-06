@@ -5,10 +5,10 @@ import { useState, useEffect } from 'react'
 const RAZORPAY_KEY = 'rzp_live_SSL6Wg71WI8B11'
 
 const SLIDER_IMAGES = [
-  'https://github.com/koushikranjit/KR-Website/blob/63bef0a/kr-slide-banner.jpg?raw=true',
-  'https://github.com/koushikranjit/KR-Website/blob/63bef0a/kr-slide-live.jpg?raw=true',
-  'https://github.com/koushikranjit/KR-Website/blob/63bef0a/kr-slide-education.jpg?raw=true',
-  'https://github.com/koushikranjit/KR-Website/blob/63bef0a/kr-testimonial.jpg?raw=true',
+  'https://github.com/koushikranjit/KR-Website/blob/adf9c0b/kr-preview-1.jpg?raw=true',
+  'https://github.com/koushikranjit/KR-Website/blob/adf9c0b/kr-preview-2.jpg?raw=true',
+  'https://github.com/koushikranjit/KR-Website/blob/adf9c0b/kr-preview-3.jpg?raw=true',
+  'https://github.com/koushikranjit/KR-Website/blob/adf9c0b/kr-preview-4.jpg?raw=true',
 ]
 
 const TRADE_RESULTS = Array.from({ length: 9 }, (_, i) =>
