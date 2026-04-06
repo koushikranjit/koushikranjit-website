@@ -1,424 +1,342 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
+
+const RAZORPAY_KEY = 'rzp_live_SSL6Wg71WI8B11'
 
 const TRADE_RESULTS = Array.from({ length: 9 }, (_, i) =>
   `https://github.com/koushikranjit/KR-Website/blob/37b9a4a/kr-trade-result-${i + 1}.png?raw=true`
 )
 
-const RAZORPAY_KEY = 'rzp_live_SSL6Wg71WI8B11'
+const REVIEWS = [
+  { name: 'Rahul S', handle: '@rahul_trades', time: '2 days ago', text: 'Best live trading room I\'ve joined. Koushik\'s entries are always on point and the risk management teaching is next level.' },
+  { name: 'Amit K', handle: '@amitkfx', time: '5 days ago', text: 'From being a losing trader for 3 years to finally seeing consistent green weeks. The IFVG model changed everything for me. Worth every rupee.' },
+  { name: 'Souvik G', handle: '@souvik_nq', time: '1 week ago', text: 'KR the goat. Best NQ trading community in India.' },
+  { name: 'Priya M', handle: '@priyamtrades', time: '2 weeks ago', text: 'The starter course is incredibly well structured. Bengali explanation made complex concepts so easy to understand. Live sessions are gold.' },
+]
+
+const FAQS = [
+  { q: 'Do you offer live trading?', a: 'Yes! We have daily live trading sessions Monday to Friday during US market hours (evening IST). You watch real trades being executed with full commentary on entries, exits, and risk management.' },
+  { q: 'Do you share entries and exits?', a: 'Yes. Every trade is documented with full transparency — entries, exits, stop losses, and P&L. You see everything in real-time during live sessions and in the trade recap channel.' },
+  { q: 'What is your refund policy?', a: 'Due to the nature of digital content and live sessions, we do not offer refunds. However, you can cancel your subscription anytime and retain access until the end of your billing period.' },
+  { q: 'Do I need prior trading experience?', a: 'No. The Premium Starter Course covers everything from basics. It\'s designed for complete beginners to intermediate traders who want a structured, disciplined approach.' },
+  { q: 'What market do you trade?', a: 'We focus exclusively on Nasdaq (NQ/MNQ) futures. This is one of the most liquid and volatile markets — perfect for day trading with precision.' },
+]
+
+const COURSE_SECTIONS = [
+  { title: 'Introduction to Premium', lectures: '2 lectures · 9min 15s', items: ['How to Navigate Discord', 'How Live Trading Works'] },
+  { title: 'Chart Setup', lectures: '3 lectures · 17min 16s', items: ['ICT Indicator & Settings', 'Setting up FVGs, IFVG, HIGHS/LOWS', 'Overnight Highs/Lows'] },
+  { title: 'IFVG MODEL', lectures: '4 lectures · 14min 41s', items: ['FVGs Explained', 'IVFG Model', 'IVFG Buyside Example', 'Advanced IFVG Lesson'] },
+  { title: 'Final Thoughts', lectures: '1 lecture · 1min 25s', items: ['You are ready to trade!'] },
+]
 
 export default function KRTradesPage() {
   const [mounted, setMounted] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
-  const [lightbox, setLightbox] = useState<number | null>(null)
+  const [activeSlide, setActiveSlide] = useState(0)
   const [paying, setPaying] = useState(false)
-  const statsRef = useRef<HTMLDivElement>(null)
-  const [statsVisible, setStatsVisible] = useState(false)
+  const [lightbox, setLightbox] = useState<number | null>(null)
+  const [openSection, setOpenSection] = useState<number | null>(0)
+
+  useEffect(() => {
+    setMounted(true)
+    const s = document.createElement('script')
+    s.src = 'https://checkout.razorpay.com/v1/checkout.js'
+    s.async = true
+    document.head.appendChild(s)
+    // Auto-advance slider
+    const id = setInterval(() => setActiveSlide(p => (p + 1) % TRADE_RESULTS.length), 3000)
+    return () => clearInterval(id)
+  }, [])
+
+  useEffect(() => {
+    if (lightbox !== null) document.body.style.overflow = 'hidden'
+    else document.body.style.overflow = ''
+  }, [lightbox])
 
   const handleSubscribe = async () => {
     setPaying(true)
     try {
       const res = await fetch('/api/subscribe', { method: 'POST' })
       const data = await res.json()
-      if (!res.ok) { alert(data.error || 'Failed to start payment'); setPaying(false); return }
-
-      const options = {
+      if (!res.ok) { alert(data.error || 'Failed'); setPaying(false); return }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const Razorpay = (window as any).Razorpay
+      const rzp = new Razorpay({
         key: RAZORPAY_KEY,
         subscription_id: data.subscription_id,
         name: 'KR Trades',
         description: 'Live Futures Trading Room — Monthly',
-        theme: { color: '#00e87b' },
-        handler: () => {
-          window.location.href = 'https://discord.gg/jxuDkpUr5X'
-        },
+        theme: { color: '#3b5bdb' },
+        handler: () => { window.location.href = 'https://discord.gg/jxuDkpUr5X' },
         modal: { ondismiss: () => setPaying(false) },
-      }
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const Razorpay = (window as any).Razorpay
-      const rzp = new Razorpay(options)
+      })
       rzp.open()
-    } catch {
-      alert('Payment failed. Please try again.')
-      setPaying(false)
-    }
+    } catch { alert('Payment failed.'); setPaying(false) }
   }
-
-  useEffect(() => {
-    setMounted(true)
-    // Load Razorpay script
-    const s = document.createElement('script')
-    s.src = 'https://checkout.razorpay.com/v1/checkout.js'
-    s.async = true
-    document.head.appendChild(s)
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setStatsVisible(true) },
-      { threshold: 0.3 }
-    )
-    if (statsRef.current) observer.observe(statsRef.current)
-    return () => observer.disconnect()
-  }, [])
-
-  useEffect(() => {
-    if (lightbox !== null) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
-  }, [lightbox])
 
   if (!mounted) return null
 
-  return (
-    <main className="relative min-h-screen bg-[#050505] text-white overflow-hidden font-['Inter',sans-serif]">
+  const Star = () => <span style={{ color: '#fbbf24' }}>★</span>
+  const Stars5 = () => <span className="flex gap-0.5">{Array(5).fill(0).map((_, i) => <Star key={i} />)}</span>
 
-      {/* ── Global background ── */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(0,232,123,0.06)_0%,transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(0,232,123,0.04)_0%,transparent_50%)]" />
+  return (
+    <>
+      <style>{`
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:#0d0d0d;color:#fff;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased}
+        .whop-page{max-width:1200px;margin:0 auto;padding:80px 24px 60px;display:flex;gap:32px}
+        .whop-main{flex:1;min-width:0}
+        .whop-sidebar{width:380px;flex-shrink:0;position:sticky;top:80px;align-self:flex-start}
+        @media(max-width:900px){.whop-page{flex-direction:column;padding:72px 16px 40px}.whop-sidebar{width:100%;position:static}}
+        .whop-card{background:#1a1a1a;border-radius:16px;padding:24px}
+        .whop-card-sm{background:#1c1c1c;border-radius:12px;padding:20px}
+        .accordion-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+        .accordion-body.open{max-height:200px}
+        .slide-fade{transition:opacity .5s ease}
+        .bar-fill{height:6px;border-radius:3px;transition:width .6s ease}
+        .marquee-wrap{overflow:hidden;width:100%}
+        .marquee-track{display:flex;gap:12px;animation:marquee 25s linear infinite;width:max-content}
+        .marquee-track:hover{animation-play-state:paused}
+        @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+      `}</style>
+
+      {/* ═══ HEADER ═══ */}
+      <header style={{ position:'fixed',top:0,left:0,right:0,zIndex:50,background:'#141414',borderBottom:'1px solid #222',height:60,display:'flex',alignItems:'center',padding:'0 24px' }}>
+        <div style={{ maxWidth:1200,margin:'0 auto',width:'100%',display:'flex',alignItems:'center',gap:12 }}>
+          <a href="https://koushikranjit.in" style={{ width:32,height:32,borderRadius:'50%',background:'#222',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',textDecoration:'none',fontSize:14 }}>←</a>
+          <div style={{ width:40,height:40,borderRadius:'50%',background:'linear-gradient(135deg,#00e87b,#0a5c3a)',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:800,fontSize:11,color:'#fff',letterSpacing:'-0.5px' }}>KR</div>
+          <span style={{ fontWeight:600,fontSize:18 }}>KR Trades</span>
+          <div style={{ marginLeft:'auto',display:'flex',gap:12,alignItems:'center' }}>
+            <a href="/KRtrades/manage" style={{ color:'#9ca3af',fontSize:13,textDecoration:'none' }}>Manage</a>
+          </div>
+        </div>
+      </header>
+
+      <div className="whop-page">
+
+        {/* ═══ MAIN CONTENT ═══ */}
+        <div className="whop-main">
+
+          {/* HERO SLIDER */}
+          <div style={{ borderRadius:12,overflow:'hidden',background:'#111',position:'relative',aspectRatio:'16/9' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={TRADE_RESULTS[activeSlide]}
+              alt={`KR Trades Result ${activeSlide + 1}`}
+              style={{ width:'100%',height:'100%',objectFit:'cover' }}
+              className="slide-fade"
+            />
+          </div>
+          {/* Dots */}
+          <div style={{ display:'flex',justifyContent:'center',gap:6,marginTop:12 }}>
+            {TRADE_RESULTS.map((_, i) => (
+              <button key={i} onClick={() => setActiveSlide(i)} style={{ width:8,height:8,borderRadius:'50%',border: i === activeSlide ? 'none' : '1px solid #555',background: i === activeSlide ? '#fff' : 'transparent',cursor:'pointer',padding:0 }} />
+            ))}
+          </div>
+
+          {/* META ROW */}
+          <div style={{ display:'flex',alignItems:'center',gap:12,marginTop:20,fontSize:14,color:'#9ca3af' }}>
+            <span style={{ display:'flex',alignItems:'center',gap:6 }}>
+              <svg width="16" height="16" fill="#9ca3af" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              <span style={{ color:'#fff' }}>100+ members</span>
+            </span>
+            <div style={{ width:1,height:20,background:'#333' }} />
+            <span style={{ display:'flex',alignItems:'center',gap:6 }}>
+              <div style={{ width:20,height:20,borderRadius:'50%',background:'#00e87b',display:'flex',alignItems:'center',justifyContent:'center',fontSize:8,fontWeight:800,color:'#000' }}>KR</div>
+              <span style={{ color:'#fff' }}>By Koushik Ranjit</span>
+            </span>
+          </div>
+
+          {/* HEADING */}
+          <h1 style={{ fontSize:'clamp(28px,4vw,40px)',fontWeight:700,marginTop:24,lineHeight:1.2 }}>
+            Live Futures Trading Room — Learn To Trade NQ With Discipline
+          </h1>
+
+          {/* DESCRIPTION */}
+          <p style={{ fontSize:16,color:'#d0d0d0',lineHeight:1.7,marginTop:16 }}>
+            Join KR Trades and trade alongside a professional Nasdaq futures trader. Get daily live trading sessions, the Premium Starter Course (Bengali), real-time trade guidance, exclusive IFVG model strategies, weekly market breakdowns, and direct mentor access — all with full transparency.
+          </p>
+
+          {/* WHAT'S INCLUDED */}
+          <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))',gap:10,marginTop:24 }}>
+            {['Daily Live Trading (Mon–Fri)','Premium Starter Course','Weekly Market Breakdown + Q&A','Risk & Mindset Guidance','Trade Recaps — Full P&L','Private Discord Community'].map(f => (
+              <div key={f} style={{ display:'flex',alignItems:'center',gap:8,fontSize:14,color:'#d0d0d0' }}>
+                <svg width="16" height="16" fill="#00e87b" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
+                {f}
+              </div>
+            ))}
+          </div>
+
+          {/* COURSE CURRICULUM */}
+          <h2 style={{ fontSize:22,fontWeight:700,marginTop:48,marginBottom:16 }}>Premium Starter Course</h2>
+          <p style={{ color:'#9ca3af',fontSize:14,marginBottom:16 }}>4 sections · 10 lectures · 42min 38s</p>
+          <div style={{ display:'flex',flexDirection:'column',gap:8 }}>
+            {COURSE_SECTIONS.map((sec, si) => (
+              <div key={si} className="whop-card-sm">
+                <button onClick={() => setOpenSection(openSection === si ? null : si)} style={{ width:'100%',display:'flex',justifyContent:'space-between',alignItems:'center',background:'none',border:'none',color:'#fff',cursor:'pointer',fontSize:15,fontWeight:600,padding:0 }}>
+                  <span>{sec.title}</span>
+                  <span style={{ display:'flex',alignItems:'center',gap:12 }}>
+                    <span style={{ color:'#9ca3af',fontSize:13,fontWeight:400 }}>{sec.lectures}</span>
+                    <span style={{ fontSize:18,color:'#9ca3af',transition:'transform .2s',transform: openSection === si ? 'rotate(45deg)' : 'none' }}>+</span>
+                  </span>
+                </button>
+                <div className={`accordion-body ${openSection === si ? 'open' : ''}`}>
+                  <div style={{ paddingTop:12,display:'flex',flexDirection:'column',gap:8 }}>
+                    {sec.items.map(item => (
+                      <div key={item} style={{ display:'flex',alignItems:'center',gap:8,fontSize:14,color:'#9ca3af' }}>
+                        <svg width="14" height="14" fill="#00e87b" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd"/></svg>
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* TRADE RESULTS MARQUEE */}
+          <h2 style={{ fontSize:22,fontWeight:700,marginTop:48,marginBottom:16 }}>Real Trade Results</h2>
+          <div className="marquee-wrap">
+            <div className="marquee-track">
+              {[...TRADE_RESULTS, ...TRADE_RESULTS].map((img, i) => (
+                <button key={i} onClick={() => setLightbox(i % TRADE_RESULTS.length)} style={{ flexShrink:0,width:300,borderRadius:12,overflow:'hidden',border:'1px solid #222',cursor:'pointer',background:'none',padding:0 }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={img} alt={`Trade ${(i % TRADE_RESULTS.length) + 1}`} style={{ width:'100%',aspectRatio:'16/9',objectFit:'cover',display:'block' }} loading="lazy" />
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* FAQ */}
+          <h2 style={{ fontSize:22,fontWeight:700,marginTop:48,marginBottom:16 }}>Frequently Asked Questions</h2>
+          <div style={{ display:'flex',flexDirection:'column',gap:8 }}>
+            {FAQS.map((faq, i) => (
+              <div key={i} className="whop-card-sm">
+                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} style={{ width:'100%',display:'flex',justifyContent:'space-between',alignItems:'center',background:'none',border:'none',color:'#fff',cursor:'pointer',fontSize:15,fontWeight:500,padding:0,textAlign:'left' }}>
+                  <span style={{ paddingRight:16 }}>{faq.q}</span>
+                  <span style={{ fontSize:20,color:'#9ca3af',transition:'transform .2s',transform: openFaq === i ? 'rotate(45deg)' : 'none',flexShrink:0 }}>+</span>
+                </button>
+                <div className={`accordion-body ${openFaq === i ? 'open' : ''}`}>
+                  <p style={{ paddingTop:12,fontSize:14,color:'#9ca3af',lineHeight:1.6 }}>{faq.a}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* REVIEWS */}
+          <h2 style={{ fontSize:22,fontWeight:700,marginTop:48,marginBottom:16 }}>Customer Reviews</h2>
+
+          {/* Rating Summary */}
+          <div className="whop-card" style={{ display:'flex',gap:32,flexWrap:'wrap',marginBottom:24 }}>
+            <div style={{ textAlign:'center',minWidth:120 }}>
+              <div style={{ fontSize:56,fontWeight:800,lineHeight:1 }}>5.0</div>
+              <div style={{ margin:'8px 0' }}><Stars5 /></div>
+              <div style={{ color:'#9ca3af',fontSize:14 }}>Based on reviews</div>
+            </div>
+            <div style={{ flex:1,minWidth:200,display:'flex',flexDirection:'column',gap:6,justifyContent:'center' }}>
+              {[
+                { star:5, pct:97, color:'#22c55e' },
+                { star:4, pct:2, color:'#84cc16' },
+                { star:3, pct:0.5, color:'#6b7280' },
+                { star:2, pct:0.3, color:'#6b7280' },
+                { star:1, pct:0.2, color:'#6b7280' },
+              ].map(r => (
+                <div key={r.star} style={{ display:'flex',alignItems:'center',gap:8,fontSize:13 }}>
+                  <span style={{ width:12,color:'#9ca3af' }}>{r.star}</span>
+                  <Star />
+                  <div style={{ flex:1,height:6,background:'#374151',borderRadius:3,overflow:'hidden' }}>
+                    <div className="bar-fill" style={{ width:`${r.pct}%`,background:r.color }} />
+                  </div>
+                  <span style={{ color:'#9ca3af',width:32,textAlign:'right' }}>{r.pct}%</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Review Cards */}
+          <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(260px,1fr))',gap:12 }}>
+            {REVIEWS.map((rev, i) => (
+              <div key={i} className="whop-card-sm">
+                <div style={{ display:'flex',alignItems:'center',gap:10,marginBottom:8 }}>
+                  <div style={{ width:40,height:40,borderRadius:'50%',background:`hsl(${i*80},50%,35%)`,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700,fontSize:14 }}>{rev.name[0]}</div>
+                  <div style={{ flex:1 }}>
+                    <div style={{ fontWeight:600,fontSize:14 }}>{rev.name}</div>
+                    <div style={{ color:'#6b7280',fontSize:12 }}>{rev.handle}</div>
+                  </div>
+                  <span style={{ color:'#6b7280',fontSize:12 }}>{rev.time}</span>
+                </div>
+                <div style={{ marginBottom:8 }}><Stars5 /></div>
+                <p style={{ fontSize:14,color:'#d0d0d0',lineHeight:1.5 }}>{rev.text}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* REPORT */}
+          <div style={{ marginTop:40,textAlign:'center' }}>
+            <a href="mailto:contact@koushikranjit.in" style={{ color:'#666',fontSize:13,textDecoration:'none' }}>Report this creator</a>
+          </div>
+        </div>
+
+        {/* ═══ SIDEBAR ═══ */}
+        <div className="whop-sidebar">
+          <div className="whop-card">
+            {/* Banner */}
+            <div style={{ borderRadius:10,overflow:'hidden',marginBottom:16,background:'linear-gradient(135deg,#0a2e1a,#050505)',aspectRatio:'3/1',display:'flex',alignItems:'center',justifyContent:'center' }}>
+              <span style={{ fontWeight:900,fontSize:24,letterSpacing:2,color:'#00e87b' }}>KR TRADES</span>
+            </div>
+
+            {/* Rating */}
+            <div style={{ display:'flex',alignItems:'center',gap:8,marginBottom:12 }}>
+              <Stars5 />
+              <span style={{ fontSize:14,color:'#fff' }}>5.0</span>
+              <span style={{ fontSize:13,color:'#9ca3af' }}>(reviews)</span>
+            </div>
+
+            {/* Title */}
+            <h3 style={{ fontSize:22,fontWeight:700,marginBottom:8 }}>KR Trades Premium</h3>
+
+            {/* Price */}
+            <div style={{ display:'flex',alignItems:'baseline',gap:4,marginBottom:4 }}>
+              <span style={{ fontSize:28,fontWeight:700 }}>₹1,025</span>
+              <span style={{ color:'#9ca3af',fontSize:15 }}>/ month</span>
+            </div>
+
+            <a href="/KRtrades/manage" style={{ color:'#3b82f6',fontSize:14,textDecoration:'none',display:'inline-block',marginBottom:20,cursor:'pointer' }}>Manage subscription</a>
+
+            {/* CTA */}
+            <button
+              onClick={handleSubscribe}
+              disabled={paying}
+              style={{ width:'100%',height:52,background:'#3b5bdb',borderRadius:12,border:'none',color:'#fff',fontSize:17,fontWeight:600,cursor:'pointer',opacity: paying ? 0.6 : 1,transition:'background .2s' }}
+              onMouseEnter={e => (e.currentTarget.style.background = '#2f4fc4')}
+              onMouseLeave={e => (e.currentTarget.style.background = '#3b5bdb')}
+            >
+              {paying ? 'Processing...' : 'Join now'}
+            </button>
+
+            <p style={{ textAlign:'center',color:'#6b7280',fontSize:12,marginTop:8 }}>Secure payment via Razorpay</p>
+          </div>
+
+          {/* Powered by */}
+          <div style={{ display:'flex',alignItems:'center',justifyContent:'center',gap:6,marginTop:16 }}>
+            <div style={{ width:16,height:16,borderRadius:3,background:'#00e87b',display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,fontWeight:900,color:'#000' }}>K</div>
+            <span style={{ color:'#6b7280',fontSize:13 }}>Powered by KR Trades</span>
+          </div>
+        </div>
       </div>
 
-      {/* ═══════ STICKY NAV ═══════ */}
-      <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-[#050505]/80 backdrop-blur-2xl">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
-          <a href="https://koushikranjit.in" className="text-xl font-bold tracking-tight">
-            KR<span className="text-[#00e87b]">trades</span>
-          </a>
-          <div className="flex items-center gap-4">
-            <a href="#results" className="hidden sm:inline text-sm text-neutral-400 hover:text-white transition-colors cursor-pointer">Results</a>
-            <a href="#pricing" className="hidden sm:inline text-sm text-neutral-400 hover:text-white transition-colors cursor-pointer">Pricing</a>
-            <a href="/KRtrades/manage" className="hidden sm:inline text-sm text-neutral-400 hover:text-white transition-colors cursor-pointer">Manage</a>
-            <button onClick={handleSubscribe} disabled={paying} className="px-5 py-2 rounded-full bg-[#00e87b] text-black font-semibold text-sm hover:bg-[#00ff88] transition-all cursor-pointer disabled:opacity-60">
-              {paying ? 'Loading...' : 'Subscribe Now'}
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      {/* ═══════ HERO ═══════ */}
-      <section className="relative z-10 pt-28 sm:pt-36 pb-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl mx-auto text-center">
-
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#00e87b]/30 bg-[#00e87b]/10 text-[#00e87b] text-sm font-medium mb-8">
-              <span className="w-2 h-2 rounded-full bg-[#00e87b] animate-pulse" />
-              Live Daily &mdash; Mon to Fri
-            </div>
-
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.1] tracking-tight">
-              Live Futures
-              <span className="block bg-clip-text text-transparent bg-gradient-to-r from-[#00e87b] via-[#00ff88] to-[#00e87b]">Trading Room</span>
-            </h1>
-
-            <p className="mt-6 text-lg text-neutral-400 max-w-xl mx-auto leading-relaxed">
-              Join real-time MNQ (NQ) futures trading with full transparency.
-              No signals. No hype. Just disciplined trading, live on screen.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
-              <button onClick={handleSubscribe} disabled={paying} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#00e87b] text-black font-bold text-lg hover:bg-[#00ff88] hover:shadow-[0_0_40px_rgba(0,232,123,0.3)] transition-all duration-300 cursor-pointer disabled:opacity-60">
-                {paying ? 'Processing...' : 'Join Now'}
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-              </button>
-              <a href="#results" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-white/10 text-white/80 font-medium hover:border-[#00e87b]/40 transition-all cursor-pointer">
-                See Trade Results
-              </a>
-            </div>
-
-            <p className="mt-4 text-neutral-600 text-sm">Monthly subscription. Cancel anytime.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ STATS ═══════ */}
-      <section ref={statsRef} className="relative z-10 py-12 border-y border-white/5">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-            {[
-              { num: '5+', label: 'Years Trading' },
-              { num: 'Daily', label: 'Live Sessions' },
-              { num: 'NQ/MNQ', label: 'Futures Focus' },
-              { num: '100%', label: 'Transparent P&L' },
-            ].map((stat, i) => (
-              <div key={stat.label} className="text-center" style={{ opacity: statsVisible ? 1 : 0, transform: statsVisible ? 'translateY(0)' : 'translateY(20px)', transition: `all 0.6s ease ${i * 0.15}s` }}>
-                <div className="text-2xl sm:text-3xl font-extrabold text-[#00e87b]">{stat.num}</div>
-                <div className="text-xs sm:text-sm text-neutral-500 mt-1">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ WHAT YOU GET ═══════ */}
-      <section className="relative z-10 py-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-14">
-            <div className="text-[#00e87b] text-sm font-semibold uppercase tracking-wider mb-3">What&apos;s Included</div>
-            <h2 className="text-3xl sm:text-4xl font-bold">Everything You Need to Trade Live</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
-              { title: 'Daily Live Trading Room', desc: 'Mon–Fri live sessions. Watch real entries, exits, and risk management in real-time on NQ/MNQ futures.' },
-              { title: 'KR Trades Premium Course', desc: 'Complete starter course covering market structure, price action, risk management, and trading psychology. (Bengali)' },
-              { title: 'Weekly Market Breakdown', desc: 'End-of-week analysis with key levels, market structure review, and preparation for the week ahead.' },
-              { title: 'Trade Recaps & Transparency', desc: 'Every trade documented. Full P&L shared. No hiding losses. Learn from both wins and losses.' },
-              { title: 'Risk & Mindset Guidance', desc: 'Position sizing, stop-loss discipline, and the mental frameworks needed to survive and thrive in futures.' },
-              { title: 'Private Community Access', desc: 'Discord community of serious traders. Ask questions, share analysis, and grow together with accountability.' },
-            ].map((item) => (
-              <div key={item.title} className="group p-6 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-[#00e87b]/20 transition-all duration-300 cursor-pointer">
-                <div className="w-10 h-10 rounded-xl bg-[#00e87b]/10 flex items-center justify-center mb-4">
-                  <svg className="w-5 h-5 text-[#00e87b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                </div>
-                <h3 className="text-white font-bold mb-2 group-hover:text-[#00e87b] transition-colors">{item.title}</h3>
-                <p className="text-neutral-500 text-sm leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ MINI COURSE CURRICULUM ═══════ */}
-      <section className="relative z-10 py-20 border-t border-white/5">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-14">
-            <div className="text-[#00e87b] text-sm font-semibold uppercase tracking-wider mb-3">Included Course</div>
-            <h2 className="text-3xl sm:text-4xl font-bold">KR Trades Premium Starter Course</h2>
-            <p className="text-neutral-500 mt-3 max-w-lg mx-auto">Understand how I trade before joining live sessions. 4 sections, 10 lectures, 42 min of focused content.</p>
-          </div>
-          <div className="max-w-2xl mx-auto space-y-4">
-            {[
-              { section: 'Introduction to Premium', lectures: '2 lectures · 9min 15s', items: ['How to Navigate Discord — 6min 43s', 'How Live Trading Works — 2min 32s'] },
-              { section: 'Chart Setup', lectures: '3 lectures · 17min 16s', items: ['ICT Indicator & Settings — 9min 55s', 'Setting up FVGs, IFVG, HIGHS/LOWS — 4min 18s', 'Overnight Highs/Lows — 3min 2s'] },
-              { section: 'IFVG MODEL', lectures: '4 lectures · 14min 41s', items: ['FVGs Explained — 4min 27s', 'IVFG Model — 3min 35s', 'IVFG Buyside Example — 3min 8s', 'Advanced IFVG Lesson — 3min 29s'] },
-              { section: 'Final Thoughts', lectures: '1 lecture · 1min 25s', items: ['You are ready to trade! — 1min 25s'] },
-            ].map((mod) => (
-              <div key={mod.section} className="rounded-xl border border-white/5 bg-white/[0.02] overflow-hidden">
-                <div className="flex items-center justify-between p-5 border-b border-white/5">
-                  <h3 className="text-white font-bold">{mod.section}</h3>
-                  <span className="text-neutral-500 text-sm">{mod.lectures}</span>
-                </div>
-                <div className="divide-y divide-white/5">
-                  {mod.items.map((item) => (
-                    <div key={item} className="flex items-center gap-3 px-5 py-3">
-                      <svg className="w-4 h-4 text-[#00e87b] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd"/></svg>
-                      <span className="text-neutral-400 text-sm">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ TRADE RESULTS — AUTO-SCROLLING MARQUEE ═══════ */}
-      <style>{`
-        @keyframes scroll-left {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .marquee-results { animation: scroll-left 30s linear infinite; }
-        .marquee-results:hover { animation-play-state: paused; }
-      `}</style>
-      <section id="results" className="relative z-10 py-20 border-y border-white/5">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-14">
-          <div className="text-center">
-            <div className="text-[#00e87b] text-sm font-semibold uppercase tracking-wider mb-3">Proof</div>
-            <h2 className="text-3xl sm:text-4xl font-bold">Real Trade Results</h2>
-            <p className="text-neutral-500 mt-3 max-w-md mx-auto">Actual trades from our live trading room. No cherry-picking. Full transparency.</p>
-          </div>
-        </div>
-        <div className="overflow-hidden w-full">
-          <div className="marquee-results flex gap-4 w-max">
-            {[...TRADE_RESULTS, ...TRADE_RESULTS].map((img, i) => (
-              <button
-                key={i}
-                onClick={() => setLightbox(i % TRADE_RESULTS.length)}
-                className="group flex-shrink-0 w-[320px] sm:w-[380px] rounded-xl overflow-hidden border border-white/5 hover:border-[#00e87b]/30 transition-all duration-300 cursor-pointer"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={img}
-                  alt={`KR Trades Live Trade Result ${(i % TRADE_RESULTS.length) + 1} - Nasdaq Futures`}
-                  className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ LIGHTBOX ═══════ */}
+      {/* ═══ LIGHTBOX ═══ */}
       {lightbox !== null && (
-        <div className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setLightbox(null)}>
-          <button onClick={() => setLightbox(null)} className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
-            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-          </button>
-          {lightbox > 0 && (
-            <button onClick={(e) => { e.stopPropagation(); setLightbox(lightbox - 1) }} className="absolute left-4 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-            </button>
-          )}
-          {lightbox < TRADE_RESULTS.length - 1 && (
-            <button onClick={(e) => { e.stopPropagation(); setLightbox(lightbox + 1) }} className="absolute right-4 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-            </button>
-          )}
+        <div onClick={() => setLightbox(null)} style={{ position:'fixed',inset:0,zIndex:100,background:'rgba(0,0,0,.92)',backdropFilter:'blur(4px)',display:'flex',alignItems:'center',justifyContent:'center',padding:16 }}>
+          <button onClick={() => setLightbox(null)} style={{ position:'absolute',top:20,right:20,width:40,height:40,borderRadius:'50%',background:'rgba(255,255,255,.1)',border:'none',color:'#fff',fontSize:20,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center' }}>✕</button>
+          {lightbox > 0 && <button onClick={e => { e.stopPropagation(); setLightbox(lightbox - 1) }} style={{ position:'absolute',left:16,width:40,height:40,borderRadius:'50%',background:'rgba(255,255,255,.1)',border:'none',color:'#fff',fontSize:20,cursor:'pointer' }}>‹</button>}
+          {lightbox < TRADE_RESULTS.length - 1 && <button onClick={e => { e.stopPropagation(); setLightbox(lightbox + 1) }} style={{ position:'absolute',right:16,width:40,height:40,borderRadius:'50%',background:'rgba(255,255,255,.1)',border:'none',color:'#fff',fontSize:20,cursor:'pointer' }}>›</button>}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={TRADE_RESULTS[lightbox]}
-            alt={`Trade Result ${lightbox + 1}`}
-            className="max-w-full max-h-[85vh] rounded-xl object-contain"
-            onClick={(e) => e.stopPropagation()}
-          />
-          <div className="absolute bottom-6 text-neutral-400 text-sm">{lightbox + 1} / {TRADE_RESULTS.length}</div>
+          <img src={TRADE_RESULTS[lightbox]} alt={`Result ${lightbox + 1}`} style={{ maxWidth:'100%',maxHeight:'85vh',borderRadius:12,objectFit:'contain' }} onClick={e => e.stopPropagation()} />
+          <div style={{ position:'absolute',bottom:20,color:'#9ca3af',fontSize:14 }}>{lightbox + 1} / {TRADE_RESULTS.length}</div>
         </div>
       )}
-
-      {/* ═══════ WHO IS THIS FOR ═══════ */}
-      <section className="relative z-10 py-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl sm:text-4xl font-bold">This Is For You If...</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
-            {[
-              'You want consistency, not signals hype',
-              'You\'re growing a small account with discipline',
-              'You want to see real trades, not just theory',
-              'You value transparency and accountability',
-              'You\'re serious about Nasdaq futures trading',
-              'You want a mentor who shows real P&L',
-            ].map((item) => (
-              <div key={item} className="flex items-start gap-3 p-4 rounded-xl border border-white/5 bg-white/[0.02]">
-                <svg className="w-5 h-5 text-[#00e87b] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                <span className="text-neutral-300 text-sm">{item}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ PRICING ═══════ */}
-      <section id="pricing" className="relative z-10 py-20 border-t border-white/5">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-14">
-            <div className="text-[#00e87b] text-sm font-semibold uppercase tracking-wider mb-3">Pricing</div>
-            <h2 className="text-3xl sm:text-4xl font-bold">Simple, Transparent Pricing</h2>
-          </div>
-
-          <div className="max-w-md mx-auto">
-            <div className="relative p-8 sm:p-10 rounded-3xl border-2 border-[#00e87b]/30 bg-gradient-to-b from-[#00e87b]/[0.05] to-transparent">
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-5 py-1 rounded-full bg-[#00e87b] text-black text-sm font-bold">
-                Live Trading Room
-              </div>
-
-              <div className="text-center mb-8 mt-2">
-                <div className="flex items-baseline justify-center gap-1">
-                  <span className="text-4xl font-extrabold text-white">Monthly Subscription</span>
-                </div>
-                <p className="text-neutral-500 text-sm mt-2">Cancel anytime &mdash; Price shown at checkout</p>
-              </div>
-
-              <div className="space-y-3 mb-8">
-                {[
-                  'KR Trades Premium Starter Course (Bengali)',
-                  'Daily Live Trading Room (Mon–Fri)',
-                  'Weekly Market Breakdown + Q&A',
-                  'Risk & Mindset Guidance',
-                  'Trade Recaps with Full Transparency',
-                  'Private Discord Community',
-                  'Direct Support from Koushik',
-                ].map((f) => (
-                  <div key={f} className="flex items-center gap-3 text-neutral-300 text-sm">
-                    <svg className="w-5 h-5 text-[#00e87b] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                    {f}
-                  </div>
-                ))}
-              </div>
-
-              <button onClick={handleSubscribe} disabled={paying} className="block w-full py-4 rounded-xl bg-[#00e87b] text-black font-bold text-lg text-center hover:bg-[#00ff88] hover:shadow-[0_0_40px_rgba(0,232,123,0.3)] transition-all duration-300 cursor-pointer disabled:opacity-60">
-                {paying ? 'Processing...' : 'Subscribe Now'}
-              </button>
-              <p className="text-center text-neutral-600 text-xs mt-4">Secure payment via Razorpay · UPI · Cards · Netbanking</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ FAQ ═══════ */}
-      <section className="relative z-10 py-20 border-t border-white/5">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl sm:text-4xl font-bold">FAQs</h2>
-          </div>
-          <div className="space-y-3">
-            {[
-              { q: 'What time are the live sessions?', a: 'Live sessions happen during US market hours, which is evening IST (around 7 PM – 1:30 AM). Perfect for Indian traders with day jobs.' },
-              { q: 'What do I need to join?', a: 'A Discord account, internet connection, and willingness to learn. No prior trading experience required — the course covers everything from basics.' },
-              { q: 'Is this signals or copy trading?', a: 'No. This is a live trading room where you watch and learn the decision-making process. You learn WHY trades are taken, not just WHAT to trade.' },
-              { q: 'Can I cancel anytime?', a: 'Yes. It\'s a monthly subscription. Cancel anytime from your TagMango dashboard — no questions asked.' },
-              { q: 'Will I get recordings if I miss a session?', a: 'Yes. All live sessions are recorded and available in the community for you to watch later.' },
-              { q: 'Is the course in Hindi or English?', a: 'The premium starter course is in Bengali. Live sessions are conducted in a mix of Bengali and Hindi for maximum understanding.' },
-            ].map((faq, i) => (
-              <div key={i} className="border border-white/5 rounded-xl overflow-hidden">
-                <button
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between p-5 text-left hover:bg-white/[0.02] transition-colors cursor-pointer"
-                >
-                  <span className="font-medium text-white pr-4">{faq.q}</span>
-                  <svg className={`w-5 h-5 text-[#00e87b] flex-shrink-0 transition-transform duration-300 ${openFaq === i ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-                </button>
-                <div className={`overflow-hidden transition-all duration-300 ${openFaq === i ? 'max-h-40 pb-5 px-5' : 'max-h-0'}`}>
-                  <p className="text-neutral-400 text-sm leading-relaxed">{faq.a}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ FINAL CTA ═══════ */}
-      <section className="relative z-10 py-20">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-3xl sm:text-5xl font-bold leading-tight">
-            Trade Live.<br />
-            <span className="text-[#00e87b]">Learn by Watching Real Trades.</span>
-          </h2>
-          <p className="text-neutral-400 mt-6 text-lg">
-            No theory. No indicators dump. Just a trader, a screen, and full transparency.
-          </p>
-          <button onClick={handleSubscribe} disabled={paying} className="inline-flex items-center gap-2 mt-10 px-10 py-5 rounded-xl bg-[#00e87b] text-black font-bold text-lg hover:bg-[#00ff88] hover:shadow-[0_0_60px_rgba(0,232,123,0.3)] transition-all duration-300 cursor-pointer disabled:opacity-60">
-            {paying ? 'Processing...' : 'Join KR Trades'}
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-          </button>
-          <p className="text-neutral-600 text-sm mt-4">Educational purpose only. Trading involves risk.</p>
-        </div>
-      </section>
-
-      {/* ═══════ FOOTER ═══════ */}
-      <footer className="relative z-10 border-t border-white/5">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <span className="text-white font-bold">KR<span className="text-[#00e87b]">trades</span></span>
-              <span className="text-neutral-600 text-sm">&copy; 2026 Koushik Ranjit</span>
-            </div>
-            <div className="flex items-center gap-6 text-sm text-neutral-500">
-              <a href="https://www.instagram.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" className="hover:text-[#00e87b] transition-colors cursor-pointer">Instagram</a>
-              <a href="https://x.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" className="hover:text-[#00e87b] transition-colors cursor-pointer">X</a>
-              <a href="https://discord.gg/jxuDkpUr5X" target="_blank" rel="noopener noreferrer" className="hover:text-[#00e87b] transition-colors cursor-pointer">Discord</a>
-              <a href="https://koushikranjit.in" className="hover:text-[#00e87b] transition-colors cursor-pointer">Website</a>
-              <a href="/KRtrades/manage" className="hover:text-[#00e87b] transition-colors cursor-pointer">Manage Subscription</a>
-            </div>
-          </div>
-          <p className="text-center text-neutral-700 text-xs mt-6">
-            Disclaimer: Trading futures involves substantial risk of loss. Past results do not guarantee future performance. This is for educational purposes only.
-          </p>
-        </div>
-      </footer>
-    </main>
+    </>
   )
 }
