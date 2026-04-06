@@ -123,6 +123,20 @@ export default function KRTradesPage() {
               style={{ width:'100%',height:'100%',objectFit:'cover' }}
               className="slide-fade"
             />
+            {/* Left Arrow */}
+            <button
+              onClick={() => setActiveSlide(activeSlide === 0 ? TRADE_RESULTS.length - 1 : activeSlide - 1)}
+              style={{ position:'absolute',left:12,top:'50%',transform:'translateY(-50%)',width:36,height:36,borderRadius:'50%',background:'rgba(0,0,0,0.6)',border:'1px solid rgba(255,255,255,0.15)',color:'#fff',fontSize:18,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',backdropFilter:'blur(4px)' }}
+            >‹</button>
+            {/* Right Arrow */}
+            <button
+              onClick={() => setActiveSlide(activeSlide === TRADE_RESULTS.length - 1 ? 0 : activeSlide + 1)}
+              style={{ position:'absolute',right:12,top:'50%',transform:'translateY(-50%)',width:36,height:36,borderRadius:'50%',background:'rgba(0,0,0,0.6)',border:'1px solid rgba(255,255,255,0.15)',color:'#fff',fontSize:18,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',backdropFilter:'blur(4px)' }}
+            >›</button>
+            {/* Counter */}
+            <div style={{ position:'absolute',bottom:10,right:12,background:'rgba(0,0,0,0.6)',borderRadius:6,padding:'3px 8px',fontSize:12,color:'#ccc',backdropFilter:'blur(4px)' }}>
+              {activeSlide + 1} / {TRADE_RESULTS.length}
+            </div>
           </div>
           {/* Dots */}
           <div style={{ display:'flex',justifyContent:'center',gap:6,marginTop:12 }}>
@@ -135,7 +149,7 @@ export default function KRTradesPage() {
           <div style={{ display:'flex',alignItems:'center',gap:12,marginTop:20,fontSize:14,color:'#9ca3af',flexWrap:'wrap' }}>
             <span style={{ display:'flex',alignItems:'center',gap:6 }}>
               <svg width="16" height="16" fill="#9ca3af" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-              <span style={{ color:'#fff' }}>100+ members</span>
+              <span style={{ color:'#fff' }}>10 members</span>
             </span>
             <div style={{ width:1,height:20,background:'#333' }} />
             <span style={{ display:'flex',alignItems:'center',gap:6 }}>
