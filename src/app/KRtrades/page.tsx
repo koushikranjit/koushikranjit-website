@@ -103,24 +103,25 @@ export default function KRTradesPage() {
     <>
       <style>{`
         *{margin:0;padding:0;box-sizing:border-box}
+        html,body{overflow-x:hidden;width:100%;max-width:100vw}
         body{background:#0d0d0d;color:#fff;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased}
+        .kr-page-wrap{overflow-x:hidden;width:100%;position:relative}
         .whop-page{max-width:1200px;margin:0 auto;padding:80px 24px 60px;display:flex;gap:32px;position:relative;z-index:2}
-        .whop-main{flex:1;min-width:0}
+        .whop-main{flex:1;min-width:0;overflow:hidden}
         .whop-sidebar{width:380px;flex-shrink:0;position:sticky;top:80px;align-self:flex-start}
-        .whop-card{background:#1a1a1a;border-radius:16px;padding:24px}
-        .whop-card-sm{background:#1c1c1c;border-radius:12px;padding:20px}
+        .whop-card{background:#1a1a1a;border-radius:16px;padding:24px;overflow:hidden}
+        .whop-card-sm{background:#1c1c1c;border-radius:12px;padding:20px;overflow:hidden}
         .accordion-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
         .accordion-body.open{max-height:200px}
         .slide-fade{transition:opacity .5s ease}
         .bar-fill{height:6px;border-radius:3px;transition:width .6s ease}
-        .marquee-wrap{overflow:hidden;width:100%}
+        .marquee-wrap{overflow:hidden;width:100%;max-width:100%}
         .marquee-track{display:flex;gap:12px;animation:marquee 25s linear infinite;width:max-content}
         .marquee-track:hover{animation-play-state:paused}
         @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-        .bg-video{position:fixed;top:0;left:0;min-width:100%;min-height:100%;width:auto;height:auto;object-fit:cover;z-index:0;opacity:0.35;pointer-events:none}
+        .bg-video{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.35;pointer-events:none}
         .bg-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(13,13,13,0.3) 0%,rgba(13,13,13,0.7) 50%,rgba(13,13,13,0.95) 100%);z-index:1;pointer-events:none}
         .mobile-sticky-cta{display:none}
-        .desktop-sidebar-hide{display:block}
         .mobile-pricing{display:none}
         .whop-meta-row{display:flex;align-items:center;gap:12px;margin-top:20px;font-size:14px;color:#9ca3af;flex-wrap:wrap}
         .whop-meta-divider{width:1px;height:20px;background:#333}
@@ -128,6 +129,11 @@ export default function KRTradesPage() {
         .whop-reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
         .whop-rating-summary{display:flex;gap:32px;flex-wrap:wrap;margin-bottom:24px}
         .whop-more-card{display:block;max-width:280px;text-decoration:none;color:#fff}
+        .whop-about{display:flex;gap:16px;align-items:center}
+        .whop-about-text{flex:1;min-width:0}
+        .whop-about-links{display:flex;gap:12px;margin-top:10px;flex-wrap:wrap}
+        .whop-faq-btn{width:100%;display:flex;justify-content:space-between;align-items:center;background:none;border:none;color:#fff;cursor:pointer;font-size:15px;font-weight:500;padding:0;text-align:left}
+        .whop-faq-q{padding-right:16px;word-break:break-word}
         @media(max-width:900px){
           .whop-page{flex-direction:column;padding:56px 0 80px;gap:0}
           .whop-main{padding:0 16px}
@@ -139,10 +145,12 @@ export default function KRTradesPage() {
           .hero-slider-wrap{border-radius:0!important;margin:0 -16px;width:calc(100% + 32px)}
           .whop-features-grid{grid-template-columns:1fr;gap:8px}
           .whop-reviews-grid{grid-template-columns:1fr;gap:10px}
-          .whop-rating-summary{flex-direction:column;gap:20px}
+          .whop-rating-summary{flex-direction:column;gap:16px}
           .whop-more-card{max-width:100%}
           .whop-meta-divider{display:none}
-          .whop-meta-row{gap:8px}
+          .whop-meta-row{gap:6px;font-size:13px}
+          .whop-about{flex-direction:column;align-items:flex-start;gap:12px}
+          .whop-faq-btn{font-size:14px}
         }
         @media(max-width:480px){
           .whop-page{padding:56px 0 76px}
@@ -159,6 +167,7 @@ export default function KRTradesPage() {
         }
       `}</style>
 
+      <div className="kr-page-wrap">
       {/* ═══ BACKGROUND VIDEO ═══ */}
       <video className="bg-video" autoPlay muted loop playsInline>
         <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_094440_a3592600-bd1e-49e5-9bce-a73662061d83.mp4" type="video/mp4" />
@@ -166,8 +175,8 @@ export default function KRTradesPage() {
       <div className="bg-overlay" />
 
       {/* ═══ HEADER ═══ */}
-      <header style={{ position:'fixed',top:0,left:0,right:0,zIndex:50,background:'rgba(20,20,20,0.9)',backdropFilter:'blur(12px)',borderBottom:'1px solid #222',height:56,display:'flex',alignItems:'center',padding:'0 14px' }}>
-        <div style={{ maxWidth:1200,margin:'0 auto',width:'100%',display:'flex',alignItems:'center',gap:10 }}>
+      <header style={{ position:'fixed',top:0,left:0,right:0,zIndex:50,background:'rgba(20,20,20,0.9)',backdropFilter:'blur(12px)',borderBottom:'1px solid #222',height:56,display:'flex',alignItems:'center',padding:'0 14px',overflow:'hidden' }}>
+        <div style={{ maxWidth:1200,margin:'0 auto',width:'100%',display:'flex',alignItems:'center',gap:8 }}>
           <a href="https://koushikranjit.in" style={{ width:30,height:30,borderRadius:'50%',background:'#222',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',textDecoration:'none',fontSize:13,flexShrink:0 }}>←</a>
           <div style={{ width:34,height:34,borderRadius:'50%',background:'linear-gradient(135deg,#00e87b,#0a5c3a)',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:800,fontSize:10,color:'#fff',letterSpacing:'-0.5px',flexShrink:0 }}>KR</div>
           <span style={{ fontWeight:600,fontSize:16 }}>KR Trades</span>
@@ -292,8 +301,8 @@ export default function KRTradesPage() {
           <div style={{ display:'flex',flexDirection:'column',gap:8 }}>
             {FAQS.map((faq, i) => (
               <div key={i} className="whop-card-sm">
-                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} style={{ width:'100%',display:'flex',justifyContent:'space-between',alignItems:'center',background:'none',border:'none',color:'#fff',cursor:'pointer',fontSize:15,fontWeight:500,padding:0,textAlign:'left' }}>
-                  <span style={{ paddingRight:16 }}>{faq.q}</span>
+                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="whop-faq-btn">
+                  <span className="whop-faq-q">{faq.q}</span>
                   <span style={{ fontSize:20,color:'#9ca3af',transition:'transform .2s',transform: openFaq === i ? 'rotate(45deg)' : 'none',flexShrink:0 }}>+</span>
                 </button>
                 <div className={`accordion-body ${openFaq === i ? 'open' : ''}`}>
@@ -316,7 +325,7 @@ export default function KRTradesPage() {
               <div style={{ margin:'8px 0' }}><Stars5 /></div>
               <div style={{ color:'#9ca3af',fontSize:13 }}>{reviewData.count} ratings on Trustpilot</div>
             </div>
-            <div style={{ flex:1,minWidth:200,display:'flex',flexDirection:'column',gap:6,justifyContent:'center' }}>
+            <div style={{ flex:1,minWidth:0,display:'flex',flexDirection:'column',gap:6,justifyContent:'center' }}>
               {[
                 { star:5, pct:86, count:6, color:'#22c55e' },
                 { star:4, pct:14, count:1, color:'#84cc16' },
@@ -330,7 +339,7 @@ export default function KRTradesPage() {
                   <div style={{ flex:1,height:6,background:'#374151',borderRadius:3,overflow:'hidden' }}>
                     <div className="bar-fill" style={{ width:`${Math.max(r.pct, 2)}%`,background:r.color }} />
                   </div>
-                  <span style={{ color:'#9ca3af',width:50,textAlign:'right' }}>{r.pct}% ({r.count})</span>
+                  <span style={{ color:'#9ca3af',minWidth:50,textAlign:'right',fontSize:12,whiteSpace:'nowrap' }}>{r.pct}% ({r.count})</span>
                 </div>
               ))}
             </div>
@@ -340,12 +349,12 @@ export default function KRTradesPage() {
           <div className="whop-reviews-grid">
             {REVIEWS.map((rev, i) => (
               <div key={i} className="whop-card-sm">
-                <div style={{ display:'flex',alignItems:'center',gap:10,marginBottom:8 }}>
-                  <div style={{ width:40,height:40,borderRadius:'50%',background:`hsl(${i*50+120},45%,32%)`,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700,fontSize:14 }}>{rev.name[0]}</div>
-                  <div style={{ flex:1 }}>
-                    <div style={{ fontWeight:600,fontSize:14 }}>{rev.name}</div>
+                <div style={{ display:'flex',alignItems:'center',gap:10,marginBottom:8,overflow:'hidden' }}>
+                  <div style={{ width:36,height:36,borderRadius:'50%',background:`hsl(${i*50+120},45%,32%)`,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700,fontSize:13,flexShrink:0 }}>{rev.name[0]}</div>
+                  <div style={{ flex:1,minWidth:0 }}>
+                    <div style={{ fontWeight:600,fontSize:14,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap' }}>{rev.name}</div>
                   </div>
-                  <span style={{ color:'#6b7280',fontSize:12 }}>{rev.time}</span>
+                  <span style={{ color:'#6b7280',fontSize:11,whiteSpace:'nowrap',flexShrink:0 }}>{rev.time}</span>
                 </div>
                 <div style={{ marginBottom:8,display:'flex',gap:2 }}>{Array(rev.stars).fill(0).map((_, j) => <Star key={j} />)}{Array(5 - rev.stars).fill(0).map((_, j) => <span key={j} style={{ color:'#374151' }}>★</span>)}</div>
                 <p style={{ fontSize:14,color:'#d0d0d0',lineHeight:1.5 }}>{rev.text}</p>
@@ -355,15 +364,15 @@ export default function KRTradesPage() {
 
           {/* ABOUT CREATOR */}
           <h2 style={{ fontSize:'clamp(18px,4.5vw,22px)',fontWeight:700,marginTop:'clamp(28px,6vw,48px)',marginBottom:14 }}>About the creator</h2>
-          <div className="whop-card" style={{ display:'flex',gap:16,alignItems:'center',flexWrap:'wrap' }}>
+          <div className="whop-card whop-about">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="https://github.com/koushikranjit/KR-Website/blob/847c7b2/koushik-host3.png?raw=true" alt="Koushik Ranjit" style={{ width:64,height:64,borderRadius:'50%',objectFit:'cover',objectPosition:'top' }} />
-            <div style={{ flex:1,minWidth:200 }}>
+            <img src="https://github.com/koushikranjit/KR-Website/blob/847c7b2/koushik-host3.png?raw=true" alt="Koushik Ranjit" style={{ width:56,height:56,borderRadius:'50%',objectFit:'cover',objectPosition:'top',flexShrink:0 }} />
+            <div className="whop-about-text">
               <div style={{ fontWeight:700,fontSize:16 }}>Koushik Ranjit</div>
               <p style={{ color:'#9ca3af',fontSize:14,marginTop:4,lineHeight:1.5 }}>
                 Indian proprietary day trader specialising in Nasdaq futures. 5+ years of active trading with a disciplined, rule-based approach. Featured in APN News, Vocal Media, Bhaskar Live & more.
               </p>
-              <div style={{ display:'flex',gap:12,marginTop:10 }}>
+              <div className="whop-about-links">
                 <a href="https://www.instagram.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" style={{ color:'#3b82f6',fontSize:13,textDecoration:'none' }}>Instagram</a>
                 <a href="https://x.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" style={{ color:'#3b82f6',fontSize:13,textDecoration:'none' }}>Twitter/X</a>
                 <a href="https://discord.gg/HySGNbJa3r" target="_blank" rel="noopener noreferrer" style={{ color:'#3b82f6',fontSize:13,textDecoration:'none' }}>Discord</a>
@@ -516,6 +525,7 @@ export default function KRTradesPage() {
           {paying ? 'Processing...' : 'Join now'}
         </button>
       </div>
+      </div>{/* end kr-page-wrap */}
     </>
   )
 }
