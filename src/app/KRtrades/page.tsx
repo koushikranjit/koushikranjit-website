@@ -117,8 +117,8 @@ export default function KRTradesPage() {
         .marquee-track{display:flex;gap:12px;animation:marquee 25s linear infinite;width:max-content}
         .marquee-track:hover{animation-play-state:paused}
         @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-        .bg-video{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.15;pointer-events:none}
-        .bg-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(13,13,13,0.7) 0%,rgba(13,13,13,0.95) 50%,#0d0d0d 100%);z-index:1;pointer-events:none}
+        .bg-video{position:fixed;top:0;left:0;width:100vw;height:100vh;object-fit:cover;z-index:0;opacity:0.2;pointer-events:none;filter:blur(1px)}
+        .bg-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(180deg,rgba(13,13,13,0.6) 0%,rgba(13,13,13,0.9) 60%,#0d0d0d 100%);z-index:1;pointer-events:none}
         @media(max-width:900px){
           .whop-page{flex-direction:column;padding:72px 12px 40px;gap:24px}
           .whop-sidebar{width:100%;position:static}
