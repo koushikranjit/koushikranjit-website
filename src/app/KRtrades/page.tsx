@@ -119,19 +119,24 @@ export default function KRTradesPage() {
         @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
         .bg-video{position:fixed;top:0;left:0;min-width:100%;min-height:100%;width:auto;height:auto;object-fit:cover;z-index:0;opacity:0.35;pointer-events:none}
         .bg-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(13,13,13,0.3) 0%,rgba(13,13,13,0.7) 50%,rgba(13,13,13,0.95) 100%);z-index:1;pointer-events:none}
-        @media(max-width:768px){
-          .bg-video{width:100%;height:100%;object-position:center}
-        }
+        .mobile-sticky-cta{display:none}
+        .desktop-sidebar-hide{display:block}
+        .mobile-pricing{display:none}
         @media(max-width:900px){
-          .whop-page{flex-direction:column;padding:72px 14px 40px;gap:20px}
-          .whop-sidebar{width:100%;position:static;order:-1}
-          .whop-card{padding:18px}
+          .whop-page{flex-direction:column;padding:60px 0 80px;gap:0}
+          .whop-main{padding:0 14px}
+          .whop-sidebar{display:none}
+          .whop-card{padding:16px}
           .whop-card-sm{padding:14px}
+          .mobile-sticky-cta{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:60;padding:12px 14px;background:rgba(13,13,13,0.95);backdrop-filter:blur(12px);border-top:1px solid #222}
+          .mobile-pricing{display:block;padding:16px 14px;margin-bottom:12px}
+          .hero-slider-wrap{border-radius:0!important;margin:0 -14px;width:calc(100% + 28px)}
         }
         @media(max-width:480px){
-          .whop-page{padding:66px 10px 32px}
+          .whop-main{padding:0 10px}
           .whop-card{padding:14px}
           .whop-card-sm{padding:12px}
+          .hero-slider-wrap{margin:0 -10px;width:calc(100% + 20px)}
         }
       `}</style>
 
@@ -159,7 +164,7 @@ export default function KRTradesPage() {
         <div className="whop-main">
 
           {/* HERO SLIDER */}
-          <div style={{ borderRadius:12,overflow:'hidden',background:'#111',position:'relative',aspectRatio:'16/9' }}>
+          <div className="hero-slider-wrap" style={{ borderRadius:12,overflow:'hidden',background:'#111',position:'relative',aspectRatio:'16/9' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={SLIDER_IMAGES[activeSlide]}
@@ -187,6 +192,21 @@ export default function KRTradesPage() {
             {SLIDER_IMAGES.map((_, i) => (
               <button key={i} onClick={() => setActiveSlide(i)} style={{ width:8,height:8,borderRadius:'50%',border: i === activeSlide ? 'none' : '1px solid #555',background: i === activeSlide ? '#fff' : 'transparent',cursor:'pointer',padding:0 }} />
             ))}
+          </div>
+
+          {/* MOBILE PRICING (shown only on mobile, after slider) */}
+          <div className="mobile-pricing">
+            <div style={{ display:'flex',alignItems:'center',gap:8,marginBottom:8 }}>
+              <Stars5 />
+              <span style={{ fontSize:14,fontWeight:600 }}>{reviewData.rating}</span>
+              <span style={{ fontSize:13,color:'#9ca3af' }}>({reviewData.count})</span>
+            </div>
+            <h3 style={{ fontSize:20,fontWeight:700,marginBottom:4 }}>KR Trades Premium</h3>
+            <div style={{ display:'flex',alignItems:'baseline',gap:4,marginBottom:4 }}>
+              <span style={{ fontSize:24,fontWeight:700 }}>₹1,025</span>
+              <span style={{ color:'#9ca3af',fontSize:14 }}>/ month</span>
+            </div>
+            <a href="/KRtrades/manage" style={{ color:'#3b82f6',fontSize:13,textDecoration:'none' }}>Manage subscription</a>
           </div>
 
           {/* META ROW */}
@@ -467,6 +487,16 @@ export default function KRTradesPage() {
           <div style={{ position:'absolute',bottom:20,color:'#9ca3af',fontSize:14 }}>{lightbox + 1} / {TRADE_RESULTS.length}</div>
         </div>
       )}
+      {/* ═══ MOBILE STICKY BOTTOM CTA ═══ */}
+      <div className="mobile-sticky-cta">
+        <button
+          onClick={handleSubscribe}
+          disabled={paying}
+          style={{ width:'100%',height:48,borderRadius:12,border:'none',background:'#3b5bdb',color:'#fff',fontSize:16,fontWeight:600,cursor:'pointer',opacity:paying?0.6:1 }}
+        >
+          {paying ? 'Processing...' : 'Join now'}
+        </button>
+      </div>
     </>
   )
 }
