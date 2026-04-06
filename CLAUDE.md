@@ -28,14 +28,54 @@
 
 ## Latest Changes
 
-### 2026-04-06 — KR Trades landing page + SEO + bug fixes
-- `src/app/KRtrades/page.tsx` — New premium sales landing page for Nasdaq futures live trading program
-- `src/app/KRtrades/layout.tsx` — SEO metadata (OG, Twitter)
-- `public/index.html` — Title changed to "Koushik Ranjit - Day Trader", enhanced Person schema for GKP, image alt tags optimized, media section updated with 6 real article URLs (APN News, Vocal Media, Interviewer PR, Bhaskar Live, Culture Crossroads, Indie Bharat), removed Wikipedia from marquee, added English book summary, fixed JS querySelector error, fixed broken article links
+### 2026-04-06 — KR Trades full product: Whop-style page, Razorpay, Discord bot, automation
+
+**KR Trades Landing Page (`/KRtrades`):**
+- Whop-style two-column layout: main content + sticky sidebar
+- Hero image slider (4 promo images, manual navigation with arrows/dots)
+- Trade results auto-scrolling marquee (9 screenshots from Discord)
+- 7 real Trustpilot reviews (4.9 rating) + rating summary bars
+- FAQ accordion (5 questions), About creator section, More from KR Trades card
+- Member count auto-updates from Discord server (currently 81)
+
+**Razorpay Payment Integration:**
+- Plan: `plan_SZcXV7asNU7aFI` (₹1,025/month, autopay)
+- Key: `rzp_live_SSL6Wg71WI8B11` (same account as MyTradesBook — NEVER mix plans)
+- APIs: `/api/subscribe` (create), `/api/subscribe/cancel`, `/api/subscribe/lookup` (by email), `/api/subscribe/count`
+- Webhook: `Sa28DVMl34646J` → `koushikranjit.in/api/webhook/razorpay` (secret: krtrades2026)
+- Events: subscription.activated/charged/cancelled/halted/paused/completed + payment.captured
+- Discord username collected via modal before checkout (with guide image)
+
+**Discord Bot Auto-Role System:**
+- Bot: KR Trades Bot (ID: 1490527642921861261)
+- Server: 1363171378659856574 | Premium role: 1363175050835922954 | Free role: 1461003496336916631
+- Payment success → assigns Premium Member role + welcome DM
+- Cancellation → 7-day grace period with DM reminders (Day 0, 3, 5, 7)
+- Day 7 → removes Premium role (Free Members stays always)
+- Reactivation → instant Premium role restore
+- Daily cron at 8 AM UTC checks all subs, sends reminders, removes expired
+
+**Pages Created:**
+- `/KRtrades` — Sales landing page (Whop-style)
+- `/KRtrades/manage` — Cancel subscription by email
+- `/KRtrades/renew` — Quick reactivation page for existing users
+
+**APIs Created:**
+- `/api/subscribe` — Create Razorpay subscription (passes Discord username in notes)
+- `/api/subscribe/cancel` — Cancel subscription at cycle end
+- `/api/subscribe/lookup` — Find subscriptions by email
+- `/api/subscribe/count` — Returns Discord member count + Razorpay purchase count
+- `/api/webhook/razorpay` — Handles Razorpay events → Discord role management + DMs
+- `/api/cron/check-subs` — Daily grace period check + DM reminders
+
+**SEO & Bug Fixes:**
+- `public/index.html` — Title: "Koushik Ranjit - Day Trader", enhanced Person schema for GKP, image alt tags, 6 real media article URLs, removed Wikipedia, English book summary, fixed JS querySelector error
 - `public/sitemap.xml` — Created with / and /meetup
 - `public/robots.txt` — Created with sitemap reference
 - `public/googlef4896d8d5248eda9.html` — Google Search Console verification
-- Site title: "Koushik Ranjit - Day Trader"
+
+**Discord link updated everywhere:** `discord.gg/HySGNbJa3r` (old links deprecated)
+**Work email:** teamkoushikranjit@gmail.com (not contact@koushikranjit.in)
 
 ### 2026-03-26 — Meetup page rebuild, Google Forms, hosts, multi-domain
 - `src/app/meetup/page.tsx` — Complete rebuild: clean landing page with interest form (name, email, phone, location), limited seats messaging, selection-only entry, ticketed event notice, How It Works section, Hosts section with big image cards
@@ -96,7 +136,15 @@
 - [ ] AI Clone — Step 6: Final Assembly
 - [x] Add actual media article URLs (6 real articles linked)
 - [x] SEO: Enhanced Person schema, sitemap, robots.txt, Google Search Console verified
-- [x] KR Trades sales landing page (/KRtrades)
+- [x] KR Trades sales landing page (/KRtrades) — Whop-style design
+- [x] KR Trades Razorpay payment (₹1,025/month autopay)
+- [x] KR Trades Discord bot auto-role (Premium assign/remove)
+- [x] KR Trades 7-day grace period + DM reminders
+- [x] KR Trades manage subscription page (/KRtrades/manage)
+- [x] KR Trades renew page (/KRtrades/renew)
+- [x] KR Trades Razorpay webhook + daily cron
+- [x] Discord link updated everywhere to discord.gg/HySGNbJa3r
+- [x] Trustpilot reviews integrated (7 real reviews)
 - [ ] Consider CDN or image optimization for faster loading (GitHub raw URLs can be slow)
 - [ ] Add Google Analytics or similar tracking
 - [ ] SEO audit and optimization
