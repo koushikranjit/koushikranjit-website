@@ -766,7 +766,7 @@ export default function KRTradesPage() {
       <TopNavHeader />
 
       {/* Desktop: two-column layout | Mobile: single column */}
-      <div className="relative z-[2] max-w-[1200px] mx-auto pt-14 lg:pt-20 lg:px-8 lg:flex lg:gap-8 lg:pb-16 xl:max-w-[1300px]">
+      <div className="relative z-[2] max-w-[1200px] mx-auto pt-14 lg:pt-20 lg:px-8 lg:flex lg:items-start lg:gap-8 lg:pb-16 xl:max-w-[1300px]">
 
         {/* ═══ MAIN CONTENT ═══ */}
         <main className="flex-1 min-w-0 lg:max-w-none">
