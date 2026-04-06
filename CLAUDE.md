@@ -23,10 +23,63 @@
 - Never leave node_modules on disk longer than needed — delete and reinstall fresh
 
 ## Other Rules
-- **Auto-deploy via Git.** Push to `main` triggers Vercel production deploy. No need to run `vercel deploy` manually.
+- **Auto-deploy via Git may break.** Push to `main` should trigger Vercel deploy, but GitHub webhook can silently stop. Always verify with `vercel deploy --prod` if changes don't appear live.
 - **Single-file site.** All CSS and JS are inline in `index.html`. No external CSS/JS files.
+- **Brand color is emerald green** (#059669 / emerald-600) — not blue. All CTAs, links, and accents use green.
+- **KRtrades page uses Tailwind classes** (not inline `<style>` tags). Componentized with framer-motion.
+- **`overflow: hidden` breaks `position: sticky`** — use `overflow: clip` instead. Fixed elements must be outside any `overflow: clip` container.
 
 ## Latest Changes
+
+### 2026-04-06 (Session 2) — KRtrades complete rebuild: mobile-first, liquid glass, green brand
+
+**Complete Page Rebuild (`src/app/KRtrades/page.tsx`):**
+- Rewrote entire page from scratch — 0 inline styles, 100% Tailwind CSS classes
+- 10 separate components: TopNavHeader, HeroCarousel, ProductInfo, SocialProofBar, PageDescription, TradeResultsMarquee, FAQAccordion, ReviewsSection, AboutCreator, RelatedCarousel, StickyBottomCTA, DesktopSidebar, DiscordModal, Lightbox
+- framer-motion animations for FAQ accordion + sticky CTA slide-in
+- IntersectionObserver hides sticky CTA when inline "Join now" is visible
+- Read more/Show less on description + review cards
+
+**Mobile-First Responsive (finally fixed):**
+- Root cause of "not responsive" was Vercel auto-deploy silently stopped — code was pushed to GitHub but never built on Vercel. Fixed by running `vercel deploy --prod` manually.
+- Mobile: single-column layout, full-bleed hero, pricing below slider, sticky bottom CTA
+- Desktop (lg+): two-column Whop-style layout with sticky sidebar
+- `overflow: clip` used instead of `overflow: hidden` (hidden breaks sticky positioning)
+- Fixed elements (header, sticky CTA, modals) placed outside the `overflow: clip` container
+- Layout wrapper in `layout.tsx` uses `overflow-x: clip` to prevent horizontal scroll
+
+**Liquid Glass Aesthetic:**
+- All cards: `bg-white/[0.04]`, `backdrop-blur-xl`, inner light border (`inset_0_1px_0_rgba(255,255,255,0.05)`), deep shadow
+- Glass header + sticky CTA with `backdrop-blur-2xl`
+- Review cards with hover glow effect
+- Glass FAQ accordion, Discord modal, about section
+
+**Brand Color: Blue → Green:**
+- All accents changed from blue (#3b5bdb) to emerald green (#059669)
+- CTA buttons: emerald gradient with green glow shadow
+- Links: emerald-400
+- Razorpay theme color: #059669
+
+**Other Changes:**
+- Removed video from hero carousel — 4 image slides only
+- Active dot indicator becomes pill shape
+- Deleted fake "Market Breakdown Weekly" product card
+- Header content constrained to max-w-[1300px] with mx-auto (Manage button aligns with sidebar)
+- Desktop sidebar sticky fixed: `lg:items-start` on parent flex + `overflow: clip`
+
+**Layout File (`src/app/KRtrades/layout.tsx`):**
+- Added wrapper div with `!block w-screen max-w-full` + `overflow-x: clip`
+- Neutralizes root layout's `flex flex-col` on body
+
+**Files Changed:**
+- `src/app/KRtrades/page.tsx` — Complete rewrite (700+ lines)
+- `src/app/KRtrades/layout.tsx` — Added overflow wrapper
+
+**Deployment Note:**
+- Vercel GitHub auto-deploy webhook stopped working silently after commit `2be4380`
+- All subsequent commits (15+) were NOT deployed despite successful git push
+- Fixed by running `vercel deploy --prod` manually via CLI
+- Always verify live site after push; if not updated, run `vercel deploy --prod`
 
 ### 2026-04-06 — KR Trades full product: Whop-style page, Razorpay, Discord bot, automation
 
@@ -145,6 +198,17 @@
 - [x] KR Trades Razorpay webhook + daily cron
 - [x] Discord link updated everywhere to discord.gg/HySGNbJa3r
 - [x] Trustpilot reviews integrated (7 real reviews)
+- [x] KRtrades page complete rebuild — mobile-first Tailwind components
+- [x] KRtrades mobile responsive — works on all devices (320px–430px+)
+- [x] KRtrades desktop two-column layout with sticky sidebar
+- [x] KRtrades liquid glass aesthetic theme
+- [x] KRtrades brand color changed to emerald green
+- [x] KRtrades video removed from slider — 4 images only
+- [x] KRtrades header fixed with constrained content width
+- [x] KRtrades sticky sidebar fixed (overflow:clip)
+- [x] Vercel deploy issue diagnosed and fixed (manual deploy via CLI)
 - [ ] Consider CDN or image optimization for faster loading (GitHub raw URLs can be slow)
 - [ ] Add Google Analytics or similar tracking
 - [ ] SEO audit and optimization
+- [ ] Discord bot: add `/apply` command for manual Premium role requests
+- [ ] Discord bot: add announcement posting capability
