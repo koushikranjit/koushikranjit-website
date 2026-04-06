@@ -126,8 +126,12 @@ export default function KRTradesPage() {
         .whop-meta-row{display:flex;align-items:center;gap:12px;margin-top:20px;font-size:14px;color:#9ca3af;flex-wrap:wrap}
         .whop-meta-divider{width:1px;height:20px;background:#333}
         .whop-features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:24px}
-        .whop-reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+        .whop-reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
         .whop-rating-summary{display:flex;gap:32px;flex-wrap:wrap;margin-bottom:24px}
+        .whop-rating-bars{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;justify-content:center}
+        .whop-bar-row{display:flex;align-items:center;gap:8px;font-size:13px}
+        .whop-bar-pct{color:#9ca3af;min-width:42px;text-align:right;font-size:11px;white-space:nowrap;flex-shrink:0}
+        .whop-bar-track{flex:1;height:6px;background:#374151;border-radius:3px;overflow:hidden;min-width:0}
         .whop-more-card{display:block;max-width:280px;text-decoration:none;color:#fff}
         .whop-about{display:flex;gap:16px;align-items:center}
         .whop-about-text{flex:1;min-width:0}
@@ -144,13 +148,14 @@ export default function KRTradesPage() {
           .mobile-pricing{display:block;padding:16px 0;margin-bottom:4px}
           .hero-slider-wrap{border-radius:0!important;margin:0 -16px;width:calc(100% + 32px)}
           .whop-features-grid{grid-template-columns:1fr;gap:8px}
-          .whop-reviews-grid{grid-template-columns:1fr;gap:10px}
+          .whop-reviews-grid{grid-template-columns:1fr!important;gap:10px}
           .whop-rating-summary{flex-direction:column;gap:16px}
           .whop-more-card{max-width:100%}
           .whop-meta-divider{display:none}
           .whop-meta-row{gap:6px;font-size:13px}
           .whop-about{flex-direction:column;align-items:flex-start;gap:12px}
           .whop-faq-btn{font-size:14px}
+          .whop-bar-pct{min-width:36px;font-size:10px}
         }
         @media(max-width:480px){
           .whop-page{padding:56px 0 76px}
@@ -320,12 +325,12 @@ export default function KRTradesPage() {
 
           {/* Rating Summary */}
           <div className="whop-card whop-rating-summary">
-            <div style={{ textAlign:'center',minWidth:100 }}>
+            <div style={{ textAlign:'center',flexShrink:0 }}>
               <div style={{ fontSize:'clamp(32px,8vw,56px)',fontWeight:800,lineHeight:1 }}>{reviewData.rating}</div>
               <div style={{ margin:'8px 0' }}><Stars5 /></div>
               <div style={{ color:'#9ca3af',fontSize:13 }}>{reviewData.count} ratings on Trustpilot</div>
             </div>
-            <div style={{ flex:1,minWidth:0,display:'flex',flexDirection:'column',gap:6,justifyContent:'center' }}>
+            <div className="whop-rating-bars">
               {[
                 { star:5, pct:86, count:6, color:'#22c55e' },
                 { star:4, pct:14, count:1, color:'#84cc16' },
@@ -333,13 +338,13 @@ export default function KRTradesPage() {
                 { star:2, pct:0, count:0, color:'#6b7280' },
                 { star:1, pct:0, count:0, color:'#6b7280' },
               ].map(r => (
-                <div key={r.star} style={{ display:'flex',alignItems:'center',gap:8,fontSize:13 }}>
-                  <span style={{ width:12,color:'#9ca3af' }}>{r.star}</span>
+                <div key={r.star} className="whop-bar-row">
+                  <span style={{ width:12,color:'#9ca3af',flexShrink:0 }}>{r.star}</span>
                   <Star />
-                  <div style={{ flex:1,height:6,background:'#374151',borderRadius:3,overflow:'hidden' }}>
+                  <div className="whop-bar-track">
                     <div className="bar-fill" style={{ width:`${Math.max(r.pct, 2)}%`,background:r.color }} />
                   </div>
-                  <span style={{ color:'#9ca3af',minWidth:50,textAlign:'right',fontSize:12,whiteSpace:'nowrap' }}>{r.pct}% ({r.count})</span>
+                  <span className="whop-bar-pct">{r.pct}%</span>
                 </div>
               ))}
             </div>
