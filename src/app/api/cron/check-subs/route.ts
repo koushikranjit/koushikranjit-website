@@ -91,7 +91,6 @@ export async function GET(req: Request) {
         if (daysSinceEnd >= GRACE_PERIOD_DAYS) {
           // Grace period expired — remove Premium, add Free
           await removeDiscordRole(userId, DISCORD_PREMIUM_ROLE_ID)
-          await addDiscordRole(userId, DISCORD_FREE_ROLE_ID)
           await sendDM(userId,
             `❌ **KR Trades Premium Access Removed**\n\n` +
             `Your 7-day grace period has ended and your Premium access has been removed.\n\n` +

@@ -136,7 +136,6 @@ export async function POST(req: Request) {
       case 'subscription.charged':
       case 'payment.captured': {
         await addRole(userId, DISCORD_PREMIUM_ROLE_ID)
-        await removeRole(userId, DISCORD_FREE_ROLE_ID)
         console.log(`✅ Premium role added to ${discordUsername}`)
 
         await sendDM(userId,
@@ -163,7 +162,6 @@ export async function POST(req: Request) {
       // ── SUBSCRIPTION COMPLETED (all cycles done): Remove immediately ──
       case 'subscription.completed': {
         await removeRole(userId, DISCORD_PREMIUM_ROLE_ID)
-        await addRole(userId, DISCORD_FREE_ROLE_ID)
         console.log(`❌ Premium role removed from ${discordUsername} (completed)`)
 
         await sendDM(userId,
