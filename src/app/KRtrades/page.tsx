@@ -69,6 +69,7 @@ export default function KRTradesPage() {
         name: 'KR Trades',
         description: 'Live Futures Trading Room — Monthly',
         theme: { color: '#3b5bdb' },
+        prefill: { email: '', contact: '' },
         handler: () => { window.location.href = 'https://discord.gg/jxuDkpUr5X' },
         modal: { ondismiss: () => setPaying(false) },
       })

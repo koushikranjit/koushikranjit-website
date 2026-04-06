@@ -3,33 +3,55 @@
 import { useState } from 'react'
 
 export default function ManageSubscription() {
-  const [subId, setSubId] = useState('')
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'found' | 'cancelled' | 'error'>('idle')
   const [message, setMessage] = useState('')
+  const [subs, setSubs] = useState<{ id: string; status: string; plan: string; created: string }[]>([])
+  const [cancelling, setCancelling] = useState<string | null>(null)
 
-  const handleCancel = async (e: React.FormEvent) => {
+  const handleLookup = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!subId.trim()) return
+    if (!email.trim()) return
     setStatus('loading')
+    setMessage('')
 
+    try {
+      const res = await fetch(`/api/subscribe/lookup?email=${encodeURIComponent(email.trim())}`)
+      const data = await res.json()
+
+      if (res.ok && data.subscriptions?.length > 0) {
+        setSubs(data.subscriptions)
+        setStatus('found')
+      } else {
+        setStatus('error')
+        setMessage(data.error || 'No active subscriptions found for this email.')
+      }
+    } catch {
+      setStatus('error')
+      setMessage('Something went wrong. Please try again.')
+    }
+  }
+
+  const handleCancel = async (subId: string) => {
+    setCancelling(subId)
     try {
       const res = await fetch('/api/subscribe/cancel', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ subscription_id: subId.trim() }),
+        body: JSON.stringify({ subscription_id: subId }),
       })
       const data = await res.json()
 
       if (res.ok) {
-        setStatus('success')
-        setMessage('Your subscription has been cancelled. You will retain access until the end of your current billing period.')
+        setSubs(prev => prev.map(s => s.id === subId ? { ...s, status: 'cancelled' } : s))
+        setMessage('Subscription cancelled. You retain access until the end of your billing period.')
       } else {
-        setStatus('error')
-        setMessage(data.error || 'Failed to cancel subscription. Please contact support.')
+        setMessage(data.error || 'Failed to cancel. Please contact support.')
       }
     } catch {
-      setStatus('error')
-      setMessage('Something went wrong. Please try again or contact support.')
+      setMessage('Something went wrong.')
+    } finally {
+      setCancelling(null)
     }
   }
 
@@ -53,64 +75,76 @@ export default function ManageSubscription() {
       <div className="relative z-10 max-w-lg mx-auto px-4 sm:px-6 py-20">
         <div className="text-center mb-10">
           <h1 className="text-3xl font-bold mb-3">Manage Subscription</h1>
-          <p className="text-neutral-400">Cancel your KR Trades subscription below.</p>
+          <p className="text-neutral-400">Enter your email to find and manage your KR Trades subscription.</p>
         </div>
 
-        {status === 'success' ? (
-          <div className="p-8 rounded-2xl border border-[#00e87b]/20 bg-[#00e87b]/[0.03] text-center">
-            <div className="w-16 h-16 rounded-full bg-[#00e87b]/20 flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-[#00e87b]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+        {/* Lookup Form */}
+        <div className="p-8 rounded-2xl border border-white/10 bg-white/[0.02]">
+          <form onSubmit={handleLookup} className="space-y-4">
+            <div>
+              <label htmlFor="email" className="block text-neutral-300 text-sm font-medium mb-2">Email Address</label>
+              <input
+                id="email"
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full bg-black/50 border border-white/10 text-white placeholder:text-neutral-600 rounded-xl h-12 px-4 text-sm outline-none focus:border-[#00e87b]/50 focus:ring-1 focus:ring-[#00e87b]/20 transition-colors"
+              />
             </div>
-            <p className="text-white font-medium text-lg">Subscription Cancelled</p>
-            <p className="text-neutral-400 text-sm mt-2">{message}</p>
-            <a href="/KRtrades" className="inline-block mt-6 px-6 py-3 rounded-xl border border-white/10 text-sm text-white hover:border-[#00e87b]/40 transition-all cursor-pointer">
-              Back to KR Trades
-            </a>
-          </div>
-        ) : (
-          <div className="p-8 rounded-2xl border border-white/10 bg-white/[0.02]">
-            <form onSubmit={handleCancel} className="space-y-6">
-              <div>
-                <label htmlFor="subId" className="block text-neutral-300 text-sm font-medium mb-2">
-                  Subscription ID
-                </label>
-                <input
-                  id="subId"
-                  type="text"
-                  placeholder="sub_XXXXXXXXXXXXXXX"
-                  value={subId}
-                  onChange={(e) => setSubId(e.target.value)}
-                  required
-                  className="w-full bg-black/50 border border-white/10 text-white placeholder:text-neutral-600 rounded-xl h-12 px-4 text-sm outline-none focus:border-[#00e87b]/50 focus:ring-1 focus:ring-[#00e87b]/20 transition-colors"
-                />
-                <p className="text-neutral-600 text-xs mt-2">
-                  Find your Subscription ID in the payment confirmation email from Razorpay.
-                </p>
-              </div>
+            <button
+              type="submit"
+              disabled={status === 'loading'}
+              className="w-full py-3.5 rounded-xl bg-[#3b5bdb] text-white font-semibold hover:bg-[#2f4fc4] transition-all cursor-pointer disabled:opacity-60"
+            >
+              {status === 'loading' ? 'Searching...' : 'Find My Subscription'}
+            </button>
+          </form>
 
-              {status === 'error' && (
-                <div className="p-4 rounded-xl border border-red-500/20 bg-red-500/5">
-                  <p className="text-red-400 text-sm">{message}</p>
+          {/* Results */}
+          {status === 'found' && subs.length > 0 && (
+            <div className="mt-8 space-y-4">
+              <h3 className="text-white font-semibold">Your Subscriptions</h3>
+              {subs.map(sub => (
+                <div key={sub.id} className="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-white font-medium text-sm">KR Trades Premium</span>
+                    <span className={`text-xs px-2 py-1 rounded-full ${sub.status === 'active' ? 'bg-[#00e87b]/10 text-[#00e87b]' : sub.status === 'cancelled' ? 'bg-red-500/10 text-red-400' : 'bg-yellow-500/10 text-yellow-400'}`}>
+                      {sub.status}
+                    </span>
+                  </div>
+                  <div className="text-neutral-500 text-xs mb-3">
+                    ID: {sub.id} · Created: {sub.created}
+                  </div>
+                  {sub.status === 'active' && (
+                    <button
+                      onClick={() => handleCancel(sub.id)}
+                      disabled={cancelling === sub.id}
+                      className="w-full py-2.5 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-medium hover:bg-red-500/20 transition-all cursor-pointer disabled:opacity-50"
+                    >
+                      {cancelling === sub.id ? 'Cancelling...' : 'Cancel Subscription'}
+                    </button>
+                  )}
+                  {sub.status === 'cancelled' && (
+                    <p className="text-neutral-500 text-xs">Access until end of billing period.</p>
+                  )}
                 </div>
-              )}
+              ))}
+            </div>
+          )}
 
-              <button
-                type="submit"
-                disabled={status === 'loading' || !subId.trim()}
-                className="w-full py-3.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 font-semibold hover:bg-red-500/20 transition-all cursor-pointer disabled:opacity-50"
-              >
-                {status === 'loading' ? 'Cancelling...' : 'Cancel Subscription'}
-              </button>
+          {/* Error / Message */}
+          {message && (
+            <div className={`mt-6 p-4 rounded-xl border text-sm ${status === 'error' ? 'border-red-500/20 bg-red-500/5 text-red-400' : 'border-[#00e87b]/20 bg-[#00e87b]/5 text-[#00e87b]'}`}>
+              {message}
+            </div>
+          )}
+        </div>
 
-              <p className="text-neutral-600 text-xs text-center">
-                Need help? Contact{' '}
-                <a href="https://discord.gg/jxuDkpUr5X" target="_blank" rel="noopener noreferrer" className="text-[#00e87b] hover:underline">
-                  Discord Support
-                </a>
-              </p>
-            </form>
-          </div>
-        )}
+        <p className="text-center text-neutral-600 text-xs mt-6">
+          Need help? Contact <a href="mailto:contact@koushikranjit.in" className="text-[#00e87b] hover:underline">contact@koushikranjit.in</a> or <a href="https://discord.gg/jxuDkpUr5X" target="_blank" rel="noopener noreferrer" className="text-[#00e87b] hover:underline">Discord</a>
+        </p>
       </div>
     </main>
   )
