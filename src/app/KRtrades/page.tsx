@@ -85,7 +85,7 @@ const UnmuteIcon = () => (
 // ─── 1. TopNavHeader ────────────────────────────────────────────────────────
 function TopNavHeader() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-14 flex items-center px-3 border-b border-white/10 bg-[#141414]/95 backdrop-blur-xl">
+    <header className="fixed top-0 left-0 z-50 h-14 flex items-center px-3 border-b border-white/10 bg-[#141414]/95 backdrop-blur-xl" style={{ width: '100vw', maxWidth: '100vw' }}>
       <a
         href="https://koushikranjit.in"
         className="w-10 h-10 flex items-center justify-center rounded-full text-white shrink-0"
@@ -143,7 +143,7 @@ function HeroCarousel({ activeSlide, setActiveSlide }: { activeSlide: number; se
 
   return (
     <div className="w-full">
-      <div className="relative w-full aspect-video bg-black overflow-hidden">
+      <div className="relative w-full bg-black overflow-hidden" style={{ aspectRatio: '16/9', maxWidth: '100vw' }}>
         {/* Video (slide 0) */}
         {activeSlide === 0 && (
           <div className="absolute inset-0">
@@ -347,8 +347,8 @@ function TradeResultsMarquee({ onImageClick }: { onImageClick: (i: number) => vo
   return (
     <section className="py-5 overflow-hidden" role="region" aria-label="Trade results">
       <h2 className="text-lg font-bold px-4 mb-3">Real Trade Results</h2>
-      <div className="overflow-hidden w-full">
-        <div className="flex gap-2.5 animate-marquee hover:[animation-play-state:paused] w-max">
+      <div style={{ overflow: 'hidden', width: '100%', maxWidth: '100vw' }}>
+        <div className="flex gap-2.5 animate-marquee hover:[animation-play-state:paused]" style={{ width: 'max-content' }}>
           {[...TRADE_RESULTS, ...TRADE_RESULTS].map((img, i) => (
             <button
               key={i}
@@ -493,7 +493,7 @@ function RelatedCarousel({ rating, memberCount }: { rating: number; memberCount:
   return (
     <section className="py-5" role="region" aria-label="More from creator">
       <h2 className="text-lg font-bold px-4 mb-3">More from KR Trades</h2>
-      <div className="flex gap-3 overflow-x-auto px-4 pb-2 scrollbar-hide">
+      <div className="flex gap-3 px-4 pb-2 scrollbar-hide" style={{ overflowX: 'auto', maxWidth: '100vw' }}>
         {RELATED.map((item, i) => (
           <a
             key={i}
@@ -565,7 +565,8 @@ function StickyBottomCTA({ visible, paying, onSubscribe }: { visible: boolean; p
           animate={{ y: 0 }}
           exit={{ y: 100 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="fixed bottom-0 left-0 right-0 z-50 pb-[env(safe-area-inset-bottom)] bg-[#0f0f0f]/90 backdrop-blur-xl border-t border-white/10 shadow-[0_-4px_20px_rgba(0,0,0,0.5)]"
+          className="fixed bottom-0 left-0 z-50 pb-[env(safe-area-inset-bottom)] bg-[#0f0f0f]/90 backdrop-blur-xl border-t border-white/10 shadow-[0_-4px_20px_rgba(0,0,0,0.5)]"
+          style={{ width: '100vw', maxWidth: '100vw' }}
         >
           <div className="px-4 py-3">
             <button
@@ -752,12 +753,14 @@ export default function KRTradesPage() {
   if (!mounted) return null
 
   return (
-    <div className="w-full max-w-[430px] mx-auto bg-[#0f0f0f] min-h-screen overflow-x-hidden text-white">
+    <div className="kr-trades-page relative w-full bg-[#0f0f0f] min-h-screen text-white" style={{ maxWidth: '100vw', overflowX: 'hidden' }}>
       <style>{`
         @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
         .animate-marquee{animation:marquee 25s linear infinite}
         .scrollbar-hide::-webkit-scrollbar{display:none}
         .scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}
+        .kr-trades-page *{box-sizing:border-box;max-width:100%}
+        .kr-trades-page img,.kr-trades-page video{max-width:100%;height:auto}
       `}</style>
 
       <TopNavHeader />
