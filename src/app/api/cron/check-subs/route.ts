@@ -95,7 +95,7 @@ export async function GET(req: Request) {
             `❌ **KR Trades Premium Access Removed**\n\n` +
             `Your 7-day grace period has ended and your Premium access has been removed.\n\n` +
             `You've been moved to Free Members. To rejoin:\n` +
-            `🔗 https://koushikranjit.in/KRtrades\n\n` +
+            `🔗 https://koushikranjit.in/KRtrades/renew\n\n` +
             `We'd love to have you back! 🙏`
           )
           removed++
@@ -105,7 +105,7 @@ export async function GET(req: Request) {
           await sendDM(userId,
             `⏰ **Reminder: KR Trades Premium expires in 2 days**\n\n` +
             `Your subscription is inactive. Reactivate now to keep Premium access.\n\n` +
-            `🔗 https://koushikranjit.in/KRtrades\n` +
+            `🔗 https://koushikranjit.in/KRtrades/renew\n` +
             `📧 Questions? teamkoushikranjit@gmail.com`
           )
           reminded++
@@ -114,7 +114,7 @@ export async function GET(req: Request) {
           await sendDM(userId,
             `⚠️ **KR Trades Premium — 4 days remaining**\n\n` +
             `Your subscription hasn't been renewed. You have 4 days before your Premium access is removed.\n\n` +
-            `🔗 Reactivate: https://koushikranjit.in/KRtrades`
+            `🔗 Reactivate: https://koushikranjit.in/KRtrades/renew`
           )
           reminded++
         }

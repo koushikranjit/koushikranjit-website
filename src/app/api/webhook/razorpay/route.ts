@@ -84,7 +84,7 @@ async function scheduleRoleRemoval(userId: string, discordUsername: string, subs
   await sendDM(userId,
     `⚠️ **KR Trades Premium — Subscription Update**\n\n` +
     `Your subscription has been paused/cancelled. You have **${GRACE_PERIOD_DAYS} days** to reactivate before losing Premium access.\n\n` +
-    `🔗 Reactivate: https://koushikranjit.in/KRtrades\n` +
+    `🔗 Reactivate: https://koushikranjit.in/KRtrades/renew\n` +
     `📧 Need help? Contact teamkoushikranjit@gmail.com`
   )
 
@@ -167,7 +167,7 @@ export async function POST(req: Request) {
         await sendDM(userId,
           `Your KR Trades Premium subscription has ended.\n\n` +
           `You've been moved to Free Members. To rejoin Premium:\n` +
-          `🔗 https://koushikranjit.in/KRtrades\n\n` +
+          `🔗 https://koushikranjit.in/KRtrades/renew\n\n` +
           `Thank you for being a member! 🙏`
         )
 
