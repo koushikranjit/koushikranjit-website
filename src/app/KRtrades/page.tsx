@@ -102,73 +102,79 @@ export default function KRTradesPage() {
   return (
     <>
       <style>{`
-        *{margin:0;padding:0;box-sizing:border-box}
-        html,body{overflow-x:hidden;width:100%;max-width:100vw}
-        body{background:#0d0d0d;color:#fff;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased}
-        .kr-page-wrap{overflow-x:hidden;width:100%;position:relative}
+        .kr-page-wrap,.kr-page-wrap *{box-sizing:border-box;margin:0;padding:0}
+        .kr-page-wrap{overflow-x:hidden;width:100%;max-width:100vw;position:relative;background:#0d0d0d;color:#fff;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased}
+        .kr-page-wrap img,.kr-page-wrap video,.kr-page-wrap svg{max-width:100%;display:block}
+        .bg-video{position:fixed;top:0;left:0;width:100vw;height:100vh;object-fit:cover;z-index:0;opacity:0.35;pointer-events:none}
+        .bg-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(180deg,rgba(13,13,13,0.3) 0%,rgba(13,13,13,0.7) 50%,rgba(13,13,13,0.95) 100%);z-index:1;pointer-events:none}
+        .kr-header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(20,20,20,0.9);backdrop-filter:blur(12px);border-bottom:1px solid #222;height:56px;display:flex;align-items:center;padding:0 14px}
+        .kr-header-inner{max-width:1200px;margin:0 auto;width:100%;display:flex;align-items:center;gap:8px}
         .whop-page{max-width:1200px;margin:0 auto;padding:80px 24px 60px;display:flex;gap:32px;position:relative;z-index:2}
-        .whop-main{flex:1;min-width:0;overflow:hidden}
+        .whop-main{flex:1;min-width:0;max-width:100%;overflow:hidden;word-wrap:break-word;overflow-wrap:break-word}
         .whop-sidebar{width:380px;flex-shrink:0;position:sticky;top:80px;align-self:flex-start}
-        .whop-card{background:#1a1a1a;border-radius:16px;padding:24px;overflow:hidden}
-        .whop-card-sm{background:#1c1c1c;border-radius:12px;padding:20px;overflow:hidden}
+        .whop-card{background:#1a1a1a;border-radius:16px;padding:24px;max-width:100%;overflow:hidden}
+        .whop-card-sm{background:#1c1c1c;border-radius:12px;padding:20px;max-width:100%;overflow:hidden}
         .accordion-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
         .accordion-body.open{max-height:200px}
         .slide-fade{transition:opacity .5s ease}
         .bar-fill{height:6px;border-radius:3px;transition:width .6s ease}
-        .marquee-wrap{overflow:hidden;width:100%;max-width:100%}
+        .marquee-wrap{overflow:hidden;width:100%}
         .marquee-track{display:flex;gap:12px;animation:marquee 25s linear infinite;width:max-content}
         .marquee-track:hover{animation-play-state:paused}
         @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-        .bg-video{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.35;pointer-events:none}
-        .bg-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(13,13,13,0.3) 0%,rgba(13,13,13,0.7) 50%,rgba(13,13,13,0.95) 100%);z-index:1;pointer-events:none}
         .mobile-sticky-cta{display:none}
         .mobile-pricing{display:none}
         .whop-meta-row{display:flex;align-items:center;gap:12px;margin-top:20px;font-size:14px;color:#9ca3af;flex-wrap:wrap}
         .whop-meta-divider{width:1px;height:20px;background:#333}
         .whop-features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:24px}
         .whop-reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-        .whop-rating-summary{display:flex;gap:32px;flex-wrap:wrap;margin-bottom:24px}
-        .whop-rating-bars{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;justify-content:center}
-        .whop-bar-row{display:flex;align-items:center;gap:8px;font-size:13px}
-        .whop-bar-pct{color:#9ca3af;min-width:42px;text-align:right;font-size:11px;white-space:nowrap;flex-shrink:0}
+        .whop-rating-summary{display:flex;gap:32px;margin-bottom:24px}
+        .whop-rating-bars{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;justify-content:center;max-width:100%;overflow:hidden}
+        .whop-bar-row{display:flex;align-items:center;gap:6px;font-size:13px}
+        .whop-bar-pct{color:#9ca3af;width:36px;text-align:right;font-size:11px;white-space:nowrap;flex-shrink:0}
         .whop-bar-track{flex:1;height:6px;background:#374151;border-radius:3px;overflow:hidden;min-width:0}
         .whop-more-card{display:block;max-width:280px;text-decoration:none;color:#fff}
-        .whop-about{display:flex;gap:16px;align-items:center}
-        .whop-about-text{flex:1;min-width:0}
+        .whop-about{display:flex;gap:16px;align-items:center;max-width:100%}
+        .whop-about-text{flex:1;min-width:0;max-width:100%;overflow:hidden}
         .whop-about-links{display:flex;gap:12px;margin-top:10px;flex-wrap:wrap}
         .whop-faq-btn{width:100%;display:flex;justify-content:space-between;align-items:center;background:none;border:none;color:#fff;cursor:pointer;font-size:15px;font-weight:500;padding:0;text-align:left}
-        .whop-faq-q{padding-right:16px;word-break:break-word}
+        .whop-faq-q{flex:1;min-width:0;padding-right:12px;word-break:break-word}
+        .whop-section-title{font-weight:700;margin-bottom:14px}
+        .whop-hero{overflow:hidden;background:#111;position:relative;aspect-ratio:16/9;border-radius:12px}
+        .whop-hero img{width:100%;height:100%;object-fit:cover}
+
+        /* ===== MOBILE: 900px and below ===== */
         @media(max-width:900px){
-          .whop-page{flex-direction:column;padding:56px 0 80px;gap:0}
-          .whop-main{padding:0 16px}
-          .whop-sidebar{display:none}
-          .whop-card{padding:16px;border-radius:12px}
-          .whop-card-sm{padding:14px;border-radius:10px}
-          .mobile-sticky-cta{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:60;padding:12px 16px;background:rgba(13,13,13,0.97);backdrop-filter:blur(12px);border-top:1px solid #222}
-          .mobile-pricing{display:block;padding:16px 0;margin-bottom:4px}
-          .hero-slider-wrap{border-radius:0!important;margin:0 -16px;width:calc(100% + 32px)}
-          .whop-features-grid{grid-template-columns:1fr;gap:8px}
-          .whop-reviews-grid{grid-template-columns:1fr!important;gap:10px}
-          .whop-rating-summary{flex-direction:column;gap:16px}
-          .whop-more-card{max-width:100%}
-          .whop-meta-divider{display:none}
+          .whop-page{display:block!important;padding:56px 0 80px!important}
+          .whop-main{display:block!important;padding:0 16px!important;width:100%!important;max-width:100vw!important}
+          .whop-sidebar{display:none!important}
+          .whop-card{padding:14px;border-radius:12px}
+          .whop-card-sm{padding:12px;border-radius:10px}
+          .mobile-sticky-cta{display:flex!important;position:fixed;bottom:0;left:0;right:0;z-index:60;padding:12px 16px;background:rgba(13,13,13,0.97);backdrop-filter:blur(12px);border-top:1px solid #222}
+          .mobile-pricing{display:block!important;padding:16px 0;margin-bottom:4px}
+          .whop-hero{border-radius:0!important;margin-left:-16px!important;margin-right:-16px!important;width:calc(100% + 32px)!important}
+          .whop-features-grid{display:flex!important;flex-direction:column!important;gap:8px!important}
+          .whop-reviews-grid{display:flex!important;flex-direction:column!important;gap:10px!important}
+          .whop-rating-summary{display:flex!important;flex-direction:column!important;gap:16px!important;align-items:center!important}
+          .whop-rating-bars{width:100%!important}
+          .whop-more-card{max-width:100%!important;width:100%!important}
+          .whop-meta-divider{display:none!important}
           .whop-meta-row{gap:6px;font-size:13px}
-          .whop-about{flex-direction:column;align-items:flex-start;gap:12px}
+          .whop-about{flex-direction:column!important;align-items:flex-start!important;gap:12px!important}
+          .whop-about-text{width:100%!important}
           .whop-faq-btn{font-size:14px}
-          .whop-bar-pct{min-width:36px;font-size:10px}
+          .whop-bar-row{gap:4px}
+          .whop-bar-pct{width:30px;font-size:10px}
         }
+        /* ===== SMALL PHONE: 480px and below ===== */
         @media(max-width:480px){
-          .whop-page{padding:56px 0 76px}
-          .whop-main{padding:0 12px}
+          .whop-page{padding:56px 0 76px!important}
+          .whop-main{padding:0 12px!important}
           .whop-card{padding:12px}
           .whop-card-sm{padding:10px}
-          .hero-slider-wrap{margin:0 -12px;width:calc(100% + 24px)}
+          .whop-hero{margin-left:-12px!important;margin-right:-12px!important;width:calc(100% + 24px)!important}
           .mobile-sticky-cta{padding:10px 12px}
           .marquee-track{gap:8px}
-        }
-        @media(max-width:360px){
-          .whop-main{padding:0 10px}
-          .hero-slider-wrap{margin:0 -10px;width:calc(100% + 20px)}
         }
       `}</style>
 
@@ -180,8 +186,8 @@ export default function KRTradesPage() {
       <div className="bg-overlay" />
 
       {/* ═══ HEADER ═══ */}
-      <header style={{ position:'fixed',top:0,left:0,right:0,zIndex:50,background:'rgba(20,20,20,0.9)',backdropFilter:'blur(12px)',borderBottom:'1px solid #222',height:56,display:'flex',alignItems:'center',padding:'0 14px',overflow:'hidden' }}>
-        <div style={{ maxWidth:1200,margin:'0 auto',width:'100%',display:'flex',alignItems:'center',gap:8 }}>
+      <header className="kr-header">
+        <div className="kr-header-inner">
           <a href="https://koushikranjit.in" style={{ width:30,height:30,borderRadius:'50%',background:'#222',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',textDecoration:'none',fontSize:13,flexShrink:0 }}>←</a>
           <div style={{ width:34,height:34,borderRadius:'50%',background:'linear-gradient(135deg,#00e87b,#0a5c3a)',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:800,fontSize:10,color:'#fff',letterSpacing:'-0.5px',flexShrink:0 }}>KR</div>
           <span style={{ fontWeight:600,fontSize:16 }}>KR Trades</span>
@@ -197,12 +203,11 @@ export default function KRTradesPage() {
         <div className="whop-main">
 
           {/* HERO SLIDER */}
-          <div className="hero-slider-wrap" style={{ borderRadius:12,overflow:'hidden',background:'#111',position:'relative',aspectRatio:'16/9' }}>
+          <div className="whop-hero">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={SLIDER_IMAGES[activeSlide]}
               alt={`KR Trades ${activeSlide + 1}`}
-              style={{ width:'100%',height:'100%',objectFit:'cover' }}
               className="slide-fade"
             />
             {/* Left Arrow */}
@@ -293,7 +298,7 @@ export default function KRTradesPage() {
           <div className="marquee-wrap">
             <div className="marquee-track">
               {[...TRADE_RESULTS, ...TRADE_RESULTS].map((img, i) => (
-                <button key={i} onClick={() => setLightbox(i % TRADE_RESULTS.length)} className="marquee-item" style={{ flexShrink:0,width:'clamp(220px, 40vw, 300px)',borderRadius:12,overflow:'hidden',border:'1px solid #222',cursor:'pointer',background:'none',padding:0 }}>
+                <button key={i} onClick={() => setLightbox(i % TRADE_RESULTS.length)} style={{ flexShrink:0,width:240,borderRadius:12,overflow:'hidden',border:'1px solid #222',cursor:'pointer',background:'none',padding:0 }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={img} alt={`Trade ${(i % TRADE_RESULTS.length) + 1}`} style={{ width:'100%',aspectRatio:'16/9',objectFit:'cover',display:'block' }} loading="lazy" />
                 </button>
@@ -354,15 +359,15 @@ export default function KRTradesPage() {
           <div className="whop-reviews-grid">
             {REVIEWS.map((rev, i) => (
               <div key={i} className="whop-card-sm">
-                <div style={{ display:'flex',alignItems:'center',gap:10,marginBottom:8,overflow:'hidden' }}>
-                  <div style={{ width:36,height:36,borderRadius:'50%',background:`hsl(${i*50+120},45%,32%)`,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700,fontSize:13,flexShrink:0 }}>{rev.name[0]}</div>
-                  <div style={{ flex:1,minWidth:0 }}>
-                    <div style={{ fontWeight:600,fontSize:14,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap' }}>{rev.name}</div>
+                <div style={{ display:'flex',alignItems:'center',gap:8,marginBottom:8 }}>
+                  <div style={{ width:32,height:32,borderRadius:'50%',background:`hsl(${i*50+120},45%,32%)`,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700,fontSize:12,flexShrink:0 }}>{rev.name[0]}</div>
+                  <div style={{ overflow:'hidden',flex:1,minWidth:0 }}>
+                    <div style={{ fontWeight:600,fontSize:13,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap' }}>{rev.name}</div>
+                    <div style={{ color:'#6b7280',fontSize:11 }}>{rev.time}</div>
                   </div>
-                  <span style={{ color:'#6b7280',fontSize:11,whiteSpace:'nowrap',flexShrink:0 }}>{rev.time}</span>
                 </div>
-                <div style={{ marginBottom:8,display:'flex',gap:2 }}>{Array(rev.stars).fill(0).map((_, j) => <Star key={j} />)}{Array(5 - rev.stars).fill(0).map((_, j) => <span key={j} style={{ color:'#374151' }}>★</span>)}</div>
-                <p style={{ fontSize:14,color:'#d0d0d0',lineHeight:1.5 }}>{rev.text}</p>
+                <div style={{ marginBottom:6 }}>{Array(rev.stars).fill(0).map((_, j) => <span key={j} style={{ color:'#fbbf24',fontSize:13 }}>★</span>)}{Array(5 - rev.stars).fill(0).map((_, j) => <span key={j} style={{ color:'#374151',fontSize:13 }}>★</span>)}</div>
+                <p style={{ fontSize:13,color:'#d0d0d0',lineHeight:1.5 }}>{rev.text}</p>
               </div>
             ))}
           </div>
@@ -371,7 +376,7 @@ export default function KRTradesPage() {
           <h2 style={{ fontSize:'clamp(18px,4.5vw,22px)',fontWeight:700,marginTop:'clamp(28px,6vw,48px)',marginBottom:14 }}>About the creator</h2>
           <div className="whop-card whop-about">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="https://github.com/koushikranjit/KR-Website/blob/847c7b2/koushik-host3.png?raw=true" alt="Koushik Ranjit" style={{ width:56,height:56,borderRadius:'50%',objectFit:'cover',objectPosition:'top',flexShrink:0 }} />
+            <img src="https://github.com/koushikranjit/KR-Website/blob/847c7b2/koushik-host3.png?raw=true" alt="Koushik Ranjit" style={{ width:48,height:48,borderRadius:'50%',objectFit:'cover',objectPosition:'top',flexShrink:0 }} />
             <div className="whop-about-text">
               <div style={{ fontWeight:700,fontSize:16 }}>Koushik Ranjit</div>
               <p style={{ color:'#9ca3af',fontSize:14,marginTop:4,lineHeight:1.5 }}>
@@ -393,18 +398,16 @@ export default function KRTradesPage() {
               <div style={{ background:'linear-gradient(135deg,#0a2e1a,#111)',aspectRatio:'16/9',display:'flex',alignItems:'center',justifyContent:'center' }}>
                 <span style={{ fontWeight:800,fontSize:18,color:'#00e87b',letterSpacing:1 }}>KR TRADES FREE</span>
               </div>
-              <div style={{ padding:16 }}>
-                <div style={{ display:'flex',alignItems:'center',gap:8,marginBottom:6 }}>
-                  <div style={{ width:20,height:20,borderRadius:'50%',background:'#00e87b',display:'flex',alignItems:'center',justifyContent:'center',fontSize:8,fontWeight:800,color:'#000' }}>KR</div>
-                  <span style={{ fontWeight:600,fontSize:14 }}>KR Trades Free Access</span>
+              <div style={{ padding:12 }}>
+                <div style={{ display:'flex',alignItems:'center',gap:6,marginBottom:4 }}>
+                  <div style={{ width:18,height:18,borderRadius:'50%',background:'#00e87b',display:'flex',alignItems:'center',justifyContent:'center',fontSize:7,fontWeight:800,color:'#000',flexShrink:0 }}>KR</div>
+                  <span style={{ fontWeight:600,fontSize:13 }}>KR Trades Free Access</span>
                 </div>
-                <p style={{ color:'#9ca3af',fontSize:12,marginBottom:8 }}>Join the free Discord community for market discussions</p>
-                <div style={{ display:'flex',alignItems:'center',gap:8,flexWrap:'wrap' }}>
-                  <span style={{ color:'#3b82f6',fontWeight:600,fontSize:14 }}>Free</span>
-                  <span style={{ color:'#fbbf24' }}>★★★★★</span>
-                  <span style={{ color:'#9ca3af',fontSize:13 }}>{reviewData.rating}</span>
-                  <span style={{ color:'#555',fontSize:12 }}>·</span>
-                  <span style={{ color:'#9ca3af',fontSize:12 }}>{discordCount} members</span>
+                <p style={{ color:'#9ca3af',fontSize:12,marginBottom:6 }}>Join the free Discord community</p>
+                <div style={{ display:'flex',alignItems:'center',gap:6,flexWrap:'wrap' }}>
+                  <span style={{ color:'#3b82f6',fontWeight:600,fontSize:13 }}>Free</span>
+                  <span style={{ color:'#fbbf24',fontSize:12 }}>★★★★★</span>
+                  <span style={{ color:'#9ca3af',fontSize:12 }}>{reviewData.rating}</span>
                 </div>
               </div>
             </div>
