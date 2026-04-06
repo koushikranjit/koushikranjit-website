@@ -122,20 +122,39 @@ export default function KRTradesPage() {
         .mobile-sticky-cta{display:none}
         .desktop-sidebar-hide{display:block}
         .mobile-pricing{display:none}
+        .whop-meta-row{display:flex;align-items:center;gap:12px;margin-top:20px;font-size:14px;color:#9ca3af;flex-wrap:wrap}
+        .whop-meta-divider{width:1px;height:20px;background:#333}
+        .whop-features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:24px}
+        .whop-reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+        .whop-rating-summary{display:flex;gap:32px;flex-wrap:wrap;margin-bottom:24px}
+        .whop-more-card{display:block;max-width:280px;text-decoration:none;color:#fff}
         @media(max-width:900px){
-          .whop-page{flex-direction:column;padding:60px 0 80px;gap:0}
-          .whop-main{padding:0 14px}
+          .whop-page{flex-direction:column;padding:56px 0 80px;gap:0}
+          .whop-main{padding:0 16px}
           .whop-sidebar{display:none}
-          .whop-card{padding:16px}
-          .whop-card-sm{padding:14px}
-          .mobile-sticky-cta{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:60;padding:12px 14px;background:rgba(13,13,13,0.95);backdrop-filter:blur(12px);border-top:1px solid #222}
-          .mobile-pricing{display:block;padding:16px 14px;margin-bottom:12px}
-          .hero-slider-wrap{border-radius:0!important;margin:0 -14px;width:calc(100% + 28px)}
+          .whop-card{padding:16px;border-radius:12px}
+          .whop-card-sm{padding:14px;border-radius:10px}
+          .mobile-sticky-cta{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:60;padding:12px 16px;background:rgba(13,13,13,0.97);backdrop-filter:blur(12px);border-top:1px solid #222}
+          .mobile-pricing{display:block;padding:16px 0;margin-bottom:4px}
+          .hero-slider-wrap{border-radius:0!important;margin:0 -16px;width:calc(100% + 32px)}
+          .whop-features-grid{grid-template-columns:1fr;gap:8px}
+          .whop-reviews-grid{grid-template-columns:1fr;gap:10px}
+          .whop-rating-summary{flex-direction:column;gap:20px}
+          .whop-more-card{max-width:100%}
+          .whop-meta-divider{display:none}
+          .whop-meta-row{gap:8px}
         }
         @media(max-width:480px){
+          .whop-page{padding:56px 0 76px}
+          .whop-main{padding:0 12px}
+          .whop-card{padding:12px}
+          .whop-card-sm{padding:10px}
+          .hero-slider-wrap{margin:0 -12px;width:calc(100% + 24px)}
+          .mobile-sticky-cta{padding:10px 12px}
+          .marquee-track{gap:8px}
+        }
+        @media(max-width:360px){
           .whop-main{padding:0 10px}
-          .whop-card{padding:14px}
-          .whop-card-sm{padding:12px}
           .hero-slider-wrap{margin:0 -10px;width:calc(100% + 20px)}
         }
       `}</style>
@@ -210,17 +229,17 @@ export default function KRTradesPage() {
           </div>
 
           {/* META ROW */}
-          <div style={{ display:'flex',alignItems:'center',gap:12,marginTop:20,fontSize:14,color:'#9ca3af',flexWrap:'wrap' }}>
+          <div className="whop-meta-row">
             <span style={{ display:'flex',alignItems:'center',gap:6 }}>
               <svg width="16" height="16" fill="#9ca3af" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
               <span style={{ color:'#fff' }}>{discordCount} members</span>
             </span>
-            <div style={{ width:1,height:20,background:'#333' }} />
+            <div className="whop-meta-divider" />
             <span style={{ display:'flex',alignItems:'center',gap:6 }}>
               <div style={{ width:20,height:20,borderRadius:'50%',background:'#00e87b',display:'flex',alignItems:'center',justifyContent:'center',fontSize:8,fontWeight:800,color:'#000' }}>KR</div>
               <span style={{ color:'#fff' }}>By Koushik Ranjit</span>
             </span>
-            <div style={{ width:1,height:20,background:'#333' }} />
+            <div className="whop-meta-divider" />
             {/* Social Links */}
             <div style={{ display:'flex',gap:10,alignItems:'center' }}>
               <a href="https://www.instagram.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" title="Instagram" style={{ color:'#9ca3af',display:'flex' }}>
@@ -236,17 +255,17 @@ export default function KRTradesPage() {
           </div>
 
           {/* HEADING */}
-          <h1 style={{ fontSize:'clamp(28px,4vw,40px)',fontWeight:700,marginTop:24,lineHeight:1.2 }}>
+          <h1 style={{ fontSize:'clamp(22px,5vw,40px)',fontWeight:700,marginTop:20,lineHeight:1.25 }}>
             Live Futures Trading Room — Learn To Trade NQ With Discipline
           </h1>
 
           {/* DESCRIPTION */}
-          <p style={{ fontSize:16,color:'#d0d0d0',lineHeight:1.7,marginTop:16 }}>
+          <p style={{ fontSize:'clamp(14px,3.5vw,16px)',color:'#d0d0d0',lineHeight:1.7,marginTop:14 }}>
             Join KR Trades and trade alongside a professional Nasdaq futures trader. Get daily live trading sessions, the Premium Starter Course (Bengali), real-time trade guidance, exclusive IFVG model strategies, weekly market breakdowns, and direct mentor access — all with full transparency.
           </p>
 
           {/* WHAT'S INCLUDED */}
-          <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))',gap:10,marginTop:24 }}>
+          <div className="whop-features-grid">
             {['Daily Live Trading (Mon–Fri)','Premium Starter Course','Weekly Market Breakdown + Q&A','Risk & Mindset Guidance','Trade Recaps — Full P&L','Private Discord Community'].map(f => (
               <div key={f} style={{ display:'flex',alignItems:'center',gap:8,fontSize:14,color:'#d0d0d0' }}>
                 <svg width="16" height="16" fill="#00e87b" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
@@ -256,11 +275,11 @@ export default function KRTradesPage() {
           </div>
 
           {/* TRADE RESULTS MARQUEE */}
-          <h2 style={{ fontSize:22,fontWeight:700,marginTop:48,marginBottom:16 }}>Real Trade Results</h2>
+          <h2 style={{ fontSize:'clamp(18px,4.5vw,22px)',fontWeight:700,marginTop:'clamp(28px,6vw,48px)',marginBottom:14 }}>Real Trade Results</h2>
           <div className="marquee-wrap">
             <div className="marquee-track">
               {[...TRADE_RESULTS, ...TRADE_RESULTS].map((img, i) => (
-                <button key={i} onClick={() => setLightbox(i % TRADE_RESULTS.length)} style={{ flexShrink:0,width:300,borderRadius:12,overflow:'hidden',border:'1px solid #222',cursor:'pointer',background:'none',padding:0 }}>
+                <button key={i} onClick={() => setLightbox(i % TRADE_RESULTS.length)} className="marquee-item" style={{ flexShrink:0,width:'clamp(220px, 40vw, 300px)',borderRadius:12,overflow:'hidden',border:'1px solid #222',cursor:'pointer',background:'none',padding:0 }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={img} alt={`Trade ${(i % TRADE_RESULTS.length) + 1}`} style={{ width:'100%',aspectRatio:'16/9',objectFit:'cover',display:'block' }} loading="lazy" />
                 </button>
@@ -269,7 +288,7 @@ export default function KRTradesPage() {
           </div>
 
           {/* FAQ */}
-          <h2 style={{ fontSize:22,fontWeight:700,marginTop:48,marginBottom:16 }}>Frequently Asked Questions</h2>
+          <h2 style={{ fontSize:'clamp(18px,4.5vw,22px)',fontWeight:700,marginTop:'clamp(28px,6vw,48px)',marginBottom:14 }}>Frequently Asked Questions</h2>
           <div style={{ display:'flex',flexDirection:'column',gap:8 }}>
             {FAQS.map((faq, i) => (
               <div key={i} className="whop-card-sm">
@@ -285,17 +304,17 @@ export default function KRTradesPage() {
           </div>
 
           {/* REVIEWS */}
-          <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',marginTop:48,marginBottom:16 }}>
-            <h2 style={{ fontSize:22,fontWeight:700 }}>Customer Reviews</h2>
+          <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',marginTop:'clamp(28px,6vw,48px)',marginBottom:14,flexWrap:'wrap',gap:8 }}>
+            <h2 style={{ fontSize:'clamp(18px,4.5vw,22px)',fontWeight:700 }}>Customer Reviews</h2>
             <a href="https://www.trustpilot.com/review/koushikranjit.in" target="_blank" rel="noopener noreferrer" style={{ color:'#3b82f6',fontSize:14,textDecoration:'none' }}>See all on Trustpilot</a>
           </div>
 
           {/* Rating Summary */}
-          <div className="whop-card" style={{ display:'flex',gap:32,flexWrap:'wrap',marginBottom:24 }}>
-            <div style={{ textAlign:'center',minWidth:120 }}>
-              <div style={{ fontSize:'clamp(36px,8vw,56px)',fontWeight:800,lineHeight:1 }}>{reviewData.rating}</div>
+          <div className="whop-card whop-rating-summary">
+            <div style={{ textAlign:'center',minWidth:100 }}>
+              <div style={{ fontSize:'clamp(32px,8vw,56px)',fontWeight:800,lineHeight:1 }}>{reviewData.rating}</div>
               <div style={{ margin:'8px 0' }}><Stars5 /></div>
-              <div style={{ color:'#9ca3af',fontSize:14 }}>{reviewData.count} ratings on Trustpilot</div>
+              <div style={{ color:'#9ca3af',fontSize:13 }}>{reviewData.count} ratings on Trustpilot</div>
             </div>
             <div style={{ flex:1,minWidth:200,display:'flex',flexDirection:'column',gap:6,justifyContent:'center' }}>
               {[
@@ -318,7 +337,7 @@ export default function KRTradesPage() {
           </div>
 
           {/* Review Cards */}
-          <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(240px,1fr))',gap:12 }}>
+          <div className="whop-reviews-grid">
             {REVIEWS.map((rev, i) => (
               <div key={i} className="whop-card-sm">
                 <div style={{ display:'flex',alignItems:'center',gap:10,marginBottom:8 }}>
@@ -335,7 +354,7 @@ export default function KRTradesPage() {
           </div>
 
           {/* ABOUT CREATOR */}
-          <h2 style={{ fontSize:22,fontWeight:700,marginTop:48,marginBottom:16 }}>About the creator</h2>
+          <h2 style={{ fontSize:'clamp(18px,4.5vw,22px)',fontWeight:700,marginTop:'clamp(28px,6vw,48px)',marginBottom:14 }}>About the creator</h2>
           <div className="whop-card" style={{ display:'flex',gap:16,alignItems:'center',flexWrap:'wrap' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="https://github.com/koushikranjit/KR-Website/blob/847c7b2/koushik-host3.png?raw=true" alt="Koushik Ranjit" style={{ width:64,height:64,borderRadius:'50%',objectFit:'cover',objectPosition:'top' }} />
@@ -354,8 +373,8 @@ export default function KRTradesPage() {
           </div>
 
           {/* MORE FROM KR TRADES */}
-          <h2 style={{ fontSize:22,fontWeight:700,marginTop:48,marginBottom:16 }}>More from KR Trades</h2>
-          <a href="https://discord.gg/HySGNbJa3r" target="_blank" rel="noopener noreferrer" style={{ display:'block',maxWidth:280,textDecoration:'none',color:'#fff' }}>
+          <h2 style={{ fontSize:'clamp(18px,4.5vw,22px)',fontWeight:700,marginTop:'clamp(28px,6vw,48px)',marginBottom:14 }}>More from KR Trades</h2>
+          <a href="https://discord.gg/HySGNbJa3r" target="_blank" rel="noopener noreferrer" className="whop-more-card">
             <div className="whop-card-sm" style={{ padding:0,overflow:'hidden' }}>
               <div style={{ background:'linear-gradient(135deg,#0a2e1a,#111)',aspectRatio:'16/9',display:'flex',alignItems:'center',justifyContent:'center' }}>
                 <span style={{ fontWeight:800,fontSize:18,color:'#00e87b',letterSpacing:1 }}>KR TRADES FREE</span>
@@ -429,7 +448,7 @@ export default function KRTradesPage() {
       {/* ═══ DISCORD USERNAME MODAL ═══ */}
       {showDiscordModal && (
         <div onClick={() => setShowDiscordModal(false)} style={{ position:'fixed',inset:0,zIndex:100,background:'rgba(0,0,0,.85)',backdropFilter:'blur(6px)',display:'flex',alignItems:'center',justifyContent:'center',padding:16 }}>
-          <div onClick={e => e.stopPropagation()} style={{ background:'#1a1a1a',borderRadius:16,padding:28,maxWidth:420,width:'100%',border:'1px solid #333' }}>
+          <div onClick={e => e.stopPropagation()} style={{ background:'#1a1a1a',borderRadius:16,padding:'clamp(16px,4vw,28px)',maxWidth:420,width:'100%',border:'1px solid #333',maxHeight:'90vh',overflowY:'auto' }}>
             <h3 style={{ fontSize:20,fontWeight:700,marginBottom:4 }}>Enter Your Discord Username</h3>
             <p style={{ color:'#9ca3af',fontSize:13,marginBottom:12 }}>Required to give you Premium access in our Discord server.</p>
             <a href="https://discord.gg/HySGNbJa3r" target="_blank" rel="noopener noreferrer" style={{ display:'inline-flex',alignItems:'center',gap:6,padding:'8px 14px',borderRadius:8,background:'#5865F2',color:'#fff',fontSize:13,fontWeight:600,textDecoration:'none',marginBottom:16 }}>
