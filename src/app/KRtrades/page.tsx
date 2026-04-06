@@ -143,7 +143,7 @@ function HeroCarousel({ activeSlide, setActiveSlide }: { activeSlide: number; se
 
   return (
     <div className="w-full">
-      <div className="relative w-full bg-black overflow-hidden" style={{ aspectRatio: '16/9', maxWidth: '100vw' }}>
+      <div className="relative w-full bg-black overflow-hidden lg:rounded-xl" style={{ aspectRatio: '16/9', maxWidth: '100vw' }}>
         {/* Video (slide 0) */}
         {activeSlide === 0 && (
           <div className="absolute inset-0">
@@ -235,7 +235,8 @@ function ProductInfo({
   reviewCount: number
   paying: boolean
   onSubscribe: () => void
-  ctaRef: React.RefObject<HTMLButtonElement | null>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ctaRef: any
 }) {
   return (
     <section className="px-4 pt-1 pb-4" role="region" aria-label="Product information">
@@ -328,7 +329,7 @@ function PageDescription() {
       </div>
 
       {/* What's included */}
-      <div className="mt-5 flex flex-col gap-2.5">
+      <div className="mt-5 flex flex-col lg:grid lg:grid-cols-2 gap-2.5">
         {['Daily Live Trading (Mon–Fri)', 'Premium Starter Course', 'Weekly Market Breakdown + Q&A', 'Risk & Mindset Guidance', 'Trade Recaps — Full P&L', 'Private Discord Community'].map(f => (
           <div key={f} className="flex items-center gap-2 text-sm text-gray-300">
             <svg width="16" height="16" fill="#22c55e" viewBox="0 0 20 20" className="shrink-0">
@@ -420,13 +421,13 @@ function ReviewsSection({ rating, reviewCount }: { rating: number; reviewCount: 
       <h2 className="text-lg font-bold mb-4">Customer Reviews</h2>
 
       {/* Score + bars */}
-      <div className="rounded-2xl bg-[#1a1a1a] p-4 mb-4">
-        <div className="text-center mb-4">
+      <div className="rounded-2xl bg-[#1a1a1a] p-4 mb-4 lg:flex lg:gap-8 lg:items-center">
+        <div className="text-center mb-4 lg:mb-0 lg:shrink-0 lg:min-w-[120px]">
           <div className="text-5xl font-extrabold">{rating}</div>
           <div className="mt-1.5 flex justify-center"><StarsRow count={5} size={18} /></div>
           <div className="text-gray-400 text-sm mt-1">{reviewCount} ratings</div>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 lg:flex-1">
           {bars.map(b => (
             <div key={b.star} className="flex items-center gap-2 text-xs">
               <span className="text-gray-400 w-3 text-right">{b.star}</span>
@@ -448,7 +449,7 @@ function ReviewsSection({ rating, reviewCount }: { rating: number; reviewCount: 
         </a>
       </div>
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col lg:grid lg:grid-cols-2 gap-3">
         {REVIEWS.map((rev, i) => (
           <ReviewCard key={i} review={rev} index={i} />
         ))}
@@ -679,6 +680,68 @@ function Lightbox({ index, onClose, onChange }: { index: number | null; onClose:
   )
 }
 
+// ─── Desktop Sidebar (hidden on mobile) ─────────────────────────────────────
+function DesktopSidebar({
+  rating,
+  reviewCount,
+  paying,
+  onSubscribe,
+}: {
+  rating: number
+  reviewCount: number
+  paying: boolean
+  onSubscribe: () => void
+}) {
+  return (
+    <aside className="hidden lg:block w-[380px] shrink-0 sticky top-20 self-start">
+      <div className="bg-[#1a1a1a] rounded-2xl p-6">
+        {/* Banner */}
+        <div className="rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-emerald-900/40 to-black" style={{ aspectRatio: '3/1' }}>
+          <div className="w-full h-full flex items-center justify-center">
+            <span className="font-black text-2xl tracking-widest text-emerald-400">KR TRADES</span>
+          </div>
+        </div>
+
+        {/* Rating */}
+        <div className="flex items-center gap-2 mb-3">
+          <StarsRow count={5} size={16} />
+          <span className="text-sm">{rating}</span>
+          <a href="https://www.trustpilot.com/review/koushikranjit.in" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400">
+            ({reviewCount} reviews)
+          </a>
+        </div>
+
+        {/* Title */}
+        <h3 className="text-[22px] font-bold mb-2">KR Trades Premium</h3>
+
+        {/* Price */}
+        <div className="flex items-baseline gap-1 mb-1">
+          <span className="text-[28px] font-bold">₹1,025</span>
+          <span className="text-gray-400 text-[15px]">/ month</span>
+        </div>
+
+        <a href="/KRtrades/manage" className="text-sm text-[#3b82f6] inline-block mb-5">Manage subscription</a>
+
+        {/* CTA */}
+        <button
+          onClick={onSubscribe}
+          disabled={paying}
+          className="w-full h-[52px] rounded-xl bg-[#3b5bdb] hover:bg-[#2f4fc4] text-white font-semibold text-[17px] transition-colors disabled:opacity-60"
+        >
+          {paying ? 'Processing...' : 'Join now'}
+        </button>
+        <p className="text-center text-gray-500 text-xs mt-2">Secure payment via Razorpay</p>
+      </div>
+
+      {/* Powered by */}
+      <div className="flex items-center justify-center gap-1.5 mt-4">
+        <div className="w-4 h-4 rounded bg-emerald-400 flex items-center justify-center text-[9px] font-black text-black">K</div>
+        <span className="text-gray-500 text-[13px]">Powered by KR Trades</span>
+      </div>
+    </aside>
+  )
+}
+
 // ─── Main: ProductPage ──────────────────────────────────────────────────────
 export default function KRTradesPage() {
   const [mounted, setMounted] = useState(false)
@@ -691,7 +754,8 @@ export default function KRTradesPage() {
   const [reviewData, setReviewData] = useState({ rating: 4.9, count: 20 })
   const [showStickyCta, setShowStickyCta] = useState(false)
 
-  const inlineCtaRef = useRef<HTMLButtonElement>(null)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const inlineCtaRef = useRef<any>(null)
 
   // Mount + load Razorpay + fetch counts
   useEffect(() => {
@@ -759,42 +823,72 @@ export default function KRTradesPage() {
         .animate-marquee{animation:marquee 25s linear infinite}
         .scrollbar-hide::-webkit-scrollbar{display:none}
         .scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}
-        .kr-trades-page *{box-sizing:border-box;max-width:100%}
-        .kr-trades-page img,.kr-trades-page video{max-width:100%;height:auto}
+        @media(max-width:1023px){
+          .kr-trades-page *{box-sizing:border-box;max-width:100%}
+          .kr-trades-page img,.kr-trades-page video{max-width:100%;height:auto}
+        }
       `}</style>
+
+      {/* Background video — desktop only */}
+      <video className="hidden lg:block fixed top-0 left-0 w-screen h-screen object-cover z-0 opacity-35 pointer-events-none" autoPlay muted loop playsInline>
+        <source src={VIDEO_URL} type="video/mp4" />
+      </video>
+      <div className="hidden lg:block fixed top-0 left-0 w-screen h-screen z-[1] pointer-events-none" style={{ background: 'linear-gradient(180deg,rgba(15,15,15,0.3) 0%,rgba(15,15,15,0.7) 50%,rgba(15,15,15,0.95) 100%)' }} />
 
       <TopNavHeader />
 
-      <main className="pt-14">
-        <HeroCarousel activeSlide={activeSlide} setActiveSlide={setActiveSlide} />
+      {/* Desktop: two-column layout | Mobile: single column */}
+      <div className="relative z-[2] max-w-[1200px] mx-auto pt-14 lg:pt-20 lg:px-6 lg:flex lg:gap-8 lg:pb-16">
 
-        <ProductInfo
+        {/* ═══ MAIN CONTENT ═══ */}
+        <main className="flex-1 min-w-0 lg:max-w-none">
+          <HeroCarousel activeSlide={activeSlide} setActiveSlide={setActiveSlide} />
+
+          {/* Mobile-only: pricing below hero */}
+          <div className="lg:hidden">
+            <ProductInfo
+              rating={reviewData.rating}
+              reviewCount={reviewData.count}
+              paying={paying}
+              onSubscribe={handleSubscribe}
+              ctaRef={inlineCtaRef}
+            />
+          </div>
+
+          {/* Desktop-only: invisible ref for intersection observer */}
+          <div className="hidden lg:block" ref={inlineCtaRef} />
+
+          <SocialProofBar memberCount={discordCount} />
+
+          <PageDescription />
+
+          <TradeResultsMarquee onImageClick={setLightbox} />
+
+          <FAQAccordion />
+
+          <ReviewsSection rating={reviewData.rating} reviewCount={reviewData.count} />
+
+          <AboutCreator />
+
+          <RelatedCarousel rating={reviewData.rating} memberCount={discordCount} />
+
+          {/* Bottom spacer for mobile sticky CTA */}
+          <div className="h-24 lg:h-0" />
+        </main>
+
+        {/* ═══ DESKTOP SIDEBAR ═══ */}
+        <DesktopSidebar
           rating={reviewData.rating}
           reviewCount={reviewData.count}
           paying={paying}
           onSubscribe={handleSubscribe}
-          ctaRef={inlineCtaRef}
         />
+      </div>
 
-        <SocialProofBar memberCount={discordCount} />
-
-        <PageDescription />
-
-        <TradeResultsMarquee onImageClick={setLightbox} />
-
-        <FAQAccordion />
-
-        <ReviewsSection rating={reviewData.rating} reviewCount={reviewData.count} />
-
-        <AboutCreator />
-
-        <RelatedCarousel rating={reviewData.rating} memberCount={discordCount} />
-
-        {/* Bottom spacer for sticky CTA */}
-        <div className="h-24" />
-      </main>
-
-      <StickyBottomCTA visible={showStickyCta} paying={paying} onSubscribe={handleSubscribe} />
+      {/* Mobile-only sticky CTA */}
+      <div className="lg:hidden">
+        <StickyBottomCTA visible={showStickyCta} paying={paying} onSubscribe={handleSubscribe} />
+      </div>
 
       <DiscordModal
         open={showDiscordModal}
