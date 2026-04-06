@@ -745,7 +745,7 @@ export default function KRTradesPage() {
   if (!mounted) return null
 
   return (
-    <div className="kr-trades-page relative w-full bg-[#0f0f0f] min-h-screen text-white" style={{ maxWidth: '100vw', overflowClipMargin: 0, overflowX: 'clip' } as React.CSSProperties}>
+    <>
       <style>{`
         @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
         .animate-marquee{animation:marquee 25s linear infinite}
@@ -758,6 +758,7 @@ export default function KRTradesPage() {
         }
       `}</style>
 
+      {/* Fixed elements — OUTSIDE overflow:clip container */}
       {/* Background video — desktop only */}
       <video className="hidden lg:block fixed top-0 left-0 w-screen h-screen object-cover z-0 opacity-35 pointer-events-none" autoPlay muted loop playsInline>
         <source src={VIDEO_URL} type="video/mp4" />
@@ -765,54 +766,6 @@ export default function KRTradesPage() {
       <div className="hidden lg:block fixed top-0 left-0 w-screen h-screen z-[1] pointer-events-none" style={{ background: 'linear-gradient(180deg,rgba(15,15,15,0.3) 0%,rgba(15,15,15,0.7) 50%,rgba(15,15,15,0.95) 100%)' }} />
 
       <TopNavHeader />
-
-      {/* Desktop: two-column layout | Mobile: single column */}
-      <div className="relative z-[2] max-w-[1200px] mx-auto pt-14 lg:pt-20 lg:px-8 lg:flex lg:items-start lg:gap-8 lg:pb-16 xl:max-w-[1300px]">
-
-        {/* ═══ MAIN CONTENT ═══ */}
-        <main className="flex-1 min-w-0 lg:max-w-none">
-          <HeroCarousel activeSlide={activeSlide} setActiveSlide={setActiveSlide} />
-
-          {/* Mobile-only: pricing below hero */}
-          <div className="lg:hidden">
-            <ProductInfo
-              rating={reviewData.rating}
-              reviewCount={reviewData.count}
-              paying={paying}
-              onSubscribe={handleSubscribe}
-              ctaRef={inlineCtaRef}
-            />
-          </div>
-
-          {/* Desktop-only: invisible ref for intersection observer */}
-          <div className="hidden lg:block" ref={inlineCtaRef} />
-
-          <SocialProofBar memberCount={discordCount} />
-
-          <PageDescription />
-
-          <TradeResultsMarquee onImageClick={setLightbox} />
-
-          <FAQAccordion />
-
-          <ReviewsSection rating={reviewData.rating} reviewCount={reviewData.count} />
-
-          <AboutCreator />
-
-          <RelatedCarousel rating={reviewData.rating} memberCount={discordCount} />
-
-          {/* Bottom spacer for mobile sticky CTA */}
-          <div className="h-24 lg:h-0" />
-        </main>
-
-        {/* ═══ DESKTOP SIDEBAR ═══ */}
-        <DesktopSidebar
-          rating={reviewData.rating}
-          reviewCount={reviewData.count}
-          paying={paying}
-          onSubscribe={handleSubscribe}
-        />
-      </div>
 
       {/* Mobile-only sticky CTA */}
       <div className="lg:hidden">
@@ -828,6 +781,58 @@ export default function KRTradesPage() {
       />
 
       <Lightbox index={lightbox} onClose={() => setLightbox(null)} onChange={setLightbox} />
-    </div>
+
+      {/* Scrollable content — overflow:clip safe for sticky sidebar */}
+      <div className="kr-trades-page relative w-full bg-[#0f0f0f] min-h-screen text-white" style={{ maxWidth: '100vw', overflowClipMargin: 0, overflowX: 'clip' } as React.CSSProperties}>
+
+        {/* Desktop: two-column layout | Mobile: single column */}
+        <div className="relative z-[2] max-w-[1200px] mx-auto pt-14 lg:pt-20 lg:px-8 lg:flex lg:items-start lg:gap-8 lg:pb-16 xl:max-w-[1300px]">
+
+          {/* ═══ MAIN CONTENT ═══ */}
+          <main className="flex-1 min-w-0 lg:max-w-none">
+            <HeroCarousel activeSlide={activeSlide} setActiveSlide={setActiveSlide} />
+
+            {/* Mobile-only: pricing below hero */}
+            <div className="lg:hidden">
+              <ProductInfo
+                rating={reviewData.rating}
+                reviewCount={reviewData.count}
+                paying={paying}
+                onSubscribe={handleSubscribe}
+                ctaRef={inlineCtaRef}
+              />
+            </div>
+
+            {/* Desktop-only: invisible ref for intersection observer */}
+            <div className="hidden lg:block" ref={inlineCtaRef} />
+
+            <SocialProofBar memberCount={discordCount} />
+
+            <PageDescription />
+
+            <TradeResultsMarquee onImageClick={setLightbox} />
+
+            <FAQAccordion />
+
+            <ReviewsSection rating={reviewData.rating} reviewCount={reviewData.count} />
+
+            <AboutCreator />
+
+            <RelatedCarousel rating={reviewData.rating} memberCount={discordCount} />
+
+            {/* Bottom spacer for mobile sticky CTA */}
+            <div className="h-24 lg:h-0" />
+          </main>
+
+          {/* ═══ DESKTOP SIDEBAR ═══ */}
+          <DesktopSidebar
+            rating={reviewData.rating}
+            reviewCount={reviewData.count}
+            paying={paying}
+            onSubscribe={handleSubscribe}
+          />
+        </div>
+      </div>
+    </>
   )
 }
