@@ -26,13 +26,13 @@ export async function GET() {
       return NextResponse.json({ count: 10 }) // fallback
     }
 
-    // Count active + authenticated subscriptions (real paying members)
-    const activeCount = (data.items || []).filter(
-      (sub: { status: string }) => ['active', 'authenticated'].includes(sub.status)
+    // Count ALL subscriptions that were ever purchased (any status except 'created')
+    const purchasedCount = (data.items || []).filter(
+      (sub: { status: string }) => sub.status !== 'created'
     ).length
 
     // Add base count (existing members before Razorpay integration)
-    const totalMembers = activeCount + 10
+    const totalMembers = purchasedCount + 10
 
     return NextResponse.json(
       { count: totalMembers },
