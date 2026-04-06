@@ -76,24 +76,26 @@ const GLASS_HOVER = 'hover:bg-white/[0.07] hover:border-white/[0.12] transition-
 // ─── 1. TopNavHeader ────────────────────────────────────────────────────────
 function TopNavHeader() {
   return (
-    <header className="fixed top-0 left-0 z-50 h-14 flex items-center px-3 border-b border-white/[0.08] bg-white/[0.03] backdrop-blur-2xl" style={{ width: '100vw', maxWidth: '100vw' }}>
-      <a
-        href="https://koushikranjit.in"
-        className="w-10 h-10 flex items-center justify-center rounded-full text-white shrink-0"
-        aria-label="Go back"
-      >
-        <ChevronLeft />
-      </a>
-      <div className="flex items-center gap-2 min-w-0 ml-1">
-        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-800 flex items-center justify-center text-[10px] font-extrabold text-white shrink-0">
-          KR
-        </div>
-        <span className="font-semibold text-[15px] truncate">KR Trades</span>
-      </div>
-      <div className="ml-auto shrink-0">
-        <a href="/KRtrades/manage" className="text-xs text-gray-400 hover:text-white transition-colors">
-          Manage
+    <header className="fixed top-0 left-0 z-50 h-14 border-b border-white/[0.08] bg-white/[0.03] backdrop-blur-2xl" style={{ width: '100vw', maxWidth: '100vw' }}>
+      <div className="max-w-[1300px] mx-auto h-full flex items-center px-4 lg:px-8">
+        <a
+          href="https://koushikranjit.in"
+          className="w-10 h-10 flex items-center justify-center rounded-full text-white shrink-0"
+          aria-label="Go back"
+        >
+          <ChevronLeft />
         </a>
+        <div className="flex items-center gap-2 min-w-0 ml-1">
+          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-800 flex items-center justify-center text-[10px] font-extrabold text-white shrink-0">
+            KR
+          </div>
+          <span className="font-semibold text-[15px] truncate">KR Trades</span>
+        </div>
+        <div className="ml-auto shrink-0">
+          <a href="/KRtrades/manage" className="text-xs text-gray-400 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-white/[0.05]">
+            Manage
+          </a>
+        </div>
       </div>
     </header>
   )
