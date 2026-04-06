@@ -44,6 +44,7 @@ export default function KRTradesPage() {
   const [discordCount, setDiscordCount] = useState(10)
   const [showDiscordModal, setShowDiscordModal] = useState(false)
   const [discordInput, setDiscordInput] = useState('')
+  const [reviewData, setReviewData] = useState({ rating: 4.9, count: 7 })
 
   useEffect(() => {
     setMounted(true)
@@ -53,6 +54,7 @@ export default function KRTradesPage() {
     document.head.appendChild(s)
     // Fetch live member count
     fetch('/api/subscribe/count').then(r => r.json()).then(d => { setPremiumCount(d.premium || 0); setDiscordCount(d.discord || 10) }).catch(() => {})
+    fetch('/api/reviews').then(r => r.json()).then(d => setReviewData({ rating: d.rating || 4.9, count: d.count || 7 })).catch(() => {})
   }, [])
 
   useEffect(() => {
@@ -250,9 +252,9 @@ export default function KRTradesPage() {
           {/* Rating Summary */}
           <div className="whop-card" style={{ display:'flex',gap:32,flexWrap:'wrap',marginBottom:24 }}>
             <div style={{ textAlign:'center',minWidth:120 }}>
-              <div style={{ fontSize:56,fontWeight:800,lineHeight:1 }}>4.9</div>
+              <div style={{ fontSize:56,fontWeight:800,lineHeight:1 }}>{reviewData.rating}</div>
               <div style={{ margin:'8px 0' }}><Stars5 /></div>
-              <div style={{ color:'#9ca3af',fontSize:14 }}>7 ratings on Trustpilot</div>
+              <div style={{ color:'#9ca3af',fontSize:14 }}>{reviewData.count} ratings on Trustpilot</div>
             </div>
             <div style={{ flex:1,minWidth:200,display:'flex',flexDirection:'column',gap:6,justifyContent:'center' }}>
               {[
@@ -326,7 +328,7 @@ export default function KRTradesPage() {
                 <div style={{ display:'flex',alignItems:'center',gap:8,flexWrap:'wrap' }}>
                   <span style={{ color:'#3b82f6',fontWeight:600,fontSize:14 }}>Free</span>
                   <span style={{ color:'#fbbf24' }}>★★★★★</span>
-                  <span style={{ color:'#9ca3af',fontSize:13 }}>4.9</span>
+                  <span style={{ color:'#9ca3af',fontSize:13 }}>{reviewData.rating}</span>
                   <span style={{ color:'#555',fontSize:12 }}>·</span>
                   <span style={{ color:'#9ca3af',fontSize:12 }}>{discordCount} members</span>
                 </div>
@@ -346,8 +348,8 @@ export default function KRTradesPage() {
             {/* Rating */}
             <div style={{ display:'flex',alignItems:'center',gap:8,marginBottom:12 }}>
               <Stars5 />
-              <span style={{ fontSize:14,color:'#fff' }}>4.9</span>
-              <a href="https://www.trustpilot.com/review/koushikranjit.in" target="_blank" rel="noopener noreferrer" style={{ fontSize:13,color:'#9ca3af',textDecoration:'none' }}>(7 reviews)</a>
+              <span style={{ fontSize:14,color:'#fff' }}>{reviewData.rating}</span>
+              <a href="https://www.trustpilot.com/review/koushikranjit.in" target="_blank" rel="noopener noreferrer" style={{ fontSize:13,color:'#9ca3af',textDecoration:'none' }}>({reviewData.count} reviews)</a>
             </div>
 
             {/* Title */}
