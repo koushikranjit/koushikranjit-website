@@ -58,9 +58,17 @@ export default function KRTradesPage() {
   }, [lightbox])
 
   const handleSubscribe = async () => {
+    // Ask for Discord username
+    const discord = prompt('Enter your Discord username (e.g. koushik_ranjit)\n\nThis is required to give you Premium access in our Discord server.')
+    if (!discord || !discord.trim()) { alert('Discord username is required to proceed.'); return }
+
     setPaying(true)
     try {
-      const res = await fetch('/api/subscribe', { method: 'POST' })
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ discord_username: discord.trim() }),
+      })
       const data = await res.json()
       if (!res.ok) { alert(data.error || 'Failed'); setPaying(false); return }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

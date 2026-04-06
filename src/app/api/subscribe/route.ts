@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-export async function POST() {
+export async function POST(req: Request) {
   try {
     const keyId = process.env.RAZORPAY_KEY_ID
     const keySecret = process.env.RAZORPAY_KEY_SECRET
@@ -8,6 +8,15 @@ export async function POST() {
 
     if (!keyId || !keySecret || !planId) {
       return NextResponse.json({ error: 'Payment not configured' }, { status: 500 })
+    }
+
+    // Get Discord username from request body
+    let discordUsername = ''
+    try {
+      const body = await req.json()
+      discordUsername = body.discord_username || ''
+    } catch {
+      // No body sent — that's fine
     }
 
     const res = await fetch('https://api.razorpay.com/v1/subscriptions', {
@@ -20,6 +29,10 @@ export async function POST() {
         plan_id: planId,
         total_count: 120,
         quantity: 1,
+        notes: {
+          discord_username: discordUsername,
+          product: 'KR Trades Premium',
+        },
       }),
     })
 
