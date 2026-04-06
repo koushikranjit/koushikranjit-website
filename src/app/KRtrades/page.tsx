@@ -1,8 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
+// ─── Data ───────────────────────────────────────────────────────────────────
 const RAZORPAY_KEY = 'rzp_live_SSL6Wg71WI8B11'
+
+const VIDEO_URL = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_094440_a3592600-bd1e-49e5-9bce-a73662061d83.mp4'
 
 const SLIDER_IMAGES = [
   'https://github.com/koushikranjit/KR-Website/blob/adf9c0b/kr-preview-1.jpg?raw=true',
@@ -16,13 +20,13 @@ const TRADE_RESULTS = Array.from({ length: 9 }, (_, i) =>
 )
 
 const REVIEWS = [
-  { name: 'Soumyadeep Samanta', stars: 5, time: 'Mar 13, 2024', text: 'He doesn\'t give only signal.. also give them proper guidance.. he is too good in his system.' },
-  { name: 'Sagar Bairagi', stars: 5, time: 'Mar 13, 2024', text: 'Very good experience in terms of accuracy of the signals. In my opinion you should try for it and then judge by yourself. My experience is very good till now.' },
-  { name: 'God is', stars: 4, time: 'Mar 13, 2024', text: 'Using the signal room for 4 months with 10% fund balance growth at minimum risk. Returns exceed bank FD rates. Recommended for forex traders.' },
-  { name: 'Soumit Acharjee', stars: 5, time: 'Mar 13, 2024', text: 'Signals are Accurate like an archer hitting a bullseye.' },
-  { name: 'Sunil Ghosh', stars: 5, time: 'Mar 12, 2024', text: 'Profitable signal room. Complete money management system and every trade discussion option available. Tension free — grow your account.' },
-  { name: 'Amitanjan Chakraborty', stars: 5, time: 'Mar 12, 2024', text: 'My knowledge — Best trader in India.' },
-  { name: 'Mainak Paul', stars: 5, time: 'Mar 12, 2024', text: 'The signals are absolutely genuine and helpful for beginner traders, he always post the charts along with the signal so you can learn a lot from him. Thank you so much Koushik.' },
+  { name: 'Soumyadeep Samanta', handle: '@soumyadeep', stars: 5, time: '3 months ago', text: 'He doesn\'t give only signal.. also give them proper guidance.. he is too good in his system. Highly recommend for anyone looking to learn trading seriously.' },
+  { name: 'Sagar Bairagi', handle: '@sagar_b', stars: 5, time: '3 months ago', text: 'Very good experience in terms of accuracy of the signals. In my opinion you should try for it and then judge by yourself. My experience is very good till now.' },
+  { name: 'God is', handle: '@god_is', stars: 4, time: '3 months ago', text: 'Using the signal room for 4 months with 10% fund balance growth at minimum risk. Returns exceed bank FD rates. Recommended for forex traders.' },
+  { name: 'Soumit Acharjee', handle: '@soumit_a', stars: 5, time: '3 months ago', text: 'Signals are Accurate like an archer hitting a bullseye.' },
+  { name: 'Sunil Ghosh', handle: '@sunil_g', stars: 5, time: '4 months ago', text: 'Profitable signal room. Complete money management system and every trade discussion option available. Tension free — grow your account.' },
+  { name: 'Amitanjan Chakraborty', handle: '@amitanjan', stars: 5, time: '4 months ago', text: 'My knowledge — Best trader in India.' },
+  { name: 'Mainak Paul', handle: '@mainak_p', stars: 5, time: '4 months ago', text: 'The signals are absolutely genuine and helpful for beginner traders, he always post the charts along with the signal so you can learn a lot from him. Thank you so much Koushik.' },
 ]
 
 const FAQS = [
@@ -33,38 +37,689 @@ const FAQS = [
   { q: 'What market do you trade?', a: 'We focus exclusively on Nasdaq (NQ/MNQ) futures. This is one of the most liquid and volatile markets — perfect for day trading with precision.' },
 ]
 
+const RELATED = [
+  { name: 'KR Trades Free Access', tagline: 'Learn To Trade Nasdaq Futures', price: 'Free', rating: 4.9 },
+  { name: 'Market Breakdown Weekly', tagline: 'Weekly analysis & levels', price: '₹499/mo', rating: 4.8 },
+]
 
+// ─── Icons ──────────────────────────────────────────────────────────────────
+const ChevronLeft = () => (
+  <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+  </svg>
+)
+
+const StarIcon = ({ filled = true, size = 16 }: { filled?: boolean; size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 20 20" fill={filled ? '#fbbf24' : '#374151'}>
+    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+  </svg>
+)
+
+const StarsRow = ({ count = 5, size = 16 }: { count?: number; size?: number }) => (
+  <div className="flex gap-0.5">
+    {Array.from({ length: 5 }, (_, i) => (
+      <StarIcon key={i} filled={i < count} size={size} />
+    ))}
+  </div>
+)
+
+const PersonIcon = () => (
+  <svg width="14" height="14" fill="#9ca3af" viewBox="0 0 24 24">
+    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+  </svg>
+)
+
+const PlayIcon = () => (
+  <svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+)
+const PauseIcon = () => (
+  <svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /></svg>
+)
+const MuteIcon = () => (
+  <svg width="18" height="18" fill="white" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" /></svg>
+)
+const UnmuteIcon = () => (
+  <svg width="18" height="18" fill="white" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" /></svg>
+)
+
+// ─── 1. TopNavHeader ────────────────────────────────────────────────────────
+function TopNavHeader() {
+  return (
+    <header className="fixed top-0 left-0 right-0 z-50 h-14 flex items-center px-3 border-b border-white/10 bg-[#141414]/95 backdrop-blur-xl">
+      <a
+        href="https://koushikranjit.in"
+        className="w-10 h-10 flex items-center justify-center rounded-full text-white shrink-0"
+        aria-label="Go back"
+      >
+        <ChevronLeft />
+      </a>
+      <div className="flex items-center gap-2 min-w-0 ml-1">
+        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-800 flex items-center justify-center text-[10px] font-extrabold text-white shrink-0">
+          KR
+        </div>
+        <span className="font-semibold text-[15px] truncate">KR Trades</span>
+      </div>
+      <div className="ml-auto shrink-0">
+        <a href="/KRtrades/manage" className="text-xs text-gray-400 hover:text-white transition-colors">
+          Manage
+        </a>
+      </div>
+    </header>
+  )
+}
+
+// ─── 2. HeroCarousel ────────────────────────────────────────────────────────
+function HeroCarousel({ activeSlide, setActiveSlide }: { activeSlide: number; setActiveSlide: (n: number) => void }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [isPlaying, setIsPlaying] = useState(true)
+  const [isMuted, setIsMuted] = useState(true)
+  const [progress, setProgress] = useState(0)
+
+  const totalSlides = 1 + SLIDER_IMAGES.length // video + images
+
+  const togglePlay = useCallback(() => {
+    if (!videoRef.current) return
+    if (isPlaying) videoRef.current.pause()
+    else videoRef.current.play()
+    setIsPlaying(!isPlaying)
+  }, [isPlaying])
+
+  const toggleMute = useCallback(() => {
+    if (!videoRef.current) return
+    videoRef.current.muted = !isMuted
+    setIsMuted(!isMuted)
+  }, [isMuted])
+
+  useEffect(() => {
+    const v = videoRef.current
+    if (!v || activeSlide !== 0) return
+    const onTime = () => setProgress(v.duration ? (v.currentTime / v.duration) * 100 : 0)
+    v.addEventListener('timeupdate', onTime)
+    return () => v.removeEventListener('timeupdate', onTime)
+  }, [activeSlide])
+
+  const prev = () => setActiveSlide(activeSlide === 0 ? totalSlides - 1 : activeSlide - 1)
+  const next = () => setActiveSlide(activeSlide === totalSlides - 1 ? 0 : activeSlide + 1)
+
+  return (
+    <div className="w-full">
+      <div className="relative w-full aspect-video bg-black overflow-hidden">
+        {/* Video (slide 0) */}
+        {activeSlide === 0 && (
+          <div className="absolute inset-0">
+            <video
+              ref={videoRef}
+              className="w-full h-full object-cover"
+              autoPlay
+              muted={isMuted}
+              loop
+              playsInline
+            >
+              <source src={VIDEO_URL} type="video/mp4" />
+            </video>
+            {/* Video controls */}
+            <div className="absolute bottom-3 left-3 flex gap-2 z-10">
+              <button
+                onClick={togglePlay}
+                className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center"
+                aria-label={isPlaying ? 'Pause' : 'Play'}
+              >
+                {isPlaying ? <PauseIcon /> : <PlayIcon />}
+              </button>
+              <button
+                onClick={toggleMute}
+                className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center"
+                aria-label={isMuted ? 'Unmute' : 'Mute'}
+              >
+                {isMuted ? <MuteIcon /> : <UnmuteIcon />}
+              </button>
+            </div>
+            {/* Progress bar */}
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
+              <div className="h-full bg-white/70 transition-all duration-200" style={{ width: `${progress}%` }} />
+            </div>
+          </div>
+        )}
+
+        {/* Image slides */}
+        {activeSlide > 0 && (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src={SLIDER_IMAGES[activeSlide - 1]}
+            alt={`KR Trades preview ${activeSlide}`}
+            className="w-full h-full object-cover"
+          />
+        )}
+
+        {/* Nav arrows */}
+        <button
+          onClick={prev}
+          className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white text-lg z-10"
+          aria-label="Previous slide"
+        >
+          ‹
+        </button>
+        <button
+          onClick={next}
+          className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white text-lg z-10"
+          aria-label="Next slide"
+        >
+          ›
+        </button>
+      </div>
+
+      {/* Dots */}
+      <div className="flex justify-center gap-1.5 py-3">
+        {Array.from({ length: totalSlides }, (_, i) => (
+          <button
+            key={i}
+            onClick={() => setActiveSlide(i)}
+            className={`w-2 h-2 rounded-full transition-colors ${i === activeSlide ? 'bg-white' : 'bg-white/30'}`}
+            aria-label={`Go to slide ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ─── 3. ProductInfo ─────────────────────────────────────────────────────────
+function ProductInfo({
+  rating,
+  reviewCount,
+  paying,
+  onSubscribe,
+  ctaRef,
+}: {
+  rating: number
+  reviewCount: number
+  paying: boolean
+  onSubscribe: () => void
+  ctaRef: React.RefObject<HTMLButtonElement | null>
+}) {
+  return (
+    <section className="px-4 pt-1 pb-4" role="region" aria-label="Product information">
+      {/* Stars */}
+      <div className="flex items-center gap-2">
+        <StarsRow count={5} size={18} />
+        <span className="text-sm font-semibold">{rating}</span>
+        <span className="text-sm text-gray-400">({reviewCount})</span>
+      </div>
+
+      {/* Title */}
+      <h1 className="text-[22px] font-bold mt-2 leading-tight">KR Trades Premium</h1>
+
+      {/* Price */}
+      <div className="flex items-baseline gap-1 mt-3">
+        <span className="text-[28px] font-bold">₹1,025</span>
+        <span className="text-gray-400 text-[15px]">/ month</span>
+      </div>
+
+      {/* Option link */}
+      <a href="/KRtrades/manage" className="text-sm text-[#3b82f6] mt-1 inline-block">
+        Manage subscription
+      </a>
+
+      {/* CTA Button */}
+      <button
+        ref={ctaRef}
+        onClick={onSubscribe}
+        disabled={paying}
+        className="w-full h-[52px] rounded-full bg-gradient-to-r from-[#3b5bdb] to-[#4c6ef5] text-white font-semibold text-[17px] mt-4 shadow-lg shadow-blue-500/20 transition-all active:scale-[0.98] disabled:opacity-60"
+      >
+        {paying ? 'Processing...' : 'Join now'}
+      </button>
+    </section>
+  )
+}
+
+// ─── 4. SocialProofBar ──────────────────────────────────────────────────────
+function SocialProofBar({ memberCount }: { memberCount: number }) {
+  return (
+    <section className="px-4 py-4 flex items-center gap-3 text-[13px] text-gray-400 border-t border-b border-white/5" role="region" aria-label="Social proof">
+      <div className="flex items-center gap-1.5 shrink-0">
+        <PersonIcon />
+        <span className="text-white font-medium">{memberCount.toLocaleString()} members</span>
+      </div>
+      <div className="w-px h-4 bg-white/10 shrink-0" />
+      <div className="flex items-center gap-1.5 min-w-0">
+        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-800 flex items-center justify-center text-[7px] font-extrabold text-white shrink-0">
+          KR
+        </div>
+        <span className="truncate">
+          By <span className="text-white">Koushik Ranjit</span>
+        </span>
+      </div>
+      <div className="w-px h-4 bg-white/10 shrink-0" />
+      <div className="flex items-center gap-2.5 shrink-0 ml-auto">
+        <a href="https://www.instagram.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-gray-400 hover:text-white transition-colors">
+          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" /></svg>
+        </a>
+        <a href="https://x.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter" className="text-gray-400 hover:text-white transition-colors">
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
+        </a>
+        <a href="https://discord.gg/HySGNbJa3r" target="_blank" rel="noopener noreferrer" aria-label="Discord" className="text-gray-400 hover:text-white transition-colors">
+          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z" /></svg>
+        </a>
+      </div>
+    </section>
+  )
+}
+
+// ─── 5. PageDescription ─────────────────────────────────────────────────────
+function PageDescription() {
+  const [expanded, setExpanded] = useState(false)
+
+  return (
+    <section className="px-4 py-5" role="region" aria-label="Description">
+      <h2 className="text-[26px] font-extrabold leading-[1.2]">
+        Live Futures Trading Room — Learn To Trade NQ With Discipline
+      </h2>
+      <div className="relative mt-2">
+        <p className={`text-[15px] leading-relaxed text-gray-300 ${expanded ? '' : 'line-clamp-3'}`}>
+          Join KR Trades and trade alongside a professional Nasdaq futures trader. Get daily live trading sessions, the Premium Starter Course (Bengali), real-time trade guidance, exclusive IFVG model strategies, weekly market breakdowns, and direct mentor access — all with full transparency. Includes risk management education, community support, and prop firm giveaways.
+        </p>
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="text-[#3b82f6] text-sm font-medium mt-1"
+        >
+          {expanded ? 'Show less' : 'Read more'}
+        </button>
+      </div>
+
+      {/* What's included */}
+      <div className="mt-5 flex flex-col gap-2.5">
+        {['Daily Live Trading (Mon–Fri)', 'Premium Starter Course', 'Weekly Market Breakdown + Q&A', 'Risk & Mindset Guidance', 'Trade Recaps — Full P&L', 'Private Discord Community'].map(f => (
+          <div key={f} className="flex items-center gap-2 text-sm text-gray-300">
+            <svg width="16" height="16" fill="#22c55e" viewBox="0 0 20 20" className="shrink-0">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <span>{f}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+// ─── Trade Results Marquee ──────────────────────────────────────────────────
+function TradeResultsMarquee({ onImageClick }: { onImageClick: (i: number) => void }) {
+  return (
+    <section className="py-5 overflow-hidden" role="region" aria-label="Trade results">
+      <h2 className="text-lg font-bold px-4 mb-3">Real Trade Results</h2>
+      <div className="overflow-hidden w-full">
+        <div className="flex gap-2.5 animate-marquee hover:[animation-play-state:paused] w-max">
+          {[...TRADE_RESULTS, ...TRADE_RESULTS].map((img, i) => (
+            <button
+              key={i}
+              onClick={() => onImageClick(i % TRADE_RESULTS.length)}
+              className="shrink-0 w-[200px] rounded-xl overflow-hidden border border-white/10"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={img} alt={`Trade result ${(i % TRADE_RESULTS.length) + 1}`} className="w-full aspect-video object-cover" loading="lazy" />
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─── 6. FAQAccordion ────────────────────────────────────────────────────────
+function FAQAccordion() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+
+  return (
+    <section className="px-4 py-5" role="region" aria-label="Frequently asked questions">
+      <h2 className="text-lg font-bold mb-3">Frequently Asked Questions</h2>
+      <div className="rounded-2xl bg-[#1a1a1a] divide-y divide-white/5 overflow-hidden">
+        {FAQS.map((faq, i) => (
+          <div key={i}>
+            <button
+              onClick={() => setOpenIndex(openIndex === i ? null : i)}
+              className="w-full flex items-center justify-between px-4 py-4 text-left min-h-[48px]"
+              aria-expanded={openIndex === i}
+            >
+              <span className="text-[15px] font-medium pr-4 text-white">{faq.q}</span>
+              <span className={`text-gray-400 text-xl shrink-0 transition-transform duration-200 ${openIndex === i ? 'rotate-45' : ''}`}>
+                +
+              </span>
+            </button>
+            <AnimatePresence>
+              {openIndex === i && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.2, ease: 'easeOut' }}
+                  className="overflow-hidden"
+                >
+                  <p className="px-4 pb-4 text-sm text-gray-400 leading-relaxed">{faq.a}</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+// ─── 7. ReviewsSection ──────────────────────────────────────────────────────
+function ReviewsSection({ rating, reviewCount }: { rating: number; reviewCount: number }) {
+  const bars = [
+    { star: 5, pct: 97, count: Math.round(reviewCount * 0.97), color: 'bg-green-500' },
+    { star: 4, pct: 2, count: Math.max(1, Math.round(reviewCount * 0.02)), color: 'bg-lime-500' },
+    { star: 3, pct: 0.1, count: 0, color: 'bg-gray-500' },
+    { star: 2, pct: 0.1, count: 0, color: 'bg-gray-500' },
+    { star: 1, pct: 0.1, count: 0, color: 'bg-gray-500' },
+  ]
+
+  return (
+    <section className="px-4 py-5" role="region" aria-label="Customer reviews">
+      <h2 className="text-lg font-bold mb-4">Customer Reviews</h2>
+
+      {/* Score + bars */}
+      <div className="rounded-2xl bg-[#1a1a1a] p-4 mb-4">
+        <div className="text-center mb-4">
+          <div className="text-5xl font-extrabold">{rating}</div>
+          <div className="mt-1.5 flex justify-center"><StarsRow count={5} size={18} /></div>
+          <div className="text-gray-400 text-sm mt-1">{reviewCount} ratings</div>
+        </div>
+        <div className="flex flex-col gap-2">
+          {bars.map(b => (
+            <div key={b.star} className="flex items-center gap-2 text-xs">
+              <span className="text-gray-400 w-3 text-right">{b.star}</span>
+              <StarIcon size={12} />
+              <div className="flex-1 h-1.5 bg-[#333] rounded-full overflow-hidden">
+                <div className={`h-full rounded-full ${b.color}`} style={{ width: `${Math.max(b.pct, 1)}%` }} />
+              </div>
+              <span className="text-gray-400 w-12 text-right">{Math.round(b.pct)}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Top reviews */}
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="font-semibold text-[15px]">Top reviews</h3>
+        <a href="https://www.trustpilot.com/review/koushikranjit.in" target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] text-sm">
+          See all reviews
+        </a>
+      </div>
+
+      <div className="flex flex-col gap-3">
+        {REVIEWS.map((rev, i) => (
+          <ReviewCard key={i} review={rev} index={i} />
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function ReviewCard({ review, index }: { review: typeof REVIEWS[0]; index: number }) {
+  const [expanded, setExpanded] = useState(false)
+
+  return (
+    <div className="rounded-2xl bg-[#1a1a1a] p-4">
+      <div className="flex items-center gap-3 mb-2">
+        <div
+          className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm shrink-0"
+          style={{ background: `hsl(${index * 50 + 120}, 45%, 32%)` }}
+        >
+          {review.name[0]}
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="font-semibold text-sm truncate">{review.name}</div>
+          <div className="text-gray-500 text-xs">{review.handle}</div>
+        </div>
+        <span className="text-gray-500 text-xs shrink-0">{review.time}</span>
+      </div>
+      <div className="mb-2"><StarsRow count={review.stars} size={14} /></div>
+      <p className={`text-[15px] leading-relaxed text-gray-300 ${expanded ? '' : 'line-clamp-4'}`}>
+        {review.text}
+      </p>
+      {review.text.length > 120 && (
+        <button onClick={() => setExpanded(!expanded)} className="text-[#3b82f6] text-sm mt-1">
+          {expanded ? 'Show less' : 'Show more'}
+        </button>
+      )}
+    </div>
+  )
+}
+
+// ─── 8. RelatedCarousel ─────────────────────────────────────────────────────
+function RelatedCarousel({ rating, memberCount }: { rating: number; memberCount: number }) {
+  return (
+    <section className="py-5" role="region" aria-label="More from creator">
+      <h2 className="text-lg font-bold px-4 mb-3">More from KR Trades</h2>
+      <div className="flex gap-3 overflow-x-auto px-4 pb-2 scrollbar-hide">
+        {RELATED.map((item, i) => (
+          <a
+            key={i}
+            href="https://discord.gg/HySGNbJa3r"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 w-[200px] rounded-2xl bg-[#1a1a1a] overflow-hidden block"
+          >
+            <div className="aspect-video bg-gradient-to-br from-emerald-900/60 to-black flex items-center justify-center">
+              <span className="font-extrabold text-emerald-400 text-sm tracking-wide">KR TRADES</span>
+            </div>
+            <div className="p-3">
+              <div className="flex items-center gap-1.5 mb-1">
+                <div className="w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center text-[6px] font-extrabold text-black shrink-0">KR</div>
+                <span className="font-semibold text-[13px] truncate">{item.name}</span>
+              </div>
+              <p className="text-gray-400 text-[11px] line-clamp-1 mb-1.5">{item.tagline}</p>
+              <div className="flex items-center gap-1.5">
+                <span className="text-[#3b82f6] font-semibold text-[13px]">{item.price}</span>
+                <StarIcon size={12} />
+                <span className="text-gray-400 text-xs">{item.rating}</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+// ─── About Creator ──────────────────────────────────────────────────────────
+function AboutCreator() {
+  return (
+    <section className="px-4 py-5" role="region" aria-label="About the creator">
+      <h2 className="text-lg font-bold mb-3">About the creator</h2>
+      <div className="rounded-2xl bg-[#1a1a1a] p-4">
+        <div className="flex items-start gap-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://github.com/koushikranjit/KR-Website/blob/847c7b2/koushik-host3.png?raw=true"
+            alt="Koushik Ranjit"
+            className="w-12 h-12 rounded-full object-cover object-top shrink-0"
+          />
+          <div className="min-w-0">
+            <div className="font-bold">Koushik Ranjit</div>
+            <p className="text-sm text-gray-400 mt-1 leading-relaxed">
+              Indian proprietary day trader specialising in Nasdaq futures. 5+ years of active trading. Featured in APN News, Vocal Media & more.
+            </p>
+            <div className="flex gap-3 mt-2 flex-wrap">
+              <a href="https://www.instagram.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] text-[13px]">Instagram</a>
+              <a href="https://x.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] text-[13px]">Twitter/X</a>
+              <a href="https://discord.gg/HySGNbJa3r" target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] text-[13px]">Discord</a>
+              <a href="https://koushikranjit.in" className="text-[#3b82f6] text-[13px]">Website</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─── 9. StickyBottomCTA ─────────────────────────────────────────────────────
+function StickyBottomCTA({ visible, paying, onSubscribe }: { visible: boolean; paying: boolean; onSubscribe: () => void }) {
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          initial={{ y: 100 }}
+          animate={{ y: 0 }}
+          exit={{ y: 100 }}
+          transition={{ duration: 0.25, ease: 'easeOut' }}
+          className="fixed bottom-0 left-0 right-0 z-50 pb-[env(safe-area-inset-bottom)] bg-[#0f0f0f]/90 backdrop-blur-xl border-t border-white/10 shadow-[0_-4px_20px_rgba(0,0,0,0.5)]"
+        >
+          <div className="px-4 py-3">
+            <button
+              onClick={onSubscribe}
+              disabled={paying}
+              className="w-full h-[52px] rounded-full bg-gradient-to-r from-[#3b5bdb] to-[#4c6ef5] text-white font-semibold text-[17px] shadow-lg shadow-blue-500/20 transition-all active:scale-[0.98] disabled:opacity-60"
+            >
+              {paying ? 'Processing...' : 'Join now'}
+            </button>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
+
+// ─── Discord Modal ──────────────────────────────────────────────────────────
+function DiscordModal({
+  open,
+  onClose,
+  discordInput,
+  setDiscordInput,
+  onSubmit,
+}: {
+  open: boolean
+  onClose: () => void
+  discordInput: string
+  setDiscordInput: (v: string) => void
+  onSubmit: () => void
+}) {
+  if (!open) return null
+
+  return (
+    <div onClick={onClose} className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4">
+      <div
+        onClick={e => e.stopPropagation()}
+        className="bg-[#1a1a1a] rounded-t-2xl sm:rounded-2xl p-5 w-full sm:max-w-[400px] border-t border-white/10 sm:border sm:border-white/10 max-h-[90vh] overflow-y-auto"
+      >
+        <h3 className="text-lg font-bold mb-1">Enter Your Discord Username</h3>
+        <p className="text-gray-400 text-[13px] mb-3">Required to give you Premium access in our Discord server.</p>
+
+        <a
+          href="https://discord.gg/HySGNbJa3r"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#5865F2] text-white text-[13px] font-semibold mb-4"
+        >
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z" /></svg>
+          Join our server first
+        </a>
+
+        {/* Guide image */}
+        <div className="rounded-lg overflow-hidden border border-white/10 mb-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://github.com/koushikranjit/KR-Website/blob/3a9d265/discord-username-guide.png?raw=true"
+            alt="How to find your Discord username"
+            className="w-full"
+          />
+        </div>
+
+        <p className="text-gray-500 text-xs mb-3">
+          Open Discord → click your profile (bottom left) → copy your username (without #)
+        </p>
+
+        <input
+          type="text"
+          placeholder="e.g. koushik_ranjit"
+          value={discordInput}
+          onChange={e => setDiscordInput(e.target.value)}
+          onKeyDown={e => e.key === 'Enter' && onSubmit()}
+          autoFocus
+          className="w-full bg-[#111] border border-white/10 rounded-xl h-12 px-4 text-white text-[15px] outline-none focus:border-[#3b5bdb] transition-colors mb-3"
+        />
+
+        <div className="flex gap-2.5">
+          <button onClick={onClose} className="flex-1 h-11 rounded-xl border border-white/10 bg-transparent text-gray-400 text-sm">
+            Cancel
+          </button>
+          <button
+            onClick={onSubmit}
+            disabled={!discordInput.trim()}
+            className="flex-[2] h-11 rounded-xl bg-[#3b5bdb] text-white text-sm font-semibold disabled:opacity-50 transition-opacity"
+          >
+            Continue to Payment
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ─── Lightbox ───────────────────────────────────────────────────────────────
+function Lightbox({ index, onClose, onChange }: { index: number | null; onClose: () => void; onChange: (n: number) => void }) {
+  if (index === null) return null
+
+  return (
+    <div onClick={onClose} className="fixed inset-0 z-[100] bg-black/95 backdrop-blur flex items-center justify-center p-4">
+      <button onClick={onClose} className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 text-white text-xl flex items-center justify-center" aria-label="Close">✕</button>
+      {index > 0 && (
+        <button onClick={e => { e.stopPropagation(); onChange(index - 1) }} className="absolute left-3 w-10 h-10 rounded-full bg-white/10 text-white text-xl flex items-center justify-center" aria-label="Previous">‹</button>
+      )}
+      {index < TRADE_RESULTS.length - 1 && (
+        <button onClick={e => { e.stopPropagation(); onChange(index + 1) }} className="absolute right-3 w-10 h-10 rounded-full bg-white/10 text-white text-xl flex items-center justify-center" aria-label="Next">›</button>
+      )}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={TRADE_RESULTS[index]} alt={`Trade result ${index + 1}`} className="max-w-full max-h-[85vh] rounded-xl object-contain" onClick={e => e.stopPropagation()} />
+      <div className="absolute bottom-5 text-gray-400 text-sm">{index + 1} / {TRADE_RESULTS.length}</div>
+    </div>
+  )
+}
+
+// ─── Main: ProductPage ──────────────────────────────────────────────────────
 export default function KRTradesPage() {
   const [mounted, setMounted] = useState(false)
-  const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [activeSlide, setActiveSlide] = useState(0)
   const [paying, setPaying] = useState(false)
   const [lightbox, setLightbox] = useState<number | null>(null)
-  const [premiumCount, setPremiumCount] = useState(0)
-  const [discordCount, setDiscordCount] = useState(10)
+  const [discordCount, setDiscordCount] = useState(81)
   const [showDiscordModal, setShowDiscordModal] = useState(false)
   const [discordInput, setDiscordInput] = useState('')
-  const [reviewData, setReviewData] = useState({ rating: 4.9, count: 7 })
+  const [reviewData, setReviewData] = useState({ rating: 4.9, count: 20 })
+  const [showStickyCta, setShowStickyCta] = useState(false)
 
+  const inlineCtaRef = useRef<HTMLButtonElement>(null)
+
+  // Mount + load Razorpay + fetch counts
   useEffect(() => {
     setMounted(true)
     const s = document.createElement('script')
     s.src = 'https://checkout.razorpay.com/v1/checkout.js'
     s.async = true
     document.head.appendChild(s)
-    // Fetch live member count
-    fetch('/api/subscribe/count').then(r => r.json()).then(d => { setPremiumCount(d.premium || 0); setDiscordCount(d.discord || 10) }).catch(() => {})
-    fetch('/api/reviews').then(r => r.json()).then(d => setReviewData({ rating: d.rating || 4.9, count: d.count || 7 })).catch(() => {})
+    fetch('/api/subscribe/count').then(r => r.json()).then(d => { setDiscordCount(d.discord || 81) }).catch(() => {})
+    fetch('/api/reviews').then(r => r.json()).then(d => setReviewData({ rating: d.rating || 4.9, count: d.count || 20 })).catch(() => {})
   }, [])
 
+  // IntersectionObserver for sticky CTA
   useEffect(() => {
-    if (lightbox !== null) document.body.style.overflow = 'hidden'
-    else document.body.style.overflow = ''
+    if (!inlineCtaRef.current) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowStickyCta(!entry.isIntersecting),
+      { threshold: 0 }
+    )
+    observer.observe(inlineCtaRef.current)
+    return () => observer.disconnect()
+  }, [mounted])
+
+  // Lock scroll when lightbox open
+  useEffect(() => {
+    document.body.style.overflow = lightbox !== null ? 'hidden' : ''
   }, [lightbox])
 
-  const handleSubscribe = () => {
-    setShowDiscordModal(true)
-  }
+  const handleSubscribe = () => setShowDiscordModal(true)
 
   const handleDiscordSubmit = async () => {
     if (!discordInput.trim()) return
@@ -96,444 +751,57 @@ export default function KRTradesPage() {
 
   if (!mounted) return null
 
-  const Star = () => <span style={{ color: '#fbbf24' }}>★</span>
-  const Stars5 = () => <span className="flex gap-0.5">{Array(5).fill(0).map((_, i) => <Star key={i} />)}</span>
-
   return (
-    <>
+    <div className="w-full max-w-[430px] mx-auto bg-[#0f0f0f] min-h-screen overflow-x-hidden text-white">
       <style>{`
-        .kr-page-wrap,.kr-page-wrap *{box-sizing:border-box;margin:0;padding:0}
-        .kr-page-wrap{overflow-x:hidden;width:100%;max-width:100vw;position:relative;background:#0d0d0d;color:#fff;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased}
-        .kr-page-wrap img,.kr-page-wrap video,.kr-page-wrap svg{max-width:100%;display:block}
-        .bg-video{position:fixed;top:0;left:0;width:100vw;height:100vh;object-fit:cover;z-index:0;opacity:0.35;pointer-events:none}
-        .bg-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(180deg,rgba(13,13,13,0.3) 0%,rgba(13,13,13,0.7) 50%,rgba(13,13,13,0.95) 100%);z-index:1;pointer-events:none}
-        .kr-header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(20,20,20,0.9);backdrop-filter:blur(12px);border-bottom:1px solid #222;height:56px;display:flex;align-items:center;padding:0 14px}
-        .kr-header-inner{max-width:1200px;margin:0 auto;width:100%;display:flex;align-items:center;gap:8px}
-        .whop-page{max-width:1200px;margin:0 auto;padding:80px 24px 60px;display:flex;gap:32px;position:relative;z-index:2}
-        .whop-main{flex:1;min-width:0;max-width:100%;overflow:hidden;word-wrap:break-word;overflow-wrap:break-word}
-        .whop-sidebar{width:380px;flex-shrink:0;position:sticky;top:80px;align-self:flex-start}
-        .whop-card{background:#1a1a1a;border-radius:16px;padding:24px;max-width:100%;overflow:hidden}
-        .whop-card-sm{background:#1c1c1c;border-radius:12px;padding:20px;max-width:100%;overflow:hidden}
-        .accordion-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
-        .accordion-body.open{max-height:200px}
-        .slide-fade{transition:opacity .5s ease}
-        .bar-fill{height:6px;border-radius:3px;transition:width .6s ease}
-        .marquee-wrap{overflow:hidden;width:100%}
-        .marquee-track{display:flex;gap:12px;animation:marquee 25s linear infinite;width:max-content}
-        .marquee-track:hover{animation-play-state:paused}
         @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-        .mobile-sticky-cta{display:none}
-        .mobile-pricing{display:none}
-        .whop-meta-row{display:flex;align-items:center;gap:12px;margin-top:20px;font-size:14px;color:#9ca3af;flex-wrap:wrap}
-        .whop-meta-divider{width:1px;height:20px;background:#333}
-        .whop-features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:24px}
-        .whop-reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-        .whop-rating-summary{display:flex;gap:32px;margin-bottom:24px}
-        .whop-rating-bars{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;justify-content:center;max-width:100%;overflow:hidden}
-        .whop-bar-row{display:flex;align-items:center;gap:6px;font-size:13px}
-        .whop-bar-pct{color:#9ca3af;width:36px;text-align:right;font-size:11px;white-space:nowrap;flex-shrink:0}
-        .whop-bar-track{flex:1;height:6px;background:#374151;border-radius:3px;overflow:hidden;min-width:0}
-        .whop-more-card{display:block;max-width:280px;text-decoration:none;color:#fff}
-        .whop-about{display:flex;gap:16px;align-items:center;max-width:100%}
-        .whop-about-text{flex:1;min-width:0;max-width:100%;overflow:hidden}
-        .whop-about-links{display:flex;gap:12px;margin-top:10px;flex-wrap:wrap}
-        .whop-faq-btn{width:100%;display:flex;justify-content:space-between;align-items:center;background:none;border:none;color:#fff;cursor:pointer;font-size:15px;font-weight:500;padding:0;text-align:left}
-        .whop-faq-q{flex:1;min-width:0;padding-right:12px;word-break:break-word}
-        .whop-section-title{font-weight:700;margin-bottom:14px}
-        .whop-hero{overflow:hidden;background:#111;position:relative;aspect-ratio:16/9;border-radius:12px}
-        .whop-hero img{width:100%;height:100%;object-fit:cover}
-
-        /* ===== MOBILE: 900px and below ===== */
-        @media(max-width:900px){
-          .whop-page{display:block!important;padding:56px 0 80px!important}
-          .whop-main{display:block!important;padding:0 16px!important;width:100%!important;max-width:100vw!important}
-          .whop-sidebar{display:none!important}
-          .whop-card{padding:14px;border-radius:12px}
-          .whop-card-sm{padding:12px;border-radius:10px}
-          .mobile-sticky-cta{display:flex!important;position:fixed;bottom:0;left:0;right:0;z-index:60;padding:12px 16px;background:rgba(13,13,13,0.97);backdrop-filter:blur(12px);border-top:1px solid #222}
-          .mobile-pricing{display:block!important;padding:16px 0;margin-bottom:4px}
-          .whop-hero{border-radius:0!important;margin-left:-16px!important;margin-right:-16px!important;width:calc(100% + 32px)!important}
-          .whop-features-grid{display:flex!important;flex-direction:column!important;gap:8px!important}
-          .whop-reviews-grid{display:flex!important;flex-direction:column!important;gap:10px!important}
-          .whop-rating-summary{display:flex!important;flex-direction:column!important;gap:16px!important;align-items:center!important}
-          .whop-rating-bars{width:100%!important}
-          .whop-more-card{max-width:100%!important;width:100%!important}
-          .whop-meta-divider{display:none!important}
-          .whop-meta-row{gap:6px;font-size:13px}
-          .whop-about{flex-direction:column!important;align-items:flex-start!important;gap:12px!important}
-          .whop-about-text{width:100%!important}
-          .whop-faq-btn{font-size:14px}
-          .whop-bar-row{gap:4px}
-          .whop-bar-pct{width:30px;font-size:10px}
-        }
-        /* ===== SMALL PHONE: 480px and below ===== */
-        @media(max-width:480px){
-          .whop-page{padding:56px 0 76px!important}
-          .whop-main{padding:0 12px!important}
-          .whop-card{padding:12px}
-          .whop-card-sm{padding:10px}
-          .whop-hero{margin-left:-12px!important;margin-right:-12px!important;width:calc(100% + 24px)!important}
-          .mobile-sticky-cta{padding:10px 12px}
-          .marquee-track{gap:8px}
-        }
+        .animate-marquee{animation:marquee 25s linear infinite}
+        .scrollbar-hide::-webkit-scrollbar{display:none}
+        .scrollbar-hide{-ms-overflow-style:none;scrollbar-width:none}
       `}</style>
 
-      <div className="kr-page-wrap">
-      {/* ═══ BACKGROUND VIDEO ═══ */}
-      <video className="bg-video" autoPlay muted loop playsInline>
-        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_094440_a3592600-bd1e-49e5-9bce-a73662061d83.mp4" type="video/mp4" />
-      </video>
-      <div className="bg-overlay" />
+      <TopNavHeader />
 
-      {/* ═══ HEADER ═══ */}
-      <header className="kr-header">
-        <div className="kr-header-inner">
-          <a href="https://koushikranjit.in" style={{ width:30,height:30,borderRadius:'50%',background:'#222',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',textDecoration:'none',fontSize:13,flexShrink:0 }}>←</a>
-          <div style={{ width:34,height:34,borderRadius:'50%',background:'linear-gradient(135deg,#00e87b,#0a5c3a)',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:800,fontSize:10,color:'#fff',letterSpacing:'-0.5px',flexShrink:0 }}>KR</div>
-          <span style={{ fontWeight:600,fontSize:16 }}>KR Trades</span>
-          <div style={{ marginLeft:'auto',display:'flex',gap:10,alignItems:'center' }}>
-            <a href="/KRtrades/manage" style={{ color:'#9ca3af',fontSize:12,textDecoration:'none' }}>Manage</a>
-          </div>
-        </div>
-      </header>
+      <main className="pt-14">
+        <HeroCarousel activeSlide={activeSlide} setActiveSlide={setActiveSlide} />
 
-      <div className="whop-page">
+        <ProductInfo
+          rating={reviewData.rating}
+          reviewCount={reviewData.count}
+          paying={paying}
+          onSubscribe={handleSubscribe}
+          ctaRef={inlineCtaRef}
+        />
 
-        {/* ═══ MAIN CONTENT ═══ */}
-        <div className="whop-main">
+        <SocialProofBar memberCount={discordCount} />
 
-          {/* HERO SLIDER */}
-          <div className="whop-hero">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={SLIDER_IMAGES[activeSlide]}
-              alt={`KR Trades ${activeSlide + 1}`}
-              className="slide-fade"
-            />
-            {/* Left Arrow */}
-            <button
-              onClick={() => setActiveSlide(activeSlide === 0 ? SLIDER_IMAGES.length - 1 : activeSlide - 1)}
-              style={{ position:'absolute',left:12,top:'50%',transform:'translateY(-50%)',width:36,height:36,borderRadius:'50%',background:'rgba(0,0,0,0.6)',border:'1px solid rgba(255,255,255,0.15)',color:'#fff',fontSize:18,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',backdropFilter:'blur(4px)' }}
-            >‹</button>
-            {/* Right Arrow */}
-            <button
-              onClick={() => setActiveSlide(activeSlide === SLIDER_IMAGES.length - 1 ? 0 : activeSlide + 1)}
-              style={{ position:'absolute',right:12,top:'50%',transform:'translateY(-50%)',width:36,height:36,borderRadius:'50%',background:'rgba(0,0,0,0.6)',border:'1px solid rgba(255,255,255,0.15)',color:'#fff',fontSize:18,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',backdropFilter:'blur(4px)' }}
-            >›</button>
-            {/* Counter */}
-            <div style={{ position:'absolute',bottom:10,right:12,background:'rgba(0,0,0,0.6)',borderRadius:6,padding:'3px 8px',fontSize:12,color:'#ccc',backdropFilter:'blur(4px)' }}>
-              {activeSlide + 1} / {SLIDER_IMAGES.length}
-            </div>
-          </div>
-          {/* Dots */}
-          <div style={{ display:'flex',justifyContent:'center',gap:6,marginTop:12 }}>
-            {SLIDER_IMAGES.map((_, i) => (
-              <button key={i} onClick={() => setActiveSlide(i)} style={{ width:8,height:8,borderRadius:'50%',border: i === activeSlide ? 'none' : '1px solid #555',background: i === activeSlide ? '#fff' : 'transparent',cursor:'pointer',padding:0 }} />
-            ))}
-          </div>
+        <PageDescription />
 
-          {/* MOBILE PRICING (shown only on mobile, after slider) */}
-          <div className="mobile-pricing">
-            <div style={{ display:'flex',alignItems:'center',gap:8,marginBottom:8 }}>
-              <Stars5 />
-              <span style={{ fontSize:14,fontWeight:600 }}>{reviewData.rating}</span>
-              <span style={{ fontSize:13,color:'#9ca3af' }}>({reviewData.count})</span>
-            </div>
-            <h3 style={{ fontSize:20,fontWeight:700,marginBottom:4 }}>KR Trades Premium</h3>
-            <div style={{ display:'flex',alignItems:'baseline',gap:4,marginBottom:4 }}>
-              <span style={{ fontSize:24,fontWeight:700 }}>₹1,025</span>
-              <span style={{ color:'#9ca3af',fontSize:14 }}>/ month</span>
-            </div>
-            <a href="/KRtrades/manage" style={{ color:'#3b82f6',fontSize:13,textDecoration:'none' }}>Manage subscription</a>
-          </div>
+        <TradeResultsMarquee onImageClick={setLightbox} />
 
-          {/* META ROW */}
-          <div className="whop-meta-row">
-            <span style={{ display:'flex',alignItems:'center',gap:6 }}>
-              <svg width="16" height="16" fill="#9ca3af" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-              <span style={{ color:'#fff' }}>{discordCount} members</span>
-            </span>
-            <div className="whop-meta-divider" />
-            <span style={{ display:'flex',alignItems:'center',gap:6 }}>
-              <div style={{ width:20,height:20,borderRadius:'50%',background:'#00e87b',display:'flex',alignItems:'center',justifyContent:'center',fontSize:8,fontWeight:800,color:'#000' }}>KR</div>
-              <span style={{ color:'#fff' }}>By Koushik Ranjit</span>
-            </span>
-            <div className="whop-meta-divider" />
-            {/* Social Links */}
-            <div style={{ display:'flex',gap:10,alignItems:'center' }}>
-              <a href="https://www.instagram.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" title="Instagram" style={{ color:'#9ca3af',display:'flex' }}>
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/></svg>
-              </a>
-              <a href="https://x.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" title="X / Twitter" style={{ color:'#9ca3af',display:'flex' }}>
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              </a>
-              <a href="https://discord.gg/HySGNbJa3r" target="_blank" rel="noopener noreferrer" title="Discord" style={{ color:'#9ca3af',display:'flex' }}>
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-              </a>
-            </div>
-          </div>
+        <FAQAccordion />
 
-          {/* HEADING */}
-          <h1 style={{ fontSize:'clamp(22px,5vw,40px)',fontWeight:700,marginTop:20,lineHeight:1.25 }}>
-            Live Futures Trading Room — Learn To Trade NQ With Discipline
-          </h1>
+        <ReviewsSection rating={reviewData.rating} reviewCount={reviewData.count} />
 
-          {/* DESCRIPTION */}
-          <p style={{ fontSize:'clamp(14px,3.5vw,16px)',color:'#d0d0d0',lineHeight:1.7,marginTop:14 }}>
-            Join KR Trades and trade alongside a professional Nasdaq futures trader. Get daily live trading sessions, the Premium Starter Course (Bengali), real-time trade guidance, exclusive IFVG model strategies, weekly market breakdowns, and direct mentor access — all with full transparency.
-          </p>
+        <AboutCreator />
 
-          {/* WHAT'S INCLUDED */}
-          <div className="whop-features-grid">
-            {['Daily Live Trading (Mon–Fri)','Premium Starter Course','Weekly Market Breakdown + Q&A','Risk & Mindset Guidance','Trade Recaps — Full P&L','Private Discord Community'].map(f => (
-              <div key={f} style={{ display:'flex',alignItems:'center',gap:8,fontSize:14,color:'#d0d0d0' }}>
-                <svg width="16" height="16" fill="#00e87b" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
-                {f}
-              </div>
-            ))}
-          </div>
+        <RelatedCarousel rating={reviewData.rating} memberCount={discordCount} />
 
-          {/* TRADE RESULTS MARQUEE */}
-          <h2 style={{ fontSize:'clamp(18px,4.5vw,22px)',fontWeight:700,marginTop:'clamp(28px,6vw,48px)',marginBottom:14 }}>Real Trade Results</h2>
-          <div className="marquee-wrap">
-            <div className="marquee-track">
-              {[...TRADE_RESULTS, ...TRADE_RESULTS].map((img, i) => (
-                <button key={i} onClick={() => setLightbox(i % TRADE_RESULTS.length)} style={{ flexShrink:0,width:240,borderRadius:12,overflow:'hidden',border:'1px solid #222',cursor:'pointer',background:'none',padding:0 }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={img} alt={`Trade ${(i % TRADE_RESULTS.length) + 1}`} style={{ width:'100%',aspectRatio:'16/9',objectFit:'cover',display:'block' }} loading="lazy" />
-                </button>
-              ))}
-            </div>
-          </div>
+        {/* Bottom spacer for sticky CTA */}
+        <div className="h-24" />
+      </main>
 
-          {/* FAQ */}
-          <h2 style={{ fontSize:'clamp(18px,4.5vw,22px)',fontWeight:700,marginTop:'clamp(28px,6vw,48px)',marginBottom:14 }}>Frequently Asked Questions</h2>
-          <div style={{ display:'flex',flexDirection:'column',gap:8 }}>
-            {FAQS.map((faq, i) => (
-              <div key={i} className="whop-card-sm">
-                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="whop-faq-btn">
-                  <span className="whop-faq-q">{faq.q}</span>
-                  <span style={{ fontSize:20,color:'#9ca3af',transition:'transform .2s',transform: openFaq === i ? 'rotate(45deg)' : 'none',flexShrink:0 }}>+</span>
-                </button>
-                <div className={`accordion-body ${openFaq === i ? 'open' : ''}`}>
-                  <p style={{ paddingTop:12,fontSize:14,color:'#9ca3af',lineHeight:1.6 }}>{faq.a}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+      <StickyBottomCTA visible={showStickyCta} paying={paying} onSubscribe={handleSubscribe} />
 
-          {/* REVIEWS */}
-          <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',marginTop:'clamp(28px,6vw,48px)',marginBottom:14,flexWrap:'wrap',gap:8 }}>
-            <h2 style={{ fontSize:'clamp(18px,4.5vw,22px)',fontWeight:700 }}>Customer Reviews</h2>
-            <a href="https://www.trustpilot.com/review/koushikranjit.in" target="_blank" rel="noopener noreferrer" style={{ color:'#3b82f6',fontSize:14,textDecoration:'none' }}>See all on Trustpilot</a>
-          </div>
+      <DiscordModal
+        open={showDiscordModal}
+        onClose={() => setShowDiscordModal(false)}
+        discordInput={discordInput}
+        setDiscordInput={setDiscordInput}
+        onSubmit={handleDiscordSubmit}
+      />
 
-          {/* Rating Summary */}
-          <div className="whop-card whop-rating-summary">
-            <div style={{ textAlign:'center',flexShrink:0 }}>
-              <div style={{ fontSize:'clamp(32px,8vw,56px)',fontWeight:800,lineHeight:1 }}>{reviewData.rating}</div>
-              <div style={{ margin:'8px 0' }}><Stars5 /></div>
-              <div style={{ color:'#9ca3af',fontSize:13 }}>{reviewData.count} ratings on Trustpilot</div>
-            </div>
-            <div className="whop-rating-bars">
-              {[
-                { star:5, pct:86, count:6, color:'#22c55e' },
-                { star:4, pct:14, count:1, color:'#84cc16' },
-                { star:3, pct:0, count:0, color:'#6b7280' },
-                { star:2, pct:0, count:0, color:'#6b7280' },
-                { star:1, pct:0, count:0, color:'#6b7280' },
-              ].map(r => (
-                <div key={r.star} className="whop-bar-row">
-                  <span style={{ width:12,color:'#9ca3af',flexShrink:0 }}>{r.star}</span>
-                  <Star />
-                  <div className="whop-bar-track">
-                    <div className="bar-fill" style={{ width:`${Math.max(r.pct, 2)}%`,background:r.color }} />
-                  </div>
-                  <span className="whop-bar-pct">{r.pct}%</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Review Cards */}
-          <div className="whop-reviews-grid">
-            {REVIEWS.map((rev, i) => (
-              <div key={i} className="whop-card-sm">
-                <div style={{ display:'flex',alignItems:'center',gap:8,marginBottom:8 }}>
-                  <div style={{ width:32,height:32,borderRadius:'50%',background:`hsl(${i*50+120},45%,32%)`,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700,fontSize:12,flexShrink:0 }}>{rev.name[0]}</div>
-                  <div style={{ overflow:'hidden',flex:1,minWidth:0 }}>
-                    <div style={{ fontWeight:600,fontSize:13,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap' }}>{rev.name}</div>
-                    <div style={{ color:'#6b7280',fontSize:11 }}>{rev.time}</div>
-                  </div>
-                </div>
-                <div style={{ marginBottom:6 }}>{Array(rev.stars).fill(0).map((_, j) => <span key={j} style={{ color:'#fbbf24',fontSize:13 }}>★</span>)}{Array(5 - rev.stars).fill(0).map((_, j) => <span key={j} style={{ color:'#374151',fontSize:13 }}>★</span>)}</div>
-                <p style={{ fontSize:13,color:'#d0d0d0',lineHeight:1.5 }}>{rev.text}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* ABOUT CREATOR */}
-          <h2 style={{ fontSize:'clamp(18px,4.5vw,22px)',fontWeight:700,marginTop:'clamp(28px,6vw,48px)',marginBottom:14 }}>About the creator</h2>
-          <div className="whop-card whop-about">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="https://github.com/koushikranjit/KR-Website/blob/847c7b2/koushik-host3.png?raw=true" alt="Koushik Ranjit" style={{ width:48,height:48,borderRadius:'50%',objectFit:'cover',objectPosition:'top',flexShrink:0 }} />
-            <div className="whop-about-text">
-              <div style={{ fontWeight:700,fontSize:16 }}>Koushik Ranjit</div>
-              <p style={{ color:'#9ca3af',fontSize:14,marginTop:4,lineHeight:1.5 }}>
-                Indian proprietary day trader specialising in Nasdaq futures. 5+ years of active trading with a disciplined, rule-based approach. Featured in APN News, Vocal Media, Bhaskar Live & more.
-              </p>
-              <div className="whop-about-links">
-                <a href="https://www.instagram.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" style={{ color:'#3b82f6',fontSize:13,textDecoration:'none' }}>Instagram</a>
-                <a href="https://x.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" style={{ color:'#3b82f6',fontSize:13,textDecoration:'none' }}>Twitter/X</a>
-                <a href="https://discord.gg/HySGNbJa3r" target="_blank" rel="noopener noreferrer" style={{ color:'#3b82f6',fontSize:13,textDecoration:'none' }}>Discord</a>
-                <a href="https://koushikranjit.in" style={{ color:'#3b82f6',fontSize:13,textDecoration:'none' }}>Website</a>
-              </div>
-            </div>
-          </div>
-
-          {/* MORE FROM KR TRADES */}
-          <h2 style={{ fontSize:'clamp(18px,4.5vw,22px)',fontWeight:700,marginTop:'clamp(28px,6vw,48px)',marginBottom:14 }}>More from KR Trades</h2>
-          <a href="https://discord.gg/HySGNbJa3r" target="_blank" rel="noopener noreferrer" className="whop-more-card">
-            <div className="whop-card-sm" style={{ padding:0,overflow:'hidden' }}>
-              <div style={{ background:'linear-gradient(135deg,#0a2e1a,#111)',aspectRatio:'16/9',display:'flex',alignItems:'center',justifyContent:'center' }}>
-                <span style={{ fontWeight:800,fontSize:18,color:'#00e87b',letterSpacing:1 }}>KR TRADES FREE</span>
-              </div>
-              <div style={{ padding:12 }}>
-                <div style={{ display:'flex',alignItems:'center',gap:6,marginBottom:4 }}>
-                  <div style={{ width:18,height:18,borderRadius:'50%',background:'#00e87b',display:'flex',alignItems:'center',justifyContent:'center',fontSize:7,fontWeight:800,color:'#000',flexShrink:0 }}>KR</div>
-                  <span style={{ fontWeight:600,fontSize:13 }}>KR Trades Free Access</span>
-                </div>
-                <p style={{ color:'#9ca3af',fontSize:12,marginBottom:6 }}>Join the free Discord community</p>
-                <div style={{ display:'flex',alignItems:'center',gap:6,flexWrap:'wrap' }}>
-                  <span style={{ color:'#3b82f6',fontWeight:600,fontSize:13 }}>Free</span>
-                  <span style={{ color:'#fbbf24',fontSize:12 }}>★★★★★</span>
-                  <span style={{ color:'#9ca3af',fontSize:12 }}>{reviewData.rating}</span>
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        {/* ═══ SIDEBAR ═══ */}
-        <div className="whop-sidebar">
-          <div className="whop-card">
-            {/* Banner */}
-            <div style={{ borderRadius:10,overflow:'hidden',marginBottom:16,background:'linear-gradient(135deg,#0a2e1a,#050505)',aspectRatio:'3/1',display:'flex',alignItems:'center',justifyContent:'center' }}>
-              <span style={{ fontWeight:900,fontSize:24,letterSpacing:2,color:'#00e87b' }}>KR TRADES</span>
-            </div>
-
-            {/* Rating */}
-            <div style={{ display:'flex',alignItems:'center',gap:8,marginBottom:12 }}>
-              <Stars5 />
-              <span style={{ fontSize:14,color:'#fff' }}>{reviewData.rating}</span>
-              <a href="https://www.trustpilot.com/review/koushikranjit.in" target="_blank" rel="noopener noreferrer" style={{ fontSize:13,color:'#9ca3af',textDecoration:'none' }}>({reviewData.count} reviews)</a>
-            </div>
-
-            {/* Title */}
-            <h3 style={{ fontSize:22,fontWeight:700,marginBottom:8 }}>KR Trades Premium</h3>
-
-            {/* Price */}
-            <div style={{ display:'flex',alignItems:'baseline',gap:4,marginBottom:4 }}>
-              <span style={{ fontSize:28,fontWeight:700 }}>₹1,025</span>
-              <span style={{ color:'#9ca3af',fontSize:15 }}>/ month</span>
-            </div>
-
-            <a href="/KRtrades/manage" style={{ color:'#3b82f6',fontSize:14,textDecoration:'none',display:'inline-block',marginBottom:20,cursor:'pointer' }}>Manage subscription</a>
-
-            {/* CTA */}
-            <button
-              onClick={handleSubscribe}
-              disabled={paying}
-              style={{ width:'100%',height:52,background:'#3b5bdb',borderRadius:12,border:'none',color:'#fff',fontSize:17,fontWeight:600,cursor:'pointer',opacity: paying ? 0.6 : 1,transition:'background .2s' }}
-              onMouseEnter={e => (e.currentTarget.style.background = '#2f4fc4')}
-              onMouseLeave={e => (e.currentTarget.style.background = '#3b5bdb')}
-            >
-              {paying ? 'Processing...' : 'Join now'}
-            </button>
-
-            <p style={{ textAlign:'center',color:'#6b7280',fontSize:12,marginTop:8 }}>Secure payment via Razorpay</p>
-          </div>
-
-          {/* Powered by */}
-          <div style={{ display:'flex',alignItems:'center',justifyContent:'center',gap:6,marginTop:16 }}>
-            <div style={{ width:16,height:16,borderRadius:3,background:'#00e87b',display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,fontWeight:900,color:'#000' }}>K</div>
-            <span style={{ color:'#6b7280',fontSize:13 }}>Powered by KR Trades</span>
-          </div>
-        </div>
-      </div>
-
-      {/* ═══ DISCORD USERNAME MODAL ═══ */}
-      {showDiscordModal && (
-        <div onClick={() => setShowDiscordModal(false)} style={{ position:'fixed',inset:0,zIndex:100,background:'rgba(0,0,0,.85)',backdropFilter:'blur(6px)',display:'flex',alignItems:'center',justifyContent:'center',padding:16 }}>
-          <div onClick={e => e.stopPropagation()} style={{ background:'#1a1a1a',borderRadius:16,padding:'clamp(16px,4vw,28px)',maxWidth:420,width:'100%',border:'1px solid #333',maxHeight:'90vh',overflowY:'auto' }}>
-            <h3 style={{ fontSize:20,fontWeight:700,marginBottom:4 }}>Enter Your Discord Username</h3>
-            <p style={{ color:'#9ca3af',fontSize:13,marginBottom:12 }}>Required to give you Premium access in our Discord server.</p>
-            <a href="https://discord.gg/HySGNbJa3r" target="_blank" rel="noopener noreferrer" style={{ display:'inline-flex',alignItems:'center',gap:6,padding:'8px 14px',borderRadius:8,background:'#5865F2',color:'#fff',fontSize:13,fontWeight:600,textDecoration:'none',marginBottom:16 }}>
-              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-              Make sure you join our server first
-            </a>
-
-            {/* Guide image */}
-            <div style={{ borderRadius:10,overflow:'hidden',marginBottom:16,border:'1px solid #333' }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://github.com/koushikranjit/KR-Website/blob/3a9d265/discord-username-guide.png?raw=true"
-                alt="How to find your Discord username"
-                style={{ width:'100%',display:'block' }}
-              />
-            </div>
-
-            <p style={{ color:'#6b7280',fontSize:12,marginBottom:12 }}>
-              Open Discord → click your profile (bottom left) → copy your username (without #)
-            </p>
-
-            <input
-              type="text"
-              placeholder="e.g. koushik_ranjit"
-              value={discordInput}
-              onChange={e => setDiscordInput(e.target.value)}
-              onKeyDown={e => e.key === 'Enter' && handleDiscordSubmit()}
-              autoFocus
-              style={{ width:'100%',background:'#111',border:'1px solid #333',borderRadius:10,height:48,padding:'0 16px',color:'#fff',fontSize:15,outline:'none',marginBottom:12 }}
-            />
-
-            <div style={{ display:'flex',gap:10 }}>
-              <button
-                onClick={() => setShowDiscordModal(false)}
-                style={{ flex:1,height:44,borderRadius:10,border:'1px solid #333',background:'transparent',color:'#9ca3af',fontSize:14,cursor:'pointer' }}
-              >Cancel</button>
-              <button
-                onClick={handleDiscordSubmit}
-                disabled={!discordInput.trim()}
-                style={{ flex:2,height:44,borderRadius:10,border:'none',background:'#3b5bdb',color:'#fff',fontSize:14,fontWeight:600,cursor:'pointer',opacity: discordInput.trim() ? 1 : 0.5 }}
-              >Continue to Payment</button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ═══ LIGHTBOX ═══ */}
-      {lightbox !== null && (
-        <div onClick={() => setLightbox(null)} style={{ position:'fixed',inset:0,zIndex:100,background:'rgba(0,0,0,.92)',backdropFilter:'blur(4px)',display:'flex',alignItems:'center',justifyContent:'center',padding:16 }}>
-          <button onClick={() => setLightbox(null)} style={{ position:'absolute',top:20,right:20,width:40,height:40,borderRadius:'50%',background:'rgba(255,255,255,.1)',border:'none',color:'#fff',fontSize:20,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center' }}>✕</button>
-          {lightbox > 0 && <button onClick={e => { e.stopPropagation(); setLightbox(lightbox - 1) }} style={{ position:'absolute',left:16,width:40,height:40,borderRadius:'50%',background:'rgba(255,255,255,.1)',border:'none',color:'#fff',fontSize:20,cursor:'pointer' }}>‹</button>}
-          {lightbox < TRADE_RESULTS.length - 1 && <button onClick={e => { e.stopPropagation(); setLightbox(lightbox + 1) }} style={{ position:'absolute',right:16,width:40,height:40,borderRadius:'50%',background:'rgba(255,255,255,.1)',border:'none',color:'#fff',fontSize:20,cursor:'pointer' }}>›</button>}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={TRADE_RESULTS[lightbox]} alt={`Result ${lightbox + 1}`} style={{ maxWidth:'100%',maxHeight:'85vh',borderRadius:12,objectFit:'contain' }} onClick={e => e.stopPropagation()} />
-          <div style={{ position:'absolute',bottom:20,color:'#9ca3af',fontSize:14 }}>{lightbox + 1} / {TRADE_RESULTS.length}</div>
-        </div>
-      )}
-      {/* ═══ MOBILE STICKY BOTTOM CTA ═══ */}
-      <div className="mobile-sticky-cta">
-        <button
-          onClick={handleSubscribe}
-          disabled={paying}
-          style={{ width:'100%',height:48,borderRadius:12,border:'none',background:'#3b5bdb',color:'#fff',fontSize:16,fontWeight:600,cursor:'pointer',opacity:paying?0.6:1 }}
-        >
-          {paying ? 'Processing...' : 'Join now'}
-        </button>
-      </div>
-      </div>{/* end kr-page-wrap */}
-    </>
+      <Lightbox index={lightbox} onClose={() => setLightbox(null)} onChange={setLightbox} />
+    </div>
   )
 }
