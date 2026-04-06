@@ -170,7 +170,7 @@ export default function KRTradesPage() {
           <div style={{ display:'flex',alignItems:'center',gap:12,marginTop:20,fontSize:14,color:'#9ca3af',flexWrap:'wrap' }}>
             <span style={{ display:'flex',alignItems:'center',gap:6 }}>
               <svg width="16" height="16" fill="#9ca3af" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-              <span style={{ color:'#fff' }}>{premiumCount} purchased</span>
+              <span style={{ color:'#fff' }}>{discordCount} members</span>
             </span>
             <div style={{ width:1,height:20,background:'#333' }} />
             <span style={{ display:'flex',alignItems:'center',gap:6 }}>
