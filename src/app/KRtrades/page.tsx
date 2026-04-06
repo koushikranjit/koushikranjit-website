@@ -117,16 +117,21 @@ export default function KRTradesPage() {
         .marquee-track{display:flex;gap:12px;animation:marquee 25s linear infinite;width:max-content}
         .marquee-track:hover{animation-play-state:paused}
         @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-        .bg-video{position:fixed;top:0;left:0;width:100vw;height:100vh;object-fit:cover;z-index:0;opacity:0.2;pointer-events:none;filter:blur(1px)}
-        .bg-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(180deg,rgba(13,13,13,0.6) 0%,rgba(13,13,13,0.9) 60%,#0d0d0d 100%);z-index:1;pointer-events:none}
+        .bg-video{position:fixed;top:0;left:0;min-width:100%;min-height:100%;width:auto;height:auto;object-fit:cover;z-index:0;opacity:0.35;pointer-events:none}
+        .bg-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(13,13,13,0.3) 0%,rgba(13,13,13,0.7) 50%,rgba(13,13,13,0.95) 100%);z-index:1;pointer-events:none}
+        @media(max-width:768px){
+          .bg-video{width:100%;height:100%;object-position:center}
+        }
         @media(max-width:900px){
-          .whop-page{flex-direction:column;padding:72px 12px 40px;gap:24px}
-          .whop-sidebar{width:100%;position:static}
-          .whop-card{padding:16px}
+          .whop-page{flex-direction:column;padding:72px 14px 40px;gap:20px}
+          .whop-sidebar{width:100%;position:static;order:-1}
+          .whop-card{padding:18px}
           .whop-card-sm{padding:14px}
         }
         @media(max-width:480px){
-          .whop-page{padding:68px 10px 32px}
+          .whop-page{padding:66px 10px 32px}
+          .whop-card{padding:14px}
+          .whop-card-sm{padding:12px}
         }
       `}</style>
 
@@ -137,13 +142,13 @@ export default function KRTradesPage() {
       <div className="bg-overlay" />
 
       {/* ═══ HEADER ═══ */}
-      <header style={{ position:'fixed',top:0,left:0,right:0,zIndex:50,background:'rgba(20,20,20,0.9)',backdropFilter:'blur(12px)',borderBottom:'1px solid #222',height:60,display:'flex',alignItems:'center',padding:'0 24px' }}>
-        <div style={{ maxWidth:1200,margin:'0 auto',width:'100%',display:'flex',alignItems:'center',gap:12 }}>
-          <a href="https://koushikranjit.in" style={{ width:32,height:32,borderRadius:'50%',background:'#222',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',textDecoration:'none',fontSize:14 }}>←</a>
-          <div style={{ width:40,height:40,borderRadius:'50%',background:'linear-gradient(135deg,#00e87b,#0a5c3a)',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:800,fontSize:11,color:'#fff',letterSpacing:'-0.5px' }}>KR</div>
-          <span style={{ fontWeight:600,fontSize:18 }}>KR Trades</span>
-          <div style={{ marginLeft:'auto',display:'flex',gap:12,alignItems:'center' }}>
-            <a href="/KRtrades/manage" style={{ color:'#9ca3af',fontSize:13,textDecoration:'none' }}>Manage</a>
+      <header style={{ position:'fixed',top:0,left:0,right:0,zIndex:50,background:'rgba(20,20,20,0.9)',backdropFilter:'blur(12px)',borderBottom:'1px solid #222',height:56,display:'flex',alignItems:'center',padding:'0 14px' }}>
+        <div style={{ maxWidth:1200,margin:'0 auto',width:'100%',display:'flex',alignItems:'center',gap:10 }}>
+          <a href="https://koushikranjit.in" style={{ width:30,height:30,borderRadius:'50%',background:'#222',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',textDecoration:'none',fontSize:13,flexShrink:0 }}>←</a>
+          <div style={{ width:34,height:34,borderRadius:'50%',background:'linear-gradient(135deg,#00e87b,#0a5c3a)',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:800,fontSize:10,color:'#fff',letterSpacing:'-0.5px',flexShrink:0 }}>KR</div>
+          <span style={{ fontWeight:600,fontSize:16 }}>KR Trades</span>
+          <div style={{ marginLeft:'auto',display:'flex',gap:10,alignItems:'center' }}>
+            <a href="/KRtrades/manage" style={{ color:'#9ca3af',fontSize:12,textDecoration:'none' }}>Manage</a>
           </div>
         </div>
       </header>
@@ -268,7 +273,7 @@ export default function KRTradesPage() {
           {/* Rating Summary */}
           <div className="whop-card" style={{ display:'flex',gap:32,flexWrap:'wrap',marginBottom:24 }}>
             <div style={{ textAlign:'center',minWidth:120 }}>
-              <div style={{ fontSize:56,fontWeight:800,lineHeight:1 }}>{reviewData.rating}</div>
+              <div style={{ fontSize:'clamp(36px,8vw,56px)',fontWeight:800,lineHeight:1 }}>{reviewData.rating}</div>
               <div style={{ margin:'8px 0' }}><Stars5 /></div>
               <div style={{ color:'#9ca3af',fontSize:14 }}>{reviewData.count} ratings on Trustpilot</div>
             </div>
