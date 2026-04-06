@@ -4,6 +4,13 @@ import { useState, useEffect } from 'react'
 
 const RAZORPAY_KEY = 'rzp_live_SSL6Wg71WI8B11'
 
+const SLIDER_IMAGES = [
+  'https://github.com/koushikranjit/KR-Website/blob/63bef0a/kr-slide-banner.jpg?raw=true',
+  'https://github.com/koushikranjit/KR-Website/blob/63bef0a/kr-slide-live.jpg?raw=true',
+  'https://github.com/koushikranjit/KR-Website/blob/63bef0a/kr-slide-education.jpg?raw=true',
+  'https://github.com/koushikranjit/KR-Website/blob/63bef0a/kr-testimonial.jpg?raw=true',
+]
+
 const TRADE_RESULTS = Array.from({ length: 9 }, (_, i) =>
   `https://github.com/koushikranjit/KR-Website/blob/37b9a4a/kr-trade-result-${i + 1}.png?raw=true`
 )
@@ -41,7 +48,7 @@ export default function KRTradesPage() {
     s.async = true
     document.head.appendChild(s)
     // Auto-advance slider
-    const id = setInterval(() => setActiveSlide(p => (p + 1) % TRADE_RESULTS.length), 3000)
+    const id = setInterval(() => setActiveSlide(p => (p + 1) % SLIDER_IMAGES.length), 3000)
     return () => clearInterval(id)
   }, [])
 
@@ -118,29 +125,29 @@ export default function KRTradesPage() {
           <div style={{ borderRadius:12,overflow:'hidden',background:'#111',position:'relative',aspectRatio:'16/9' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={TRADE_RESULTS[activeSlide]}
-              alt={`KR Trades Result ${activeSlide + 1}`}
+              src={SLIDER_IMAGES[activeSlide]}
+              alt={`KR Trades ${activeSlide + 1}`}
               style={{ width:'100%',height:'100%',objectFit:'cover' }}
               className="slide-fade"
             />
             {/* Left Arrow */}
             <button
-              onClick={() => setActiveSlide(activeSlide === 0 ? TRADE_RESULTS.length - 1 : activeSlide - 1)}
+              onClick={() => setActiveSlide(activeSlide === 0 ? SLIDER_IMAGES.length - 1 : activeSlide - 1)}
               style={{ position:'absolute',left:12,top:'50%',transform:'translateY(-50%)',width:36,height:36,borderRadius:'50%',background:'rgba(0,0,0,0.6)',border:'1px solid rgba(255,255,255,0.15)',color:'#fff',fontSize:18,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',backdropFilter:'blur(4px)' }}
             >‹</button>
             {/* Right Arrow */}
             <button
-              onClick={() => setActiveSlide(activeSlide === TRADE_RESULTS.length - 1 ? 0 : activeSlide + 1)}
+              onClick={() => setActiveSlide(activeSlide === SLIDER_IMAGES.length - 1 ? 0 : activeSlide + 1)}
               style={{ position:'absolute',right:12,top:'50%',transform:'translateY(-50%)',width:36,height:36,borderRadius:'50%',background:'rgba(0,0,0,0.6)',border:'1px solid rgba(255,255,255,0.15)',color:'#fff',fontSize:18,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',backdropFilter:'blur(4px)' }}
             >›</button>
             {/* Counter */}
             <div style={{ position:'absolute',bottom:10,right:12,background:'rgba(0,0,0,0.6)',borderRadius:6,padding:'3px 8px',fontSize:12,color:'#ccc',backdropFilter:'blur(4px)' }}>
-              {activeSlide + 1} / {TRADE_RESULTS.length}
+              {activeSlide + 1} / {SLIDER_IMAGES.length}
             </div>
           </div>
           {/* Dots */}
           <div style={{ display:'flex',justifyContent:'center',gap:6,marginTop:12 }}>
-            {TRADE_RESULTS.map((_, i) => (
+            {SLIDER_IMAGES.map((_, i) => (
               <button key={i} onClick={() => setActiveSlide(i)} style={{ width:8,height:8,borderRadius:'50%',border: i === activeSlide ? 'none' : '1px solid #555',background: i === activeSlide ? '#fff' : 'transparent',cursor:'pointer',padding:0 }} />
             ))}
           </div>
