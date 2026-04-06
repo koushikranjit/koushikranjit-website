@@ -143,7 +143,7 @@ export default function ManageSubscription() {
         </div>
 
         <p className="text-center text-neutral-600 text-xs mt-6">
-          Need help? Contact <a href="mailto:contact@koushikranjit.in" className="text-[#00e87b] hover:underline">contact@koushikranjit.in</a> or <a href="https://discord.gg/jxuDkpUr5X" target="_blank" rel="noopener noreferrer" className="text-[#00e87b] hover:underline">Discord</a>
+          Need help? Contact <a href="mailto:contact@koushikranjit.in" className="text-[#00e87b] hover:underline">contact@koushikranjit.in</a> or <a href="https://discord.gg/HySGNbJa3r" target="_blank" rel="noopener noreferrer" className="text-[#00e87b] hover:underline">Discord</a>
         </p>
       </div>
     </main>

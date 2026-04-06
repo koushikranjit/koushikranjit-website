@@ -156,7 +156,7 @@
     },
     {
       "platform": "Discord",
-      "url": "https://discord.gg/jxuDkpUr5X",
+      "url": "https://discord.gg/HySGNbJa3r",
       "username": null,
       "icon": "discord",
       "active": true
@@ -174,7 +174,7 @@
     "name": "Trading Community",
     "platform": "Discord",
     "description": "Join our exclusive Discord community where disciplined traders share insights, strategies, and market analysis. Connect with like-minded individuals focused on consistent, rule-based trading approaches.",
-    "joinUrl": "https://discord.gg/jxuDkpUr5X",
+    "joinUrl": "https://discord.gg/HySGNbJa3r",
     "bannerImage": "https://github.com/koushikranjit/KR-Website/blob/1ed17443c4a5adb6fcd2f2a8bd6c3dd77cf4d52c/trading%20community%20banner.PNG?raw=true",
     "active": true
   },

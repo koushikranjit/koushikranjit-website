@@ -390,7 +390,7 @@ export default function MeetupPage() {
             <div className="flex items-center gap-6 text-sm text-neutral-500">
               <a href="https://www.instagram.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">Instagram</a>
               <a href="https://x.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">X / Twitter</a>
-              <a href="https://discord.gg/jxuDkpUr5X" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">Discord</a>
+              <a href="https://discord.gg/HySGNbJa3r" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">Discord</a>
             </div>
           </div>
         </div>

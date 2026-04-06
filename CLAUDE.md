@@ -28,6 +28,15 @@
 
 ## Latest Changes
 
+### 2026-04-06 — KR Trades landing page + SEO + bug fixes
+- `src/app/KRtrades/page.tsx` — New premium sales landing page for Nasdaq futures live trading program
+- `src/app/KRtrades/layout.tsx` — SEO metadata (OG, Twitter)
+- `public/index.html` — Title changed to "Koushik Ranjit - Day Trader", enhanced Person schema for GKP, image alt tags optimized, media section updated with 6 real article URLs (APN News, Vocal Media, Interviewer PR, Bhaskar Live, Culture Crossroads, Indie Bharat), removed Wikipedia from marquee, added English book summary, fixed JS querySelector error, fixed broken article links
+- `public/sitemap.xml` — Created with / and /meetup
+- `public/robots.txt` — Created with sitemap reference
+- `public/googlef4896d8d5248eda9.html` — Google Search Console verification
+- Site title: "Koushik Ranjit - Day Trader"
+
 ### 2026-03-26 — Meetup page rebuild, Google Forms, hosts, multi-domain
 - `src/app/meetup/page.tsx` — Complete rebuild: clean landing page with interest form (name, email, phone, location), limited seats messaging, selection-only entry, ticketed event notice, How It Works section, Hosts section with big image cards
 - Form backend: Google Forms (hidden iframe submission) → auto-saves to Google Sheet + email notifications to contact@koushikranjit.in & teamkoushikranjit@gmail.com
@@ -85,7 +94,9 @@
 - [ ] AI Clone — Step 4: Voice Clone (ElevenLabs / MathCare)
 - [ ] AI Clone — Step 5: Image to Video (VEO 3.1 / Kling AI / PixVerse)
 - [ ] AI Clone — Step 6: Final Assembly
-- [ ] Add actual media article URLs (currently placeholder `#` links)
+- [x] Add actual media article URLs (6 real articles linked)
+- [x] SEO: Enhanced Person schema, sitemap, robots.txt, Google Search Console verified
+- [x] KR Trades sales landing page (/KRtrades)
 - [ ] Consider CDN or image optimization for faster loading (GitHub raw URLs can be slow)
 - [ ] Add Google Analytics or similar tracking
 - [ ] SEO audit and optimization
