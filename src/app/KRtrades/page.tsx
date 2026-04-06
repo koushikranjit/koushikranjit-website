@@ -322,19 +322,16 @@ export default function KRTradesPage() {
                   <span style={{ fontWeight:600,fontSize:14 }}>KR Trades Free Access</span>
                 </div>
                 <p style={{ color:'#9ca3af',fontSize:12,marginBottom:8 }}>Join the free Discord community for market discussions</p>
-                <div style={{ display:'flex',alignItems:'center',gap:8 }}>
+                <div style={{ display:'flex',alignItems:'center',gap:8,flexWrap:'wrap' }}>
                   <span style={{ color:'#3b82f6',fontWeight:600,fontSize:14 }}>Free</span>
-                  <span style={{ color:'#fbbf24' }}>★</span>
+                  <span style={{ color:'#fbbf24' }}>★★★★★</span>
                   <span style={{ color:'#9ca3af',fontSize:13 }}>4.9</span>
+                  <span style={{ color:'#555',fontSize:12 }}>·</span>
+                  <span style={{ color:'#9ca3af',fontSize:12 }}>{memberCount} members</span>
                 </div>
               </div>
             </div>
           </a>
-
-          {/* REPORT */}
-          <div style={{ marginTop:40,textAlign:'center' }}>
-            <a href="mailto:contact@koushikranjit.in" style={{ color:'#666',fontSize:13,textDecoration:'none' }}>Report this creator</a>
-          </div>
         </div>
 
         {/* ═══ SIDEBAR ═══ */}
