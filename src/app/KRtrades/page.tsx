@@ -39,7 +39,6 @@ const FAQS = [
 
 const RELATED = [
   { name: 'KR Trades Free Access', tagline: 'Learn To Trade Nasdaq Futures', price: 'Free', rating: 4.9 },
-  { name: 'Market Breakdown Weekly', tagline: 'Weekly analysis & levels', price: '₹499/mo', rating: 4.8 },
 ]
 
 // ─── Icons ──────────────────────────────────────────────────────────────────
@@ -186,7 +185,7 @@ function ProductInfo({
       </div>
 
       {/* Option link */}
-      <a href="/KRtrades/manage" className="text-sm text-[#3b82f6] mt-1 inline-block">
+      <a href="/KRtrades/manage" className="text-sm text-emerald-400 mt-1 inline-block">
         Manage subscription
       </a>
 
@@ -195,7 +194,7 @@ function ProductInfo({
         ref={ctaRef}
         onClick={onSubscribe}
         disabled={paying}
-        className="w-full h-[52px] rounded-full bg-gradient-to-r from-[#3b5bdb] to-[#4c6ef5] text-white font-semibold text-[17px] mt-4 shadow-[0_4px_24px_rgba(59,91,219,0.35),inset_0_1px_0_rgba(255,255,255,0.15)] transition-all active:scale-[0.98] disabled:opacity-60"
+        className="w-full h-[52px] rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-semibold text-[17px] mt-4 shadow-[0_4px_24px_rgba(16,185,129,0.35),inset_0_1px_0_rgba(255,255,255,0.15)] transition-all active:scale-[0.98] disabled:opacity-60"
       >
         {paying ? 'Processing...' : 'Join now'}
       </button>
@@ -251,7 +250,7 @@ function PageDescription() {
         </p>
         <button
           onClick={() => setExpanded(!expanded)}
-          className="text-[#3b82f6] text-sm font-medium mt-1"
+          className="text-emerald-400 text-sm font-medium mt-1"
         >
           {expanded ? 'Show less' : 'Read more'}
         </button>
@@ -373,7 +372,7 @@ function ReviewsSection({ rating, reviewCount }: { rating: number; reviewCount: 
       {/* Top reviews */}
       <div className="flex items-center justify-between mb-3">
         <h3 className="font-semibold text-[15px]">Top reviews</h3>
-        <a href="https://www.trustpilot.com/review/koushikranjit.in" target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] text-sm">
+        <a href="https://www.trustpilot.com/review/koushikranjit.in" target="_blank" rel="noopener noreferrer" className="text-emerald-400 text-sm">
           See all reviews
         </a>
       </div>
@@ -410,7 +409,7 @@ function ReviewCard({ review, index }: { review: typeof REVIEWS[0]; index: numbe
         {review.text}
       </p>
       {review.text.length > 120 && (
-        <button onClick={() => setExpanded(!expanded)} className="text-[#3b82f6] text-sm mt-1">
+        <button onClick={() => setExpanded(!expanded)} className="text-emerald-400 text-sm mt-1">
           {expanded ? 'Show less' : 'Show more'}
         </button>
       )}
@@ -442,7 +441,7 @@ function RelatedCarousel({ rating, memberCount }: { rating: number; memberCount:
               </div>
               <p className="text-gray-400 text-[11px] line-clamp-1 mb-1.5">{item.tagline}</p>
               <div className="flex items-center gap-1.5">
-                <span className="text-[#3b82f6] font-semibold text-[13px]">{item.price}</span>
+                <span className="text-emerald-400 font-semibold text-[13px]">{item.price}</span>
                 <StarIcon size={12} />
                 <span className="text-gray-400 text-xs">{item.rating}</span>
               </div>
@@ -473,10 +472,10 @@ function AboutCreator() {
               Indian proprietary day trader specialising in Nasdaq futures. 5+ years of active trading. Featured in APN News, Vocal Media & more.
             </p>
             <div className="flex gap-3 mt-2 flex-wrap">
-              <a href="https://www.instagram.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] text-[13px]">Instagram</a>
-              <a href="https://x.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] text-[13px]">Twitter/X</a>
-              <a href="https://discord.gg/HySGNbJa3r" target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] text-[13px]">Discord</a>
-              <a href="https://koushikranjit.in" className="text-[#3b82f6] text-[13px]">Website</a>
+              <a href="https://www.instagram.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" className="text-emerald-400 text-[13px]">Instagram</a>
+              <a href="https://x.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" className="text-emerald-400 text-[13px]">Twitter/X</a>
+              <a href="https://discord.gg/HySGNbJa3r" target="_blank" rel="noopener noreferrer" className="text-emerald-400 text-[13px]">Discord</a>
+              <a href="https://koushikranjit.in" className="text-emerald-400 text-[13px]">Website</a>
             </div>
           </div>
         </div>
@@ -502,7 +501,7 @@ function StickyBottomCTA({ visible, paying, onSubscribe }: { visible: boolean; p
             <button
               onClick={onSubscribe}
               disabled={paying}
-              className="w-full h-[52px] rounded-full bg-gradient-to-r from-[#3b5bdb] to-[#4c6ef5] text-white font-semibold text-[17px] shadow-[0_4px_24px_rgba(59,91,219,0.35),inset_0_1px_0_rgba(255,255,255,0.15)] transition-all active:scale-[0.98] disabled:opacity-60"
+              className="w-full h-[52px] rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-semibold text-[17px] shadow-[0_4px_24px_rgba(16,185,129,0.35),inset_0_1px_0_rgba(255,255,255,0.15)] transition-all active:scale-[0.98] disabled:opacity-60"
             >
               {paying ? 'Processing...' : 'Join now'}
             </button>
@@ -569,7 +568,7 @@ function DiscordModal({
           onChange={e => setDiscordInput(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && onSubmit()}
           autoFocus
-          className="w-full bg-[#111] border border-white/10 rounded-xl h-12 px-4 text-white text-[15px] outline-none focus:border-[#3b5bdb] transition-colors mb-3"
+          className="w-full bg-[#111] border border-white/10 rounded-xl h-12 px-4 text-white text-[15px] outline-none focus:border-emerald-500 transition-colors mb-3"
         />
 
         <div className="flex gap-2.5">
@@ -579,7 +578,7 @@ function DiscordModal({
           <button
             onClick={onSubmit}
             disabled={!discordInput.trim()}
-            className="flex-[2] h-11 rounded-xl bg-[#3b5bdb] text-white text-sm font-semibold disabled:opacity-50 transition-opacity"
+            className="flex-[2] h-11 rounded-xl bg-emerald-600 text-white text-sm font-semibold disabled:opacity-50 transition-opacity"
           >
             Continue to Payment
           </button>
@@ -649,13 +648,13 @@ function DesktopSidebar({
           <span className="text-gray-400 text-[15px]">/ month</span>
         </div>
 
-        <a href="/KRtrades/manage" className="text-sm text-[#3b82f6] inline-block mb-5">Manage subscription</a>
+        <a href="/KRtrades/manage" className="text-sm text-emerald-400 inline-block mb-5">Manage subscription</a>
 
         {/* CTA */}
         <button
           onClick={onSubscribe}
           disabled={paying}
-          className="w-full h-[52px] rounded-xl bg-[#3b5bdb] hover:bg-[#2f4fc4] text-white font-semibold text-[17px] transition-colors disabled:opacity-60"
+          className="w-full h-[52px] rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[17px] transition-colors disabled:opacity-60"
         >
           {paying ? 'Processing...' : 'Join now'}
         </button>
@@ -734,7 +733,7 @@ export default function KRTradesPage() {
         subscription_id: data.subscription_id,
         name: 'KR Trades',
         description: 'Live Futures Trading Room — Monthly',
-        theme: { color: '#3b5bdb' },
+        theme: { color: '#059669' },
         prefill: { email: '', contact: '' },
         handler: () => { window.location.href = 'https://discord.gg/HySGNbJa3r' },
         modal: { ondismiss: () => setPaying(false) },
@@ -767,7 +766,7 @@ export default function KRTradesPage() {
       <TopNavHeader />
 
       {/* Desktop: two-column layout | Mobile: single column */}
-      <div className="relative z-[2] max-w-[1200px] mx-auto pt-14 lg:pt-20 lg:px-6 lg:flex lg:gap-8 lg:pb-16">
+      <div className="relative z-[2] max-w-[1200px] mx-auto pt-14 lg:pt-20 lg:px-8 lg:flex lg:gap-8 lg:pb-16 xl:max-w-[1300px]">
 
         {/* ═══ MAIN CONTENT ═══ */}
         <main className="flex-1 min-w-0 lg:max-w-none">
