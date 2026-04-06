@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 // ─── Data ───────────────────────────────────────────────────────────────────
@@ -69,23 +69,15 @@ const PersonIcon = () => (
   </svg>
 )
 
-const PlayIcon = () => (
-  <svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-)
-const PauseIcon = () => (
-  <svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /></svg>
-)
-const MuteIcon = () => (
-  <svg width="18" height="18" fill="white" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" /></svg>
-)
-const UnmuteIcon = () => (
-  <svg width="18" height="18" fill="white" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" /></svg>
-)
+// Glass card style helpers
+const GLASS = 'bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.05)]'
+const GLASS_SM = 'bg-white/[0.05] backdrop-blur-lg border border-white/[0.08] shadow-[0_4px_16px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.06)]'
+const GLASS_HOVER = 'hover:bg-white/[0.07] hover:border-white/[0.12] transition-all duration-300'
 
 // ─── 1. TopNavHeader ────────────────────────────────────────────────────────
 function TopNavHeader() {
   return (
-    <header className="fixed top-0 left-0 z-50 h-14 flex items-center px-3 border-b border-white/10 bg-[#141414]/95 backdrop-blur-xl" style={{ width: '100vw', maxWidth: '100vw' }}>
+    <header className="fixed top-0 left-0 z-50 h-14 flex items-center px-3 border-b border-white/[0.08] bg-white/[0.03] backdrop-blur-2xl" style={{ width: '100vw', maxWidth: '100vw' }}>
       <a
         href="https://koushikranjit.in"
         className="w-10 h-10 flex items-center justify-center rounded-full text-white shrink-0"
@@ -108,113 +100,50 @@ function TopNavHeader() {
   )
 }
 
-// ─── 2. HeroCarousel ────────────────────────────────────────────────────────
+// ─── 2. HeroCarousel (images only) ──────────────────────────────────────────
 function HeroCarousel({ activeSlide, setActiveSlide }: { activeSlide: number; setActiveSlide: (n: number) => void }) {
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const [isPlaying, setIsPlaying] = useState(true)
-  const [isMuted, setIsMuted] = useState(true)
-  const [progress, setProgress] = useState(0)
-
-  const totalSlides = 1 + SLIDER_IMAGES.length // video + images
-
-  const togglePlay = useCallback(() => {
-    if (!videoRef.current) return
-    if (isPlaying) videoRef.current.pause()
-    else videoRef.current.play()
-    setIsPlaying(!isPlaying)
-  }, [isPlaying])
-
-  const toggleMute = useCallback(() => {
-    if (!videoRef.current) return
-    videoRef.current.muted = !isMuted
-    setIsMuted(!isMuted)
-  }, [isMuted])
-
-  useEffect(() => {
-    const v = videoRef.current
-    if (!v || activeSlide !== 0) return
-    const onTime = () => setProgress(v.duration ? (v.currentTime / v.duration) * 100 : 0)
-    v.addEventListener('timeupdate', onTime)
-    return () => v.removeEventListener('timeupdate', onTime)
-  }, [activeSlide])
-
-  const prev = () => setActiveSlide(activeSlide === 0 ? totalSlides - 1 : activeSlide - 1)
-  const next = () => setActiveSlide(activeSlide === totalSlides - 1 ? 0 : activeSlide + 1)
+  const prev = () => setActiveSlide(activeSlide === 0 ? SLIDER_IMAGES.length - 1 : activeSlide - 1)
+  const next = () => setActiveSlide(activeSlide === SLIDER_IMAGES.length - 1 ? 0 : activeSlide + 1)
 
   return (
     <div className="w-full">
-      <div className="relative w-full bg-black overflow-hidden lg:rounded-xl" style={{ aspectRatio: '16/9', maxWidth: '100vw' }}>
-        {/* Video (slide 0) */}
-        {activeSlide === 0 && (
-          <div className="absolute inset-0">
-            <video
-              ref={videoRef}
-              className="w-full h-full object-cover"
-              autoPlay
-              muted={isMuted}
-              loop
-              playsInline
-            >
-              <source src={VIDEO_URL} type="video/mp4" />
-            </video>
-            {/* Video controls */}
-            <div className="absolute bottom-3 left-3 flex gap-2 z-10">
-              <button
-                onClick={togglePlay}
-                className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center"
-                aria-label={isPlaying ? 'Pause' : 'Play'}
-              >
-                {isPlaying ? <PauseIcon /> : <PlayIcon />}
-              </button>
-              <button
-                onClick={toggleMute}
-                className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center"
-                aria-label={isMuted ? 'Unmute' : 'Mute'}
-              >
-                {isMuted ? <MuteIcon /> : <UnmuteIcon />}
-              </button>
-            </div>
-            {/* Progress bar */}
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
-              <div className="h-full bg-white/70 transition-all duration-200" style={{ width: `${progress}%` }} />
-            </div>
-          </div>
-        )}
+      <div className="relative w-full bg-black/40 overflow-hidden lg:rounded-xl" style={{ aspectRatio: '16/9', maxWidth: '100vw' }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={SLIDER_IMAGES[activeSlide]}
+          alt={`KR Trades preview ${activeSlide + 1}`}
+          className="w-full h-full object-cover transition-opacity duration-500"
+        />
 
-        {/* Image slides */}
-        {activeSlide > 0 && (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img
-            src={SLIDER_IMAGES[activeSlide - 1]}
-            alt={`KR Trades preview ${activeSlide}`}
-            className="w-full h-full object-cover"
-          />
-        )}
-
-        {/* Nav arrows */}
+        {/* Glass nav arrows */}
         <button
           onClick={prev}
-          className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white text-lg z-10"
+          className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white text-lg z-10 active:scale-90 transition-transform"
           aria-label="Previous slide"
         >
           ‹
         </button>
         <button
           onClick={next}
-          className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white text-lg z-10"
+          className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white text-lg z-10 active:scale-90 transition-transform"
           aria-label="Next slide"
         >
           ›
         </button>
+
+        {/* Glass counter badge */}
+        <div className="absolute bottom-2.5 right-3 px-2.5 py-1 rounded-full bg-black/30 backdrop-blur-md border border-white/10 text-[11px] text-white/80 z-10">
+          {activeSlide + 1} / {SLIDER_IMAGES.length}
+        </div>
       </div>
 
       {/* Dots */}
-      <div className="flex justify-center gap-1.5 py-3">
-        {Array.from({ length: totalSlides }, (_, i) => (
+      <div className="flex justify-center gap-2 py-3">
+        {SLIDER_IMAGES.map((_, i) => (
           <button
             key={i}
             onClick={() => setActiveSlide(i)}
-            className={`w-2 h-2 rounded-full transition-colors ${i === activeSlide ? 'bg-white' : 'bg-white/30'}`}
+            className={`rounded-full transition-all duration-300 ${i === activeSlide ? 'w-6 h-2 bg-white' : 'w-2 h-2 bg-white/25'}`}
             aria-label={`Go to slide ${i + 1}`}
           />
         ))}
@@ -266,7 +195,7 @@ function ProductInfo({
         ref={ctaRef}
         onClick={onSubscribe}
         disabled={paying}
-        className="w-full h-[52px] rounded-full bg-gradient-to-r from-[#3b5bdb] to-[#4c6ef5] text-white font-semibold text-[17px] mt-4 shadow-lg shadow-blue-500/20 transition-all active:scale-[0.98] disabled:opacity-60"
+        className="w-full h-[52px] rounded-full bg-gradient-to-r from-[#3b5bdb] to-[#4c6ef5] text-white font-semibold text-[17px] mt-4 shadow-[0_4px_24px_rgba(59,91,219,0.35),inset_0_1px_0_rgba(255,255,255,0.15)] transition-all active:scale-[0.98] disabled:opacity-60"
       >
         {paying ? 'Processing...' : 'Join now'}
       </button>
@@ -277,7 +206,7 @@ function ProductInfo({
 // ─── 4. SocialProofBar ──────────────────────────────────────────────────────
 function SocialProofBar({ memberCount }: { memberCount: number }) {
   return (
-    <section className="px-4 py-4 flex items-center gap-3 text-[13px] text-gray-400 border-t border-b border-white/5" role="region" aria-label="Social proof">
+    <section className="px-4 py-4 flex items-center gap-3 text-[13px] text-gray-400 border-t border-b border-white/[0.06]" role="region" aria-label="Social proof">
       <div className="flex items-center gap-1.5 shrink-0">
         <PersonIcon />
         <span className="text-white font-medium">{memberCount.toLocaleString()} members</span>
@@ -354,7 +283,7 @@ function TradeResultsMarquee({ onImageClick }: { onImageClick: (i: number) => vo
             <button
               key={i}
               onClick={() => onImageClick(i % TRADE_RESULTS.length)}
-              className="shrink-0 w-[200px] rounded-xl overflow-hidden border border-white/10"
+              className="shrink-0 w-[200px] rounded-xl overflow-hidden border border-white/[0.08] shadow-[0_4px_16px_rgba(0,0,0,0.2)]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={img} alt={`Trade result ${(i % TRADE_RESULTS.length) + 1}`} className="w-full aspect-video object-cover" loading="lazy" />
@@ -373,7 +302,7 @@ function FAQAccordion() {
   return (
     <section className="px-4 py-5" role="region" aria-label="Frequently asked questions">
       <h2 className="text-lg font-bold mb-3">Frequently Asked Questions</h2>
-      <div className="rounded-2xl bg-[#1a1a1a] divide-y divide-white/5 overflow-hidden">
+      <div className={`rounded-2xl ${GLASS} divide-y divide-white/[0.06] overflow-hidden`}>
         {FAQS.map((faq, i) => (
           <div key={i}>
             <button
@@ -421,7 +350,7 @@ function ReviewsSection({ rating, reviewCount }: { rating: number; reviewCount: 
       <h2 className="text-lg font-bold mb-4">Customer Reviews</h2>
 
       {/* Score + bars */}
-      <div className="rounded-2xl bg-[#1a1a1a] p-4 mb-4 lg:flex lg:gap-8 lg:items-center">
+      <div className={`rounded-2xl ${GLASS} p-4 mb-4 lg:flex lg:gap-8 lg:items-center`}>
         <div className="text-center mb-4 lg:mb-0 lg:shrink-0 lg:min-w-[120px]">
           <div className="text-5xl font-extrabold">{rating}</div>
           <div className="mt-1.5 flex justify-center"><StarsRow count={5} size={18} /></div>
@@ -462,7 +391,7 @@ function ReviewCard({ review, index }: { review: typeof REVIEWS[0]; index: numbe
   const [expanded, setExpanded] = useState(false)
 
   return (
-    <div className="rounded-2xl bg-[#1a1a1a] p-4">
+    <div className={`rounded-2xl ${GLASS_SM} ${GLASS_HOVER} p-4`}>
       <div className="flex items-center gap-3 mb-2">
         <div
           className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm shrink-0"
@@ -501,7 +430,7 @@ function RelatedCarousel({ rating, memberCount }: { rating: number; memberCount:
             href="https://discord.gg/HySGNbJa3r"
             target="_blank"
             rel="noopener noreferrer"
-            className="shrink-0 w-[200px] rounded-2xl bg-[#1a1a1a] overflow-hidden block"
+            className={`shrink-0 w-[200px] rounded-2xl ${GLASS_SM} ${GLASS_HOVER} overflow-hidden block`}
           >
             <div className="aspect-video bg-gradient-to-br from-emerald-900/60 to-black flex items-center justify-center">
               <span className="font-extrabold text-emerald-400 text-sm tracking-wide">KR TRADES</span>
@@ -530,7 +459,7 @@ function AboutCreator() {
   return (
     <section className="px-4 py-5" role="region" aria-label="About the creator">
       <h2 className="text-lg font-bold mb-3">About the creator</h2>
-      <div className="rounded-2xl bg-[#1a1a1a] p-4">
+      <div className={`rounded-2xl ${GLASS} p-4`}>
         <div className="flex items-start gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -566,14 +495,14 @@ function StickyBottomCTA({ visible, paying, onSubscribe }: { visible: boolean; p
           animate={{ y: 0 }}
           exit={{ y: 100 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="fixed bottom-0 left-0 z-50 pb-[env(safe-area-inset-bottom)] bg-[#0f0f0f]/90 backdrop-blur-xl border-t border-white/10 shadow-[0_-4px_20px_rgba(0,0,0,0.5)]"
+          className="fixed bottom-0 left-0 z-50 pb-[env(safe-area-inset-bottom)] bg-white/[0.03] backdrop-blur-2xl border-t border-white/[0.08] shadow-[0_-8px_32px_rgba(0,0,0,0.4)]"
           style={{ width: '100vw', maxWidth: '100vw' }}
         >
           <div className="px-4 py-3">
             <button
               onClick={onSubscribe}
               disabled={paying}
-              className="w-full h-[52px] rounded-full bg-gradient-to-r from-[#3b5bdb] to-[#4c6ef5] text-white font-semibold text-[17px] shadow-lg shadow-blue-500/20 transition-all active:scale-[0.98] disabled:opacity-60"
+              className="w-full h-[52px] rounded-full bg-gradient-to-r from-[#3b5bdb] to-[#4c6ef5] text-white font-semibold text-[17px] shadow-[0_4px_24px_rgba(59,91,219,0.35),inset_0_1px_0_rgba(255,255,255,0.15)] transition-all active:scale-[0.98] disabled:opacity-60"
             >
               {paying ? 'Processing...' : 'Join now'}
             </button>
@@ -604,7 +533,7 @@ function DiscordModal({
     <div onClick={onClose} className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4">
       <div
         onClick={e => e.stopPropagation()}
-        className="bg-[#1a1a1a] rounded-t-2xl sm:rounded-2xl p-5 w-full sm:max-w-[400px] border-t border-white/10 sm:border sm:border-white/10 max-h-[90vh] overflow-y-auto"
+        className="bg-white/[0.05] backdrop-blur-2xl rounded-t-2xl sm:rounded-2xl p-5 w-full sm:max-w-[400px] border-t border-white/[0.1] sm:border sm:border-white/[0.1] shadow-[0_8px_32px_rgba(0,0,0,0.5)] max-h-[90vh] overflow-y-auto"
       >
         <h3 className="text-lg font-bold mb-1">Enter Your Discord Username</h3>
         <p className="text-gray-400 text-[13px] mb-3">Required to give you Premium access in our Discord server.</p>
@@ -694,9 +623,9 @@ function DesktopSidebar({
 }) {
   return (
     <aside className="hidden lg:block w-[380px] shrink-0 sticky top-20 self-start">
-      <div className="bg-[#1a1a1a] rounded-2xl p-6">
+      <div className={`${GLASS} rounded-2xl p-6`}>
         {/* Banner */}
-        <div className="rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-emerald-900/40 to-black" style={{ aspectRatio: '3/1' }}>
+        <div className="rounded-xl overflow-hidden mb-4 bg-gradient-to-br from-emerald-900/30 to-black/40 border border-white/[0.06]" style={{ aspectRatio: '3/1' }}>
           <div className="w-full h-full flex items-center justify-center">
             <span className="font-black text-2xl tracking-widest text-emerald-400">KR TRADES</span>
           </div>
