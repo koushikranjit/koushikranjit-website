@@ -344,6 +344,21 @@
         .gallery-item:hover img{transform:scale(1.06)}
         .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.4,0,.2,1)}
 
+        /* ── Blog ── */
+        .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+        .blog-card{background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .5s cubic-bezier(.4,0,.2,1);text-decoration:none;color:var(--text);display:flex;flex-direction:column}
+        .blog-card:hover{border-color:rgba(0,232,123,.2);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+        .blog-thumb{aspect-ratio:16/9;overflow:hidden;position:relative}
+        .blog-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.4,0,.2,1)}
+        .blog-card:hover .blog-thumb img{transform:scale(1.06)}
+        .blog-body{padding:1.5rem;flex:1;display:flex;flex-direction:column}
+        .blog-tag{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
+        .blog-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;line-height:1.4;margin-bottom:.5rem}
+        .blog-excerpt{color:var(--text2);font-size:.82rem;line-height:1.6;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+        .blog-meta{display:flex;align-items:center;justify-content:space-between;margin-top:1rem;padding-top:.8rem;border-top:1px solid var(--border);font-size:.72rem;color:var(--text3)}
+        .blog-read{color:var(--accent);font-weight:600;font-size:.78rem;display:flex;align-items:center;gap:.3rem;transition:gap .3s}
+        .blog-card:hover .blog-read{gap:.6rem}
+
         /* ── Connect ── */
         .social-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1.5rem}
         .social-card{background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);padding:2rem 1.5rem;text-align:center;text-decoration:none;color:var(--text);transition:all .5s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
@@ -386,6 +401,7 @@
             .media-grid{grid-template-columns:1fr 1fr}
             .social-grid{grid-template-columns:repeat(3,1fr)}
             .exp-grid{grid-template-columns:1fr 1fr}
+            .blog-grid{grid-template-columns:1fr 1fr}
         }
         @media(max-width:768px){
             .container{padding:0 1.2rem}
@@ -416,6 +432,7 @@
             .promos-grid{grid-template-columns:repeat(2,1fr)}
             .gallery-grid{grid-template-columns:repeat(2,1fr)}
             .social-grid{grid-template-columns:repeat(2,1fr)}
+            .blog-grid{grid-template-columns:1fr}
             .cursor{display:none!important}
         }
         @media(max-width:480px){
@@ -468,6 +485,7 @@
                     <li><a href="#media" class="nav-link">Media</a></li>
                     <li><a href="#book" class="nav-link">Book</a></li>
                     <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                    <li><a href="#blog" class="nav-link">Blog</a></li>
                     <li><a href="#connect" class="nav-link">Connect</a></li>
                 </ul>
             </div>
@@ -745,6 +763,103 @@
         </div>
     </section>
 
+    <!-- Blog -->
+    <section class="section" id="blog">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label">Blog</div>
+                <h2 class="section-title">Insights & Articles</h2>
+                <p class="section-sub">Trading insights, market analysis, and lessons from the Nasdaq futures journey</p>
+            </div>
+            <div class="blog-grid">
+                <a href="https://www.apnnews.com/how-koushik-ranjit-is-bringing-analytical-discipline-to-the-global-nasdaq-futures-market/" target="_blank" rel="noopener noreferrer" class="blog-card reveal">
+                    <div class="blog-thumb">
+                        <img src="https://github.com/koushikranjit/KR-Website/blob/adf9c0b/kr-preview-1.jpg?raw=true" alt="Analytical Discipline in Nasdaq Futures" loading="lazy">
+                    </div>
+                    <div class="blog-body">
+                        <span class="blog-tag">Trading</span>
+                        <h3 class="blog-title">How Koushik Ranjit is Bringing Analytical Discipline to the Global Nasdaq Futures Market</h3>
+                        <p class="blog-excerpt">A deep dive into how disciplined, rule-based approaches are transforming how Indian traders engage with global futures markets.</p>
+                        <div class="blog-meta">
+                            <span>APN News</span>
+                            <span class="blog-read">Read &rarr;</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="https://vocal.media/stories/from-kolkata-to-nasdaq-how-koushik-ranjit-built-a-trading-career-on-discipline-and-focus" target="_blank" rel="noopener noreferrer" class="blog-card reveal">
+                    <div class="blog-thumb">
+                        <img src="https://github.com/koushikranjit/KR-Website/blob/adf9c0b/kr-preview-2.jpg?raw=true" alt="From Kolkata to Nasdaq" loading="lazy">
+                    </div>
+                    <div class="blog-body">
+                        <span class="blog-tag">Journey</span>
+                        <h3 class="blog-title">From Kolkata to Nasdaq: How Koushik Ranjit Built a Trading Career on Discipline and Focus</h3>
+                        <p class="blog-excerpt">The story of building a trading career from scratch — from a small town in West Bengal to trading Nasdaq futures professionally.</p>
+                        <div class="blog-meta">
+                            <span>Vocal Media</span>
+                            <span class="blog-read">Read &rarr;</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="https://interviewerpr.com/koushik-ranjit/" target="_blank" rel="noopener noreferrer" class="blog-card reveal">
+                    <div class="blog-thumb">
+                        <img src="https://github.com/koushikranjit/KR-Website/blob/adf9c0b/kr-preview-3.jpg?raw=true" alt="Koushik Ranjit Interview" loading="lazy">
+                    </div>
+                    <div class="blog-body">
+                        <span class="blog-tag">Interview</span>
+                        <h3 class="blog-title">Koushik Ranjit: The Disciplined Nasdaq Futures Trader Redefining Indian Trading</h3>
+                        <p class="blog-excerpt">An in-depth interview covering trading philosophy, risk management strategies, and building a community of disciplined traders.</p>
+                        <div class="blog-meta">
+                            <span>Interviewer PR</span>
+                            <span class="blog-read">Read &rarr;</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="https://bhaskarlive.in/koushik-ranjit-the-emerging-face-of-disciplined-nasdaq-futures-trading-in-india/" target="_blank" rel="noopener noreferrer" class="blog-card reveal">
+                    <div class="blog-thumb">
+                        <img src="https://github.com/koushikranjit/KR-Website/blob/adf9c0b/kr-preview-4.jpg?raw=true" alt="Emerging Face of Disciplined Trading" loading="lazy">
+                    </div>
+                    <div class="blog-body">
+                        <span class="blog-tag">Feature</span>
+                        <h3 class="blog-title">The Emerging Face of Disciplined Nasdaq Futures Trading in India</h3>
+                        <p class="blog-excerpt">How a structured, analytical approach to trading is gaining recognition in India's growing futures trading community.</p>
+                        <div class="blog-meta">
+                            <span>Bhaskar Live</span>
+                            <span class="blog-read">Read &rarr;</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="https://culturecrossroads.in/koushik-ranjit-a-new-generation-nasdaq-trader-from-india/" target="_blank" rel="noopener noreferrer" class="blog-card reveal">
+                    <div class="blog-thumb">
+                        <img src="https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%201.jpg?raw=true" alt="New Generation Nasdaq Trader" loading="lazy">
+                    </div>
+                    <div class="blog-body">
+                        <span class="blog-tag">Profile</span>
+                        <h3 class="blog-title">A New Generation Nasdaq Trader from India</h3>
+                        <p class="blog-excerpt">Exploring the rise of young Indian traders who are breaking into global futures markets with technology and discipline.</p>
+                        <div class="blog-meta">
+                            <span>Culture Crossroads</span>
+                            <span class="blog-read">Read &rarr;</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="https://indiebharat.com/koushik-ranjit-a-young-trader-making-waves-in-the-nasdaq-futures-market/" target="_blank" rel="noopener noreferrer" class="blog-card reveal">
+                    <div class="blog-thumb">
+                        <img src="https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%202.jpg?raw=true" alt="Young Trader Making Waves" loading="lazy">
+                    </div>
+                    <div class="blog-body">
+                        <span class="blog-tag">Spotlight</span>
+                        <h3 class="blog-title">A Young Trader Making Waves in the Nasdaq Futures Market</h3>
+                        <p class="blog-excerpt">How Koushik Ranjit turned passion for markets into a professional trading career while building a community of aspiring traders.</p>
+                        <div class="blog-meta">
+                            <span>Indie Bharat</span>
+                            <span class="blog-read">Read &rarr;</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Connect -->
     <section class="section" id="connect">
         <div class="container">
@@ -800,6 +915,7 @@
                 <a href="#media">Media</a>
                 <a href="#book">Book</a>
                 <a href="#gallery">Gallery</a>
+                <a href="#blog">Blog</a>
                 <a href="#connect">Connect</a>
             </div>
             <p class="footer-copy">&copy; 2026 Koushik Ranjit. All rights reserved. | Futures Trader & Investor</p>
