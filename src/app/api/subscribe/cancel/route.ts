@@ -1,11 +1,23 @@
 import { NextResponse } from 'next/server'
+import { verifyToken } from '../lookup/route'
 
 export async function POST(req: Request) {
   try {
-    const { subscription_id } = await req.json()
+    const { subscription_id, token } = await req.json()
 
-    if (!subscription_id) {
-      return NextResponse.json({ error: 'Subscription ID is required' }, { status: 400 })
+    if (!subscription_id || !token) {
+      return NextResponse.json({ error: 'Missing subscription ID or verification token' }, { status: 400 })
+    }
+
+    // Verify the signed token
+    const verified = verifyToken(token)
+    if (!verified) {
+      return NextResponse.json({ error: 'Verification expired or invalid. Please search again.' }, { status: 403 })
+    }
+
+    // Check that the subscription ID is in the token's allowed list
+    if (!verified.subIds.includes(subscription_id)) {
+      return NextResponse.json({ error: 'You can only cancel your own subscription.' }, { status: 403 })
     }
 
     const keyId = process.env.RAZORPAY_KEY_ID

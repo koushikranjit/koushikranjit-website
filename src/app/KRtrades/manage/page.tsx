@@ -7,13 +7,18 @@ export default function ManageSubscription() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'found' | 'cancelled' | 'error'>('idle')
   const [message, setMessage] = useState('')
   const [subs, setSubs] = useState<{ id: string; status: string; plan: string; created: string }[]>([])
+  const [token, setToken] = useState('')
   const [cancelling, setCancelling] = useState<string | null>(null)
+  const [confirmCancel, setConfirmCancel] = useState<string | null>(null)
+  const [confirmEmail, setConfirmEmail] = useState('')
 
   const handleLookup = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!email.trim()) return
     setStatus('loading')
     setMessage('')
+    setToken('')
+    setConfirmCancel(null)
 
     try {
       const res = await fetch(`/api/subscribe/lookup?email=${encodeURIComponent(email.trim())}`)
@@ -21,10 +26,11 @@ export default function ManageSubscription() {
 
       if (res.ok && data.subscriptions?.length > 0) {
         setSubs(data.subscriptions)
+        setToken(data.token || '')
         setStatus('found')
       } else {
         setStatus('error')
-        setMessage(data.error || 'No active subscriptions found for this email.')
+        setMessage(data.error || 'No active KR Trades subscriptions found for this email.')
       }
     } catch {
       setStatus('error')
@@ -33,18 +39,25 @@ export default function ManageSubscription() {
   }
 
   const handleCancel = async (subId: string) => {
+    if (!token) {
+      setMessage('Session expired. Please search again.')
+      return
+    }
+
     setCancelling(subId)
     try {
       const res = await fetch('/api/subscribe/cancel', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ subscription_id: subId }),
+        body: JSON.stringify({ subscription_id: subId, token }),
       })
       const data = await res.json()
 
       if (res.ok) {
         setSubs(prev => prev.map(s => s.id === subId ? { ...s, status: 'cancelled' } : s))
         setMessage('Subscription cancelled. You retain access until the end of your billing period.')
+        setConfirmCancel(null)
+        setConfirmEmail('')
       } else {
         setMessage(data.error || 'Failed to cancel. Please contact support.')
       }
@@ -96,7 +109,7 @@ export default function ManageSubscription() {
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="w-full py-3.5 rounded-xl bg-[#3b5bdb] text-white font-semibold hover:bg-[#2f4fc4] transition-all cursor-pointer disabled:opacity-60"
+              className="w-full py-3.5 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition-all cursor-pointer disabled:opacity-60"
             >
               {status === 'loading' ? 'Searching...' : 'Find My Subscription'}
             </button>
@@ -105,7 +118,7 @@ export default function ManageSubscription() {
           {/* Results */}
           {status === 'found' && subs.length > 0 && (
             <div className="mt-8 space-y-4">
-              <h3 className="text-white font-semibold">Your Subscriptions</h3>
+              <h3 className="text-white font-semibold">Your KR Trades Subscriptions</h3>
               {subs.map(sub => (
                 <div key={sub.id} className="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
                   <div className="flex items-center justify-between mb-2">
@@ -115,19 +128,59 @@ export default function ManageSubscription() {
                     </span>
                   </div>
                   <div className="text-neutral-500 text-xs mb-3">
-                    ID: {sub.id} · Created: {sub.created}
+                    Created: {sub.created}
                   </div>
-                  {sub.status === 'active' && (
+
+                  {sub.status === 'active' && confirmCancel !== sub.id && (
                     <button
-                      onClick={() => handleCancel(sub.id)}
-                      disabled={cancelling === sub.id}
-                      className="w-full py-2.5 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-medium hover:bg-red-500/20 transition-all cursor-pointer disabled:opacity-50"
+                      onClick={() => { setConfirmCancel(sub.id); setConfirmEmail('') }}
+                      className="w-full py-2.5 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-medium hover:bg-red-500/20 transition-all cursor-pointer"
                     >
-                      {cancelling === sub.id ? 'Cancelling...' : 'Cancel Subscription'}
+                      Cancel Subscription
                     </button>
                   )}
+
+                  {/* Confirmation step — re-enter email to confirm */}
+                  {sub.status === 'active' && confirmCancel === sub.id && (
+                    <div className="mt-3 p-4 rounded-lg border border-red-500/20 bg-red-500/5">
+                      <p className="text-red-400 text-sm font-medium mb-3">
+                        To confirm cancellation, re-enter your email address:
+                      </p>
+                      <input
+                        type="email"
+                        placeholder="Re-enter your email"
+                        value={confirmEmail}
+                        onChange={(e) => setConfirmEmail(e.target.value)}
+                        className="w-full bg-black/50 border border-red-500/20 text-white placeholder:text-neutral-600 rounded-lg h-10 px-3 text-sm outline-none focus:border-red-500/50 mb-3"
+                      />
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => { setConfirmCancel(null); setConfirmEmail('') }}
+                          className="flex-1 py-2 rounded-lg bg-white/5 border border-white/10 text-neutral-400 text-sm cursor-pointer hover:bg-white/10"
+                        >
+                          Keep Subscription
+                        </button>
+                        <button
+                          onClick={() => {
+                            if (confirmEmail.toLowerCase().trim() === email.toLowerCase().trim()) {
+                              handleCancel(sub.id)
+                            } else {
+                              setMessage('Email does not match. Please re-enter correctly.')
+                            }
+                          }}
+                          disabled={cancelling === sub.id || !confirmEmail}
+                          className="flex-1 py-2 rounded-lg bg-red-600 text-white text-sm font-medium cursor-pointer hover:bg-red-700 disabled:opacity-50"
+                        >
+                          {cancelling === sub.id ? 'Cancelling...' : 'Confirm Cancel'}
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
                   {sub.status === 'cancelled' && (
-                    <p className="text-neutral-500 text-xs">Access until end of billing period.</p>
+                    <div className="text-neutral-500 text-xs flex items-center gap-1.5">
+                      <span className="text-red-400">●</span> Cancelled — access until end of billing period.
+                    </div>
                   )}
                 </div>
               ))}
@@ -143,7 +196,7 @@ export default function ManageSubscription() {
         </div>
 
         <p className="text-center text-neutral-600 text-xs mt-6">
-          Need help? Contact <a href="mailto:contact@koushikranjit.in" className="text-[#00e87b] hover:underline">contact@koushikranjit.in</a> or <a href="https://discord.gg/HySGNbJa3r" target="_blank" rel="noopener noreferrer" className="text-[#00e87b] hover:underline">Discord</a>
+          Need help? Contact <a href="mailto:teamkoushikranjit@gmail.com" className="text-[#00e87b] hover:underline">teamkoushikranjit@gmail.com</a> or <a href="https://discord.gg/HySGNbJa3r" target="_blank" rel="noopener noreferrer" className="text-[#00e87b] hover:underline">Discord</a>
         </p>
       </div>
     </main>
