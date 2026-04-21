@@ -193,7 +193,8 @@ export default function CopytradingPage() {
         .setting-key { font-size:11px;font-weight:600;color:#475569;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px; }
         .setting-val { font-size:13px;font-weight:700;color:#E2E8F0; }
 
-        /* ── Setup card (important box) ── */
+        /* ── Setup cards ── */
+        .plans { display:flex;flex-direction:column;gap:16px; }
         .setup-card {
           border-radius:16px;padding:24px;
           background:rgba(202,138,4,.04);
@@ -204,6 +205,20 @@ export default function CopytradingPage() {
           content:'';position:absolute;top:0;left:0;right:0;height:1px;
           background:linear-gradient(90deg,transparent,rgba(202,138,4,.4),transparent);
         }
+        .setup-card.green-card {
+          background:rgba(16,185,129,.04);
+          border-color:rgba(16,185,129,.14);
+        }
+        .setup-card.green-card::before {
+          background:linear-gradient(90deg,transparent,rgba(16,185,129,.4),transparent);
+        }
+        .plan-badge {
+          display:inline-flex;align-items:center;gap:6px;
+          font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;
+          padding:3px 10px;border-radius:20px;margin-bottom:14px;
+        }
+        .plan-badge.gold { color:#CA8A04;background:rgba(202,138,4,.1);border:1px solid rgba(202,138,4,.25); }
+        .plan-badge.green { color:#10B981;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25); }
         .setup-head {
           display:flex;align-items:center;gap:10px;margin-bottom:18px;
         }
@@ -212,6 +227,7 @@ export default function CopytradingPage() {
           background:rgba(202,138,4,.1);border:1px solid rgba(202,138,4,.2);
           display:flex;align-items:center;justify-content:center;flex-shrink:0;
         }
+        .setup-ico.green-ico { background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.2); }
         .setup-title { font-size:15px;font-weight:800;color:#fff;letter-spacing:-.02em; }
         .setup-sub { font-size:12px;color:#64748B;margin-top:1px; }
         .setup-rows { display:flex;flex-direction:column;gap:0; }
@@ -227,6 +243,13 @@ export default function CopytradingPage() {
           padding:3px 10px;border-radius:6px;white-space:nowrap;
         }
         .setup-value.green { color:#10B981;background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.18); }
+        .setup-value.off { color:#475569;background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.06); }
+
+        /* ── MQL5 embed ── */
+        .mql5-wrap { border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.07); }
+        .iframely-embed { display:block; }
+        .iframely-responsive { position:relative;display:block; }
+        .iframely-responsive iframe { position:absolute;top:0;left:0;width:100%;height:100%;border:0; }
 
         /* ── Referral code copy ── */
         .ref-box {
@@ -473,30 +496,64 @@ export default function CopytradingPage() {
               <p className="tag rv">Important</p>
               <h2 className="h2 rv d1">Copy Setup Settings</h2>
 
-              <div className="setup-card rv d2" role="region" aria-label="Copy trading setup settings">
-                <div className="setup-head">
-                  <div className="setup-ico" aria-hidden="true">
-                    <SettingsIcon/>
+              <div className="plans">
+
+                {/* Plan A — Small Capital */}
+                <div className="setup-card green-card rv d2" role="region" aria-label="Small capital settings $100 to $500">
+                  <div className="plan-badge green">$100 – $500 · Small Capital</div>
+                  <div className="setup-head">
+                    <div className="setup-ico green-ico" aria-hidden="true">
+                      <SettingsIcon color="#10B981"/>
+                    </div>
+                    <div>
+                      <p className="setup-title">Fixed Lot Plan</p>
+                      <p className="setup-sub">Controlled risk — great for beginners</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="setup-title">Use These Exact Settings</p>
-                    <p className="setup-sub">Configure inside the Vantage copy trading panel</p>
+                  <div className="setup-rows" role="list">
+                    {([
+                      ['Copy Mode',       'Fixed Lot',    'green'],
+                      ['Min. Balance',    '$100',         'green'],
+                      ['Lot per Order',   '0.01',         'green'],
+                      ['Stop Loss',       '95%',          'green'],
+                      ['Take Profit',     'OFF',          'off'  ],
+                      ['Lot Round-Up',    'OFF',          'off'  ],
+                    ] as [string,string,string][]).map(([label, val, cls]) => (
+                      <div className="setup-row" key={label} role="listitem">
+                        <span className="setup-label">{label}</span>
+                        <span className={`setup-value ${cls}`}>{val}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
-                <div className="setup-rows" role="list">
-                  {[
-                    ['Copy Mode',        'Equivalent Used Margin', false],
-                    ['Used Margin',      '1.0x',                  false],
-                    ['Copy Open Trades', 'ON',                     true],
-                    ['Lot Round-Up',     'ON',                     true],
-                  ].map(([label, val, isGreen]) => (
-                    <div className="setup-row" key={label as string} role="listitem">
-                      <span className="setup-label">{label}</span>
-                      <span className={`setup-value${isGreen ? ' green' : ''}`}>{val}</span>
+                {/* Plan B — Large Capital */}
+                <div className="setup-card rv d3" role="region" aria-label="Large capital settings $1000 plus">
+                  <div className="plan-badge gold">$1,000+ · Standard Plan</div>
+                  <div className="setup-head">
+                    <div className="setup-ico" aria-hidden="true">
+                      <SettingsIcon color="#CA8A04"/>
                     </div>
-                  ))}
+                    <div>
+                      <p className="setup-title">Equivalent Used Margin Plan</p>
+                      <p className="setup-sub">Proportional sizing — scales with your capital</p>
+                    </div>
+                  </div>
+                  <div className="setup-rows" role="list">
+                    {([
+                      ['Copy Mode',        'Equivalent Used Margin', ''     ],
+                      ['Used Margin',      '1.0x',                  ''     ],
+                      ['Copy Open Trades', 'ON',                     'green'],
+                      ['Lot Round-Up',     'ON',                     'green'],
+                    ] as [string,string,string][]).map(([label, val, cls]) => (
+                      <div className="setup-row" key={label} role="listitem">
+                        <span className="setup-label">{label}</span>
+                        <span className={`setup-value${cls ? ` ${cls}` : ''}`}>{val}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+
               </div>
 
               <div style={{marginTop:'16px'}}>
@@ -515,10 +572,20 @@ export default function CopytradingPage() {
               <p className="tag rv">Transparent</p>
               <h2 className="h2 rv d1">Live Results</h2>
 
+              {/* MQL5 Signal embed */}
+              <div className="mql5-wrap rv d2">
+                <div className="iframely-embed">
+                  <div className="iframely-responsive" style={{paddingBottom:'52.3333%',paddingTop:'120px'}}>
+                    <a href="https://www.mql5.com/en/signals/2369872" data-iframely-url="https://iframely.net/DdfTtbzN?theme=dark"></a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Myfxbook secondary link */}
               <a
                 href={MYFXBOOK}
-                className="glass myfx rv d2"
-                style={{border:'1px solid rgba(255,255,255,.07)'}}
+                className="glass myfx rv d3"
+                style={{border:'1px solid rgba(255,255,255,.07)',marginTop:'12px'}}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="View verified live trading results on Myfxbook"
@@ -530,7 +597,7 @@ export default function CopytradingPage() {
                     </svg>
                   </div>
                   <div>
-                    <p className="myfx-name">Live Results on Myfxbook</p>
+                    <p className="myfx-name">Also on Myfxbook</p>
                     <p className="myfx-sub">koushik-ranjit / #12009479 — Updated live</p>
                   </div>
                 </div>
@@ -655,6 +722,8 @@ export default function CopytradingPage() {
           els.forEach(function(el){io.observe(el);});
         })();
       `}}/>
+      {/* iframely embed script for MQL5 signal */}
+      <script async src="https://iframely.net/embed.js"/>
     </>
   );
 }
@@ -687,9 +756,9 @@ function ArrowIcon() {
   );
 }
 
-function SettingsIcon() {
+function SettingsIcon({ color = '#CA8A04' }: { color?: string }) {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#CA8A04" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <circle cx="12" cy="12" r="3"/>
       <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
     </svg>
