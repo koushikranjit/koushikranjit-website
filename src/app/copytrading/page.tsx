@@ -226,6 +226,27 @@ export default function CopytradingPage() {
         }
         .setup-value.green { color:#10B981;background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.18); }
 
+        /* ── Referral code copy ── */
+        .ref-box {
+          display:flex;align-items:center;justify-content:space-between;gap:10px;
+          background:rgba(202,138,4,.06);border:1px solid rgba(202,138,4,.2);
+          border-radius:12px;padding:13px 16px;margin-top:14px;
+        }
+        .ref-left { display:flex;align-items:center;gap:10px; }
+        .ref-label { font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#64748B;margin-bottom:2px; }
+        .ref-code { font-size:17px;font-weight:800;letter-spacing:.06em;color:#FCD34D; }
+        .copy-btn {
+          display:flex;align-items:center;gap:6px;
+          font-size:12px;font-weight:700;
+          color:#CA8A04;background:rgba(202,138,4,.1);border:1px solid rgba(202,138,4,.25);
+          padding:8px 14px;border-radius:8px;cursor:pointer;
+          transition:background .18s,border-color .18s,color .18s;
+          white-space:nowrap;font-family:inherit;
+          -webkit-tap-highlight-color:transparent;
+        }
+        .copy-btn:hover { background:rgba(202,138,4,.18);border-color:rgba(202,138,4,.5); }
+        .copy-btn.copied { color:#10B981;background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3); }
+
         /* ── Requirements card ── */
         .req-list { display:flex;flex-direction:column;gap:0; }
         .req-item {
@@ -379,6 +400,38 @@ export default function CopytradingPage() {
                           <div className="setting-val">{v}</div>
                         </div>
                       ))}
+                    </div>
+
+                    {/* Referral code */}
+                    <div className="ref-box" aria-label="Vantage referral code">
+                      <div className="ref-left">
+                        <div>
+                          <p className="ref-label">Referral Code</p>
+                          <p className="ref-code" id="ref-code-text">TpCuu75a</p>
+                        </div>
+                      </div>
+                      <button
+                        className="copy-btn"
+                        id="copy-ref-btn"
+                        aria-label="Copy referral code"
+                        type="button"
+                        onClick={() => {
+                          navigator.clipboard.writeText('TpCuu75a').then(() => {
+                            const btn = document.getElementById('copy-ref-btn');
+                            if (btn) {
+                              btn.classList.add('copied');
+                              btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg> Copied!`;
+                              setTimeout(() => {
+                                btn.classList.remove('copied');
+                                btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Code`;
+                              }, 2000);
+                            }
+                          });
+                        }}
+                      >
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        Copy Code
+                      </button>
                     </div>
 
                     <a href={VANTAGE_ACCT} className="step-link" target="_blank" rel="noopener noreferrer" aria-label="Open Vantage account">
