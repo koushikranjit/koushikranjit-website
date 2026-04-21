@@ -9,6 +9,7 @@ const VANTAGE_ACCT = 'https://vigco.co/la-com-inv/TpCuu75a';
 const VANTAGE_COPY = 'https://vantageapp.onelink.me/qaPD?af_xp=referral&pid=IBSHARE&deep_link_value=mt4id-140247%7Cplatform-copytrading&deep_link_sub1=spid-1164895&af_dp=com.vttech.VantageFX%3A%2F%2F&af_force_deeplink=true';
 const MYFXBOOK    = 'https://www.myfxbook.com/members/koushik_ranjit/koushik-ranjit/12009479';
 const TELEGRAM    = 'https://t.me/mrkoushikranjit';
+const TG_CHANNEL  = 'https://t.me/koushikranjit';
 const DISCORD     = 'https://discord.gg/sffdu4wXx2';
 const WHATSAPP    = 'https://wa.me/+919547774580';
 
@@ -581,10 +582,34 @@ export default function CopytradingPage() {
                 </div>
               </div>
 
+              {/* Daily results Telegram channel */}
+              <a
+                href={TG_CHANNEL}
+                className="glass myfx rv d3"
+                style={{border:'1px solid rgba(38,120,232,.18)',marginTop:'12px',background:'rgba(38,120,232,.04)'}}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow daily results on Telegram channel"
+              >
+                <div className="myfx-left">
+                  <div className="myfx-ico" style={{background:'rgba(38,120,232,.12)',border:'1px solid rgba(38,120,232,.25)'}} aria-hidden="true">
+                    <TgIcon size={20} color="#60A5FA"/>
+                  </div>
+                  <div>
+                    <p className="myfx-name">Daily Results Update</p>
+                    <p className="myfx-sub">@koushikranjit — every trade posted daily</p>
+                  </div>
+                </div>
+                <span className="verified" style={{color:'#60A5FA',background:'rgba(38,120,232,.08)',borderColor:'rgba(38,120,232,.25)'}}>
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#60A5FA" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 2l1.5 3h3l-2.5 2 1 3L6 8.5 3 10l1-3L1.5 5h3z"/></svg>
+                  Follow
+                </span>
+              </a>
+
               {/* Myfxbook secondary link */}
               <a
                 href={MYFXBOOK}
-                className="glass myfx rv d3"
+                className="glass myfx rv d4"
                 style={{border:'1px solid rgba(255,255,255,.07)',marginTop:'12px'}}
                 target="_blank"
                 rel="noopener noreferrer"
