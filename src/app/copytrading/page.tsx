@@ -3,127 +3,192 @@ export const metadata = {
   description: 'Copy professional XAUUSD trades. Verified PnL on Myfxbook. Start with $100 on Vantage.',
 };
 
-const TELEGRAM = 'https://t.me/HySGNbJa3r';
-const VANTAGE_ACCOUNT = 'https://vigco.co/la-com-inv/TpCuu75a';
-const VANTAGE_COPY = 'https://vantageapp.onelink.me/qaPD?af_xp=referral&pid=IBSHARE&deep_link_value=mt4id-140247%7Cplatform-copytrading&deep_link_sub1=spid-1164895&af_dp=com.vttech.VantageFX%3A%2F%2F&af_force_deeplink=true';
-const MYFXBOOK = 'https://www.myfxbook.com/portfolio/koushik-ranjit/12009479';
+const TELEGRAM      = 'https://t.me/HySGNbJa3r';
+const VANTAGE_ACCT  = 'https://vigco.co/la-com-inv/TpCuu75a';
+const VANTAGE_COPY  = 'https://vantageapp.onelink.me/qaPD?af_xp=referral&pid=IBSHARE&deep_link_value=mt4id-140247%7Cplatform-copytrading&deep_link_sub1=spid-1164895&af_dp=com.vttech.VantageFX%3A%2F%2F&af_force_deeplink=true';
+const MYFXBOOK      = 'https://www.myfxbook.com/portfolio/koushik-ranjit/12009479';
 
 export default function CopytradingPage() {
   return (
     <>
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900&display=swap');
+
+        /* ── Reset & base ── */
+        .ct * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        .ct {
+          font-family: 'DM Sans', system-ui, sans-serif;
+          background: #000000;
+          color: #F1F5F9;
+          -webkit-font-smoothing: antialiased;
+          min-height: 100vh;
+          overflow-x: hidden;
+          position: relative;
+        }
+
+        html { scroll-behavior: smooth; }
+
         .ct-wrap {
           width: 100%;
-          max-width: 460px;
+          max-width: 480px;
           margin: 0 auto;
           padding: 0 20px;
         }
 
-        .ct-body {
-          background: #080D18;
-          color: #F1F5F9;
-          font-family: 'Inter', system-ui, sans-serif;
-          -webkit-font-smoothing: antialiased;
-          min-height: 100vh;
+        /* ── Background orbs ── */
+        .ct-bg {
+          position: fixed;
+          inset: 0;
+          pointer-events: none;
+          z-index: 0;
+          overflow: hidden;
         }
 
-        /* Nav */
+        .ct-orb {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(80px);
+          opacity: 0.12;
+        }
+
+        .ct-orb-1 {
+          width: 400px; height: 400px;
+          background: radial-gradient(circle, #059669, transparent 70%);
+          top: -100px; right: -100px;
+        }
+
+        .ct-orb-2 {
+          width: 350px; height: 350px;
+          background: radial-gradient(circle, #CA8A04, transparent 70%);
+          bottom: 20%; left: -120px;
+        }
+
+        .ct-orb-3 {
+          width: 300px; height: 300px;
+          background: radial-gradient(circle, #059669, transparent 70%);
+          bottom: -80px; right: 10%;
+          opacity: 0.08;
+        }
+
+        /* ── Content layer above orbs ── */
+        .ct-content { position: relative; z-index: 1; }
+
+        /* ── Nav ── */
         .ct-nav {
           position: sticky;
           top: 0;
           z-index: 50;
-          background: rgba(8,13,24,0.92);
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-          border-bottom: 1px solid rgba(5,150,105,0.12);
-          padding: 13px 20px;
+          background: rgba(0,0,0,0.75);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-bottom: 1px solid rgba(5,150,105,0.15);
+          padding: 14px 20px;
           display: flex;
           align-items: center;
           justify-content: space-between;
         }
 
         .ct-logo {
-          font-size: 18px;
+          font-size: 19px;
           font-weight: 800;
-          letter-spacing: -0.03em;
+          letter-spacing: -0.04em;
           color: #F1F5F9;
           text-decoration: none;
         }
-        .ct-logo span { color: #10B981; }
+        .ct-logo-g {
+          color: #10B981;
+          text-shadow: 0 0 12px rgba(16,185,129,0.5);
+        }
 
-        .ct-nav-pill {
-          font-size: 11px;
+        .ct-nav-badge {
+          font-size: 10px;
           font-weight: 700;
           text-transform: uppercase;
-          letter-spacing: 0.08em;
-          color: #10B981;
-          background: rgba(5,150,105,0.1);
-          border: 1px solid rgba(5,150,105,0.25);
+          letter-spacing: 0.1em;
+          color: #CA8A04;
+          background: rgba(202,138,4,0.1);
+          border: 1px solid rgba(202,138,4,0.3);
           padding: 4px 12px;
           border-radius: 20px;
         }
 
-        /* Hero */
+        /* ── Hero ── */
         .ct-hero {
-          padding: 60px 0 48px;
+          padding: 72px 0 56px;
           text-align: center;
         }
 
         .ct-live {
           display: inline-flex;
           align-items: center;
-          gap: 7px;
-          font-size: 12px;
+          gap: 8px;
+          font-size: 11px;
           font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
           color: #10B981;
-          background: rgba(5,150,105,0.08);
-          border: 1px solid rgba(5,150,105,0.22);
-          padding: 5px 14px;
+          background: rgba(16,185,129,0.08);
+          border: 1px solid rgba(16,185,129,0.2);
+          padding: 6px 16px;
           border-radius: 20px;
-          margin-bottom: 24px;
+          margin-bottom: 28px;
         }
 
         .ct-dot {
-          width: 7px; height: 7px;
+          width: 6px; height: 6px;
           border-radius: 50%;
           background: #10B981;
-          animation: ct-blink 1.8s infinite;
+          box-shadow: 0 0 8px #10B981;
+          animation: ct-pulse 1.8s infinite;
         }
 
-        @keyframes ct-blink {
-          0%,100% { opacity:1; } 50% { opacity:0.2; }
+        @keyframes ct-pulse {
+          0%,100% { opacity:1; transform: scale(1); }
+          50%      { opacity:0.3; transform: scale(0.8); }
         }
 
         .ct-h1 {
-          font-size: clamp(34px, 9vw, 50px);
+          font-size: clamp(38px, 10vw, 58px);
           font-weight: 900;
-          letter-spacing: -0.04em;
-          line-height: 1.08;
-          margin-bottom: 12px;
-          color: #F1F5F9;
+          letter-spacing: -0.05em;
+          line-height: 1.05;
+          margin-bottom: 16px;
+          color: #FFFFFF;
         }
-        .ct-h1 .g { color: #10B981; }
 
-        .ct-sub {
-          font-size: 16px;
-          color: #94A3B8;
-          margin-bottom: 28px;
+        .ct-h1-gold {
+          background: linear-gradient(135deg, #CA8A04, #FCD34D, #CA8A04);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          display: block;
+        }
+
+        .ct-hero-sub {
+          font-size: 17px;
+          color: #64748B;
+          margin-bottom: 32px;
+          line-height: 1.6;
+          max-width: 340px;
+          margin-left: auto;
+          margin-right: auto;
         }
 
         .ct-bullets {
           list-style: none;
+          padding: 0;
           display: flex;
           flex-direction: column;
-          gap: 11px;
-          margin-bottom: 32px;
+          gap: 12px;
+          margin-bottom: 36px;
           text-align: left;
-          padding: 0;
         }
 
         .ct-bullets li {
           display: flex;
           align-items: center;
-          gap: 11px;
+          gap: 12px;
           font-size: 15px;
           font-weight: 500;
           color: #CBD5E1;
@@ -131,424 +196,637 @@ export default function CopytradingPage() {
 
         .ct-chk {
           flex-shrink: 0;
-          width: 20px; height: 20px;
+          width: 22px; height: 22px;
           border-radius: 50%;
-          background: rgba(5,150,105,0.15);
-          border: 1.5px solid rgba(5,150,105,0.4);
+          background: rgba(16,185,129,0.12);
+          border: 1.5px solid rgba(16,185,129,0.35);
           display: flex; align-items: center; justify-content: center;
+          box-shadow: 0 0 8px rgba(16,185,129,0.15);
         }
 
-        /* Buttons */
+        /* ── Buttons ── */
         .ct-btn {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 9px;
-          font-family: inherit;
+          gap: 10px;
+          font-family: 'DM Sans', inherit;
           font-weight: 700;
           font-size: 16px;
           border: none;
-          border-radius: 12px;
+          border-radius: 14px;
           cursor: pointer;
           text-decoration: none;
-          transition: transform 0.18s ease, box-shadow 0.18s ease;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
           -webkit-tap-highlight-color: transparent;
           width: 100%;
-          padding: 17px 24px;
+          padding: 18px 28px;
           box-sizing: border-box;
         }
 
-        .ct-btn-green {
-          background: linear-gradient(135deg, #059669, #10B981);
+        .ct-btn-primary {
+          background: linear-gradient(135deg, #059669 0%, #10B981 50%, #059669 100%);
+          background-size: 200% auto;
           color: #fff;
-          box-shadow: 0 4px 24px rgba(5,150,105,0.25);
+          box-shadow: 0 4px 30px rgba(5,150,105,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+          letter-spacing: -0.01em;
         }
-        .ct-btn-green:hover {
+
+        .ct-btn-primary:hover {
           transform: translateY(-2px);
-          box-shadow: 0 10px 36px rgba(5,150,105,0.4);
+          box-shadow: 0 12px 40px rgba(5,150,105,0.5), inset 0 1px 0 rgba(255,255,255,0.15);
+          background-position: right center;
         }
 
-        .ct-btn-outline {
-          background: transparent;
+        .ct-btn-primary:active { transform: translateY(0); }
+
+        .ct-btn-gold {
+          background: linear-gradient(135deg, #92400E, #CA8A04, #FCD34D, #CA8A04);
+          background-size: 300% auto;
+          color: #0A0500;
+          font-weight: 800;
+          box-shadow: 0 4px 30px rgba(202,138,4,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+
+        .ct-btn-gold:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 40px rgba(202,138,4,0.45), inset 0 1px 0 rgba(255,255,255,0.2);
+          background-position: right center;
+        }
+
+        .ct-btn-glass {
+          background: rgba(255,255,255,0.04);
           color: #10B981;
-          border: 1.5px solid rgba(5,150,105,0.35);
-        }
-        .ct-btn-outline:hover {
-          background: rgba(5,150,105,0.07);
-          border-color: #10B981;
+          border: 1px solid rgba(16,185,129,0.25);
+          backdrop-filter: blur(10px);
         }
 
-        /* Divider + section */
-        .ct-hr { border: none; border-top: 1px solid rgba(255,255,255,0.05); }
-        .ct-sec { padding: 52px 0; }
+        .ct-btn-glass:hover {
+          background: rgba(16,185,129,0.08);
+          border-color: rgba(16,185,129,0.5);
+          box-shadow: 0 0 20px rgba(16,185,129,0.1);
+        }
+
+        .ct-btn:focus-visible {
+          outline: 2px solid #10B981;
+          outline-offset: 3px;
+        }
+
+        /* ── Section ── */
+        .ct-sec {
+          padding: 60px 0;
+          position: relative;
+        }
+
+        .ct-hr {
+          border: none;
+          border-top: 1px solid rgba(255,255,255,0.04);
+        }
 
         .ct-tag {
           font-size: 11px;
           font-weight: 700;
           text-transform: uppercase;
-          letter-spacing: 0.12em;
+          letter-spacing: 0.14em;
           color: #10B981;
           text-align: center;
-          margin-bottom: 8px;
+          margin-bottom: 10px;
         }
 
         .ct-title {
-          font-size: clamp(22px, 5vw, 28px);
+          font-size: clamp(24px, 6vw, 32px);
           font-weight: 800;
-          letter-spacing: -0.02em;
+          letter-spacing: -0.03em;
           text-align: center;
-          margin-bottom: 28px;
-          color: #F1F5F9;
+          margin-bottom: 32px;
+          color: #FFFFFF;
+          line-height: 1.2;
         }
 
-        /* Stats */
+        /* ── Glass card base ── */
+        .ct-glass {
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 16px;
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        /* ── Stats ── */
         .ct-stats {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 10px;
-          margin-bottom: 16px;
+          margin-bottom: 14px;
         }
 
         .ct-stat {
-          background: #111C30;
-          border: 1px solid rgba(5,150,105,0.18);
-          border-radius: 12px;
-          padding: 18px 14px;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 14px;
+          padding: 20px 14px;
           text-align: center;
+          position: relative;
+          overflow: hidden;
+          transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .ct-stat::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(202,138,4,0.4), transparent);
+        }
+
+        .ct-stat:hover {
+          border-color: rgba(202,138,4,0.2);
+          box-shadow: 0 0 24px rgba(202,138,4,0.08);
         }
 
         .ct-stat-val {
           display: block;
-          font-size: 28px;
+          font-size: 30px;
           font-weight: 900;
-          letter-spacing: -0.03em;
-          color: #10B981;
+          letter-spacing: -0.04em;
+          background: linear-gradient(135deg, #CA8A04, #FCD34D);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
         }
 
         .ct-stat-lbl {
           display: block;
-          font-size: 11px;
-          font-weight: 500;
-          color: #64748B;
-          margin-top: 2px;
+          font-size: 10px;
+          font-weight: 600;
+          color: #475569;
+          margin-top: 4px;
           text-transform: uppercase;
-          letter-spacing: 0.06em;
+          letter-spacing: 0.08em;
         }
 
-        /* Myfxbook card */
+        /* ── Myfxbook card ── */
         .ct-myfx {
-          background: #111C30;
-          border: 1px solid rgba(5,150,105,0.18);
-          border-radius: 14px;
-          padding: 18px 20px;
           display: flex;
           align-items: center;
           justify-content: space-between;
           gap: 12px;
+          padding: 18px 20px;
           text-decoration: none;
-          transition: border-color 0.18s, background 0.18s;
+          cursor: pointer;
+          border-radius: 14px;
+          transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
         }
+
         .ct-myfx:hover {
-          border-color: #10B981;
-          background: rgba(16,185,129,0.05);
+          border-color: rgba(16,185,129,0.3) !important;
+          box-shadow: 0 0 30px rgba(16,185,129,0.08);
+          background: rgba(16,185,129,0.04) !important;
         }
 
-        .ct-myfx-left { display: flex; align-items: center; gap: 12px; }
+        .ct-myfx-left { display: flex; align-items: center; gap: 14px; }
 
-        .ct-myfx-ico {
-          width: 38px; height: 38px;
-          border-radius: 9px;
-          background: rgba(5,150,105,0.12);
-          border: 1px solid rgba(5,150,105,0.25);
+        .ct-myfx-icon {
+          width: 42px; height: 42px;
+          border-radius: 10px;
+          background: rgba(16,185,129,0.1);
+          border: 1px solid rgba(16,185,129,0.2);
           display: flex; align-items: center; justify-content: center;
           flex-shrink: 0;
         }
 
         .ct-myfx-name {
-          font-size: 13px;
-          font-weight: 600;
-          color: #F1F5F9;
-        }
-        .ct-myfx-sub {
-          font-size: 11px;
-          color: #64748B;
-          margin-top: 1px;
+          font-size: 14px;
+          font-weight: 700;
+          color: #E2E8F0;
+          letter-spacing: -0.01em;
         }
 
-        .ct-verified {
+        .ct-myfx-sub {
+          font-size: 11px;
+          color: #475569;
+          margin-top: 2px;
+        }
+
+        .ct-verified-badge {
+          display: flex;
+          align-items: center;
+          gap: 5px;
           font-size: 10px;
           font-weight: 700;
           text-transform: uppercase;
-          letter-spacing: 0.06em;
+          letter-spacing: 0.08em;
           color: #10B981;
-          background: rgba(5,150,105,0.1);
-          border: 1px solid rgba(5,150,105,0.25);
-          padding: 3px 10px;
+          background: rgba(16,185,129,0.08);
+          border: 1px solid rgba(16,185,129,0.2);
+          padding: 4px 12px;
           border-radius: 20px;
           white-space: nowrap;
         }
 
-        /* Steps */
+        /* ── Steps ── */
         .ct-steps { display: flex; flex-direction: column; }
-
-        .ct-step {
-          display: flex;
-          gap: 16px;
-          align-items: flex-start;
-          position: relative;
-        }
+        .ct-step { display: flex; gap: 18px; align-items: flex-start; position: relative; }
 
         .ct-step:not(:last-child)::after {
           content: '';
           position: absolute;
-          left: 19px;
-          top: 44px;
+          left: 21px; top: 48px;
           height: calc(100% + 4px);
-          width: 2px;
-          background: linear-gradient(180deg, rgba(5,150,105,0.3), transparent);
+          width: 1px;
+          background: linear-gradient(180deg, rgba(202,138,4,0.3), transparent);
         }
 
-        .ct-step + .ct-step { margin-top: 28px; }
+        .ct-step + .ct-step { margin-top: 32px; }
 
-        .ct-step-n {
+        .ct-step-num {
           flex-shrink: 0;
-          width: 40px; height: 40px;
+          width: 44px; height: 44px;
           border-radius: 50%;
-          background: rgba(5,150,105,0.1);
-          border: 2px solid rgba(5,150,105,0.3);
+          background: rgba(202,138,4,0.08);
+          border: 2px solid rgba(202,138,4,0.25);
           display: flex; align-items: center; justify-content: center;
-          font-size: 15px;
-          font-weight: 800;
-          color: #10B981;
+          font-size: 16px;
+          font-weight: 900;
+          color: #CA8A04;
+          box-shadow: 0 0 20px rgba(202,138,4,0.12);
+          text-shadow: 0 0 10px rgba(202,138,4,0.4);
         }
 
-        .ct-step-body { padding-top: 8px; }
-        .ct-step-title { font-size: 16px; font-weight: 700; margin-bottom: 3px; color: #F1F5F9; }
-        .ct-step-desc { font-size: 14px; color: #94A3B8; }
+        .ct-step-body { padding-top: 10px; }
 
-        .ct-step-link {
+        .ct-step-title {
+          font-size: 17px;
+          font-weight: 700;
+          color: #FFFFFF;
+          margin-bottom: 4px;
+          letter-spacing: -0.02em;
+        }
+
+        .ct-step-desc {
+          font-size: 14px;
+          color: #64748B;
+          line-height: 1.6;
+        }
+
+        .ct-step-btn {
           display: inline-flex;
           align-items: center;
-          gap: 5px;
-          margin-top: 10px;
+          gap: 6px;
+          margin-top: 12px;
           font-size: 13px;
           font-weight: 700;
+          letter-spacing: -0.01em;
           color: #10B981;
-          background: rgba(5,150,105,0.08);
-          border: 1px solid rgba(5,150,105,0.2);
-          padding: 7px 14px;
-          border-radius: 8px;
+          background: rgba(16,185,129,0.06);
+          border: 1px solid rgba(16,185,129,0.18);
+          padding: 8px 16px;
+          border-radius: 10px;
           text-decoration: none;
-          transition: background 0.15s, border-color 0.15s;
-        }
-        .ct-step-link:hover {
-          background: rgba(5,150,105,0.15);
-          border-color: #10B981;
+          cursor: pointer;
+          transition: background 0.18s, border-color 0.18s, box-shadow 0.18s;
         }
 
-        /* Final CTA */
+        .ct-step-btn:hover {
+          background: rgba(16,185,129,0.12);
+          border-color: rgba(16,185,129,0.4);
+          box-shadow: 0 0 16px rgba(16,185,129,0.12);
+        }
+
+        /* ── Final CTA box ── */
         .ct-cta-box {
-          background: linear-gradient(135deg, rgba(5,150,105,0.07), rgba(16,185,129,0.02));
-          border: 1px solid rgba(5,150,105,0.2);
           border-radius: 20px;
-          padding: 40px 20px;
+          padding: 44px 24px;
+          text-align: center;
+          position: relative;
+          overflow: hidden;
+          background: rgba(255,255,255,0.02);
+          border: 1px solid rgba(202,138,4,0.15);
+        }
+
+        .ct-cta-box::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(202,138,4,0.5), transparent);
+        }
+
+        .ct-cta-box::after {
+          content: '';
+          position: absolute;
+          top: -80px; left: 50%;
+          transform: translateX(-50%);
+          width: 300px; height: 300px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(202,138,4,0.06), transparent 70%);
+          pointer-events: none;
+        }
+
+        .ct-cta-h2 {
+          font-size: 32px;
+          font-weight: 900;
+          letter-spacing: -0.04em;
+          margin-bottom: 10px;
+          color: #FFFFFF;
+          position: relative;
+          z-index: 1;
+        }
+
+        .ct-cta-p {
+          font-size: 15px;
+          color: #64748B;
+          margin-bottom: 30px;
+          line-height: 1.6;
+          position: relative;
+          z-index: 1;
+        }
+
+        .ct-btn-stack {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          position: relative;
+          z-index: 1;
+        }
+
+        /* ── Scroll reveal ── */
+        .ct-reveal {
+          opacity: 0;
+          transform: translateY(24px);
+          transition: opacity 0.55s ease, transform 0.55s ease;
+        }
+        .ct-reveal.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .ct-reveal-d1 { transition-delay: 0.1s; }
+        .ct-reveal-d2 { transition-delay: 0.2s; }
+        .ct-reveal-d3 { transition-delay: 0.3s; }
+
+        /* ── Disclaimer ── */
+        .ct-disc {
+          padding: 24px 0 52px;
           text-align: center;
         }
-
-        .ct-cta-box h2 {
-          font-size: 30px;
-          font-weight: 900;
-          letter-spacing: -0.03em;
-          margin-bottom: 8px;
-          color: #F1F5F9;
-        }
-
-        .ct-cta-box p { font-size: 15px; color: #94A3B8; margin-bottom: 28px; }
-
-        .ct-btn-stack { display: flex; flex-direction: column; gap: 12px; }
-
-        /* Disclaimer */
-        .ct-disc { padding: 24px 0 44px; text-align: center; }
         .ct-disc p {
           font-size: 11px;
-          color: #374151;
+          color: #1E293B;
           line-height: 1.8;
-          max-width: 420px;
+          max-width: 400px;
           margin: 0 auto;
         }
 
         @media (prefers-reduced-motion: reduce) {
           .ct-dot { animation: none; opacity: 1; }
-          .ct-btn-green:hover { transform: none; }
+          .ct-btn-primary:hover,
+          .ct-btn-gold:hover { transform: none; }
+          .ct-reveal {
+            opacity: 1;
+            transform: none;
+            transition: none;
+          }
         }
       `}</style>
 
-      <div className="ct-body">
+      <div className="ct">
+        {/* Background orbs */}
+        <div className="ct-bg" aria-hidden="true">
+          <div className="ct-orb ct-orb-1" />
+          <div className="ct-orb ct-orb-2" />
+          <div className="ct-orb ct-orb-3" />
+        </div>
 
-        {/* Nav */}
-        <header className="ct-nav">
-          <a href="/copytrading" className="ct-logo">KR <span>Trades</span></a>
-          <span className="ct-nav-pill">XAUUSD</span>
-        </header>
+        <div className="ct-content">
 
-        {/* Hero */}
-        <section className="ct-hero">
-          <div className="ct-wrap">
-            <div className="ct-live">
-              <span className="ct-dot" aria-hidden="true" />
-              Live signals active
-            </div>
-
-            <h1 className="ct-h1">
-              Copy Gold Trades<br />
-              <span className="g">That Actually Win</span>
-            </h1>
-
-            <p className="ct-sub">Verified XAUUSD performance. Start copying in minutes.</p>
-
-            <ul className="ct-bullets" aria-label="Key benefits">
-              {[
-                'Verified PnL — not fake screenshots',
-                'Start with just $100',
-                'One-time setup — fully automatic after that',
-              ].map((text) => (
-                <li key={text}>
-                  <span className="ct-chk" aria-hidden="true">
-                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#10B981" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="2 6 5 9 10 3" />
-                    </svg>
-                  </span>
-                  {text}
-                </li>
-              ))}
-            </ul>
-
-            <a href={TELEGRAM} className="ct-btn ct-btn-green" target="_blank" rel="noopener noreferrer" aria-label="Join KR Trades on Telegram">
-              <TgIcon />
-              Join Telegram — Free
+          {/* ── NAV ── */}
+          <header className="ct-nav">
+            <a href="/copytrading" className="ct-logo" aria-label="KR Trades">
+              KR <span className="ct-logo-g">Trades</span>
             </a>
-          </div>
-        </section>
+            <span className="ct-nav-badge">XAUUSD</span>
+          </header>
 
-        <hr className="ct-hr" />
-
-        {/* Proof */}
-        <section className="ct-sec">
-          <div className="ct-wrap">
-            <p className="ct-tag">Verified Performance</p>
-            <h2 className="ct-title">Real PnL. Public Record.</h2>
-
-            <div className="ct-stats" role="list" aria-label="Performance stats">
-              {[
-                { val: '+24%', lbl: 'Avg Monthly' },
-                { val: '<8%',  lbl: 'Max Drawdown' },
-                { val: '68%',  lbl: 'Win Rate' },
-                { val: 'XAUUSD', lbl: 'Focus Pair' },
-              ].map(({ val, lbl }) => (
-                <div className="ct-stat" key={lbl} role="listitem">
-                  <span className="ct-stat-val">{val}</span>
-                  <span className="ct-stat-lbl">{lbl}</span>
-                </div>
-              ))}
-            </div>
-
-            <a href={MYFXBOOK} className="ct-myfx" target="_blank" rel="noopener noreferrer" aria-label="View verified trading record on Myfxbook">
-              <div className="ct-myfx-left">
-                <div className="ct-myfx-ico" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="ct-myfx-name">View on Myfxbook</p>
-                  <p className="ct-myfx-sub">koushik-ranjit / #12009479</p>
-                </div>
+          {/* ── HERO ── */}
+          <section className="ct-hero">
+            <div className="ct-wrap">
+              <div className="ct-live" aria-label="Signals currently active">
+                <span className="ct-dot" aria-hidden="true" />
+                Signals Active
               </div>
-              <span className="ct-verified">Verified</span>
-            </a>
-          </div>
-        </section>
 
-        <hr className="ct-hr" />
+              <h1 className="ct-h1">
+                Copy Gold Trades
+                <span className="ct-h1-gold">That Actually Win</span>
+              </h1>
 
-        {/* Steps */}
-        <section className="ct-sec">
-          <div className="ct-wrap">
-            <p className="ct-tag">Get started</p>
-            <h2 className="ct-title">3 Steps. That&apos;s All.</h2>
-
-            <ol className="ct-steps" aria-label="Steps to start copy trading">
-              <li className="ct-step">
-                <div className="ct-step-n" aria-hidden="true">1</div>
-                <div className="ct-step-body">
-                  <p className="ct-step-title">Create a Vantage Account</p>
-                  <p className="ct-step-desc">Free to open. Takes 5 minutes.</p>
-                  <a href={VANTAGE_ACCOUNT} className="ct-step-link" target="_blank" rel="noopener noreferrer" aria-label="Open Vantage account">
-                    Open Vantage Account
-                    <ArrowIcon />
-                  </a>
-                </div>
-              </li>
-
-              <li className="ct-step">
-                <div className="ct-step-n" aria-hidden="true">2</div>
-                <div className="ct-step-body">
-                  <p className="ct-step-title">Deposit Minimum $100</p>
-                  <p className="ct-step-desc">Fund your account to start copying live trades.</p>
-                </div>
-              </li>
-
-              <li className="ct-step">
-                <div className="ct-step-n" aria-hidden="true">3</div>
-                <div className="ct-step-body">
-                  <p className="ct-step-title">Set Up Copy Trading</p>
-                  <p className="ct-step-desc">One tap in the Vantage app — runs automatically after that.</p>
-                  <a href={VANTAGE_COPY} className="ct-step-link" target="_blank" rel="noopener noreferrer" aria-label="Start copy trading on Vantage">
-                    Start Copying Now
-                    <ArrowIcon />
-                  </a>
-                </div>
-              </li>
-            </ol>
-          </div>
-        </section>
-
-        <hr className="ct-hr" />
-
-        {/* Final CTA */}
-        <section className="ct-sec">
-          <div className="ct-wrap">
-            <div className="ct-cta-box">
-              <h2>Ready to Start?</h2>
-              <p>Join free on Telegram and get the full copy trading setup guide.</p>
-              <div className="ct-btn-stack">
-                <a href={TELEGRAM} className="ct-btn ct-btn-green" target="_blank" rel="noopener noreferrer" aria-label="Join KR Trades Telegram">
-                  <TgIcon />
-                  Join Telegram — Free
-                </a>
-                <a href={VANTAGE_COPY} className="ct-btn ct-btn-outline" target="_blank" rel="noopener noreferrer" aria-label="Start copy trading on Vantage">
-                  Start Copying Now
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Disclaimer */}
-        <footer>
-          <div className="ct-wrap">
-            <hr className="ct-hr" />
-            <div className="ct-disc" role="contentinfo">
-              <p>
-                Trading involves significant risk. Past performance is not indicative of future results.
-                Only invest capital you can afford to lose. This is not financial advice.
-                KR Trades is an educational signal service. Affiliate link used for Vantage.
+              <p className="ct-hero-sub">
+                Verified XAUUSD performance. One-time setup. Runs on autopilot.
               </p>
-            </div>
-          </div>
-        </footer>
 
-      </div>
+              <ul className="ct-bullets" aria-label="Key benefits">
+                {[
+                  'Verified PnL — not fake screenshots',
+                  'Start with just $100',
+                  'One-time setup — fully automatic',
+                ].map((text) => (
+                  <li key={text}>
+                    <span className="ct-chk" aria-hidden="true">
+                      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="2 6 5 9 10 3" />
+                      </svg>
+                    </span>
+                    {text}
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href={TELEGRAM}
+                className="ct-btn ct-btn-primary"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Join KR Trades on Telegram"
+              >
+                <TgIcon />
+                Join Telegram — Free
+              </a>
+            </div>
+          </section>
+
+          <hr className="ct-hr" />
+
+          {/* ── PROOF ── */}
+          <section className="ct-sec">
+            <div className="ct-wrap">
+              <p className="ct-tag ct-reveal">Verified Performance</p>
+              <h2 className="ct-title ct-reveal ct-reveal-d1">Real PnL. Public Record.</h2>
+
+              <div className="ct-stats ct-reveal ct-reveal-d2" role="list" aria-label="Performance stats">
+                {[
+                  { val: '+24%',   lbl: 'Avg Monthly' },
+                  { val: '<8%',    lbl: 'Max Drawdown' },
+                  { val: '68%',    lbl: 'Win Rate' },
+                  { val: 'XAUUSD', lbl: 'Focus Pair' },
+                ].map(({ val, lbl }) => (
+                  <div className="ct-stat" key={lbl} role="listitem">
+                    <span className="ct-stat-val">{val}</span>
+                    <span className="ct-stat-lbl">{lbl}</span>
+                  </div>
+                ))}
+              </div>
+
+              <a
+                href={MYFXBOOK}
+                className="ct-glass ct-myfx ct-reveal ct-reveal-d3"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View verified trading record on Myfxbook"
+              >
+                <div className="ct-myfx-left">
+                  <div className="ct-myfx-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="ct-myfx-name">View on Myfxbook</p>
+                    <p className="ct-myfx-sub">koushik-ranjit / #12009479</p>
+                  </div>
+                </div>
+                <span className="ct-verified-badge">
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <polyline points="2 6 5 9 10 3" />
+                  </svg>
+                  Verified
+                </span>
+              </a>
+            </div>
+          </section>
+
+          <hr className="ct-hr" />
+
+          {/* ── HOW IT WORKS ── */}
+          <section className="ct-sec">
+            <div className="ct-wrap">
+              <p className="ct-tag ct-reveal">Get Started</p>
+              <h2 className="ct-title ct-reveal ct-reveal-d1">3 Steps. That&apos;s All.</h2>
+
+              <ol className="ct-steps" aria-label="Steps to start copy trading">
+                <li className="ct-step ct-reveal ct-reveal-d1">
+                  <div className="ct-step-num" aria-hidden="true">1</div>
+                  <div className="ct-step-body">
+                    <p className="ct-step-title">Create a Vantage Account</p>
+                    <p className="ct-step-desc">Free to open. Takes 5 minutes. Regulated broker.</p>
+                    <a
+                      href={VANTAGE_ACCT}
+                      className="ct-step-btn"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Open Vantage account"
+                    >
+                      Open Account
+                      <ArrowIcon />
+                    </a>
+                  </div>
+                </li>
+
+                <li className="ct-step ct-reveal ct-reveal-d2">
+                  <div className="ct-step-num" aria-hidden="true">2</div>
+                  <div className="ct-step-body">
+                    <p className="ct-step-title">Deposit Minimum $100</p>
+                    <p className="ct-step-desc">Fund your account. $100 minimum to copy live XAUUSD trades.</p>
+                  </div>
+                </li>
+
+                <li className="ct-step ct-reveal ct-reveal-d3">
+                  <div className="ct-step-num" aria-hidden="true">3</div>
+                  <div className="ct-step-body">
+                    <p className="ct-step-title">Set Up Copy Trading</p>
+                    <p className="ct-step-desc">One tap inside the Vantage app — trades copy automatically after that.</p>
+                    <a
+                      href={VANTAGE_COPY}
+                      className="ct-step-btn"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Start copy trading on Vantage"
+                    >
+                      Start Copying Now
+                      <ArrowIcon />
+                    </a>
+                  </div>
+                </li>
+              </ol>
+            </div>
+          </section>
+
+          <hr className="ct-hr" />
+
+          {/* ── FINAL CTA ── */}
+          <section className="ct-sec">
+            <div className="ct-wrap">
+              <div className="ct-cta-box ct-reveal">
+                <h2 className="ct-cta-h2">Ready to Start?</h2>
+                <p className="ct-cta-p">Join free on Telegram. Get the setup guide and go live in minutes.</p>
+                <div className="ct-btn-stack">
+                  <a
+                    href={TELEGRAM}
+                    className="ct-btn ct-btn-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Join KR Trades Telegram"
+                  >
+                    <TgIcon />
+                    Join Telegram — Free
+                  </a>
+                  <a
+                    href={VANTAGE_COPY}
+                    className="ct-btn ct-btn-gold"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Start copy trading on Vantage"
+                  >
+                    Start Copying Now
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Disclaimer */}
+          <footer>
+            <div className="ct-wrap">
+              <hr className="ct-hr" />
+              <div className="ct-disc" role="contentinfo">
+                <p>
+                  Trading involves significant risk. Past performance is not indicative of future results.
+                  Only invest capital you can afford to lose. This is not financial advice.
+                  KR Trades is an educational signal service. Affiliate links used for Vantage.
+                </p>
+              </div>
+            </div>
+          </footer>
+
+        </div>{/* ct-content */}
+      </div>{/* ct */}
+
+      {/* Scroll reveal observer */}
+      <script dangerouslySetInnerHTML={{ __html: `
+        (function() {
+          var els = document.querySelectorAll('.ct-reveal');
+          if (!els.length) return;
+          var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+              if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                io.unobserve(e.target);
+              }
+            });
+          }, { threshold: 0.12 });
+          els.forEach(function(el) { io.observe(el); });
+        })();
+      `}} />
     </>
   );
 }
