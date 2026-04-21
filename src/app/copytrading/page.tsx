@@ -730,8 +730,9 @@ export default function CopytradingPage() {
               <div className="disc" role="contentinfo">
                 <p>
                   Forex trading involves risk. Past performance does not guarantee future profits.
-                  Only invest capital you can afford to lose. This is not financial advice.{' '}
-                  <a href="/riskandearning" style={{color:'#334155',textDecoration:'underline'}}>Risk &amp; Earning Disclaimer</a>
+                  Only invest capital you can afford to lose. This is not financial advice.
+                  By using this page, you agree to our{' '}
+                  <a href="/riskandearning" style={{color:'#64748B',textDecoration:'underline'}}>Risk &amp; Earning Disclaimer</a>.
                 </p>
               </div>
             </div>
