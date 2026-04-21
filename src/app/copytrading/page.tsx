@@ -3,6 +3,8 @@ export const metadata = {
   description: 'Copy Koushik Ranjit\'s live XAUUSD trades automatically. Create a Vantage account, deposit $100, and start copying. Verified on Myfxbook.',
 };
 
+import CopyRefCode from './CopyRefCode';
+
 const VANTAGE_ACCT = 'https://vigco.co/la-com-inv/TpCuu75a';
 const VANTAGE_COPY = 'https://vantageapp.onelink.me/qaPD?af_xp=referral&pid=IBSHARE&deep_link_value=mt4id-140247%7Cplatform-copytrading&deep_link_sub1=spid-1164895&af_dp=com.vttech.VantageFX%3A%2F%2F&af_force_deeplink=true';
 const MYFXBOOK    = 'https://www.myfxbook.com/members/koushik_ranjit/koushik-ranjit/12009479';
@@ -403,36 +405,7 @@ export default function CopytradingPage() {
                     </div>
 
                     {/* Referral code */}
-                    <div className="ref-box" aria-label="Vantage referral code">
-                      <div className="ref-left">
-                        <div>
-                          <p className="ref-label">Referral Code</p>
-                          <p className="ref-code" id="ref-code-text">TpCuu75a</p>
-                        </div>
-                      </div>
-                      <button
-                        className="copy-btn"
-                        id="copy-ref-btn"
-                        aria-label="Copy referral code"
-                        type="button"
-                        onClick={() => {
-                          navigator.clipboard.writeText('TpCuu75a').then(() => {
-                            const btn = document.getElementById('copy-ref-btn');
-                            if (btn) {
-                              btn.classList.add('copied');
-                              btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg> Copied!`;
-                              setTimeout(() => {
-                                btn.classList.remove('copied');
-                                btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Code`;
-                              }, 2000);
-                            }
-                          });
-                        }}
-                      >
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                        Copy Code
-                      </button>
-                    </div>
+                    <CopyRefCode code="TpCuu75a" />
 
                     <a href={VANTAGE_ACCT} className="step-link" target="_blank" rel="noopener noreferrer" aria-label="Open Vantage account">
                       Open Account <ArrowIcon/>
