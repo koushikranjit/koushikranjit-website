@@ -246,11 +246,8 @@ export default function CopytradingPage() {
         .setup-value.green { color:#10B981;background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.18); }
         .setup-value.off { color:#475569;background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.06); }
 
-        /* ── MQL5 embed ── */
-        .mql5-wrap { border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.07); }
-        .iframely-embed { display:block; }
-        .iframely-responsive { position:relative;display:block; }
-        .iframely-responsive iframe { position:absolute;top:0;left:0;width:100%;height:100%;border:0; }
+        /* ── Results cards ── */
+        .result-cards { display:flex;flex-direction:column;gap:10px; }
 
         /* ── Referral code copy ── */
         .ref-box {
@@ -344,7 +341,7 @@ export default function CopytradingPage() {
 
         /* ── Disclaimer ── */
         .disc { padding:24px 0 52px;text-align:center; }
-        .disc p { font-size:11px;color:#1E293B;line-height:1.8;max-width:440px;margin:0 auto; }
+        .disc p { font-size:11px;color:#334155;line-height:1.8;max-width:440px;margin:0 auto; }
 
         @media(prefers-reduced-motion:reduce){
           .live-dot{animation:none;opacity:1}
@@ -573,64 +570,85 @@ export default function CopytradingPage() {
               <p className="tag rv">Transparent</p>
               <h2 className="h2 rv d1">Live Results</h2>
 
-              {/* MQL5 Signal embed */}
-              <div className="mql5-wrap rv d2">
-                <div className="iframely-embed">
-                  <div className="iframely-responsive" style={{paddingBottom:'52.3333%',paddingTop:'120px'}}>
-                    <a href="https://www.mql5.com/en/signals/2369872" data-iframely-url="https://iframely.net/DdfTtbzN?theme=dark"></a>
+              <div className="result-cards">
+
+                {/* MQL5 Signal */}
+                <a
+                  href="https://www.mql5.com/en/signals/2369872"
+                  className="glass myfx rv d2"
+                  style={{border:'1px solid rgba(202,138,4,.2)',background:'rgba(202,138,4,.04)'}}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="View live signal on MQL5"
+                >
+                  <div className="myfx-left">
+                    <div className="myfx-ico" style={{background:'rgba(202,138,4,.1)',border:'1px solid rgba(202,138,4,.2)'}} aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FCD34D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="myfx-name">Live Signal — MQL5</p>
+                      <p className="myfx-sub">Signal #2369872 — updated every trade</p>
+                    </div>
                   </div>
-                </div>
+                  <span className="verified" style={{color:'#FCD34D',background:'rgba(202,138,4,.08)',borderColor:'rgba(202,138,4,.25)'}}>
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#FCD34D" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="2 6 5 9 10 3"/></svg>
+                    Live
+                  </span>
+                </a>
+
+                {/* Daily results Telegram channel */}
+                <a
+                  href={TG_CHANNEL}
+                  className="glass myfx rv d3"
+                  style={{border:'1px solid rgba(38,120,232,.18)',background:'rgba(38,120,232,.04)'}}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Follow daily results on Telegram channel"
+                >
+                  <div className="myfx-left">
+                    <div className="myfx-ico" style={{background:'rgba(38,120,232,.12)',border:'1px solid rgba(38,120,232,.25)'}} aria-hidden="true">
+                      <TgIcon size={20} color="#60A5FA"/>
+                    </div>
+                    <div>
+                      <p className="myfx-name">Daily Results Update</p>
+                      <p className="myfx-sub">@koushikranjit — every trade posted daily</p>
+                    </div>
+                  </div>
+                  <span className="verified" style={{color:'#60A5FA',background:'rgba(38,120,232,.08)',borderColor:'rgba(38,120,232,.25)'}}>
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#60A5FA" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 2l1.5 3h3l-2.5 2 1 3L6 8.5 3 10l1-3L1.5 5h3z"/></svg>
+                    Follow
+                  </span>
+                </a>
+
+                {/* Myfxbook */}
+                <a
+                  href={MYFXBOOK}
+                  className="glass myfx rv d4"
+                  style={{border:'1px solid rgba(255,255,255,.07)'}}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="View verified live trading results on Myfxbook"
+                >
+                  <div className="myfx-left">
+                    <div className="myfx-ico" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="myfx-name">Verified on Myfxbook</p>
+                      <p className="myfx-sub">koushik-ranjit / #12009479 — Updated live</p>
+                    </div>
+                  </div>
+                  <span className="verified">
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="2 6 5 9 10 3"/></svg>
+                    Verified
+                  </span>
+                </a>
+
               </div>
-
-              {/* Daily results Telegram channel */}
-              <a
-                href={TG_CHANNEL}
-                className="glass myfx rv d3"
-                style={{border:'1px solid rgba(38,120,232,.18)',marginTop:'12px',background:'rgba(38,120,232,.04)'}}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Follow daily results on Telegram channel"
-              >
-                <div className="myfx-left">
-                  <div className="myfx-ico" style={{background:'rgba(38,120,232,.12)',border:'1px solid rgba(38,120,232,.25)'}} aria-hidden="true">
-                    <TgIcon size={20} color="#60A5FA"/>
-                  </div>
-                  <div>
-                    <p className="myfx-name">Daily Results Update</p>
-                    <p className="myfx-sub">@koushikranjit — every trade posted daily</p>
-                  </div>
-                </div>
-                <span className="verified" style={{color:'#60A5FA',background:'rgba(38,120,232,.08)',borderColor:'rgba(38,120,232,.25)'}}>
-                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#60A5FA" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 2l1.5 3h3l-2.5 2 1 3L6 8.5 3 10l1-3L1.5 5h3z"/></svg>
-                  Follow
-                </span>
-              </a>
-
-              {/* Myfxbook secondary link */}
-              <a
-                href={MYFXBOOK}
-                className="glass myfx rv d4"
-                style={{border:'1px solid rgba(255,255,255,.07)',marginTop:'12px'}}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View verified live trading results on Myfxbook"
-              >
-                <div className="myfx-left">
-                  <div className="myfx-ico" aria-hidden="true">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="myfx-name">Also on Myfxbook</p>
-                    <p className="myfx-sub">koushik-ranjit / #12009479 — Updated live</p>
-                  </div>
-                </div>
-                <span className="verified">
-                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="2 6 5 9 10 3"/></svg>
-                  Verified
-                </span>
-              </a>
             </div>
           </section>
 
@@ -747,8 +765,6 @@ export default function CopytradingPage() {
           els.forEach(function(el){io.observe(el);});
         })();
       `}}/>
-      {/* iframely embed script for MQL5 signal */}
-      <script async src="https://iframely.net/embed.js"/>
     </>
   );
 }
