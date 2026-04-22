@@ -196,7 +196,7 @@ export default function CopytradingPage() {
         .setting-val { font-size:13px;font-weight:700;color:#E2E8F0; }
 
         /* ── Setup cards ── */
-        .plans { display:flex;flex-direction:column;gap:16px; }
+        .plans { display:flex;flex-direction:column;gap:10px; }
         .setup-card {
           border-radius:16px;padding:24px;
           background:rgba(202,138,4,.04);
@@ -249,6 +249,46 @@ export default function CopytradingPage() {
 
         /* ── Results cards ── */
         .result-cards { display:flex;flex-direction:column;gap:10px; }
+
+        /* ── Widget label / caption ── */
+        .widget-label {
+          display:flex;align-items:center;gap:7px;margin-bottom:8px;
+          font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#64748B;
+        }
+        .widget-caption {
+          margin-top:10px;font-size:12px;color:#475569;line-height:1.6;text-align:center;
+        }
+        .widget-stat {
+          display:inline-flex;align-items:center;gap:5px;
+          font-size:13px;font-weight:700;color:#FCD34D;
+          background:rgba(202,138,4,.07);border:1px solid rgba(202,138,4,.15);
+          padding:6px 14px;border-radius:8px;margin-top:8px;
+        }
+
+        /* ── FAQ accordion ── */
+        .faq-list { display:flex;flex-direction:column;gap:8px; }
+        .faq-item {
+          background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.07);
+          border-radius:13px;overflow:hidden;
+        }
+        .faq-item summary {
+          list-style:none;display:flex;align-items:center;justify-content:space-between;
+          gap:12px;padding:16px 18px;cursor:pointer;
+          font-size:14px;font-weight:700;color:#E2E8F0;letter-spacing:-.01em;
+          -webkit-tap-highlight-color:transparent;
+          transition:color .18s;
+        }
+        .faq-item summary::-webkit-details-marker { display:none; }
+        .faq-item summary:hover { color:#fff; }
+        .faq-chevron {
+          flex-shrink:0;width:18px;height:18px;color:#475569;
+          transition:transform .25s ease;
+        }
+        .faq-item[open] summary { color:#fff;border-bottom:1px solid rgba(255,255,255,.05); }
+        .faq-item[open] .faq-chevron { transform:rotate(180deg);color:#10B981; }
+        .faq-answer {
+          padding:14px 18px;font-size:13px;color:#94A3B8;line-height:1.7;
+        }
 
         /* ── MQL5 iframely embed ── */
         .mql5-embed { border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.07);margin-bottom:10px; }
@@ -388,12 +428,26 @@ export default function CopytradingPage() {
               </h1>
 
               {/* Live results embed — right under the title */}
-              <div className="mql5-embed" style={{margin:'24px 0'}}>
+              <div style={{marginTop:'24px',marginBottom:'4px'}}>
+                <div className="widget-label" style={{justifyContent:'center'}}>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                  Strategy Performance · MQL5 Signal
+                </div>
+              </div>
+              <div className="mql5-embed">
                 <div className="iframely-embed">
                   <div className="iframely-responsive" style={{paddingBottom:'52.3333%',paddingTop:'120px'}}>
                     <a href="https://www.mql5.com/en/signals/2369872" data-iframely-url="https://iframely.net/DdfTtbzN?theme=dark"></a>
                   </div>
                 </div>
+              </div>
+              <div className="widget-caption">
+                Verified strategy performance since 2026 — actual copy trading is done via Vantage below.
+                <br/>
+                <span className="widget-stat">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                  $100 at launch → ~$417 today
+                </span>
               </div>
 
               <div className="hero-announce" role="note">
@@ -456,7 +510,7 @@ export default function CopytradingPage() {
                   <div className="step-num" aria-hidden="true">2</div>
                   <div className="step-body">
                     <p className="step-title">Complete KYC</p>
-                    <p className="step-desc">Verify your identity inside the Vantage app. Takes 5–10 minutes. Required before depositing.</p>
+                    <p className="step-desc">Verify your identity inside the Vantage app. Takes 5–10 minutes. You&apos;ll need a <strong style={{color:'#E2E8F0'}}>government-issued ID</strong> (passport or driving licence) and a <strong style={{color:'#E2E8F0'}}>selfie</strong>. This is a standard regulated broker requirement — your documents are encrypted and secure. Required before depositing.</p>
                   </div>
                 </li>
 
@@ -581,11 +635,11 @@ export default function CopytradingPage() {
 
           <hr className="hr"/>
 
-          {/* ── LIVE RESULTS ── */}
+          {/* ── FOLLOW DAILY UPDATES ── */}
           <section className="sec">
             <div className="w">
-              <p className="tag rv">Transparent</p>
-              <h2 className="h2 rv d1">Live Results</h2>
+              <p className="tag rv">Stay Updated</p>
+              <h2 className="h2 rv d1">Follow Daily Updates</h2>
 
               <div className="result-cards">
 
@@ -687,6 +741,60 @@ export default function CopytradingPage() {
                   </div>
                   <span className="support-arrow" aria-hidden="true"><ArrowIcon/></span>
                 </a>
+              </div>
+            </div>
+          </section>
+
+          <hr className="hr"/>
+
+          {/* ── FAQ ── */}
+          <section className="sec">
+            <div className="w">
+              <p className="tag rv">FAQ</p>
+              <h2 className="h2 rv d1">Common Questions</h2>
+
+              <div className="faq-list rv d2">
+
+                <details className="faq-item">
+                  <summary>
+                    Is this free to join?
+                    <svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                  </summary>
+                  <p className="faq-answer">Yes — copying my trades on Vantage is completely free. There are no monthly fees, no subscription, and no charges from me. You only need to fund your own trading account on Vantage with a minimum of $100.</p>
+                </details>
+
+                <details className="faq-item">
+                  <summary>
+                    What is the minimum deposit?
+                    <svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                  </summary>
+                  <p className="faq-answer">The minimum is $100. However, a higher balance gives proportionally larger position sizes and higher potential returns. Most followers start with $200–$500 for more comfortable sizing.</p>
+                </details>
+
+                <details className="faq-item">
+                  <summary>
+                    Can I stop copying at any time?
+                    <svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                  </summary>
+                  <p className="faq-answer">Yes, completely. You can pause or stop copying at any time from within the Vantage app with one tap. Your funds always remain in your own account — I never have access to them.</p>
+                </details>
+
+                <details className="faq-item">
+                  <summary>
+                    Do I need any trading experience?
+                    <svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                  </summary>
+                  <p className="faq-answer">No experience needed. Once you set up your account and connect the copy trading, everything is automatic. My trades copy to your account in real time — you don't need to do anything manually.</p>
+                </details>
+
+                <details className="faq-item">
+                  <summary>
+                    What happens on a losing trade?
+                    <svg className="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                  </summary>
+                  <p className="faq-answer">Losses are a normal part of trading — no strategy wins 100% of the time. When I take a losing trade, the same proportional loss is reflected in your account. This is why the strategy uses a stop loss (95%) to cap risk per trade. Only invest capital you can afford to lose.</p>
+                </details>
+
               </div>
             </div>
           </section>
