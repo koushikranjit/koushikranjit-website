@@ -563,7 +563,7 @@ export default function CopytradingPage() {
               <div className="plans">
 
                 {/* Plan A — Small Capital */}
-                <div className="setup-card green-card rv d2" role="region" aria-label="Small capital settings $100 to $500">
+                <div className="setup-card green-card rv d1" role="region" aria-label="Small capital settings $100 to $500">
                   <div className="plan-badge green">$100 – $500 · Small Capital</div>
                   <div className="setup-head">
                     <div className="setup-ico green-ico" aria-hidden="true">
@@ -592,7 +592,7 @@ export default function CopytradingPage() {
                 </div>
 
                 {/* Plan B — Large Capital */}
-                <div className="setup-card rv d3" role="region" aria-label="Large capital settings $1000 plus">
+                <div className="setup-card" role="region" aria-label="Large capital settings $1000 plus">
                   <div className="plan-badge gold">$1,000+ · Standard Plan</div>
                   <div className="setup-head">
                     <div className="setup-ico" aria-hidden="true">
@@ -847,11 +847,11 @@ export default function CopytradingPage() {
 
       </div>
 
-      {/* iframely script — loads after page is interactive so it never blocks layout */}
+      {/* iframely script */}
       <Script src="https://iframely.net/embed.js" strategy="afterInteractive"/>
 
-      {/* Scroll reveal */}
-      <script dangerouslySetInnerHTML={{ __html: `
+      {/* Scroll reveal — afterInteractive ensures it runs after React hydration */}
+      <Script id="scroll-reveal" strategy="afterInteractive" dangerouslySetInnerHTML={{__html:`
         (function(){
           var els=document.querySelectorAll('.rv');
           if(!els.length)return;
@@ -859,7 +859,7 @@ export default function CopytradingPage() {
             entries.forEach(function(e){
               if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}
             });
-          },{threshold:0.1});
+          },{threshold:0,rootMargin:'0px 0px -40px 0px'});
           els.forEach(function(el){io.observe(el);});
         })();
       `}}/>
