@@ -387,6 +387,15 @@ export default function CopytradingPage() {
                 <span className="gold-text">Copy Trading</span>
               </h1>
 
+              {/* Live results embed — right under the title */}
+              <div className="mql5-embed" style={{margin:'24px 0'}}>
+                <div className="iframely-embed">
+                  <div className="iframely-responsive" style={{paddingBottom:'52.3333%',paddingTop:'120px'}}>
+                    <a href="https://www.mql5.com/en/signals/2369872" data-iframely-url="https://iframely.net/DdfTtbzN?theme=dark"></a>
+                  </div>
+                </div>
+              </div>
+
               <div className="hero-announce" role="note">
                 <strong>I&apos;ve officially launched my copy trading strategy.</strong> You can now automatically copy all my trades — no manual work needed. Create your account, deposit funds, and connect — even while you sleep, your account takes trades automatically.
               </div>
@@ -577,15 +586,6 @@ export default function CopytradingPage() {
             <div className="w">
               <p className="tag rv">Transparent</p>
               <h2 className="h2 rv d1">Live Results</h2>
-
-              {/* MQL5 iframely embed */}
-              <div className="mql5-embed rv d2">
-                <div className="iframely-embed">
-                  <div className="iframely-responsive" style={{paddingBottom:'52.3333%',paddingTop:'120px'}}>
-                    <a href="https://www.mql5.com/en/signals/2369872" data-iframely-url="https://iframely.net/DdfTtbzN?theme=dark"></a>
-                  </div>
-                </div>
-              </div>
 
               <div className="result-cards">
 
