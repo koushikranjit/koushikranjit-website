@@ -383,7 +383,7 @@ export default function CopytradingPage() {
               </div>
 
               <h1 className="hero-h1">
-                XAUUSD
+                XAU/USD
                 <span className="gold-text">Copy Trading</span>
               </h1>
 
