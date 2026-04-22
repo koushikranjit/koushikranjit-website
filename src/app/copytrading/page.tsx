@@ -443,11 +443,6 @@ export default function CopytradingPage() {
               </div>
               <div className="widget-caption">
                 Verified strategy performance since 2026 — actual copy trading is done via Vantage below.
-                <br/>
-                <span className="widget-stat">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-                  $100 at launch → ~$417 today
-                </span>
               </div>
 
               <div className="hero-announce" role="note">
