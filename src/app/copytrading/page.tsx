@@ -3,6 +3,7 @@ export const metadata = {
   description: 'Copy Koushik Ranjit\'s live XAUUSD trades automatically. Create a Vantage account, deposit $100, and start copying. Verified on Myfxbook.',
 };
 
+import Script from 'next/script';
 import CopyRefCode from './CopyRefCode';
 
 const VANTAGE_ACCT = 'https://vigco.co/la-com-inv/TpCuu75a';
@@ -248,6 +249,13 @@ export default function CopytradingPage() {
 
         /* ── Results cards ── */
         .result-cards { display:flex;flex-direction:column;gap:10px; }
+
+        /* ── MQL5 iframely embed ── */
+        .mql5-embed { border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.07);margin-bottom:10px; }
+        .iframely-embed { display:block; }
+        .iframely-responsive { position:relative;overflow:hidden; }
+        .iframely-responsive a { display:block;height:100%; }
+        .iframely-responsive iframe { position:absolute;top:0;left:0;width:100%;height:100%;border:0; }
 
         /* ── Referral code copy ── */
         .ref-box {
@@ -570,33 +578,16 @@ export default function CopytradingPage() {
               <p className="tag rv">Transparent</p>
               <h2 className="h2 rv d1">Live Results</h2>
 
-              <div className="result-cards">
-
-                {/* MQL5 Signal */}
-                <a
-                  href="https://www.mql5.com/en/signals/2369872"
-                  className="glass myfx rv d2"
-                  style={{border:'1px solid rgba(202,138,4,.2)',background:'rgba(202,138,4,.04)'}}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="View live signal on MQL5"
-                >
-                  <div className="myfx-left">
-                    <div className="myfx-ico" style={{background:'rgba(202,138,4,.1)',border:'1px solid rgba(202,138,4,.2)'}} aria-hidden="true">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FCD34D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="myfx-name">Live Signal — MQL5</p>
-                      <p className="myfx-sub">Signal #2369872 — updated every trade</p>
-                    </div>
+              {/* MQL5 iframely embed */}
+              <div className="mql5-embed rv d2">
+                <div className="iframely-embed">
+                  <div className="iframely-responsive" style={{paddingBottom:'52.3333%',paddingTop:'120px'}}>
+                    <a href="https://www.mql5.com/en/signals/2369872" data-iframely-url="https://iframely.net/DdfTtbzN?theme=dark"></a>
                   </div>
-                  <span className="verified" style={{color:'#FCD34D',background:'rgba(202,138,4,.08)',borderColor:'rgba(202,138,4,.25)'}}>
-                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#FCD34D" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="2 6 5 9 10 3"/></svg>
-                    Live
-                  </span>
-                </a>
+                </div>
+              </div>
+
+              <div className="result-cards">
 
                 {/* Daily results Telegram channel */}
                 <a
@@ -752,6 +743,9 @@ export default function CopytradingPage() {
         </a>
 
       </div>
+
+      {/* iframely script — loads after page is interactive so it never blocks layout */}
+      <Script src="https://iframely.net/embed.js" strategy="afterInteractive"/>
 
       {/* Scroll reveal */}
       <script dangerouslySetInnerHTML={{ __html: `
