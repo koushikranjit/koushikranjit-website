@@ -290,12 +290,48 @@ export default function CopytradingPage() {
           padding:14px 18px;font-size:13px;color:#94A3B8;line-height:1.7;
         }
 
-        /* ── MQL5 iframely embed ── */
-        .mql5-embed { border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.07);margin-bottom:10px; }
-        .iframely-embed { display:block; }
-        .iframely-responsive { position:relative;overflow:hidden; }
-        .iframely-responsive a { display:block;height:100%; }
-        .iframely-responsive iframe { position:absolute;top:0;left:0;width:100%;height:100%;border:0; }
+        /* ── Myfxbook portfolio card ── */
+        .myfx-card {
+          display:block;text-decoration:none;
+          background:rgba(16,185,129,.04);
+          border:1px solid rgba(16,185,129,.18);
+          border-radius:16px;overflow:hidden;
+          transition:border-color .2s,box-shadow .2s;
+        }
+        .myfx-card:hover { border-color:rgba(16,185,129,.35);box-shadow:0 0 32px rgba(16,185,129,.1); }
+        .myfx-card-top {
+          display:flex;align-items:center;gap:12px;
+          padding:18px 20px 14px;
+          border-bottom:1px solid rgba(255,255,255,.05);
+        }
+        .myfx-card-ico {
+          width:42px;height:42px;border-radius:10px;flex-shrink:0;
+          background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);
+          display:flex;align-items:center;justify-content:center;
+        }
+        .myfx-card-title { font-size:15px;font-weight:800;color:#fff;letter-spacing:-.02em; }
+        .myfx-card-sub { font-size:12px;color:#475569;margin-top:2px; }
+        .myfx-card-stats {
+          display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+          padding:0 20px;
+          border-bottom:1px solid rgba(255,255,255,.05);
+        }
+        .myfx-stat {
+          display:flex;flex-direction:column;gap:4px;
+          padding:14px 0;
+          border-right:1px solid rgba(255,255,255,.05);
+        }
+        .myfx-stat:last-child { border-right:none; }
+        .myfx-stat { padding-left:4px; }
+        .myfx-stat-label { font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#475569; }
+        .myfx-stat-val { font-size:13px;font-weight:700;color:#E2E8F0; }
+        .myfx-stat-val.green { color:#10B981; }
+        .myfx-card-cta {
+          display:flex;align-items:center;justify-content:center;gap:8px;
+          padding:14px 20px;
+          font-size:13px;font-weight:700;color:#10B981;
+          letter-spacing:-.01em;
+        }
 
         /* ── Referral code copy ── */
         .ref-box {
@@ -427,27 +463,48 @@ export default function CopytradingPage() {
                 <span className="gold-text">Copy Trading</span>
               </h1>
 
-              {/* Live portfolio embed — right under the title */}
-              <div style={{marginTop:'24px',marginBottom:'4px'}}>
-                <div className="widget-label" style={{justifyContent:'center'}}>
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                  Portfolio Performance · Myfxbook
-                </div>
-              </div>
-              <div className="mql5-embed">
-                <iframe
-                  src="https://widgets.myfxbook.com/portfolio-widget?id=12017597&theme=dark&locale=en"
-                  width="100%"
-                  height="420"
-                  frameBorder={0}
-                  style={{border:'none',display:'block',borderRadius:'12px'}}
-                  title="Myfxbook Portfolio Performance"
-                  loading="lazy"
-                  scrolling="no"
-                />
-              </div>
-              <div className="widget-caption">
-                Verified portfolio performance — actual copy trading is done via Vantage below.
+              {/* Live portfolio link — Myfxbook */}
+              <div style={{marginTop:'28px'}}>
+                <a
+                  href="https://www.myfxbook.com/portfolio/koushik-ranjit/12017597"
+                  className="myfx-card"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="View verified portfolio on Myfxbook"
+                >
+                  <div className="myfx-card-top">
+                    <div className="myfx-card-ico" aria-hidden="true">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="myfx-card-title">Portfolio Performance</p>
+                      <p className="myfx-card-sub">Verified live on Myfxbook</p>
+                    </div>
+                    <span className="verified" style={{marginLeft:'auto'}}>
+                      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="2 6 5 9 10 3"/></svg>
+                      Verified
+                    </span>
+                  </div>
+                  <div className="myfx-card-stats">
+                    <div className="myfx-stat">
+                      <span className="myfx-stat-label">Account</span>
+                      <span className="myfx-stat-val">koushik-ranjit</span>
+                    </div>
+                    <div className="myfx-stat">
+                      <span className="myfx-stat-label">Portfolio ID</span>
+                      <span className="myfx-stat-val">#12017597</span>
+                    </div>
+                    <div className="myfx-stat">
+                      <span className="myfx-stat-label">Status</span>
+                      <span className="myfx-stat-val green">● Live</span>
+                    </div>
+                  </div>
+                  <div className="myfx-card-cta">
+                    View Full Portfolio <ArrowIcon/>
+                  </div>
+                </a>
               </div>
 
               <div className="hero-announce" role="note">
