@@ -427,22 +427,27 @@ export default function CopytradingPage() {
                 <span className="gold-text">Copy Trading</span>
               </h1>
 
-              {/* Live results embed — right under the title */}
+              {/* Live portfolio embed — right under the title */}
               <div style={{marginTop:'24px',marginBottom:'4px'}}>
                 <div className="widget-label" style={{justifyContent:'center'}}>
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                  Strategy Performance · MQL5 Signal
+                  Portfolio Performance · Myfxbook
                 </div>
               </div>
               <div className="mql5-embed">
-                <div className="iframely-embed">
-                  <div className="iframely-responsive" style={{paddingBottom:'52.3333%',paddingTop:'120px'}}>
-                    <a href="https://www.mql5.com/en/signals/2369872" data-iframely-url="https://iframely.net/DdfTtbzN?theme=dark"></a>
-                  </div>
-                </div>
+                <iframe
+                  src="https://widgets.myfxbook.com/portfolio-widget?id=12017597&theme=dark&locale=en"
+                  width="100%"
+                  height="420"
+                  frameBorder={0}
+                  style={{border:'none',display:'block',borderRadius:'12px'}}
+                  title="Myfxbook Portfolio Performance"
+                  loading="lazy"
+                  scrolling="no"
+                />
               </div>
               <div className="widget-caption">
-                Verified strategy performance since 2026 — actual copy trading is done via Vantage below.
+                Verified portfolio performance — actual copy trading is done via Vantage below.
               </div>
 
               <div className="hero-announce" role="note">
@@ -846,9 +851,6 @@ export default function CopytradingPage() {
         </a>
 
       </div>
-
-      {/* iframely script */}
-      <Script src="https://iframely.net/embed.js" strategy="afterInteractive"/>
 
       {/* Scroll reveal — afterInteractive ensures it runs after React hydration */}
       <Script id="scroll-reveal" strategy="afterInteractive" dangerouslySetInnerHTML={{__html:`
