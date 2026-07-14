@@ -31,6 +31,19 @@
 
 ## Latest Changes
 
+### 2026-07-15 — Koushik VPS checkout page + Razorpay auto-monthly subscription (₹1,200/mo)
+
+**New product: plain checkout page for manual client links (no marketing page, no specs listing — link is sent manually by Koushik to each client).**
+
+- `src/app/vps/page.tsx` — Plain checkout page at `/vps`: product name + ₹1,200/mo price, name + email fields, "Subscribe & Pay" button, Razorpay checkout modal (subscription mode, auto-recurring monthly), success state after payment
+- `src/app/api/vps/subscribe/route.ts` — Creates Razorpay subscription using `RAZORPAY_VPS_PLAN_ID`, passes client name/email in subscription notes
+- Razorpay Plan created live via API: `plan_TDW5fvYRpAgeWT` — ₹1,200/month, same Razorpay account as KR Trades (`rzp_live_SSL6Wg71WI8B11`) — **different plan_id, do not mix with KR Trades plan**
+- `src/app/api/webhook/razorpay/route.ts` — Extended existing webhook to branch on `plan_id`: VPS plan events (activated/charged/cancelled/halted/paused/completed) now send an email notification via Resend to teamkoushikranjit@gmail.com instead of touching Discord roles. KR Trades logic unchanged below the new branch.
+- `.env.local` — Added `RAZORPAY_VPS_PLAN_ID=plan_TDW5fvYRpAgeWT` and `RESEND_API_KEY=` (empty — **user will add the key later**; email sending no-ops with a console log until then)
+- **Resend not yet integrated anywhere else in this project** — no `resend` npm package added, using raw `fetch` to `api.resend.com/emails` to avoid a new dependency. `from` address is currently the Resend sandbox `onboarding@resend.dev`; once teamkoushikranjit's domain is verified in Resend, update the `from` in the webhook to a real koushikranjit.in address.
+- Build verified clean (`npm run build` — 0 type errors, `/vps` and `/api/vps/subscribe` both compiled) then `node_modules` + `.next` deleted per storage rules
+- **Still TODO:** user needs to (1) paste real Resend API key into `.env.local` + Vercel env vars, (2) confirm the Razorpay webhook (already configured for KR Trades) also delivers VPS plan events — no new webhook URL was registered, VPS reuses the existing `koushikranjit.in/api/webhook/razorpay` endpoint
+
 ### 2026-04-06 (Session 2) — KRtrades complete rebuild: mobile-first, liquid glass, green brand
 
 **Complete Page Rebuild (`src/app/KRtrades/page.tsx`):**
@@ -212,3 +225,7 @@
 - [ ] SEO audit and optimization
 - [ ] Discord bot: add `/apply` command for manual Premium role requests
 - [ ] Discord bot: add announcement posting capability
+- [x] Koushik VPS checkout page (`/vps`) — plain page, ₹1,200/month auto-recurring Razorpay subscription
+- [ ] Add real Resend API key to `.env.local` + Vercel env vars (currently empty placeholder)
+- [ ] Verify koushikranjit.in domain in Resend, update webhook `from` address off sandbox domain
+- [ ] Confirm existing Razorpay webhook delivers VPS plan events correctly (no new webhook registered)

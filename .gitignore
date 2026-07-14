@@ -4,3 +4,6 @@ node_modules
 out
 .DS_Store
 .env.local
+._*
+.claude/worktrees/
+tsconfig.tsbuildinfo

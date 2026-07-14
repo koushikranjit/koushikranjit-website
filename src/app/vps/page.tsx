@@ -1,0 +1,116 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+
+const RAZORPAY_KEY = 'rzp_live_SSL6Wg71WI8B11'
+
+export default function VPSCheckoutPage() {
+  const [mounted, setMounted] = useState(false)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [paying, setPaying] = useState(false)
+  const [error, setError] = useState('')
+  const [done, setDone] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+    const s = document.createElement('script')
+    s.src = 'https://checkout.razorpay.com/v1/checkout.js'
+    s.async = true
+    document.head.appendChild(s)
+  }, [])
+
+  const handlePay = async () => {
+    if (!name.trim() || !email.trim()) {
+      setError('Please enter your name and email.')
+      return
+    }
+    setError('')
+    setPaying(true)
+    try {
+      const res = await fetch('/api/vps/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name.trim(), email: email.trim() }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setError(data.error || 'Failed to start checkout.')
+        setPaying(false)
+        return
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const Razorpay = (window as any).Razorpay
+      const rzp = new Razorpay({
+        key: RAZORPAY_KEY,
+        subscription_id: data.subscription_id,
+        name: 'Koushik VPS',
+        description: 'VPS — Monthly Subscription',
+        theme: { color: '#059669' },
+        prefill: { name: name.trim(), email: email.trim() },
+        handler: () => setDone(true),
+        modal: { ondismiss: () => setPaying(false) },
+      })
+      rzp.open()
+    } catch {
+      setError('Something went wrong. Please try again.')
+      setPaying(false)
+    }
+  }
+
+  if (!mounted) return null
+
+  return (
+    <div className="min-h-screen w-full bg-[#0f0f0f] text-white flex items-center justify-center px-4 py-16">
+      <div className="w-full max-w-sm bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.05)]">
+        {done ? (
+          <div className="text-center py-6">
+            <div className="w-14 h-14 rounded-full bg-emerald-600/20 border border-emerald-500/40 flex items-center justify-center mx-auto mb-4">
+              <span className="text-emerald-400 text-2xl">✓</span>
+            </div>
+            <h1 className="text-lg font-semibold mb-2">Subscription active</h1>
+            <p className="text-sm text-gray-400">Thanks — your monthly payment is set up. You&apos;ll be charged ₹1,200 automatically every month.</p>
+          </div>
+        ) : (
+          <>
+            <h1 className="text-xl font-bold mb-1">Koushik VPS</h1>
+            <p className="text-sm text-gray-400 mb-6">Monthly subscription — auto-renews every month</p>
+
+            <div className="flex items-baseline gap-1 mb-6">
+              <span className="text-3xl font-bold">₹1,200</span>
+              <span className="text-gray-400 text-sm">/ month</span>
+            </div>
+
+            <div className="space-y-3 mb-5">
+              <input
+                type="text"
+                placeholder="Full name"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                className="w-full h-11 px-4 rounded-lg bg-white/[0.05] border border-white/[0.1] text-sm placeholder:text-gray-500 focus:outline-none focus:border-emerald-500/60"
+              />
+              <input
+                type="email"
+                placeholder="Email address"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                className="w-full h-11 px-4 rounded-lg bg-white/[0.05] border border-white/[0.1] text-sm placeholder:text-gray-500 focus:outline-none focus:border-emerald-500/60"
+              />
+            </div>
+
+            {error && <p className="text-red-400 text-xs mb-4">{error}</p>}
+
+            <button
+              onClick={handlePay}
+              disabled={paying}
+              className="w-full h-12 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition-colors disabled:opacity-60"
+            >
+              {paying ? 'Processing...' : 'Subscribe & Pay'}
+            </button>
+            <p className="text-center text-gray-500 text-xs mt-3">Secure payment via Razorpay · Cancel anytime</p>
+          </>
+        )}
+      </div>
+    </div>
+  )
+}

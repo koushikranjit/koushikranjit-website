@@ -7,7 +7,36 @@ const DISCORD_PREMIUM_ROLE_ID = process.env.DISCORD_PREMIUM_ROLE_ID!
 const DISCORD_FREE_ROLE_ID = '1461003496336916631' // Free Members role
 const RAZORPAY_WEBHOOK_SECRET = process.env.RAZORPAY_WEBHOOK_SECRET!
 const KR_TRADES_PLAN_ID = process.env.RAZORPAY_PLAN_ID!
+const VPS_PLAN_ID = process.env.RAZORPAY_VPS_PLAN_ID!
+const RESEND_API_KEY = process.env.RESEND_API_KEY
+const NOTIFY_EMAIL = 'teamkoushikranjit@gmail.com'
 const GRACE_PERIOD_DAYS = 7
+
+// ── Email helper (Resend) ────────────────────────────────────────────
+
+async function sendEmail(subject: string, html: string): Promise<void> {
+  if (!RESEND_API_KEY) {
+    console.log(`[email skipped, no RESEND_API_KEY] ${subject}`)
+    return
+  }
+  try {
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'Koushik VPS <onboarding@resend.dev>',
+        to: NOTIFY_EMAIL,
+        subject,
+        html,
+      }),
+    })
+  } catch (err) {
+    console.error('Failed to send email:', err)
+  }
+}
 
 // ── Discord helpers ──────────────────────────────────────────────────
 
@@ -109,7 +138,36 @@ export async function POST(req: Request) {
     const event = payload.event
     const entity = payload.payload?.subscription?.entity || payload.payload?.payment?.entity
 
-    // Only process KR Trades plan events
+    // ── Koushik VPS plan: email notification only, no Discord ──
+    if (entity?.plan_id && entity.plan_id === VPS_PLAN_ID) {
+      const notes = entity?.notes || {}
+      const clientName = notes.client_name || 'Unknown'
+      const clientEmail = notes.client_email || 'Unknown'
+      const subId = entity?.id || payload.payload?.subscription?.entity?.id || ''
+
+      const eventLabels: Record<string, string> = {
+        'subscription.activated': '✅ New VPS subscription activated',
+        'subscription.charged': '💰 VPS monthly payment received',
+        'payment.captured': '💰 VPS payment captured',
+        'subscription.cancelled': '⚠️ VPS subscription cancelled',
+        'subscription.halted': '⚠️ VPS subscription halted (payment failed)',
+        'subscription.paused': '⏸️ VPS subscription paused',
+        'subscription.completed': '🏁 VPS subscription completed',
+      }
+
+      const label = eventLabels[event]
+      if (label) {
+        await sendEmail(
+          label,
+          `<p><strong>${label}</strong></p>
+           <p>Client: ${clientName}<br/>Email: ${clientEmail}<br/>Subscription ID: ${subId}<br/>Event: ${event}</p>`
+        )
+      }
+
+      return NextResponse.json({ status: 'ok', product: 'vps', event })
+    }
+
+    // Only process KR Trades plan events beyond this point
     if (entity?.plan_id && entity.plan_id !== KR_TRADES_PLAN_ID) {
       return NextResponse.json({ status: 'skipped', reason: 'not KR Trades plan' })
     }
