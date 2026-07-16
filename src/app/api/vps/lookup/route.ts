@@ -2,20 +2,23 @@ import { NextResponse } from 'next/server'
 import crypto from 'crypto'
 
 const VPS_PLAN_ID = process.env.RAZORPAY_VPS_PLAN_ID || 'plan_TDW5fvYRpAgeWT'
-const SECRET = process.env.RAZORPAY_WEBHOOK_SECRET || 'krtrades2026'
 
 function generateToken(email: string, subIds: string[]): string {
+  const secret = process.env.RAZORPAY_WEBHOOK_SECRET
+  if (!secret) throw new Error('RAZORPAY_WEBHOOK_SECRET is not set')
   const payload = JSON.stringify({ email: email.toLowerCase(), subIds, exp: Date.now() + 10 * 60 * 1000 })
-  const hmac = crypto.createHmac('sha256', SECRET).update(payload).digest('hex')
+  const hmac = crypto.createHmac('sha256', secret).update(payload).digest('hex')
   return Buffer.from(payload).toString('base64') + '.' + hmac
 }
 
 export function verifyToken(token: string): { email: string; subIds: string[] } | null {
   try {
+    const secret = process.env.RAZORPAY_WEBHOOK_SECRET
+    if (!secret) return null
     const [payloadB64, sig] = token.split('.')
     if (!payloadB64 || !sig) return null
     const payload = Buffer.from(payloadB64, 'base64').toString()
-    const expected = crypto.createHmac('sha256', SECRET).update(payload).digest('hex')
+    const expected = crypto.createHmac('sha256', secret).update(payload).digest('hex')
     if (sig !== expected) return null
     const data = JSON.parse(payload)
     if (data.exp < Date.now()) return null
