@@ -31,6 +31,23 @@
 
 ## Latest Changes
 
+### 2026-07-17 — VPS quantity/manage, homepage cleanup, GitHub auto-deploy reconnected
+- **Homepage rewrite fix:** `/` was doing a client-side `redirect('/index.html')`, showing `/index.html` in the URL bar. Replaced with a `beforeFiles` rewrite in `next.config.ts` (`/` → `/index.html`) so the URL stays clean at `koushikranjit.in`
+- **Homepage content:** tagline changed "Futures Trader & Investor" → "Forex, Futures Trader & Investor" (hero tag, section-sub, footer, and `public/data/koushik-ranjit.json`); "Join Community" link updated to `discord.gg/sffdu4wXx2`; added a "VPS" link to the footer nav
+- **Removed `/copytrading` and `/meetup` routes entirely** (deleted `src/app/copytrading/`, `src/app/meetup/`, removed `/meetup` from `sitemap.xml`). Fixed `riskandearning` page's two dead links that pointed to the now-deleted `/copytrading` — both now point to `/KRtrades`
+- **VPS: quantity selector + self-serve manage/cancel** — `/vps` now has a quantity stepper (1–20, ₹1,200 × qty/month), `POST /api/vps/subscribe` accepts `quantity` and passes it to Razorpay. Added `/vps/manage` page + `/api/vps/lookup` + `/api/vps/cancel` (mirrors the existing KR Trades manage/cancel pattern — signed 10-min token, email-based lookup, re-confirm-email-to-cancel flow)
+- **`RAZORPAY_VPS_PLAN_ID` env var corruption fixed:** first attempt to add it via `"value" | npx vercel env add ...` (PowerShell pipe) silently appended a stray character, making Razorpay reject it with "plan id must be 19 characters." Fixed using `vercel env add NAME production --value "..." --force --yes` — **always use `--value`, never pipe/stdin, when setting Vercel env vars from PowerShell**
+- **Verified live end-to-end:** created and then cancelled a real test subscription (`sub_...`) via the live `/api/vps/subscribe` endpoint to confirm plan_id/quantity/notes all correct — cleaned up afterward so no test data was left in the Razorpay dashboard
+- **GitHub auto-deploy reconnected:** ran `vercel git disconnect` then `vercel git connect <repo-url>` to force Vercel to re-register the webhook (was silently broken all prior sessions per commit metadata). **Should verify:** next `git push` to `main` should trigger an automatic Vercel deployment — if not, fall back to `npx vercel deploy --prod --yes`
+- **Still open:** `RESEND_API_KEY` not yet provided (VPS email alerts no-op), 6 real blog-post cover images not yet provided (WebFetch couldn't reach any of the 6 publication pages — 403s/404/DNS failure/522)
+
+### 2026-07-15 (Session 2) — Production outage from manual Vercel redeploy, fixed via CLI
+- **Vercel's GitHub auto-deploy integration confirmed fully broken** — pushed commit `f801e1b` to GitHub, but no deployment was triggered (checked deployment history: no recent deploy had `githubCommitSha` metadata, all were manual)
+- Attempted to fix by manually re-uploading the full file tree via the Vercel MCP `deploy_to_vercel` tool. Made repeated transcription errors across several large tool calls (duplicate files, missing files) — multiple broken `target: production` deployments went live, taking down `/`, `/KRtrades`, `/meetup`, `/copytrading` (all returned 404) for a period
+- **Root cause of the mess:** manually retyping ~40 files (including 800–1000+ line pages) into a single tool call is unreliable — no verification step before it goes live to `production`
+- **Fix:** Vercel MCP connection dropped mid-incident; discovered the Vercel CLI (`npx vercel`) has cached local auth (`vercel whoami` → `koushikranjit`) despite no token being available. Ran `npx vercel deploy --prod --yes` from the project directory — this deploys directly from local disk (zero retyping risk) and includes every route correctly. Verified all pages back to 200: `/`, `/KRtrades`, `/meetup`, `/copytrading`, `/vps`
+- **Lesson for future sessions:** if GitHub auto-deploy is broken again, use `npx vercel deploy --prod --yes` (CLI, reads local files) — **never** use a file-upload/manual-reconstruction approach for a multi-page production site. Verify with a live URL check immediately after any production deploy, before considering the task done.
+
 ### 2026-07-15 — Koushik VPS checkout page + Razorpay auto-monthly subscription (₹1,200/mo)
 
 **New product: plain checkout page for manual client links (no marketing page, no specs listing — link is sent manually by Koushik to each client).**

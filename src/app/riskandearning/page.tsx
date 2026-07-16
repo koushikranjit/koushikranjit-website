@@ -513,11 +513,11 @@ export default function RiskAndEarningPage() {
             <a href="/" className="rk-logo" aria-label="KR Trades Home">
               KR <span className="rk-logo-g">Trades</span>
             </a>
-            <a href="/copytrading" className="rk-nav-link" aria-label="Back to copy trading page">
+            <a href="/KRtrades" className="rk-nav-link" aria-label="Back to KR Trades">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M10 4l-4 4 4 4"/>
               </svg>
-              Copy Trading
+              KR Trades
             </a>
           </header>
 
@@ -626,7 +626,7 @@ export default function RiskAndEarningPage() {
                 By using KR Trades services — including our Telegram channel, website, and copy trading signals — you confirm that you have read, understood, and agreed to this Risk &amp; Earning Disclaimer.
               </p>
               <div className="rk-cta-row">
-                <a href="/copytrading" className="rk-btn rk-btn-green" aria-label="Go to copy trading page">
+                <a href="/KRtrades" className="rk-btn rk-btn-green" aria-label="Go to KR Trades">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="9 18 15 12 9 6"/>
                   </svg>

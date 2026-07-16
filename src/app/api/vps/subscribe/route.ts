@@ -12,10 +12,15 @@ export async function POST(req: Request) {
 
     let clientName = ''
     let clientEmail = ''
+    let quantity = 1
     try {
       const body = await req.json()
       clientName = body.name || ''
       clientEmail = body.email || ''
+      const parsedQuantity = parseInt(body.quantity, 10)
+      if (Number.isFinite(parsedQuantity) && parsedQuantity >= 1 && parsedQuantity <= 20) {
+        quantity = parsedQuantity
+      }
     } catch {
       // No body sent — that's fine
     }
@@ -29,7 +34,7 @@ export async function POST(req: Request) {
       body: JSON.stringify({
         plan_id: planId,
         total_count: 120,
-        quantity: 1,
+        quantity,
         notes: {
           client_name: clientName,
           client_email: clientEmail,

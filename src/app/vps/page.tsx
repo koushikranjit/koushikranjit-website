@@ -8,6 +8,7 @@ export default function VPSCheckoutPage() {
   const [mounted, setMounted] = useState(false)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [quantity, setQuantity] = useState(1)
   const [paying, setPaying] = useState(false)
   const [error, setError] = useState('')
   const [done, setDone] = useState(false)
@@ -31,7 +32,7 @@ export default function VPSCheckoutPage() {
       const res = await fetch('/api/vps/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name.trim(), email: email.trim() }),
+        body: JSON.stringify({ name: name.trim(), email: email.trim(), quantity }),
       })
       const data = await res.json()
       if (!res.ok) {
@@ -69,16 +70,43 @@ export default function VPSCheckoutPage() {
               <span className="text-emerald-400 text-2xl">✓</span>
             </div>
             <h1 className="text-lg font-semibold mb-2">Subscription active</h1>
-            <p className="text-sm text-gray-400">Thanks — your monthly payment is set up. You&apos;ll be charged ₹1,200 automatically every month.</p>
+            <p className="text-sm text-gray-400">Thanks — your monthly payment is set up. You&apos;ll be charged ₹{(1200 * quantity).toLocaleString('en-IN')} automatically every month.</p>
+            <a href="/vps/manage" className="text-emerald-400 hover:underline text-sm mt-4 inline-block">Manage subscription</a>
           </div>
         ) : (
           <>
             <h1 className="text-xl font-bold mb-1">Koushik VPS</h1>
             <p className="text-sm text-gray-400 mb-6">Monthly subscription — auto-renews every month</p>
 
-            <div className="flex items-baseline gap-1 mb-6">
-              <span className="text-3xl font-bold">₹1,200</span>
+            <div className="flex items-baseline gap-1 mb-1">
+              <span className="text-3xl font-bold">₹{(1200 * quantity).toLocaleString('en-IN')}</span>
               <span className="text-gray-400 text-sm">/ month</span>
+            </div>
+            <p className="text-gray-500 text-xs mb-6">₹1,200 per quantity</p>
+
+            <div className="flex items-center justify-between mb-5 bg-white/[0.05] border border-white/[0.1] rounded-lg h-11 px-2">
+              <span className="text-sm text-gray-400 pl-2">Quantity</span>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setQuantity(q => Math.max(1, q - 1))}
+                  disabled={quantity <= 1}
+                  className="w-7 h-7 rounded-md bg-white/[0.06] hover:bg-white/[0.12] text-white flex items-center justify-center disabled:opacity-40 transition-colors"
+                  aria-label="Decrease quantity"
+                >
+                  −
+                </button>
+                <span className="w-6 text-center text-sm font-semibold">{quantity}</span>
+                <button
+                  type="button"
+                  onClick={() => setQuantity(q => Math.min(20, q + 1))}
+                  disabled={quantity >= 20}
+                  className="w-7 h-7 rounded-md bg-white/[0.06] hover:bg-white/[0.12] text-white flex items-center justify-center disabled:opacity-40 transition-colors"
+                  aria-label="Increase quantity"
+                >
+                  +
+                </button>
+              </div>
             </div>
 
             <div className="space-y-3 mb-5">
@@ -108,6 +136,9 @@ export default function VPSCheckoutPage() {
               {paying ? 'Processing...' : 'Subscribe & Pay'}
             </button>
             <p className="text-center text-gray-500 text-xs mt-3">Secure payment via Razorpay · Cancel anytime</p>
+            <p className="text-center text-xs mt-2">
+              <a href="/vps/manage" className="text-emerald-400 hover:underline">Manage existing subscription</a>
+            </p>
           </>
         )}
       </div>
