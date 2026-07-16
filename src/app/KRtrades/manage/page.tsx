@@ -196,9 +196,23 @@ export default function ManageSubscription() {
         </div>
 
         <p className="text-center text-neutral-600 text-xs mt-6">
-          Need help? Contact <a href="mailto:teamkoushikranjit@gmail.com" className="text-[#00e87b] hover:underline">teamkoushikranjit@gmail.com</a> or <a href="https://discord.gg/HySGNbJa3r" target="_blank" rel="noopener noreferrer" className="text-[#00e87b] hover:underline">Discord</a>
+          Need help? Contact <a href="tel:+919547774580" className="text-[#00e87b] hover:underline">+91 95477 74580</a>, <a href="mailto:teamkoushikranjit@gmail.com" className="text-[#00e87b] hover:underline">teamkoushikranjit@gmail.com</a>, or <a href="https://discord.gg/HySGNbJa3r" target="_blank" rel="noopener noreferrer" className="text-[#00e87b] hover:underline">Discord</a>
         </p>
       </div>
+
+      <footer className="border-t border-white/5 mt-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-500">
+          <nav className="flex items-center gap-4">
+            <a href="/" className="hover:text-white transition-colors">Home</a>
+            <a href="/KRtrades" className="hover:text-white transition-colors">KR Trades</a>
+            <a href="/vps" className="hover:text-white transition-colors">VPS</a>
+          </nav>
+          <div className="flex items-center gap-4">
+            <a href="tel:+919547774580" className="hover:text-[#00e87b] transition-colors">+91 95477 74580</a>
+            <a href="mailto:teamkoushikranjit@gmail.com" className="hover:text-[#00e87b] transition-colors">teamkoushikranjit@gmail.com</a>
+          </div>
+        </div>
+      </footer>
     </main>
   )
 }

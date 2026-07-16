@@ -62,7 +62,21 @@ export default function VPSCheckoutPage() {
   if (!mounted) return null
 
   return (
-    <div className="min-h-screen w-full bg-[#0f0f0f] text-white flex items-center justify-center px-4 py-16">
+    <div className="min-h-screen w-full bg-[#0f0f0f] text-white flex flex-col">
+      <header className="border-b border-white/[0.06] bg-white/[0.02]">
+        <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
+          <a href="/" className="font-bold text-[15px] tracking-tight">
+            Koushik<span className="text-emerald-400">Ranjit</span>
+          </a>
+          <nav className="flex items-center gap-4 text-sm text-gray-400">
+            <a href="/" className="hover:text-white transition-colors">Home</a>
+            <a href="/KRtrades" className="hover:text-white transition-colors">KR Trades</a>
+            <a href="/vps/manage" className="hover:text-white transition-colors">Manage</a>
+          </nav>
+        </div>
+      </header>
+
+      <div className="flex-1 flex items-center justify-center px-4 py-16">
       <div className="w-full max-w-sm bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.05)]">
         {done ? (
           <div className="text-center py-6">
@@ -142,6 +156,22 @@ export default function VPSCheckoutPage() {
           </>
         )}
       </div>
+      </div>
+
+      <footer className="border-t border-white/[0.06] bg-white/[0.02] py-6 px-4">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+          <nav className="flex items-center gap-4">
+            <a href="/" className="hover:text-white transition-colors">Home</a>
+            <a href="/KRtrades" className="hover:text-white transition-colors">KR Trades</a>
+            <a href="/vps" className="hover:text-white transition-colors">VPS</a>
+            <a href="/vps/manage" className="hover:text-white transition-colors">Manage Subscription</a>
+          </nav>
+          <div className="flex items-center gap-4">
+            <a href="tel:+919547774580" className="hover:text-emerald-400 transition-colors">+91 95477 74580</a>
+            <a href="mailto:teamkoushikranjit@gmail.com" className="hover:text-emerald-400 transition-colors">teamkoushikranjit@gmail.com</a>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

@@ -639,9 +639,23 @@ export default function RiskAndEarningPage() {
             </div>
 
             <p className="rk-updated" role="contentinfo">
-              Last updated: April 2026 · KR Trades · For questions contact teamkoushikranjit@gmail.com
+              Last updated: April 2026 · KR Trades · For questions contact <a href="tel:+919547774580" style={{color:'inherit',textDecoration:'underline'}}>+91 95477 74580</a> or <a href="mailto:teamkoushikranjit@gmail.com" style={{color:'inherit',textDecoration:'underline'}}>teamkoushikranjit@gmail.com</a>
             </p>
           </main>
+
+          <footer style={{borderTop:'1px solid rgba(255,255,255,0.05)', marginTop: '2rem'}}>
+            <div style={{maxWidth: 760, margin: '0 auto', padding: '24px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 12, fontSize: 12, color: '#475569'}}>
+              <nav style={{display: 'flex', gap: 16}}>
+                <a href="/" style={{color: 'inherit', textDecoration: 'none'}}>Home</a>
+                <a href="/KRtrades" style={{color: 'inherit', textDecoration: 'none'}}>KR Trades</a>
+                <a href="/vps" style={{color: 'inherit', textDecoration: 'none'}}>VPS</a>
+              </nav>
+              <div style={{display: 'flex', gap: 16}}>
+                <a href="tel:+919547774580" style={{color: 'inherit', textDecoration: 'none'}}>+91 95477 74580</a>
+                <a href="mailto:teamkoushikranjit@gmail.com" style={{color: 'inherit', textDecoration: 'none'}}>teamkoushikranjit@gmail.com</a>
+              </div>
+            </div>
+          </footer>
 
         </div>
       </div>

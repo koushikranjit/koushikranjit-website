@@ -79,9 +79,11 @@ export default function ManageVPSSubscription() {
           <a href="/vps" className="text-xl font-bold tracking-tight">
             Koushik VPS
           </a>
-          <a href="/vps" className="text-sm text-neutral-400 hover:text-white transition-colors cursor-pointer">
-            &larr; Back
-          </a>
+          <div className="flex items-center gap-4 text-sm text-neutral-400">
+            <a href="/" className="hover:text-white transition-colors">Home</a>
+            <a href="/KRtrades" className="hover:text-white transition-colors">KR Trades</a>
+            <a href="/vps" className="hover:text-white transition-colors cursor-pointer">&larr; Back</a>
+          </div>
         </div>
       </nav>
 
@@ -192,9 +194,23 @@ export default function ManageVPSSubscription() {
         </div>
 
         <p className="text-center text-neutral-600 text-xs mt-6">
-          Need help? Contact <a href="mailto:teamkoushikranjit@gmail.com" className="text-emerald-400 hover:underline">teamkoushikranjit@gmail.com</a>
+          Need help? Contact <a href="tel:+919547774580" className="text-emerald-400 hover:underline">+91 95477 74580</a> or <a href="mailto:teamkoushikranjit@gmail.com" className="text-emerald-400 hover:underline">teamkoushikranjit@gmail.com</a>
         </p>
       </div>
+
+      <footer className="border-t border-white/5 mt-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-500">
+          <nav className="flex items-center gap-4">
+            <a href="/" className="hover:text-white transition-colors">Home</a>
+            <a href="/KRtrades" className="hover:text-white transition-colors">KR Trades</a>
+            <a href="/vps" className="hover:text-white transition-colors">VPS</a>
+          </nav>
+          <div className="flex items-center gap-4">
+            <a href="tel:+919547774580" className="hover:text-emerald-400 transition-colors">+91 95477 74580</a>
+            <a href="mailto:teamkoushikranjit@gmail.com" className="hover:text-emerald-400 transition-colors">teamkoushikranjit@gmail.com</a>
+          </div>
+        </div>
+      </footer>
     </main>
   )
 }
