@@ -11,8 +11,8 @@ const Icon = {
   userPlus: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><line x1="19" y1="8" x2="19" y2="14" /><line x1="16" y1="11" x2="22" y2="11" /></svg>
   ),
-  server: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="8" rx="2" /><rect x="2" y="13" width="20" height="8" rx="2" /><line x1="6" y1="7" x2="6.01" y2="7" /><line x1="6" y1="17" x2="6.01" y2="17" /></svg>
+  wallet: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" /><path d="M3 5v14a2 2 0 0 0 2 2h16v-5" /><path d="M18 12a2 2 0 0 0 0 4h4v-4Z" /></svg>
   ),
   link: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg>
@@ -35,9 +35,9 @@ const Icon = {
 }
 
 const STEPS = [
-  { n: '01', title: 'Sign up', body: "Message me your details and I'll set you up as a subscriber on Social Trader Tools — the platform that handles the actual trade copying.", icon: Icon.userPlus },
-  { n: '02', title: 'Get hosting', body: 'Your broker terminal needs to stay online 24/7 for trades to copy in real time. Grab a VPS — takes two minutes.', icon: Icon.server, cta: { label: 'Get VPS hosting →', href: '/vps' } },
-  { n: '03', title: 'Connect your account', body: "Link your MT4/MT5 broker account to my signal via Social Trader Tools. From then on, every trade I take copies to your account automatically.", icon: Icon.link },
+  { n: '01', title: 'Subscribe', body: "Message me your details and pay $100/month to get set up as a subscriber on my copy trading signal.", icon: Icon.userPlus },
+  { n: '02', title: 'Deposit with your broker', body: 'Fund your MT4/MT5 broker account — any broker that supports copy trading works.', icon: Icon.wallet },
+  { n: '03', title: 'Connect your account', body: "Link your broker account to my signal. That's it — every trade I take copies to your account automatically from there.", icon: Icon.link },
 ]
 
 const PILLARS = [
@@ -57,8 +57,7 @@ const FEATURES = [
 
 const FAQS = [
   { q: 'Do I get an EA or trading bot?', a: "No. There's no EA, bot, or algorithm for sale here. This is live copy trading — my actual trades are mirrored to your account in real time through Social Trader Tools." },
-  { q: 'What do I need to get started?', a: 'A funded broker account (MT4/MT5) that allows copy trading, and a VPS to keep the terminal running around the clock. I\'ll walk you through connecting once you sign up.' },
-  { q: 'Why do I need a VPS?', a: "Copy trading only works while your terminal is running. A VPS keeps it online 24/7 even when your laptop is off — that's what makes the copying reliable." },
+  { q: 'What do I need to get started?', a: 'A funded broker account (MT4/MT5) that allows copy trading. Subscribe, deposit with your broker, and connect your account — I\'ll walk you through it once you sign up.' },
   { q: 'Can I control how much risk I take?', a: 'Yes. Social Trader Tools lets you set a lot multiplier and risk limits on your side, independent of my account size.' },
   { q: 'Is this guaranteed to make money?', a: 'No. Trading carries real risk of loss, and copy trading is no exception — see the full risk disclaimer below before signing up.' },
 ]
@@ -173,7 +172,6 @@ export default function CopyTradingPage() {
               <div className="space-y-2.5 mb-5">
                 {[
                   { label: 'Provider', value: 'Koushik Ranjit' },
-                  { label: 'Copy engine', value: 'Social Trader Tools' },
                   { label: 'Markets', value: 'Nasdaq Futures · XAU/USD' },
                   { label: 'Execution', value: 'Real-time' },
                 ].map(row => (
@@ -229,12 +227,7 @@ export default function CopyTradingPage() {
               </div>
               <div className="text-emerald-400 font-mono text-xs mb-2">{step.n}</div>
               <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
-              <p className="text-sm text-gray-400 leading-relaxed mb-3">{step.body}</p>
-              {step.cta && (
-                <a href={step.cta.href} className="text-emerald-400 text-sm font-medium hover:underline">
-                  {step.cta.label}
-                </a>
-              )}
+              <p className="text-sm text-gray-400 leading-relaxed">{step.body}</p>
             </div>
           ))}
         </div>
@@ -319,7 +312,7 @@ export default function CopyTradingPage() {
               <span className="text-4xl font-bold">$100</span>
               <span className="text-gray-400 text-sm">/ month</span>
             </div>
-            <p className="text-gray-500 text-xs mt-2">Signal access via Social Trader Tools. VPS hosting billed separately.</p>
+            <p className="text-gray-500 text-xs mt-2">Subscribe, deposit with your broker, connect your account — done.</p>
           </div>
 
           <div className="space-y-3 mb-5">
