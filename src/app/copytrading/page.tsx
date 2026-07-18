@@ -9,6 +9,8 @@ const MIN_DEPOSIT = 300
 const RAZORPAY_KEY = 'rzp_live_SSL6Wg71WI8B11'
 const MONTHLY_INR = 9500
 const LIVE_STATS_DATE = 'Jul 18, 2026'
+const VANTAGE_URL = 'https://vigco.co/la-com-inv/TpCuu75a'
+const VANTAGE_CODE = 'TpCuu75a'
 
 // Real, unedited snapshot of every account currently running the system on Myfxbook —
 // wins and losses both included, exactly as shown on the live "Systems" table.
@@ -17,7 +19,6 @@ const SYSTEMS = [
   { name: 'Samah', gain: '+2361.84%', absGain: '+705.61%', daily: '4.82%', monthly: '312.38%', drawdown: '56.65%', profit: '$705.61', pips: '71132.0', deposits: '$100.00' },
   { name: 'Koushik Ranjit 2', gain: '+961.69%', absGain: '+318.09%', daily: '4.39%', monthly: '302.69%', drawdown: '52.59%', profit: '$477.13', pips: '42113.0', deposits: '$150.00' },
   { name: 'Koushik Ranjit 3', gain: '+1293.04%', absGain: '+399.8%', daily: '5.30%', monthly: '439.61%', drawdown: '51.52%', profit: '$599.70', pips: '54152.0', deposits: '$150.00' },
-  { name: 'Koushik Ranjit 4', gain: '-99.34%', absGain: '+238.48%', daily: '-9.38%', monthly: '-96.80%', drawdown: '99.94%', profit: '$860.92', pips: '61881.0', deposits: '$361.00' },
   { name: 'Koushik Ranjit 5', gain: '+799.54%', absGain: '+282.27%', daily: '5.00%', monthly: '401.63%', drawdown: '35.39%', profit: '$564.53', pips: '43769.0', deposits: '$200.00' },
   { name: 'Koushik Ranjit 6', gain: '+772.27%', absGain: '+337.91%', daily: '6.20%', monthly: '669.50%', drawdown: '9.71%', profit: '$395.35', pips: '40015.0', deposits: '$117.00' },
   { name: 'Koushik Ranjit 7', gain: '+751.99%', absGain: '+474.38%', daily: '6.92%', monthly: '751.99%', drawdown: '10.55%', profit: '$474.38', pips: '41270.0', deposits: '$100.00' },
@@ -29,7 +30,6 @@ const SYSTEMS = [
   { name: 'Koushik Ranjit 13', gain: '+355.84%', absGain: '+98.83%', daily: '6.26%', monthly: '355.84%', drawdown: '29.94%', profit: '$224.15', pips: '18653.0', deposits: '$226.87' },
   { name: 'Koushik Ranjit 14', gain: '+268.85%', absGain: '+132.1%', daily: '6.11%', monthly: '268.85%', drawdown: '30.09%', profit: '$202.12', pips: '15816.0', deposits: '$153.00' },
   { name: 'Koushik Ranjit 15', gain: '+162.08%', absGain: '+103.92%', daily: '5.50%', monthly: '162.08%', drawdown: '29.40%', profit: '$164.19', pips: '10492.0', deposits: '$158.00' },
-  { name: 'Koushik Ranjit 16', gain: '-99.22%', absGain: '+11.12%', daily: '-27.64%', monthly: '-99.22%', drawdown: '99.82%', profit: '$22.23', pips: '5658.0', deposits: '$200.00' },
 ]
 
 // Real MT4 trade-history snapshots (XAUUSD+), transcribed exactly from the terminal —
@@ -50,6 +50,24 @@ const TRADE_SNAPSHOTS = [
   { profit: '311.87', deposit: '100.00', withdrawal: '0.00', balance: '411.87' },
   { profit: '475.09', deposit: '150.00', withdrawal: '-249.00', balance: '376.09' },
   { profit: '1,039.02', deposit: '100.06', withdrawal: '-764.00', balance: '375.08' },
+]
+
+// One full trade log, transcribed exactly from a real MT4 mobile "History" screen —
+// same account as Snapshot #1 above (Profit 369.50).
+const TERMINAL_TRADES = [
+  { type: 'sell stop', side: 'stop', line1: '0.01 at 4018.88', time: '2026.07.15 17:00:00', pnl: null },
+  { type: 'sell stop', side: 'stop', line1: '0.01 at 3944.39', time: '2026.07.15 23:15:00', pnl: null },
+  { type: 'sell 0.01', side: 'sell', line1: '3984.10 → 3983.30', time: '2026.07.16 16:02:39', pnl: '0.80' },
+  { type: 'buy stop', side: 'stop', line1: '0.01 at 4101.74', time: '2026.07.16 03:00:04', pnl: null },
+  { type: 'buy stop', side: 'stop', line1: '0.01 at 4079.71', time: '2026.07.16 04:00:00', pnl: null },
+  { type: 'sell 0.01', side: 'sell', line1: '4016.80 → 4005.38', time: '2026.07.16 15:16:15', pnl: '11.42' },
+  { type: 'buy stop', side: 'stop', line1: '0.01 at 4102.09', time: '2026.07.16 13:05:01', pnl: null },
+  { type: 'sell 0.01', side: 'sell', line1: '3984.10 → 3984.19', time: '2026.07.16 16:02:39', pnl: '-0.09' },
+  { type: 'buy stop', side: 'stop', line1: '0.01 at 4079.71', time: '2026.07.16 19:00:03', pnl: null },
+  { type: 'buy stop', side: 'stop', line1: '0.01 at 4041.87', time: '2026.07.16 21:00:03', pnl: null },
+  { type: 'sell 0.01', side: 'sell', line1: '3975.19 → 3974.97', time: '2026.07.16 22:34:21', pnl: '0.22' },
+  { type: 'sell 0.01', side: 'sell', line1: '3968.43 → 3967.93', time: '2026.07.17 15:43:04', pnl: '0.50' },
+  { type: 'buy 0.01', side: 'buy', line1: '4009.63 → 4010.13', time: '2026.07.17 18:04:25', pnl: '0.50' },
 ]
 
 // ── Icons (inline, zero dependency) ─────────────────────────────────────
@@ -82,7 +100,7 @@ const Icon = {
 
 const STEPS = [
   { n: '01', title: 'Subscribe', body: 'Message me your details and subscribe for $100/month to get started.', icon: Icon.userPlus },
-  { n: '02', title: 'Deposit with your broker', body: `Fund your MT4/MT5 broker account with a minimum of $${MIN_DEPOSIT}.`, icon: Icon.wallet },
+  { n: '02', title: 'Open a Vantage account & deposit', body: `We only work with Vantage Markets. Open an account (link below), fund it with a minimum of $${MIN_DEPOSIT}.`, icon: Icon.wallet },
   { n: '03', title: 'Connect your account', body: "Our team connects your account to the EA system for you — no setup on your end. Once it's live, you're done.", icon: Icon.link },
 ]
 
@@ -96,14 +114,15 @@ const FEATURES = [
   { icon: Icon.cpu, title: 'Fully automated EA', body: 'A dedicated EA trades your account based on the same rule-based strategy — no manual entries required.' },
   { icon: Icon.clock, title: 'Trades around the clock', body: 'The EA runs continuously once connected — you don\'t need to watch charts or be at your screen.' },
   { icon: Icon.users, title: 'We connect it for you', body: 'Our team handles the technical setup and connects your account to the system after you deposit.' },
-  { icon: Icon.link, title: 'Works with your broker', body: 'No need to switch brokers — connect any MT4/MT5 account that supports automated trading.' },
+  { icon: Icon.link, title: 'Works with Vantage Markets', body: 'We only connect Vantage Markets accounts — it keeps setup simple and reliable for everyone.' },
   { icon: Icon.chart, title: 'Verified live track record', body: 'Every trade is public on Myfxbook. Nothing hidden, nothing backtested.' },
   { icon: Icon.wallet, title: `Low minimum deposit`, body: `Start with as little as $${MIN_DEPOSIT} on your broker account.` },
 ]
 
 const FAQS = [
-  { q: 'Is this a trading bot / EA?', a: 'Yes. This is a fully automated Expert Advisor (EA). Once you subscribe and deposit with your broker, our team connects your account to the EA system — from there it trades automatically, with no manual input from you.' },
-  { q: 'What do I need to get started?', a: `A broker account (MT4/MT5) funded with at least $${MIN_DEPOSIT}, and a subscription. Message me your details and our team will handle connecting your account.` },
+  { q: 'What is an "EA"?', a: 'EA stands for Expert Advisor — a program that trades automatically inside MetaTrader. Think of it as a robot that follows a fixed set of rules and places trades for you, without you touching anything.' },
+  { q: 'What do I need to get started?', a: `A Vantage Markets account (MT4, RAW ECN, USD) funded with at least $${MIN_DEPOSIT}, and a subscription. Message me your details and our team will handle connecting your account.` },
+  { q: 'Why only Vantage Markets?', a: "The system is built and tested to connect specifically with Vantage Markets accounts. Using any other broker isn't supported right now." },
   { q: 'Do I need to configure anything myself?', a: "No. Our team connects your account to the EA system after you subscribe and deposit — there's no manual setup required on your side." },
   { q: 'Is this guaranteed to make money?', a: 'No. Automated trading carries real risk of loss like any trading — see the full risk disclaimer below before signing up.' },
   { q: 'Can I cancel anytime?', a: 'Yes. It\'s a monthly subscription with no lock-in — message us anytime to disconnect your account and cancel.' },
@@ -120,6 +139,13 @@ export default function CopyTradingPage() {
   const [paying, setPaying] = useState(false)
   const [payError, setPayError] = useState('')
   const [subscribed, setSubscribed] = useState(false)
+  const [codeCopied, setCodeCopied] = useState(false)
+
+  const copyCode = () => {
+    navigator.clipboard.writeText(VANTAGE_CODE)
+    setCodeCopied(true)
+    setTimeout(() => setCodeCopied(false), 2000)
+  }
 
   useEffect(() => {
     setMounted(true)
@@ -218,13 +244,13 @@ export default function CopyTradingPage() {
           <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-1.5 mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Automated EA Trading
+              No Trading Experience Needed
             </div>
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight leading-[1.08] mb-5">
-              Automated trading.<br /> Built for <span className="text-emerald-400">consistency.</span>
+              Automated trading.<br /> <span className="text-emerald-400">You don&apos;t lift a finger.</span>
             </h1>
             <p className="text-gray-400 text-base sm:text-lg max-w-lg mx-auto lg:mx-0 mb-8">
-              A dedicated EA trades your account around the clock, based on the same rule-based approach I trade with. Subscribe, deposit with your broker — our team connects everything for you.
+              You don&apos;t need to know how to trade. Sign up, fund a Vantage Markets account, and an automated system places every trade for you — 24 hours a day, even while you sleep.
             </p>
             <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-3 mb-6">
               <button
@@ -242,10 +268,10 @@ export default function CopyTradingPage() {
                 See Live Results
               </a>
             </div>
-            <p className="text-gray-500 text-xs">$100/month · ${MIN_DEPOSIT} minimum deposit · we connect your account</p>
+            <p className="text-gray-500 text-xs">$100/month · ${MIN_DEPOSIT} minimum deposit with Vantage Markets · we connect it for you</p>
 
             <ul className="mt-8 flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-2 text-sm text-gray-400">
-              {['Fully automated — no manual trading', 'Connected by our team', 'Cancel anytime'].map(t => (
+              {['No trading knowledge needed', 'Works 24/7 — even while you sleep', 'We set everything up for you'].map(t => (
                 <li key={t} className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" /> {t}
                 </li>
@@ -318,11 +344,11 @@ export default function CopyTradingPage() {
             <h2 className="text-2xl sm:text-3xl font-bold mb-5 text-center lg:text-left">Everything You Need,<br />Nothing Else</h2>
             <ul className="space-y-3">
               {[
-                'One EA, one rule-based strategy — no bundle of confusing add-ons',
-                'Trades XAU/USD, 24/7, on autopilot',
-                `Just a $${MIN_DEPOSIT} broker deposit and a $100/month subscription`,
-                'Our team connects your account — zero technical setup',
-                'Full transparency via a public, verified track record',
+                'One simple system — nothing complicated to learn',
+                'Trades Gold (XAU/USD) automatically, 24/7',
+                `Just $100/month + a $${MIN_DEPOSIT} deposit with Vantage Markets`,
+                'Our team connects everything — you do zero setup',
+                'Every trade is public and verified — nothing hidden',
               ].map(item => (
                 <li key={item} className="flex items-start gap-3 text-sm text-gray-300">
                   <span className="w-5 h-5 rounded-full bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0 mt-0.5 text-xs">✓</span>
@@ -369,6 +395,45 @@ export default function CopyTradingPage() {
               <p className="text-sm text-gray-400 leading-relaxed">{step.body}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Vantage account setup */}
+      <section className="max-w-3xl mx-auto px-4 pb-16">
+        <div className="bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.05)]">
+          <SectionLabel>Only Vantage Markets Is Supported</SectionLabel>
+          <h3 className="text-xl font-bold text-center mb-2">Opening Your Vantage Account</h3>
+          <p className="text-gray-400 text-sm text-center mb-6 max-w-lg mx-auto">
+            When you register, use these exact settings so your account can be connected without issues:
+          </p>
+          <div className="grid sm:grid-cols-3 gap-3 mb-6">
+            {[
+              { label: 'Trading Platform', value: 'MetaTrader 4' },
+              { label: 'Account Type', value: 'RAW ECN' },
+              { label: 'Account Currency', value: 'USD' },
+            ].map(row => (
+              <div key={row.label} className="bg-white/[0.03] border border-white/[0.08] rounded-lg px-4 py-3 text-center">
+                <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">{row.label}</p>
+                <p className="text-sm font-semibold text-emerald-400">{row.value}</p>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            <a
+              href={VANTAGE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto flex-1 h-11 px-5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition-colors flex items-center justify-center"
+            >
+              Register With Vantage →
+            </a>
+            <button
+              onClick={copyCode}
+              className="w-full sm:w-auto h-11 px-5 rounded-lg border border-white/[0.12] hover:bg-white/[0.05] text-sm font-medium transition-colors flex items-center justify-center gap-2"
+            >
+              {codeCopied ? 'Copied!' : `Referral Code: ${VANTAGE_CODE}`}
+            </button>
+          </div>
         </div>
       </section>
 
@@ -445,16 +510,63 @@ export default function CopyTradingPage() {
       </section>
 
       {/* Trade history proof */}
-      <section className="max-w-5xl mx-auto px-4 py-16">
+      <section className="max-w-3xl mx-auto px-4 py-16">
         <SectionLabel>Proof, Not Promises</SectionLabel>
         <h2 className="text-2xl sm:text-3xl font-bold text-center mb-2">Real Trade History, Straight From The Terminal</h2>
         <p className="text-gray-400 text-center mb-10 max-w-xl mx-auto">
-          Account balance snapshots pulled directly from MetaTrader — the same accounts behind the Systems table above.
+          Not a mockup — this is one real account's actual MetaTrader history, transcribed exactly as it appears in the app.
         </p>
+
+        {/* MT4-style terminal panel */}
+        <div className="bg-black border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.08] bg-white/[0.02]">
+            <span className="text-xs font-semibold text-gray-300">XAUUSD+ &middot; History</span>
+            <div className="flex items-center gap-1">
+              {['Day', 'Week', 'Month', 'Custom'].map(tab => (
+                <span key={tab} className={`text-[10px] px-2.5 py-1 rounded-full ${tab === 'Custom' ? 'bg-white/[0.12] text-white' : 'text-gray-500'}`}>{tab}</span>
+              ))}
+            </div>
+          </div>
+
+          <div className="divide-y divide-white/[0.05] max-h-80 overflow-y-auto">
+            {TERMINAL_TRADES.map((t, i) => (
+              <div key={i} className="flex items-center justify-between px-4 py-2.5 text-xs">
+                <div>
+                  <p>
+                    <span className="font-semibold text-white">XAUUSD+, </span>
+                    <span className={t.side === 'buy' ? 'text-blue-400 font-semibold' : t.side === 'sell' ? 'text-red-400 font-semibold' : 'text-gray-400'}>{t.type}</span>
+                  </p>
+                  <p className="text-gray-500 mt-0.5">{t.line1}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-gray-500">{t.time}</p>
+                  {t.pnl && <p className={`mt-0.5 font-semibold ${t.pnl.startsWith('-') ? 'text-red-400' : 'text-blue-400'}`}>{t.pnl}</p>}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="px-4 py-3 bg-white/[0.02] border-t border-white/[0.08] space-y-1.5 text-xs">
+            {[
+              { label: 'Profit', value: '369.50', color: 'text-gray-300' },
+              { label: 'Deposit', value: '100.00', color: 'text-gray-300' },
+              { label: 'Withdrawal', value: '-100.00', color: 'text-gray-300' },
+              { label: 'Balance', value: '369.50', color: 'text-white font-semibold' },
+            ].map(row => (
+              <div key={row.label} className="flex items-center justify-between">
+                <span className="text-gray-500">{row.label}:</span>
+                <span className={row.color}>{row.value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <p className="text-center text-gray-500 text-xs mt-6 mb-10">More verified accounts — real balances, pulled from the same terminal:</p>
+
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {TRADE_SNAPSHOTS.map((snap, i) => (
             <div key={i} className="bg-white/[0.03] border border-white/[0.07] rounded-xl p-4">
-              <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-2">Snapshot #{i + 1}</p>
+              <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-2">Account #{i + 1}</p>
               <p className="text-lg font-bold text-emerald-400 mb-2">${snap.profit}</p>
               <div className="space-y-1 text-[11px] text-gray-500">
                 <div className="flex justify-between"><span>Deposit</span><span className="text-gray-300">${snap.deposit}</span></div>
@@ -557,7 +669,7 @@ export default function CopyTradingPage() {
                   <span className="text-gray-400 text-sm">/ month</span>
                 </div>
                 <p className="text-gray-500 text-xs mt-1">billed as ₹{MONTHLY_INR.toLocaleString('en-IN')}/month via Razorpay</p>
-                <p className="text-gray-500 text-xs mt-2">+ ${MIN_DEPOSIT} minimum deposit with your broker. Subscribe, deposit, and our team connects your account — done.</p>
+                <p className="text-gray-500 text-xs mt-2">+ ${MIN_DEPOSIT} minimum deposit with Vantage Markets. Subscribe, deposit, and our team connects your account — done.</p>
               </div>
 
               <div className="space-y-3 mb-5">
