@@ -174,7 +174,7 @@ export default function CopyTradingPage() {
               <div className="space-y-2.5 mb-5">
                 {[
                   { label: 'Strategy by', value: 'Koushik Ranjit' },
-                  { label: 'Markets', value: 'Nasdaq Futures · XAU/USD' },
+                  { label: 'Markets', value: 'XAU/USD' },
                   { label: 'Execution', value: 'Automated, 24/7' },
                   { label: 'Min. deposit', value: `$${MIN_DEPOSIT}` },
                 ].map(row => (
@@ -226,7 +226,7 @@ export default function CopyTradingPage() {
             <ul className="space-y-3">
               {[
                 'One EA, one rule-based strategy — no bundle of confusing add-ons',
-                'Trades Nasdaq futures & XAU/USD, 24/7, on autopilot',
+                'Trades XAU/USD, 24/7, on autopilot',
                 `Just a $${MIN_DEPOSIT} broker deposit and a $100/month subscription`,
                 'Our team connects your account — zero technical setup',
                 'Full transparency via a public, verified track record',
@@ -245,10 +245,8 @@ export default function CopyTradingPage() {
               </div>
               <p className="text-[11px] font-semibold uppercase tracking-wider text-emerald-400 mb-1">Automated EA</p>
               <h3 className="text-xl font-bold mb-3">KR Auto Trading</h3>
-              <div className="space-y-2 mb-4">
-                {['Nasdaq Futures', 'XAU/USD'].map(m => (
-                  <div key={m} className="text-xs bg-white/[0.05] border border-white/[0.08] rounded-lg px-3 py-2 text-gray-300">{m}</div>
-                ))}
+              <div className="mb-4">
+                <div className="text-xs bg-white/[0.05] border border-white/[0.08] rounded-lg px-3 py-2 text-gray-300">XAU/USD</div>
               </div>
               <div className="flex items-end justify-between pt-4 border-t border-white/[0.08]">
                 <div>
