@@ -8,6 +8,7 @@ const DISCORD_FREE_ROLE_ID = '1461003496336916631' // Free Members role
 const RAZORPAY_WEBHOOK_SECRET = process.env.RAZORPAY_WEBHOOK_SECRET!
 const KR_TRADES_PLAN_ID = process.env.RAZORPAY_PLAN_ID!
 const VPS_PLAN_ID = process.env.RAZORPAY_VPS_PLAN_ID!
+const EA_PLAN_ID = process.env.RAZORPAY_EA_PLAN_ID!
 const RESEND_API_KEY = process.env.RESEND_API_KEY
 const NOTIFY_EMAIL = 'teamkoushikranjit@gmail.com'
 const GRACE_PERIOD_DAYS = 7
@@ -165,6 +166,36 @@ export async function POST(req: Request) {
       }
 
       return NextResponse.json({ status: 'ok', product: 'vps', event })
+    }
+
+    // ── KR Auto Trading (EA) plan: email notification only, no Discord ──
+    if (entity?.plan_id && entity.plan_id === EA_PLAN_ID) {
+      const notes = entity?.notes || {}
+      const clientName = notes.client_name || 'Unknown'
+      const clientEmail = notes.client_email || 'Unknown'
+      const clientBroker = notes.client_broker || 'Not provided'
+      const subId = entity?.id || payload.payload?.subscription?.entity?.id || ''
+
+      const eventLabels: Record<string, string> = {
+        'subscription.activated': '✅ New EA Trading subscription activated — connect their account',
+        'subscription.charged': '💰 EA Trading monthly payment received',
+        'payment.captured': '💰 EA Trading payment captured',
+        'subscription.cancelled': '⚠️ EA Trading subscription cancelled — disconnect their account',
+        'subscription.halted': '⚠️ EA Trading subscription halted (payment failed)',
+        'subscription.paused': '⏸️ EA Trading subscription paused',
+        'subscription.completed': '🏁 EA Trading subscription completed',
+      }
+
+      const label = eventLabels[event]
+      if (label) {
+        await sendEmail(
+          label,
+          `<p><strong>${label}</strong></p>
+           <p>Client: ${clientName}<br/>Email: ${clientEmail}<br/>Broker: ${clientBroker}<br/>Subscription ID: ${subId}<br/>Event: ${event}</p>`
+        )
+      }
+
+      return NextResponse.json({ status: 'ok', product: 'ea-trading', event })
     }
 
     // Only process KR Trades plan events beyond this point

@@ -6,6 +6,9 @@ const WHATSAPP_NUMBER = '919547774580'
 const MYFXBOOK = 'https://www.myfxbook.com/members/koushik_ranjit/koushik-ranjit/12009479'
 const DISCORD = 'https://discord.gg/sffdu4wXx2'
 const MIN_DEPOSIT = 300
+const RAZORPAY_KEY = 'rzp_live_SSL6Wg71WI8B11'
+const MONTHLY_INR = 9500
+const LIVE_STATS_DATE = 'Jul 18, 2026'
 
 // ── Icons (inline, zero dependency) ─────────────────────────────────────
 const Icon = {
@@ -73,18 +76,67 @@ export default function CopyTradingPage() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [broker, setBroker] = useState('')
+  const [paying, setPaying] = useState(false)
+  const [payError, setPayError] = useState('')
+  const [subscribed, setSubscribed] = useState(false)
 
-  useEffect(() => { setMounted(true) }, [])
+  useEffect(() => {
+    setMounted(true)
+    const s = document.createElement('script')
+    s.src = 'https://checkout.razorpay.com/v1/checkout.js'
+    s.async = true
+    document.head.appendChild(s)
+  }, [])
 
-  const openWhatsApp = () => {
+  const openWhatsApp = (afterPayment = false) => {
     const lines = [
-      "Hi Koushik, I'd like to start automated EA trading.",
+      afterPayment
+        ? "Hi Koushik, I've subscribed to EA Trading — here are my broker details to connect my account:"
+        : "Hi Koushik, I'd like to start automated EA trading.",
       name.trim() ? `Name: ${name.trim()}` : null,
       email.trim() ? `Email: ${email.trim()}` : null,
       broker.trim() ? `Broker: ${broker.trim()}` : null,
     ].filter(Boolean)
     const text = encodeURIComponent(lines.join('\n'))
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, '_blank')
+  }
+
+  const handlePay = async () => {
+    if (!name.trim() || !email.trim()) {
+      setPayError('Please enter your name and email.')
+      return
+    }
+    setPayError('')
+    setPaying(true)
+    try {
+      const res = await fetch('/api/copytrading/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name.trim(), email: email.trim(), broker: broker.trim() }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setPayError(data.error || 'Failed to start checkout.')
+        setPaying(false)
+        return
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const Razorpay = (window as any).Razorpay
+      const rzp = new Razorpay({
+        key: RAZORPAY_KEY,
+        subscription_id: data.subscription_id,
+        name: 'KR Auto Trading',
+        description: 'Automated EA Trading — Monthly Subscription',
+        theme: { color: '#059669' },
+        prefill: { name: name.trim(), email: email.trim() },
+        handler: () => { setSubscribed(true); setPaying(false) },
+        modal: { ondismiss: () => setPaying(false) },
+      })
+      rzp.open()
+    } catch {
+      setPayError('Something went wrong. Please try again.')
+      setPaying(false)
+    }
   }
 
   if (!mounted) return null
@@ -102,9 +154,10 @@ export default function CopyTradingPage() {
             <a href="/KRtrades" className="hover:text-white transition-colors">KR Trades</a>
             <a href="/vps" className="hover:text-white transition-colors">VPS</a>
             <a href={MYFXBOOK} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Live Results</a>
+            <a href="/copytrading/manage" className="hover:text-white transition-colors">Manage</a>
           </nav>
           <button
-            onClick={openWhatsApp}
+            onClick={() => openWhatsApp(false)}
             className="h-9 px-4 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition-colors"
           >
             Get Started
@@ -135,7 +188,7 @@ export default function CopyTradingPage() {
             </p>
             <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-3 mb-6">
               <button
-                onClick={openWhatsApp}
+                onClick={() => openWhatsApp(false)}
                 className="w-full sm:w-auto h-12 px-8 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition-colors shadow-[0_0_24px_rgba(16,185,129,0.25)]"
               >
                 Get Started
@@ -287,23 +340,50 @@ export default function CopyTradingPage() {
             See The Live Trading Performance
           </h2>
           <p className="text-gray-400 mb-10 max-w-xl mx-auto">
-            No cherry-picked screenshots, no fake backtests. Every trade is public and independently verified — check the account before you connect yours to it.
+            No cherry-picked screenshots, no fake backtests. Every trade is public and independently verified on Myfxbook — check the account before you connect yours to it.
           </p>
-          <a
-            href={MYFXBOOK}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-4 bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl px-6 py-5 shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.05)] hover:border-emerald-500/30 transition-colors"
-          >
-            <div className="w-11 h-11 rounded-full bg-emerald-500/15 flex items-center justify-center text-emerald-400 shrink-0">
-              <span className="w-5 h-5 block">{Icon.chart}</span>
+
+          <div className="bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.05)] text-left">
+            <div className="flex flex-wrap items-center justify-between gap-3 p-5 sm:p-6 border-b border-white/[0.06]">
+              <div>
+                <p className="font-semibold">Koushik Ranjit</p>
+                <p className="text-xs text-gray-500">Real (USD) · Vantage Markets · 1:2000 · MetaTrader 4</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-2.5 py-1 flex items-center gap-1">
+                  <span>✓</span> Verified track record
+                </span>
+              </div>
             </div>
-            <div className="text-left">
-              <p className="font-semibold">Koushik Ranjit — Verified Portfolio</p>
-              <p className="text-xs text-gray-500">myfxbook.com · live &amp; independently tracked</p>
+
+            <div className="grid sm:grid-cols-4 gap-px bg-white/[0.06]">
+              {[
+                { label: 'Gain', value: '+6,864.13%' },
+                { label: 'Monthly', value: '229.19%' },
+                { label: 'Drawdown', value: '41.73%' },
+                { label: 'Balance', value: '$375.08' },
+              ].map(stat => (
+                <div key={stat.label} className="bg-[#0d0d0d] p-4 sm:p-5">
+                  <p className="text-[11px] uppercase tracking-wider text-gray-500 mb-1">{stat.label}</p>
+                  <p className="text-lg font-bold text-emerald-400">{stat.value}</p>
+                </div>
+              ))}
             </div>
-            <span className="text-emerald-400 text-lg ml-2">→</span>
-          </a>
+
+            <div className="p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-xs text-gray-500">
+                Snapshot as of {LIVE_STATS_DATE} — numbers change daily, so treat this as a reference, not a live feed.
+              </p>
+              <a
+                href={MYFXBOOK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto shrink-0 h-10 px-5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition-colors flex items-center justify-center gap-2"
+              >
+                View Live on Myfxbook <span>→</span>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -341,7 +421,7 @@ export default function CopyTradingPage() {
             <p className="text-sm text-gray-400 leading-relaxed mb-4">
               You don&apos;t need to watch charts, time entries, or manage risk by hand. Once connected, the EA executes the same rule-based approach on your account, continuously — day and night.
             </p>
-            <button onClick={openWhatsApp} className="text-emerald-400 text-sm font-semibold hover:underline">
+            <button onClick={() => openWhatsApp(false)} className="text-emerald-400 text-sm font-semibold hover:underline">
               Get Started →
             </button>
           </div>
@@ -370,51 +450,80 @@ export default function CopyTradingPage() {
         <SectionLabel>Pricing</SectionLabel>
         <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10">Choose Your Plan</h2>
         <div className="bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.05)] max-w-md mx-auto">
-          <div className="text-center mb-8">
-            <h3 className="text-lg font-semibold mb-1 text-gray-300">Automated EA Trading Access</h3>
-            <div className="flex items-baseline justify-center gap-1 mt-4">
-              <span className="text-4xl font-bold">$100</span>
-              <span className="text-gray-400 text-sm">/ month</span>
+          {subscribed ? (
+            <div className="text-center py-4">
+              <div className="w-14 h-14 rounded-full bg-emerald-600/20 border border-emerald-500/40 flex items-center justify-center mx-auto mb-4">
+                <span className="text-emerald-400 text-2xl">✓</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Subscription active</h3>
+              <p className="text-sm text-gray-400 mb-6">
+                You&apos;ll be charged ₹{MONTHLY_INR.toLocaleString('en-IN')} automatically every month. Last step — send us your broker login details so our team can connect your account to the EA.
+              </p>
+              <button
+                onClick={() => openWhatsApp(true)}
+                className="w-full h-12 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition-colors shadow-[0_0_24px_rgba(16,185,129,0.2)]"
+              >
+                Send broker details on WhatsApp
+              </button>
+              <p className="text-center text-xs mt-3">
+                <a href="/copytrading/manage" className="text-emerald-400 hover:underline">Manage subscription</a>
+              </p>
             </div>
-            <p className="text-gray-500 text-xs mt-2">+ ${MIN_DEPOSIT} minimum deposit with your broker. Subscribe, deposit, and our team connects your account — done.</p>
-          </div>
+          ) : (
+            <>
+              <div className="text-center mb-8">
+                <h3 className="text-lg font-semibold mb-1 text-gray-300">Automated EA Trading Access</h3>
+                <div className="flex items-baseline justify-center gap-1 mt-4">
+                  <span className="text-4xl font-bold">₹{MONTHLY_INR.toLocaleString('en-IN')}</span>
+                  <span className="text-gray-400 text-sm">/ month</span>
+                </div>
+                <p className="text-gray-500 text-xs mt-1">≈ $100/month</p>
+                <p className="text-gray-500 text-xs mt-2">+ ${MIN_DEPOSIT} minimum deposit with your broker. Subscribe, deposit, and our team connects your account — done.</p>
+              </div>
 
-          <div className="space-y-3 mb-5">
-            <input
-              type="text"
-              placeholder="Full name"
-              value={name}
-              onChange={e => setName(e.target.value)}
-              className="w-full h-11 px-4 rounded-lg bg-white/[0.05] border border-white/[0.1] text-sm placeholder:text-gray-500 focus:outline-none focus:border-emerald-500/60"
-            />
-            <input
-              type="email"
-              placeholder="Email address"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              className="w-full h-11 px-4 rounded-lg bg-white/[0.05] border border-white/[0.1] text-sm placeholder:text-gray-500 focus:outline-none focus:border-emerald-500/60"
-            />
-            <input
-              type="text"
-              placeholder="Broker (optional)"
-              value={broker}
-              onChange={e => setBroker(e.target.value)}
-              className="w-full h-11 px-4 rounded-lg bg-white/[0.05] border border-white/[0.1] text-sm placeholder:text-gray-500 focus:outline-none focus:border-emerald-500/60"
-            />
-          </div>
+              <div className="space-y-3 mb-5">
+                <input
+                  type="text"
+                  placeholder="Full name"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  className="w-full h-11 px-4 rounded-lg bg-white/[0.05] border border-white/[0.1] text-sm placeholder:text-gray-500 focus:outline-none focus:border-emerald-500/60"
+                />
+                <input
+                  type="email"
+                  placeholder="Email address"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  className="w-full h-11 px-4 rounded-lg bg-white/[0.05] border border-white/[0.1] text-sm placeholder:text-gray-500 focus:outline-none focus:border-emerald-500/60"
+                />
+                <input
+                  type="text"
+                  placeholder="Broker (optional)"
+                  value={broker}
+                  onChange={e => setBroker(e.target.value)}
+                  className="w-full h-11 px-4 rounded-lg bg-white/[0.05] border border-white/[0.1] text-sm placeholder:text-gray-500 focus:outline-none focus:border-emerald-500/60"
+                />
+              </div>
 
-          <button
-            onClick={openWhatsApp}
-            className="w-full h-12 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition-colors shadow-[0_0_24px_rgba(16,185,129,0.2)]"
-          >
-            Message me on WhatsApp
-          </button>
-          <p className="text-center text-gray-500 text-xs mt-3">
-            I&apos;ll reply personally to set up payment and have our team connect your account.
-          </p>
-          <p className="text-center text-xs mt-2">
-            or reach out on <a href={DISCORD} target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">Discord</a>
-          </p>
+              {payError && <p className="text-red-400 text-xs mb-4">{payError}</p>}
+
+              <button
+                onClick={handlePay}
+                disabled={paying}
+                className="w-full h-12 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition-colors shadow-[0_0_24px_rgba(16,185,129,0.2)] disabled:opacity-60"
+              >
+                {paying ? 'Processing...' : 'Subscribe & Pay'}
+              </button>
+              <p className="text-center text-gray-500 text-xs mt-3">Secure payment via Razorpay · cancel anytime</p>
+              <p className="text-center text-xs mt-2">
+                <a href="/copytrading/manage" className="text-emerald-400 hover:underline">Manage existing subscription</a>
+                {' '}&middot;{' '}
+                <button onClick={() => openWhatsApp(false)} className="text-emerald-400 hover:underline">Message on WhatsApp</button>
+                {' '}or{' '}
+                <a href={DISCORD} target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">Discord</a>
+              </p>
+            </>
+          )}
         </div>
       </section>
 
@@ -451,6 +560,7 @@ export default function CopyTradingPage() {
             <a href="/" className="hover:text-white transition-colors">Home</a>
             <a href="/KRtrades" className="hover:text-white transition-colors">KR Trades</a>
             <a href="/vps" className="hover:text-white transition-colors">VPS</a>
+            <a href="/copytrading/manage" className="hover:text-white transition-colors">Manage</a>
             <a href="/riskandearning" className="hover:text-white transition-colors">Risk Disclaimer</a>
           </nav>
           <div className="flex items-center gap-4">
