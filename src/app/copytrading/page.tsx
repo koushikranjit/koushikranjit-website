@@ -75,7 +75,6 @@ export default function CopyTradingPage() {
   const [mounted, setMounted] = useState(false)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [broker, setBroker] = useState('')
   const [paying, setPaying] = useState(false)
   const [payError, setPayError] = useState('')
   const [subscribed, setSubscribed] = useState(false)
@@ -95,7 +94,6 @@ export default function CopyTradingPage() {
         : "Hi Koushik, I'd like to start automated EA trading.",
       name.trim() ? `Name: ${name.trim()}` : null,
       email.trim() ? `Email: ${email.trim()}` : null,
-      broker.trim() ? `Broker: ${broker.trim()}` : null,
     ].filter(Boolean)
     const text = encodeURIComponent(lines.join('\n'))
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, '_blank')
@@ -112,7 +110,7 @@ export default function CopyTradingPage() {
       const res = await fetch('/api/copytrading/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name.trim(), email: email.trim(), broker: broker.trim() }),
+        body: JSON.stringify({ name: name.trim(), email: email.trim() }),
       })
       const data = await res.json()
       if (!res.ok) {
@@ -494,13 +492,6 @@ export default function CopyTradingPage() {
                   placeholder="Email address"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  className="w-full h-11 px-4 rounded-lg bg-white/[0.05] border border-white/[0.1] text-sm placeholder:text-gray-500 focus:outline-none focus:border-emerald-500/60"
-                />
-                <input
-                  type="text"
-                  placeholder="Broker (optional)"
-                  value={broker}
-                  onChange={e => setBroker(e.target.value)}
                   className="w-full h-11 px-4 rounded-lg bg-white/[0.05] border border-white/[0.1] text-sm placeholder:text-gray-500 focus:outline-none focus:border-emerald-500/60"
                 />
               </div>
