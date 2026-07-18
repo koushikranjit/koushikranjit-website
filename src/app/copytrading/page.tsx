@@ -32,6 +32,26 @@ const SYSTEMS = [
   { name: 'Koushik Ranjit 16', gain: '-99.22%', absGain: '+11.12%', daily: '-27.64%', monthly: '-99.22%', drawdown: '99.82%', profit: '$22.23', pips: '5658.0', deposits: '$200.00' },
 ]
 
+// Real MT4 trade-history snapshots (XAUUSD+), transcribed exactly from the terminal —
+// account balance/profit at the time each screenshot was taken.
+const TRADE_SNAPSHOTS = [
+  { profit: '369.50', deposit: '100.00', withdrawal: '-100.00', balance: '369.50' },
+  { profit: '447.94', deposit: '100.00', withdrawal: '-107.00', balance: '440.94' },
+  { profit: '358.85', deposit: '100.00', withdrawal: '0.00', balance: '458.85' },
+  { profit: '705.61', deposit: '100.00', withdrawal: '-300.00', balance: '505.61' },
+  { profit: '425.63', deposit: '150.00', withdrawal: '-127.00', balance: '398.63' },
+  { profit: '331.26', deposit: '100.00', withdrawal: '-42.00', balance: '389.26' },
+  { profit: '373.75', deposit: '100.00', withdrawal: '-83.00', balance: '390.75' },
+  { profit: '472.38', deposit: '100.00', withdrawal: '-181.00', balance: '391.38' },
+  { profit: '558.86', deposit: '200.00', withdrawal: '-141.00', balance: '617.86' },
+  { profit: '391.71', deposit: '117.00', withdrawal: '-264.00', balance: '244.71' },
+  { profit: '982.84', deposit: '361.00', withdrawal: '-945.00', balance: '398.84' },
+  { profit: '587.90', deposit: '150.00', withdrawal: '-350.00', balance: '387.90' },
+  { profit: '311.87', deposit: '100.00', withdrawal: '0.00', balance: '411.87' },
+  { profit: '475.09', deposit: '150.00', withdrawal: '-249.00', balance: '376.09' },
+  { profit: '1,039.02', deposit: '100.06', withdrawal: '-764.00', balance: '375.08' },
+]
+
 // ── Icons (inline, zero dependency) ─────────────────────────────────────
 const Icon = {
   userPlus: (
@@ -421,6 +441,28 @@ export default function CopyTradingPage() {
               </a>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Trade history proof */}
+      <section className="max-w-5xl mx-auto px-4 py-16">
+        <SectionLabel>Proof, Not Promises</SectionLabel>
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-2">Real Trade History, Straight From The Terminal</h2>
+        <p className="text-gray-400 text-center mb-10 max-w-xl mx-auto">
+          Account balance snapshots pulled directly from MetaTrader — the same accounts behind the Systems table above.
+        </p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+          {TRADE_SNAPSHOTS.map((snap, i) => (
+            <div key={i} className="bg-white/[0.03] border border-white/[0.07] rounded-xl p-4">
+              <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-2">Snapshot #{i + 1}</p>
+              <p className="text-lg font-bold text-emerald-400 mb-2">${snap.profit}</p>
+              <div className="space-y-1 text-[11px] text-gray-500">
+                <div className="flex justify-between"><span>Deposit</span><span className="text-gray-300">${snap.deposit}</span></div>
+                <div className="flex justify-between"><span>Withdrawal</span><span className="text-gray-300">${snap.withdrawal}</span></div>
+                <div className="flex justify-between"><span>Balance</span><span className="text-gray-300">${snap.balance}</span></div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
