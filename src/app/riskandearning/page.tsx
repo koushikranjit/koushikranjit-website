@@ -648,7 +648,7 @@ export default function RiskAndEarningPage() {
               <nav style={{display: 'flex', gap: 16}}>
                 <a href="/" style={{color: 'inherit', textDecoration: 'none'}}>Home</a>
                 <a href="/KRtrades" style={{color: 'inherit', textDecoration: 'none'}}>KR Trades</a>
-                <a href="/copytrading" style={{color: 'inherit', textDecoration: 'none'}}>Copy Trading</a>
+                <a href="/copytrading" style={{color: 'inherit', textDecoration: 'none'}}>EA Trading</a>
                 <a href="/vps" style={{color: 'inherit', textDecoration: 'none'}}>VPS</a>
               </nav>
               <div style={{display: 'flex', gap: 16}}>

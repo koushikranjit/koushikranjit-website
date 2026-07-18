@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 const WHATSAPP_NUMBER = '919547774580'
 const MYFXBOOK = 'https://www.myfxbook.com/members/koushik_ranjit/koushik-ranjit/12009479'
 const DISCORD = 'https://discord.gg/sffdu4wXx2'
+const MIN_DEPOSIT = 300
 
 // ── Icons (inline, zero dependency) ─────────────────────────────────────
 const Icon = {
@@ -17,11 +18,11 @@ const Icon = {
   link: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg>
   ),
-  refresh: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10" /><polyline points="1 20 1 14 7 14" /><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" /></svg>
+  cpu: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" /><rect x="9" y="9" width="6" height="6" /><line x1="9" y1="1" x2="9" y2="4" /><line x1="15" y1="1" x2="15" y2="4" /><line x1="9" y1="20" x2="9" y2="23" /><line x1="15" y1="20" x2="15" y2="23" /><line x1="20" y1="9" x2="23" y2="9" /><line x1="20" y1="14" x2="23" y2="14" /><line x1="1" y1="9" x2="4" y2="9" /><line x1="1" y1="14" x2="4" y2="14" /></svg>
   ),
-  sliders: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" /><line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" /><line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" /><line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" /></svg>
+  clock: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
   ),
   chart: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg>
@@ -29,37 +30,38 @@ const Icon = {
   shield: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
   ),
-  x: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+  users: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
   ),
 }
 
 const STEPS = [
-  { n: '01', title: 'Subscribe', body: "Message me your details and pay $100/month to get set up as a subscriber on my copy trading signal.", icon: Icon.userPlus },
-  { n: '02', title: 'Deposit with your broker', body: 'Fund your MT4/MT5 broker account — any broker that supports copy trading works.', icon: Icon.wallet },
-  { n: '03', title: 'Connect your account', body: "Link your broker account to my signal. That's it — every trade I take copies to your account automatically from there.", icon: Icon.link },
+  { n: '01', title: 'Subscribe', body: 'Message me your details and subscribe for $100/month to get started.', icon: Icon.userPlus },
+  { n: '02', title: 'Deposit with your broker', body: `Fund your MT4/MT5 broker account with a minimum of $${MIN_DEPOSIT}.`, icon: Icon.wallet },
+  { n: '03', title: 'Connect your account', body: "Our team connects your account to the EA system for you — no setup on your end. Once it's live, you're done.", icon: Icon.link },
 ]
 
 const PILLARS = [
-  { icon: Icon.shield, title: 'Discipline, not guesswork', body: 'Every trade follows the same rule-based approach I use on my own account — no impulsive entries, no revenge trades.' },
-  { icon: Icon.sliders, title: 'You stay in control', body: 'Set your own lot multiplier and exposure limits in Social Trader Tools. Your risk settings, your account, your call.' },
-  { icon: Icon.chart, title: 'Fully verifiable', body: "Nothing is hidden. Every trade I take is public and timestamped on Myfxbook — check it before you sign up, not after." },
+  { icon: Icon.shield, title: 'Discipline, not guesswork', body: 'The EA follows the same rule-based logic on every trade — no impulsive entries, no emotional decisions.' },
+  { icon: Icon.users, title: 'Fully managed setup', body: "Our team handles the technical connection between your broker account and the EA — you don't configure or maintain anything." },
+  { icon: Icon.chart, title: 'Fully verifiable', body: 'Nothing is hidden. Every trade is public and timestamped on Myfxbook — check it before you sign up, not after.' },
 ]
 
 const FEATURES = [
-  { icon: Icon.refresh, title: 'Real-time trade copying', body: 'Trades mirror to your account the moment I place them — same instrument, proportional size.' },
-  { icon: Icon.sliders, title: 'You control the risk', body: 'Set your own lot multiplier and max exposure. Nothing is forced on your account.' },
-  { icon: Icon.link, title: 'Works with your broker', body: 'No need to switch brokers — connect any MT4/MT5 account that supports copy trading.' },
+  { icon: Icon.cpu, title: 'Fully automated EA', body: 'A dedicated EA trades your account based on the same rule-based strategy — no manual entries required.' },
+  { icon: Icon.clock, title: 'Trades around the clock', body: 'The EA runs continuously once connected — you don\'t need to watch charts or be at your screen.' },
+  { icon: Icon.users, title: 'We connect it for you', body: 'Our team handles the technical setup and connects your account to the system after you deposit.' },
+  { icon: Icon.link, title: 'Works with your broker', body: 'No need to switch brokers — connect any MT4/MT5 account that supports automated trading.' },
   { icon: Icon.chart, title: 'Verified live track record', body: 'Every trade is public on Myfxbook. Nothing hidden, nothing backtested.' },
-  { icon: Icon.x, title: 'No EA, no bot', body: "This isn't an algorithm you buy and run blind. It's my live account, copied to yours in real time." },
-  { icon: Icon.shield, title: 'Cancel anytime', body: 'Monthly, no lock-in. Disconnect your account whenever you want.' },
+  { icon: Icon.wallet, title: `Low minimum deposit`, body: `Start with as little as $${MIN_DEPOSIT} on your broker account.` },
 ]
 
 const FAQS = [
-  { q: 'Do I get an EA or trading bot?', a: "No. There's no EA, bot, or algorithm for sale here. This is live copy trading — my actual trades are mirrored to your account in real time through Social Trader Tools." },
-  { q: 'What do I need to get started?', a: 'A funded broker account (MT4/MT5) that allows copy trading. Subscribe, deposit with your broker, and connect your account — I\'ll walk you through it once you sign up.' },
-  { q: 'Can I control how much risk I take?', a: 'Yes. Social Trader Tools lets you set a lot multiplier and risk limits on your side, independent of my account size.' },
-  { q: 'Is this guaranteed to make money?', a: 'No. Trading carries real risk of loss, and copy trading is no exception — see the full risk disclaimer below before signing up.' },
+  { q: 'Is this a trading bot / EA?', a: 'Yes. This is a fully automated Expert Advisor (EA). Once you subscribe and deposit with your broker, our team connects your account to the EA system — from there it trades automatically, with no manual input from you.' },
+  { q: 'What do I need to get started?', a: `A broker account (MT4/MT5) funded with at least $${MIN_DEPOSIT}, and a subscription. Message me your details and our team will handle connecting your account.` },
+  { q: 'Do I need to configure anything myself?', a: "No. Our team connects your account to the EA system after you subscribe and deposit — there's no manual setup required on your side." },
+  { q: 'Is this guaranteed to make money?', a: 'No. Automated trading carries real risk of loss like any trading — see the full risk disclaimer below before signing up.' },
+  { q: 'Can I cancel anytime?', a: 'Yes. It\'s a monthly subscription with no lock-in — message us anytime to disconnect your account and cancel.' },
 ]
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -76,7 +78,7 @@ export default function CopyTradingPage() {
 
   const openWhatsApp = () => {
     const lines = [
-      "Hi Koushik, I'd like to start copy trading.",
+      "Hi Koushik, I'd like to start automated EA trading.",
       name.trim() ? `Name: ${name.trim()}` : null,
       email.trim() ? `Email: ${email.trim()}` : null,
       broker.trim() ? `Broker: ${broker.trim()}` : null,
@@ -123,13 +125,13 @@ export default function CopyTradingPage() {
           <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-1.5 mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Live Copy Trading
+              Automated EA Trading
             </div>
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight leading-[1.08] mb-5">
-              Copy my trades.<br /> Profit with <span className="text-emerald-400">discipline.</span>
+              Automated trading.<br /> Built for <span className="text-emerald-400">consistency.</span>
             </h1>
             <p className="text-gray-400 text-base sm:text-lg max-w-lg mx-auto lg:mx-0 mb-8">
-              Connect your broker account and mirror every trade I take in real time. No EA, no bot to buy — just my live account, copied to yours.
+              A dedicated EA trades your account around the clock, based on the same rule-based approach I trade with. Subscribe, deposit with your broker — our team connects everything for you.
             </p>
             <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-3 mb-6">
               <button
@@ -147,10 +149,10 @@ export default function CopyTradingPage() {
                 See Live Results
               </a>
             </div>
-            <p className="text-gray-500 text-xs">$100/month · connect via Social Trader Tools · cancel anytime</p>
+            <p className="text-gray-500 text-xs">$100/month · ${MIN_DEPOSIT} minimum deposit · we connect your account</p>
 
             <ul className="mt-8 flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-2 text-sm text-gray-400">
-              {['Real broker account, not a bot', 'Real-time trade execution', 'No lock-in — cancel anytime'].map(t => (
+              {['Fully automated — no manual trading', 'Connected by our team', 'Cancel anytime'].map(t => (
                 <li key={t} className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" /> {t}
                 </li>
@@ -158,22 +160,23 @@ export default function CopyTradingPage() {
             </ul>
           </div>
 
-          {/* Right: live signal card */}
+          {/* Right: system status card */}
           <div className="relative">
             <div className="bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 shadow-[0_20px_60px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)]">
               <div className="flex items-center justify-between mb-5">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-sm font-semibold">Signal Status</span>
+                  <span className="text-sm font-semibold">System Status</span>
                 </div>
                 <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-2.5 py-1">Active</span>
               </div>
 
               <div className="space-y-2.5 mb-5">
                 {[
-                  { label: 'Provider', value: 'Koushik Ranjit' },
+                  { label: 'Strategy by', value: 'Koushik Ranjit' },
                   { label: 'Markets', value: 'Nasdaq Futures · XAU/USD' },
-                  { label: 'Execution', value: 'Real-time' },
+                  { label: 'Execution', value: 'Automated, 24/7' },
+                  { label: 'Min. deposit', value: `$${MIN_DEPOSIT}` },
                 ].map(row => (
                   <div key={row.label} className="flex items-center justify-between bg-white/[0.03] border border-white/[0.06] rounded-lg px-3.5 py-2.5">
                     <span className="text-xs text-gray-500">{row.label}</span>
@@ -204,20 +207,65 @@ export default function CopyTradingPage() {
         </div>
       </section>
 
-      {/* No EA callout */}
+      {/* Fully automated callout */}
       <section className="max-w-3xl mx-auto px-4 pb-4">
         <div className="bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-5 sm:p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] flex gap-4 items-start">
           <div className="w-9 h-9 shrink-0 rounded-full bg-emerald-600/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold text-sm">i</div>
           <p className="text-sm text-gray-300 leading-relaxed">
-            <span className="font-semibold text-white">We don&apos;t sell an EA or a bot.</span> This is live copy trading — trades are mirrored directly from my account to yours in real time via Social Trader Tools, not an automated algorithm running on your terminal.
+            <span className="font-semibold text-white">This is a fully automated EA.</span> Once your account is connected, the system trades on your behalf around the clock — no manual entries, no screen time required from you.
           </p>
+        </div>
+      </section>
+
+      {/* Everything you need, nothing else */}
+      <section className="max-w-5xl mx-auto px-4 py-16">
+        <div className="grid lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <SectionLabel>Simple By Design</SectionLabel>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-5 text-center lg:text-left">Everything You Need,<br />Nothing Else</h2>
+            <ul className="space-y-3">
+              {[
+                'One EA, one rule-based strategy — no bundle of confusing add-ons',
+                'Trades Nasdaq futures & XAU/USD, 24/7, on autopilot',
+                `Just a $${MIN_DEPOSIT} broker deposit and a $100/month subscription`,
+                'Our team connects your account — zero technical setup',
+                'Full transparency via a public, verified track record',
+              ].map(item => (
+                <li key={item} className="flex items-start gap-3 text-sm text-gray-300">
+                  <span className="w-5 h-5 rounded-full bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0 mt-0.5 text-xs">✓</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="relative flex justify-center">
+            <div className="w-full max-w-xs bg-gradient-to-b from-white/[0.06] to-white/[0.02] backdrop-blur-xl border border-emerald-500/20 rounded-2xl p-6 shadow-[0_20px_60px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.06)]">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4">
+                <span className="w-5 h-5 block">{Icon.cpu}</span>
+              </div>
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-emerald-400 mb-1">Automated EA</p>
+              <h3 className="text-xl font-bold mb-3">KR Auto Trading</h3>
+              <div className="space-y-2 mb-4">
+                {['Nasdaq Futures', 'XAU/USD'].map(m => (
+                  <div key={m} className="text-xs bg-white/[0.05] border border-white/[0.08] rounded-lg px-3 py-2 text-gray-300">{m}</div>
+                ))}
+              </div>
+              <div className="flex items-end justify-between pt-4 border-t border-white/[0.08]">
+                <div>
+                  <p className="text-2xl font-bold">$100<span className="text-xs font-normal text-gray-500">/mo</span></p>
+                  <p className="text-[11px] text-gray-500">+ ${MIN_DEPOSIT} min. deposit</p>
+                </div>
+                <span className="text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-2.5 py-1">Active</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* How it works */}
       <section className="max-w-5xl mx-auto px-4 py-20">
         <SectionLabel>Getting Started</SectionLabel>
-        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-2">How Copy Trading Works</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-2">How It Works</h2>
         <p className="text-gray-400 text-center mb-12">Three steps. That&apos;s it.</p>
         <div className="grid sm:grid-cols-3 gap-4">
           {STEPS.map(step => (
@@ -238,10 +286,10 @@ export default function CopyTradingPage() {
         <div className="max-w-3xl mx-auto px-4 text-center">
           <SectionLabel>Track Record</SectionLabel>
           <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-            See My Live Trading Performance
+            See The Live Trading Performance
           </h2>
           <p className="text-gray-400 mb-10 max-w-xl mx-auto">
-            No cherry-picked screenshots, no backtests. Every trade I take is public and independently verified — check the account before you connect yours to it.
+            No cherry-picked screenshots, no fake backtests. Every trade is public and independently verified — check the account before you connect yours to it.
           </p>
           <a
             href={MYFXBOOK}
@@ -277,17 +325,35 @@ export default function CopyTradingPage() {
           ))}
         </div>
         <div className="bg-gradient-to-r from-emerald-600/15 to-emerald-500/5 border border-emerald-500/25 rounded-2xl p-6 sm:p-7 text-center">
-          <h3 className="font-bold text-lg mb-1.5">No EA. No Guesswork.</h3>
+          <h3 className="font-bold text-lg mb-1.5">Fully Automated. Zero Manual Work.</h3>
           <p className="text-sm text-gray-300 max-w-lg mx-auto">
-            You&apos;re not buying a black-box algorithm — you&apos;re copying a real, disciplined trader whose entire track record is public.
+            Once your account is connected, the EA trades continuously on your behalf — you don&apos;t need to watch charts or place a single trade yourself.
           </p>
         </div>
       </section>
 
+      {/* From manual to automated */}
+      <section className="max-w-4xl mx-auto px-4 py-4">
+        <div className="bg-white/[0.03] border border-white/[0.07] rounded-2xl p-8 sm:p-10 grid sm:grid-cols-[auto_1fr] gap-6 sm:gap-8 items-center">
+          <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mx-auto sm:mx-0">
+            <span className="w-7 h-7 block">{Icon.cpu}</span>
+          </div>
+          <div className="text-center sm:text-left">
+            <h3 className="text-xl font-bold mb-2">From Manual Trading To Full Automation</h3>
+            <p className="text-sm text-gray-400 leading-relaxed mb-4">
+              You don&apos;t need to watch charts, time entries, or manage risk by hand. Once connected, the EA executes the same rule-based approach on your account, continuously — day and night.
+            </p>
+            <button onClick={openWhatsApp} className="text-emerald-400 text-sm font-semibold hover:underline">
+              Get Started →
+            </button>
+          </div>
+        </div>
+      </section>
+
       {/* Features */}
-      <section className="max-w-5xl mx-auto px-4 py-8">
+      <section className="max-w-5xl mx-auto px-4 py-16">
         <SectionLabel>Included</SectionLabel>
-        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10">Everything You Get</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10">Everything You Need In One Powerful EA</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {FEATURES.map(f => (
             <div key={f.title} className="bg-white/[0.03] border border-white/[0.07] rounded-xl p-5">
@@ -307,12 +373,12 @@ export default function CopyTradingPage() {
         <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10">Choose Your Plan</h2>
         <div className="bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.05)] max-w-md mx-auto">
           <div className="text-center mb-8">
-            <h3 className="text-lg font-semibold mb-1 text-gray-300">Copy Trading Access</h3>
+            <h3 className="text-lg font-semibold mb-1 text-gray-300">Automated EA Trading Access</h3>
             <div className="flex items-baseline justify-center gap-1 mt-4">
               <span className="text-4xl font-bold">$100</span>
               <span className="text-gray-400 text-sm">/ month</span>
             </div>
-            <p className="text-gray-500 text-xs mt-2">Subscribe, deposit with your broker, connect your account — done.</p>
+            <p className="text-gray-500 text-xs mt-2">+ ${MIN_DEPOSIT} minimum deposit with your broker. Subscribe, deposit, and our team connects your account — done.</p>
           </div>
 
           <div className="space-y-3 mb-5">
@@ -346,7 +412,7 @@ export default function CopyTradingPage() {
             Message me on WhatsApp
           </button>
           <p className="text-center text-gray-500 text-xs mt-3">
-            I&apos;ll reply personally to set up payment and walk you through connecting your account.
+            I&apos;ll reply personally to set up payment and have our team connect your account.
           </p>
           <p className="text-center text-xs mt-2">
             or reach out on <a href={DISCORD} target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">Discord</a>
@@ -374,7 +440,7 @@ export default function CopyTradingPage() {
       {/* Risk note */}
       <section className="max-w-3xl mx-auto px-4 pb-16 w-full">
         <p className="text-center text-xs text-gray-500 leading-relaxed">
-          Copy trading involves substantial risk of loss and is not suitable for all investors. Past performance shown on Myfxbook is not indicative of future results.
+          Automated EA trading involves substantial risk of loss and is not suitable for all investors. Past performance shown on Myfxbook is not indicative of future results.
           By signing up you agree to the <a href="/riskandearning" className="text-emerald-400 hover:underline">Risk &amp; Earning Disclaimer</a>.
         </p>
       </section>
