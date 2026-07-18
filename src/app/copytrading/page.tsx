@@ -34,40 +34,23 @@ const SYSTEMS = [
 
 // Real MT4 trade-history snapshots (XAUUSD+), transcribed exactly from the terminal —
 // account balance/profit at the time each screenshot was taken.
-const TRADE_SNAPSHOTS = [
-  { profit: '369.50', deposit: '100.00', withdrawal: '-100.00', balance: '369.50' },
-  { profit: '447.94', deposit: '100.00', withdrawal: '-107.00', balance: '440.94' },
-  { profit: '358.85', deposit: '100.00', withdrawal: '0.00', balance: '458.85' },
-  { profit: '705.61', deposit: '100.00', withdrawal: '-300.00', balance: '505.61' },
-  { profit: '425.63', deposit: '150.00', withdrawal: '-127.00', balance: '398.63' },
-  { profit: '331.26', deposit: '100.00', withdrawal: '-42.00', balance: '389.26' },
-  { profit: '373.75', deposit: '100.00', withdrawal: '-83.00', balance: '390.75' },
-  { profit: '472.38', deposit: '100.00', withdrawal: '-181.00', balance: '391.38' },
-  { profit: '558.86', deposit: '200.00', withdrawal: '-141.00', balance: '617.86' },
-  { profit: '391.71', deposit: '117.00', withdrawal: '-264.00', balance: '244.71' },
-  { profit: '982.84', deposit: '361.00', withdrawal: '-945.00', balance: '398.84' },
-  { profit: '587.90', deposit: '150.00', withdrawal: '-350.00', balance: '387.90' },
-  { profit: '311.87', deposit: '100.00', withdrawal: '0.00', balance: '411.87' },
-  { profit: '475.09', deposit: '150.00', withdrawal: '-249.00', balance: '376.09' },
-  { profit: '1,039.02', deposit: '100.06', withdrawal: '-764.00', balance: '375.08' },
-]
-
-// One full trade log, transcribed exactly from a real MT4 mobile "History" screen —
-// same account as Snapshot #1 above (Profit 369.50).
-const TERMINAL_TRADES = [
-  { type: 'sell stop', side: 'stop', line1: '0.01 at 4018.88', time: '2026.07.15 17:00:00', pnl: null },
-  { type: 'sell stop', side: 'stop', line1: '0.01 at 3944.39', time: '2026.07.15 23:15:00', pnl: null },
-  { type: 'sell 0.01', side: 'sell', line1: '3984.10 → 3983.30', time: '2026.07.16 16:02:39', pnl: '0.80' },
-  { type: 'buy stop', side: 'stop', line1: '0.01 at 4101.74', time: '2026.07.16 03:00:04', pnl: null },
-  { type: 'buy stop', side: 'stop', line1: '0.01 at 4079.71', time: '2026.07.16 04:00:00', pnl: null },
-  { type: 'sell 0.01', side: 'sell', line1: '4016.80 → 4005.38', time: '2026.07.16 15:16:15', pnl: '11.42' },
-  { type: 'buy stop', side: 'stop', line1: '0.01 at 4102.09', time: '2026.07.16 13:05:01', pnl: null },
-  { type: 'sell 0.01', side: 'sell', line1: '3984.10 → 3984.19', time: '2026.07.16 16:02:39', pnl: '-0.09' },
-  { type: 'buy stop', side: 'stop', line1: '0.01 at 4079.71', time: '2026.07.16 19:00:03', pnl: null },
-  { type: 'buy stop', side: 'stop', line1: '0.01 at 4041.87', time: '2026.07.16 21:00:03', pnl: null },
-  { type: 'sell 0.01', side: 'sell', line1: '3975.19 → 3974.97', time: '2026.07.16 22:34:21', pnl: '0.22' },
-  { type: 'sell 0.01', side: 'sell', line1: '3968.43 → 3967.93', time: '2026.07.17 15:43:04', pnl: '0.50' },
-  { type: 'buy 0.01', side: 'buy', line1: '4009.63 → 4010.13', time: '2026.07.17 18:04:25', pnl: '0.50' },
+// Real MT4 mobile "History" screenshots — actual account snapshots, not mockups.
+const TRADE_SCREENSHOTS = [
+  { src: '/images/trade-history/snap-01.jpg', profit: '369.50' },
+  { src: '/images/trade-history/snap-02.jpg', profit: '447.94' },
+  { src: '/images/trade-history/snap-03.jpg', profit: '358.85' },
+  { src: '/images/trade-history/snap-04.jpg', profit: '705.61' },
+  { src: '/images/trade-history/snap-05.jpg', profit: '425.63' },
+  { src: '/images/trade-history/snap-06.jpg', profit: '331.26' },
+  { src: '/images/trade-history/snap-07.jpg', profit: '373.75' },
+  { src: '/images/trade-history/snap-08.jpg', profit: '472.38' },
+  { src: '/images/trade-history/snap-09.jpg', profit: '558.86' },
+  { src: '/images/trade-history/snap-10.jpg', profit: '391.71' },
+  { src: '/images/trade-history/snap-11.jpg', profit: '982.84' },
+  { src: '/images/trade-history/snap-12.jpg', profit: '587.90' },
+  { src: '/images/trade-history/snap-13.jpg', profit: '311.87' },
+  { src: '/images/trade-history/snap-14.jpg', profit: '475.09' },
+  { src: '/images/trade-history/snap-15.jpg', profit: '1,039.02' },
 ]
 
 // ── Icons (inline, zero dependency) ─────────────────────────────────────
@@ -140,6 +123,7 @@ export default function CopyTradingPage() {
   const [payError, setPayError] = useState('')
   const [subscribed, setSubscribed] = useState(false)
   const [codeCopied, setCodeCopied] = useState(false)
+  const [showAllScreenshots, setShowAllScreenshots] = useState(false)
 
   const copyCode = () => {
     navigator.clipboard.writeText(VANTAGE_CODE)
@@ -509,72 +493,49 @@ export default function CopyTradingPage() {
         </div>
       </section>
 
-      {/* Trade history proof */}
-      <section className="max-w-3xl mx-auto px-4 py-16">
-        <SectionLabel>Proof, Not Promises</SectionLabel>
+      {/* Trade history proof gallery */}
+      <section className="max-w-4xl mx-auto px-4 py-16">
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
+          <SectionLabel>Proof, Not Promises</SectionLabel>
+          <span className="hidden sm:flex items-center gap-1.5 text-[11px] text-gray-500">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Snapshot as of {LIVE_STATS_DATE}
+          </span>
+        </div>
         <h2 className="text-2xl sm:text-3xl font-bold text-center mb-2">Real Trade History, Straight From The Terminal</h2>
         <p className="text-gray-400 text-center mb-10 max-w-xl mx-auto">
-          Not a mockup — this is one real account's actual MetaTrader history, transcribed exactly as it appears in the app.
+          Not a mockup — these are actual MetaTrader history screenshots, unedited.
         </p>
 
-        {/* MT4-style terminal panel */}
-        <div className="bg-black border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.08] bg-white/[0.02]">
-            <span className="text-xs font-semibold text-gray-300">XAUUSD+ &middot; History</span>
-            <div className="flex items-center gap-1">
-              {['Day', 'Week', 'Month', 'Custom'].map(tab => (
-                <span key={tab} className={`text-[10px] px-2.5 py-1 rounded-full ${tab === 'Custom' ? 'bg-white/[0.12] text-white' : 'text-gray-500'}`}>{tab}</span>
-              ))}
-            </div>
-          </div>
-
-          <div className="divide-y divide-white/[0.05] max-h-80 overflow-y-auto">
-            {TERMINAL_TRADES.map((t, i) => (
-              <div key={i} className="flex items-center justify-between px-4 py-2.5 text-xs">
-                <div>
-                  <p>
-                    <span className="font-semibold text-white">XAUUSD+, </span>
-                    <span className={t.side === 'buy' ? 'text-blue-400 font-semibold' : t.side === 'sell' ? 'text-red-400 font-semibold' : 'text-gray-400'}>{t.type}</span>
-                  </p>
-                  <p className="text-gray-500 mt-0.5">{t.line1}</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-gray-500">{t.time}</p>
-                  {t.pnl && <p className={`mt-0.5 font-semibold ${t.pnl.startsWith('-') ? 'text-red-400' : 'text-blue-400'}`}>{t.pnl}</p>}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="px-4 py-3 bg-white/[0.02] border-t border-white/[0.08] space-y-1.5 text-xs">
-            {[
-              { label: 'Profit', value: '369.50', color: 'text-gray-300' },
-              { label: 'Deposit', value: '100.00', color: 'text-gray-300' },
-              { label: 'Withdrawal', value: '-100.00', color: 'text-gray-300' },
-              { label: 'Balance', value: '369.50', color: 'text-white font-semibold' },
-            ].map(row => (
-              <div key={row.label} className="flex items-center justify-between">
-                <span className="text-gray-500">{row.label}:</span>
-                <span className={row.color}>{row.value}</span>
-              </div>
-            ))}
-          </div>
+        <div className="grid grid-cols-3 gap-2 sm:gap-4">
+          {(showAllScreenshots ? TRADE_SCREENSHOTS : TRADE_SCREENSHOTS.slice(0, 6)).map((shot, i) => (
+            <a
+              key={shot.src}
+              href={shot.src}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block relative aspect-[9/16] rounded-lg sm:rounded-xl overflow-hidden border border-white/[0.08] bg-black hover:border-emerald-500/40 transition-colors"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={shot.src}
+                alt={`Real MetaTrader trade history screenshot, account #${i + 1}, profit $${shot.profit}`}
+                className="absolute inset-0 w-full h-full object-contain"
+                loading="lazy"
+              />
+              <span className="absolute bottom-1.5 left-1.5 right-1.5 sm:bottom-2 sm:left-2 sm:right-2 text-[9px] sm:text-[11px] font-semibold text-emerald-400 bg-black/70 backdrop-blur-sm rounded px-1.5 py-0.5 sm:px-2 sm:py-1 text-center">
+                ${shot.profit} profit
+              </span>
+            </a>
+          ))}
         </div>
 
-        <p className="text-center text-gray-500 text-xs mt-6 mb-10">More verified accounts — real balances, pulled from the same terminal:</p>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-          {TRADE_SNAPSHOTS.map((snap, i) => (
-            <div key={i} className="bg-white/[0.03] border border-white/[0.07] rounded-xl p-4">
-              <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-2">Account #{i + 1}</p>
-              <p className="text-lg font-bold text-emerald-400 mb-2">${snap.profit}</p>
-              <div className="space-y-1 text-[11px] text-gray-500">
-                <div className="flex justify-between"><span>Deposit</span><span className="text-gray-300">${snap.deposit}</span></div>
-                <div className="flex justify-between"><span>Withdrawal</span><span className="text-gray-300">${snap.withdrawal}</span></div>
-                <div className="flex justify-between"><span>Balance</span><span className="text-gray-300">${snap.balance}</span></div>
-              </div>
-            </div>
-          ))}
+        <div className="text-center mt-6">
+          <button
+            onClick={() => setShowAllScreenshots(v => !v)}
+            className="h-10 px-6 rounded-lg border border-white/[0.12] hover:bg-white/[0.05] text-sm font-medium transition-colors"
+          >
+            {showAllScreenshots ? 'See less' : `Show ${TRADE_SCREENSHOTS.length - 6} more`}
+          </button>
         </div>
       </section>
 
