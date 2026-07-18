@@ -506,7 +506,7 @@ export default function CopyTradingPage() {
           Not a mockup — these are actual MetaTrader history screenshots, unedited.
         </p>
 
-        <div className="grid grid-cols-3 gap-2 sm:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
           {(showAllScreenshots ? TRADE_SCREENSHOTS : TRADE_SCREENSHOTS.slice(0, 6)).map((shot, i) => (
             <a
               key={shot.src}
