@@ -10,6 +10,28 @@ const RAZORPAY_KEY = 'rzp_live_SSL6Wg71WI8B11'
 const MONTHLY_INR = 9500
 const LIVE_STATS_DATE = 'Jul 18, 2026'
 
+// Real, unedited snapshot of every account currently running the system on Myfxbook —
+// wins and losses both included, exactly as shown on the live "Systems" table.
+const SYSTEMS = [
+  { name: 'Koushik Ranjit', gain: '+6864.13%', absGain: '+1038.4%', daily: '4.05%', monthly: '229.19%', drawdown: '41.73%', profit: '$1039.02', pips: '106426.0', deposits: '$100.06' },
+  { name: 'Samah', gain: '+2361.84%', absGain: '+705.61%', daily: '4.82%', monthly: '312.38%', drawdown: '56.65%', profit: '$705.61', pips: '71132.0', deposits: '$100.00' },
+  { name: 'Koushik Ranjit 2', gain: '+961.69%', absGain: '+318.09%', daily: '4.39%', monthly: '302.69%', drawdown: '52.59%', profit: '$477.13', pips: '42113.0', deposits: '$150.00' },
+  { name: 'Koushik Ranjit 3', gain: '+1293.04%', absGain: '+399.8%', daily: '5.30%', monthly: '439.61%', drawdown: '51.52%', profit: '$599.70', pips: '54152.0', deposits: '$150.00' },
+  { name: 'Koushik Ranjit 4', gain: '-99.34%', absGain: '+238.48%', daily: '-9.38%', monthly: '-96.80%', drawdown: '99.94%', profit: '$860.92', pips: '61881.0', deposits: '$361.00' },
+  { name: 'Koushik Ranjit 5', gain: '+799.54%', absGain: '+282.27%', daily: '5.00%', monthly: '401.63%', drawdown: '35.39%', profit: '$564.53', pips: '43769.0', deposits: '$200.00' },
+  { name: 'Koushik Ranjit 6', gain: '+772.27%', absGain: '+337.91%', daily: '6.20%', monthly: '669.50%', drawdown: '9.71%', profit: '$395.35', pips: '40015.0', deposits: '$117.00' },
+  { name: 'Koushik Ranjit 7', gain: '+751.99%', absGain: '+474.38%', daily: '6.92%', monthly: '751.99%', drawdown: '10.55%', profit: '$474.38', pips: '41270.0', deposits: '$100.00' },
+  { name: 'Koushik Ranjit 8', gain: '+457.39%', absGain: '+377.05%', daily: '5.89%', monthly: '457.39%', drawdown: '10.21%', profit: '$377.05', pips: '31272.0', deposits: '$100.00' },
+  { name: 'Koushik Ranjit 9', gain: '+373.73%', absGain: '+333.56%', daily: '5.32%', monthly: '373.73%', drawdown: '10.11%', profit: '$333.56', pips: '27098.0', deposits: '$100.00' },
+  { name: 'Koushik Ranjit 10', gain: '+427.63%', absGain: '+427.63%', daily: '5.70%', monthly: '427.63%', drawdown: '13.29%', profit: '$427.63', pips: '31119.0', deposits: '$100.00' },
+  { name: 'Koushik Ranjit 11', gain: '+381.67%', absGain: '+142.06%', daily: '6.23%', monthly: '381.67%', drawdown: '27.27%', profit: '$271.16', pips: '19834.0', deposits: '$190.88' },
+  { name: 'Koushik Ranjit 12', gain: '+332.0%', absGain: '+203.37%', daily: '6.03%', monthly: '332.00%', drawdown: '26.76%', profit: '$274.14', pips: '18233.0', deposits: '$134.87' },
+  { name: 'Koushik Ranjit 13', gain: '+355.84%', absGain: '+98.83%', daily: '6.26%', monthly: '355.84%', drawdown: '29.94%', profit: '$224.15', pips: '18653.0', deposits: '$226.87' },
+  { name: 'Koushik Ranjit 14', gain: '+268.85%', absGain: '+132.1%', daily: '6.11%', monthly: '268.85%', drawdown: '30.09%', profit: '$202.12', pips: '15816.0', deposits: '$153.00' },
+  { name: 'Koushik Ranjit 15', gain: '+162.08%', absGain: '+103.92%', daily: '5.50%', monthly: '162.08%', drawdown: '29.40%', profit: '$164.19', pips: '10492.0', deposits: '$158.00' },
+  { name: 'Koushik Ranjit 16', gain: '-99.22%', absGain: '+11.12%', daily: '-27.64%', monthly: '-99.22%', drawdown: '99.82%', profit: '$22.23', pips: '5658.0', deposits: '$200.00' },
+]
+
 // ── Icons (inline, zero dependency) ─────────────────────────────────────
 const Icon = {
   userPlus: (
@@ -332,43 +354,60 @@ export default function CopyTradingPage() {
 
       {/* Live performance */}
       <section className="relative py-20 border-y border-white/[0.06] bg-white/[0.015]">
-        <div className="max-w-3xl mx-auto px-4 text-center">
+        <div className="max-w-5xl mx-auto px-4 text-center">
           <SectionLabel>Track Record</SectionLabel>
           <h2 className="text-2xl sm:text-3xl font-bold mb-4">
             See The Live Trading Performance
           </h2>
           <p className="text-gray-400 mb-10 max-w-xl mx-auto">
-            No cherry-picked screenshots, no fake backtests. Every trade is public and independently verified on Myfxbook — check the account before you connect yours to it.
+            No cherry-picked screenshots, no fake backtests. Every account currently running the system on Myfxbook — wins and losses both, nothing hidden.
           </p>
 
           <div className="bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.05)] text-left">
             <div className="flex flex-wrap items-center justify-between gap-3 p-5 sm:p-6 border-b border-white/[0.06]">
               <div>
-                <p className="font-semibold">Koushik Ranjit</p>
-                <p className="text-xs text-gray-500">Real (USD) · Vantage Markets · 1:2000 · MetaTrader 4</p>
+                <p className="font-semibold">Systems</p>
+                <p className="text-xs text-gray-500">All accounts running the EA · Myfxbook</p>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-2.5 py-1 flex items-center gap-1">
-                  <span>✓</span> Verified track record
-                </span>
-              </div>
+              <span className="text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-2.5 py-1 flex items-center gap-1">
+                <span>✓</span> Verified track record
+              </span>
             </div>
 
-            <div className="grid sm:grid-cols-4 gap-px bg-white/[0.06]">
-              {[
-                { label: 'Gain', value: '+6,864.13%' },
-                { label: 'Monthly', value: '229.19%' },
-                { label: 'Drawdown', value: '41.73%' },
-                { label: 'Balance', value: '$375.08' },
-              ].map(stat => (
-                <div key={stat.label} className="bg-[#0d0d0d] p-4 sm:p-5">
-                  <p className="text-[11px] uppercase tracking-wider text-gray-500 mb-1">{stat.label}</p>
-                  <p className="text-lg font-bold text-emerald-400">{stat.value}</p>
-                </div>
-              ))}
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm min-w-[720px]">
+                <thead>
+                  <tr className="text-[11px] uppercase tracking-wider text-gray-500 border-b border-white/[0.06]">
+                    <th className="text-left font-medium px-4 py-3">Name</th>
+                    <th className="text-right font-medium px-3 py-3">Gain</th>
+                    <th className="text-right font-medium px-3 py-3">Abs. Gain</th>
+                    <th className="text-right font-medium px-3 py-3">Daily</th>
+                    <th className="text-right font-medium px-3 py-3">Monthly</th>
+                    <th className="text-right font-medium px-3 py-3">Drawdown</th>
+                    <th className="text-right font-medium px-3 py-3">Profit</th>
+                    <th className="text-right font-medium px-3 py-3">Pips</th>
+                    <th className="text-right font-medium px-4 py-3">Deposits</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {SYSTEMS.map(s => (
+                    <tr key={s.name} className="border-b border-white/[0.04] last:border-0 hover:bg-white/[0.02]">
+                      <td className="px-4 py-2.5 text-gray-200 whitespace-nowrap">{s.name}</td>
+                      <td className={`px-3 py-2.5 text-right font-medium whitespace-nowrap ${s.gain.startsWith('-') ? 'text-red-400' : 'text-emerald-400'}`}>{s.gain}</td>
+                      <td className="px-3 py-2.5 text-right text-gray-400 whitespace-nowrap">{s.absGain}</td>
+                      <td className={`px-3 py-2.5 text-right whitespace-nowrap ${s.daily.startsWith('-') ? 'text-red-400' : 'text-gray-400'}`}>{s.daily}</td>
+                      <td className={`px-3 py-2.5 text-right whitespace-nowrap ${s.monthly.startsWith('-') ? 'text-red-400' : 'text-gray-400'}`}>{s.monthly}</td>
+                      <td className="px-3 py-2.5 text-right text-gray-400 whitespace-nowrap">{s.drawdown}</td>
+                      <td className="px-3 py-2.5 text-right text-emerald-400 whitespace-nowrap">{s.profit}</td>
+                      <td className="px-3 py-2.5 text-right text-gray-400 whitespace-nowrap">{s.pips}</td>
+                      <td className="px-4 py-2.5 text-right text-gray-400 whitespace-nowrap">{s.deposits}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
-            <div className="p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/[0.06]">
               <p className="text-xs text-gray-500">
                 Snapshot as of {LIVE_STATS_DATE} — numbers change daily, so treat this as a reference, not a live feed.
               </p>
@@ -472,10 +511,10 @@ export default function CopyTradingPage() {
               <div className="text-center mb-8">
                 <h3 className="text-lg font-semibold mb-1 text-gray-300">Automated EA Trading Access</h3>
                 <div className="flex items-baseline justify-center gap-1 mt-4">
-                  <span className="text-4xl font-bold">₹{MONTHLY_INR.toLocaleString('en-IN')}</span>
+                  <span className="text-4xl font-bold">$100</span>
                   <span className="text-gray-400 text-sm">/ month</span>
                 </div>
-                <p className="text-gray-500 text-xs mt-1">≈ $100/month</p>
+                <p className="text-gray-500 text-xs mt-1">billed as ₹{MONTHLY_INR.toLocaleString('en-IN')}/month via Razorpay</p>
                 <p className="text-gray-500 text-xs mt-2">+ ${MIN_DEPOSIT} minimum deposit with your broker. Subscribe, deposit, and our team connects your account — done.</p>
               </div>
 
