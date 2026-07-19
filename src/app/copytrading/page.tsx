@@ -238,7 +238,7 @@ function HowItWorks() {
           href={DISCORD}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 h-11 rounded-xl border border-white/[0.12] hover:bg-white/[0.05] text-sm font-medium transition-colors flex items-center justify-center"
+          className="flex-1 h-11 rounded-xl bg-[#5865F2] hover:bg-[#4752c4] text-white text-sm font-semibold transition-colors flex items-center justify-center"
         >
           Open A Discord Ticket
         </a>
@@ -710,7 +710,7 @@ export default function CopyTradingPage() {
               <a href="/riskandearning" className="hover:text-white transition-colors">Risk Disclaimer</a>
             </nav>
             <div className="flex items-center gap-4">
-              <a href="tel:+919547774580" className="hover:text-emerald-400 transition-colors">+91 95477 74580</a>
+              <a href="https://wa.me/919547774580" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">+91 95477 74580</a>
               <a href="mailto:teamkoushikranjit@gmail.com" className="hover:text-emerald-400 transition-colors">teamkoushikranjit@gmail.com</a>
             </div>
           </div>
