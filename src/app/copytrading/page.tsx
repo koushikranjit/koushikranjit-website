@@ -416,6 +416,78 @@ function StickyBottomCTA({ visible, paying, onSubscribe }: { visible: boolean; p
   )
 }
 
+// ─── CheckoutModal ──────────────────────────────────────────────────────────
+function CheckoutModal({
+  open,
+  onClose,
+  name,
+  setName,
+  email,
+  setEmail,
+  paying,
+  payError,
+  onSubmit,
+}: {
+  open: boolean
+  onClose: () => void
+  name: string
+  setName: (v: string) => void
+  email: string
+  setEmail: (v: string) => void
+  paying: boolean
+  payError: string
+  onSubmit: () => void
+}) {
+  if (!open) return null
+
+  return (
+    <div onClick={onClose} className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4">
+      <div
+        onClick={e => e.stopPropagation()}
+        className="bg-white/[0.05] backdrop-blur-2xl rounded-t-2xl sm:rounded-2xl p-5 w-full sm:max-w-[400px] border-t border-white/[0.1] sm:border sm:border-white/[0.1] shadow-[0_8px_32px_rgba(0,0,0,0.5)] max-h-[90vh] overflow-y-auto"
+      >
+        <h3 className="text-lg font-bold mb-1">Subscribe</h3>
+        <p className="text-gray-400 text-[13px] mb-4">$100/month, billed as ₹{MONTHLY_INR.toLocaleString('en-IN')} via Razorpay.</p>
+
+        <div className="space-y-3 mb-3">
+          <input
+            type="text"
+            placeholder="Full name"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            autoFocus
+            className="w-full bg-[#111] border border-white/10 rounded-xl h-12 px-4 text-white text-[15px] outline-none focus:border-emerald-500 transition-colors"
+          />
+          <input
+            type="email"
+            placeholder="Email address"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && onSubmit()}
+            className="w-full bg-[#111] border border-white/10 rounded-xl h-12 px-4 text-white text-[15px] outline-none focus:border-emerald-500 transition-colors"
+          />
+        </div>
+
+        {payError && <p className="text-red-400 text-xs mb-3">{payError}</p>}
+
+        <div className="flex gap-2.5">
+          <button onClick={onClose} className="flex-1 h-11 rounded-xl border border-white/10 bg-transparent text-gray-400 text-sm">
+            Cancel
+          </button>
+          <button
+            onClick={onSubmit}
+            disabled={paying || !name.trim() || !email.trim()}
+            className="flex-[2] h-11 rounded-xl bg-emerald-600 text-white text-sm font-semibold disabled:opacity-50 transition-opacity"
+          >
+            {paying ? 'Processing...' : 'Continue to Payment'}
+          </button>
+        </div>
+        <p className="text-center text-gray-500 text-xs mt-3">Secure payment via Razorpay · cancel anytime</p>
+      </div>
+    </div>
+  )
+}
+
 // ─── Lightbox ───────────────────────────────────────────────────────────────
 function Lightbox({ index, onClose, onChange }: { index: number | null; onClose: () => void; onChange: (n: number) => void }) {
   if (index === null) return null
@@ -485,7 +557,7 @@ export default function CopyTradingPage() {
   const [email, setEmail] = useState('')
   const [paying, setPaying] = useState(false)
   const [payError, setPayError] = useState('')
-  const [subscribed, setSubscribed] = useState(false)
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false)
   const [lightbox, setLightbox] = useState<number | null>(null)
   const [showStickyCta, setShowStickyCta] = useState(false)
 
@@ -533,6 +605,7 @@ export default function CopyTradingPage() {
         setPaying(false)
         return
       }
+      setShowCheckoutModal(false)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const Razorpay = (window as any).Razorpay
       const rzp = new Razorpay({
@@ -542,7 +615,7 @@ export default function CopyTradingPage() {
         description: 'Automated EA Trading — Monthly Subscription',
         theme: { color: '#059669' },
         prefill: { name: name.trim(), email: email.trim() },
-        handler: () => { setSubscribed(true); setPaying(false) },
+        handler: () => { window.location.href = DISCORD },
         modal: { ondismiss: () => setPaying(false) },
       })
       rzp.open()
@@ -552,10 +625,7 @@ export default function CopyTradingPage() {
     }
   }
 
-  const handleSubscribeClick = () => {
-    const el = document.getElementById('checkout-form')
-    el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-  }
+  const handleSubscribeClick = () => setShowCheckoutModal(true)
 
   if (!mounted) return null
 
@@ -576,6 +646,18 @@ export default function CopyTradingPage() {
       <div className="lg:hidden">
         <StickyBottomCTA visible={showStickyCta} paying={paying} onSubscribe={handleSubscribeClick} />
       </div>
+
+      <CheckoutModal
+        open={showCheckoutModal}
+        onClose={() => setShowCheckoutModal(false)}
+        name={name}
+        setName={setName}
+        email={email}
+        setEmail={setEmail}
+        paying={paying}
+        payError={payError}
+        onSubmit={handlePay}
+      />
 
       <Lightbox index={lightbox} onClose={() => setLightbox(null)} onChange={setLightbox} />
 
@@ -603,63 +685,6 @@ export default function CopyTradingPage() {
             <FAQAccordion />
 
             <AboutCreator />
-
-            {/* Checkout form */}
-            <section id="checkout-form" className="px-4 py-6" role="region" aria-label="Checkout">
-              <div className={`rounded-2xl ${GLASS} p-6`}>
-                {subscribed ? (
-                  <div className="text-center py-2">
-                    <div className="w-14 h-14 rounded-full bg-emerald-600/20 border border-emerald-500/40 flex items-center justify-center mx-auto mb-4">
-                      <span className="text-emerald-400 text-2xl">✓</span>
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2">Subscription active</h3>
-                    <p className="text-sm text-gray-400 mb-6">
-                      You&apos;ll be charged ₹{MONTHLY_INR.toLocaleString('en-IN')} automatically every month. Next: create your Vantage account, deposit at least ${MIN_DEPOSIT}, then open a ticket on Discord so our team can connect it.
-                    </p>
-                    <a
-                      href={DISCORD}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full h-12 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition-colors shadow-[0_0_24px_rgba(16,185,129,0.2)] flex items-center justify-center"
-                    >
-                      Open A Discord Ticket
-                    </a>
-                    <p className="text-center text-xs mt-3">
-                      <a href="/copytrading/manage" className="text-emerald-400 hover:underline">Manage subscription</a>
-                    </p>
-                  </div>
-                ) : (
-                  <>
-                    <h2 className="text-lg font-bold mb-4 text-center">Subscribe</h2>
-                    <div className="space-y-3 mb-4">
-                      <input
-                        type="text"
-                        placeholder="Full name"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                        className="w-full h-11 px-4 rounded-lg bg-white/[0.05] border border-white/[0.1] text-sm placeholder:text-gray-500 focus:outline-none focus:border-emerald-500/60"
-                      />
-                      <input
-                        type="email"
-                        placeholder="Email address"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                        className="w-full h-11 px-4 rounded-lg bg-white/[0.05] border border-white/[0.1] text-sm placeholder:text-gray-500 focus:outline-none focus:border-emerald-500/60"
-                      />
-                    </div>
-                    {payError && <p className="text-red-400 text-xs mb-4">{payError}</p>}
-                    <button
-                      onClick={handlePay}
-                      disabled={paying}
-                      className="w-full h-12 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[15px] transition-colors shadow-[0_0_24px_rgba(16,185,129,0.2)] disabled:opacity-60"
-                    >
-                      {paying ? 'Processing...' : 'Subscribe & Pay'}
-                    </button>
-                    <p className="text-center text-gray-500 text-xs mt-3">Secure payment via Razorpay · cancel anytime</p>
-                  </>
-                )}
-              </div>
-            </section>
 
             {/* Risk note */}
             <section className="px-4 pb-6">
