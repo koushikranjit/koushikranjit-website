@@ -31,6 +31,18 @@
 
 ## Latest Changes
 
+### 2026-07-19 — /copytrading rebuilt as automated EA trading, sitemap + doc fixes
+- **`/copytrading` recreated from scratch** (previously fully deleted per 2026-07-17 entry below) as a new product: **automated EA trading** on XAU/USD, not copy trading. Went through several iterations this session before landing on the current shape — worth knowing if reading old commit messages out of order.
+- **Business model, final state:** Subscribe ($100/month, billed ₹9,500 via Razorpay) → customer opens a **Vantage Markets** account (MT4, RAW ECN, USD) and deposits a $300 minimum → customer opens a **Discord support ticket** and the team manually connects the account to the EA. No WhatsApp step, no self-serve technical setup, no "Social Trader Tools" (that vendor was explored mid-session and fully removed — don't reintroduce it without asking, the current flow doesn't use it).
+- **Payment:** new Razorpay plan `plan_TExvqw70wzSikC` (₹9,500/month). New routes `/api/copytrading/subscribe`, `/cancel`, `/lookup` (same signed-token/email-lookup pattern as VPS/KR Trades) + `/copytrading/manage` self-serve page. Webhook (`/api/webhook/razorpay`) has a new branch keyed on this plan_id → email notification only, no Discord role automation (unlike KR Trades' plan). Verified live end-to-end by creating and immediately cancelling a real test subscription via the production API.
+- **Design:** final version matches `/KRtrades`'s exact component architecture and glass-card visual system (fixed top nav w/ back arrow, hero banner, mobile pricing card, sticky desktop sidebar, sticky mobile bottom CTA, glass FAQ accordion) — not the earlier "SaaS landing page" style also tried this session.
+- **Real proof, not mockups:** the "Systems" performance table and the 15-screenshot trade-history gallery are the account owner's real Myfxbook/MT4 data, hand-verified against the source screenshots before use. Screenshot files live in `public/images/trade-history/snap-01.jpg`…`snap-15.jpg` (deviates from the "GitHub raw URL" image-hosting rule above — these were added directly to this repo's `public/` since there was no fast path to the separate KR-Website image repo; fine to leave as-is, small files).
+- **Homepage tagline churn:** went through several rounds (`Trader & Investor` → `Nasdaq Futures & GOLD` → various two-line badge experiments → reverted). **Final state:** hero-tag and About section-sub are both back to `Trader & Investor` (the original), and the About stats row's middle stat now reads `Trader` / `Nasdaq Futures & GOLD` (was `NQ & XAUUSD` / same label). If asked to touch this copy again, check the live site first — it's been edited many times in one sitting.
+- **Site-wide nav label:** "Copy Trading" renamed to "EA Trading" everywhere (homepage footer, KRtrades/manage, vps, vps/manage, riskandearning) — href stays `/copytrading`.
+- **`sitemap.xml` fixed** — previously only listed the homepage; now includes `/KRtrades`, `/copytrading`, `/vps`, `/riskandearning`.
+- **Stale doc correction:** the 2026-07-17 entry below says `RESEND_API_KEY` was "not yet provided" — it has since been added to both `.env.local` and Vercel production (confirmed present, ~7 days old as of this entry). VPS/copytrading email alerts should be live, not no-op.
+- **Known inconsistency, not yet fixed:** `/riskandearning` ("Copy Trading Risks" section) still describes the *old* model — says "not affiliated with Vantage Markets" (false now — `/copytrading` has a live Vantage referral link/code) and "$100 minimum deposit" (actual is $300), and frames everything as "copy trading" / "signal service" rather than the current automated-EA description. User is aware; wants to review exact replacement wording before it's changed since it's legal/liability text — don't rewrite it unprompted.
+
 ### 2026-07-17 — VPS quantity/manage, homepage cleanup, GitHub auto-deploy reconnected
 - **Homepage rewrite fix:** `/` was doing a client-side `redirect('/index.html')`, showing `/index.html` in the URL bar. Replaced with a `beforeFiles` rewrite in `next.config.ts` (`/` → `/index.html`) so the URL stays clean at `koushikranjit.in`
 - **Homepage content:** tagline changed "Futures Trader & Investor" → "Forex, Futures Trader & Investor" (hero tag, section-sub, footer, and `public/data/koushik-ranjit.json`); "Join Community" link updated to `discord.gg/sffdu4wXx2`; added a "VPS" link to the footer nav
@@ -243,6 +255,10 @@
 - [ ] Discord bot: add `/apply` command for manual Premium role requests
 - [ ] Discord bot: add announcement posting capability
 - [x] Koushik VPS checkout page (`/vps`) — plain page, ₹1,200/month auto-recurring Razorpay subscription
-- [ ] Add real Resend API key to `.env.local` + Vercel env vars (currently empty placeholder)
+- [x] Add real Resend API key to `.env.local` + Vercel env vars (confirmed present in both as of 2026-07-19)
 - [ ] Verify koushikranjit.in domain in Resend, update webhook `from` address off sandbox domain
 - [ ] Confirm existing Razorpay webhook delivers VPS plan events correctly (no new webhook registered)
+- [x] `/copytrading` recreated — automated EA trading (XAU/USD), Vantage Markets only, Razorpay ₹9,500/mo, Discord-ticket account connection
+- [x] `/copytrading/manage` self-serve cancel page
+- [x] sitemap.xml fixed — was homepage-only, now includes KRtrades/copytrading/vps/riskandearning
+- [ ] **Fix `/riskandearning` "Copy Trading Risks" section** — says "not affiliated with Vantage Markets" (false, live referral link exists) and "$100 min deposit" (actual $300); frames product as "copy trading" not automated EA. User wants to review exact wording before it changes — don't rewrite unprompted.
