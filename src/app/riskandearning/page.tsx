@@ -36,12 +36,12 @@ const sections = [
   },
   {
     id: 'copytrading',
-    title: 'Copy Trading Risks',
+    title: 'Automated EA Trading Risks',
     content: [
-      'Copy trading allows you to replicate trades from another trader\'s account. While this can be a convenient way to participate in markets, it carries its own set of risks. The performance of the trader you are copying is not guaranteed to continue, and their strategy may not be suitable for your financial situation.',
-      'Execution prices when copying trades may differ from the signal provider\'s execution prices due to liquidity, broker differences, latency, and slippage. This means your results may differ from the results shown on our track record.',
-      'KR Trades acts solely as a signal and educational service. We are not affiliated with Vantage Markets or any other broker. Broker selection is your own responsibility. Please read your broker\'s terms and conditions, including their copy trading service terms, before proceeding.',
-      'The minimum deposit requirement of $100 is set by the broker, not KR Trades. Risk management settings when copy trading are your responsibility. We recommend never risking more than 1–2% of your account on any single trade.',
+      'This service provides a fully automated Expert Advisor (EA) that trades on your connected account. While the EA follows a fixed, rule-based strategy, past performance of the EA or any account running it is not guaranteed to continue, and it may not be suitable for your financial situation.',
+      'Execution prices, spreads, and slippage on your account may differ from the results shown on our verified track record due to broker conditions, liquidity, and connection timing. Your results may differ from the accounts shown on our Systems table or Myfxbook profile.',
+      'KR Auto Trading is affiliated with Vantage Markets through a referral relationship — we may receive a commission when you open an account using our referral link or code. This does not affect the cost to you. You are responsible for reviewing and accepting Vantage Markets\' own terms, including their policies on automated/EA trading, before depositing funds.',
+      'The $100/month subscription fee covers our system and VPS hosting costs — it is not a broker fee. The $300 minimum deposit is a separate requirement set by us, not the broker. Our team connects your account to the EA after you subscribe and deposit; you remain responsible for monitoring your account. We recommend never depositing more than you can afford to lose.',
     ],
   },
   {
