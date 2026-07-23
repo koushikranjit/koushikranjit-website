@@ -98,7 +98,7 @@ function TopNavHeader() {
           <span className="font-semibold text-[15px] truncate">KR Auto Trading</span>
         </div>
         <div className="ml-auto shrink-0">
-          <a href="/copytrading/manage" className="text-xs text-gray-400 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-white/[0.05]">
+          <a href="/ea-trading/manage" className="text-xs text-gray-400 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-white/[0.05]">
             Manage
           </a>
         </div>
@@ -138,7 +138,7 @@ function ProductInfo({ paying, onSubscribe, ctaRef }: { paying: boolean; onSubsc
       </div>
       <p className="text-gray-500 text-xs mt-0.5">billed as ₹{MONTHLY_INR.toLocaleString('en-IN')}/month via Razorpay · + ${MIN_DEPOSIT} min. deposit with Vantage</p>
 
-      <a href="/copytrading/manage" className="text-sm text-emerald-400 mt-2 inline-block">Manage subscription</a>
+      <a href="/ea-trading/manage" className="text-sm text-emerald-400 mt-2 inline-block">Manage subscription</a>
 
       <button
         ref={ctaRef}
@@ -530,7 +530,7 @@ function DesktopSidebar({ paying, onSubscribe }: { paying: boolean; onSubscribe:
         </div>
         <p className="text-gray-500 text-xs mb-1">billed as ₹{MONTHLY_INR.toLocaleString('en-IN')}/month · + ${MIN_DEPOSIT} min. deposit</p>
 
-        <a href="/copytrading/manage" className="text-sm text-emerald-400 inline-block mb-5">Manage subscription</a>
+        <a href="/ea-trading/manage" className="text-sm text-emerald-400 inline-block mb-5">Manage subscription</a>
 
         <button
           onClick={onSubscribe}
@@ -594,7 +594,7 @@ export default function CopyTradingPage() {
     setPayError('')
     setPaying(true)
     try {
-      const res = await fetch('/api/copytrading/subscribe', {
+      const res = await fetch('/api/ea-trading/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name.trim(), email: email.trim() }),
@@ -706,7 +706,7 @@ export default function CopyTradingPage() {
               <a href="/" className="hover:text-white transition-colors">Home</a>
               <a href="/KRtrades" className="hover:text-white transition-colors">KR Trades</a>
               <a href="/vps" className="hover:text-white transition-colors">VPS</a>
-              <a href="/copytrading/manage" className="hover:text-white transition-colors">Manage</a>
+              <a href="/ea-trading/manage" className="hover:text-white transition-colors">Manage</a>
               <a href="/riskandearning" className="hover:text-white transition-colors">Risk Disclaimer</a>
             </nav>
             <div className="flex items-center gap-4">

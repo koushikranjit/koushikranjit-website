@@ -10,6 +10,12 @@ const nextConfig: NextConfig = {
       fallback: [],
     };
   },
+  async redirects() {
+    return [
+      { source: "/copytrading", destination: "/ea-trading", permanent: true },
+      { source: "/copytrading/manage", destination: "/ea-trading/manage", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

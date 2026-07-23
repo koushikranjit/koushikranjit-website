@@ -21,7 +21,7 @@ export default function ManageEATradingSubscription() {
     setConfirmCancel(null)
 
     try {
-      const res = await fetch(`/api/copytrading/lookup?email=${encodeURIComponent(email.trim())}`)
+      const res = await fetch(`/api/ea-trading/lookup?email=${encodeURIComponent(email.trim())}`)
       const data = await res.json()
 
       if (res.ok && data.subscriptions?.length > 0) {
@@ -46,7 +46,7 @@ export default function ManageEATradingSubscription() {
 
     setCancelling(subId)
     try {
-      const res = await fetch('/api/copytrading/cancel', {
+      const res = await fetch('/api/ea-trading/cancel', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ subscription_id: subId, token }),
@@ -76,13 +76,13 @@ export default function ManageEATradingSubscription() {
 
       <nav className="border-b border-white/5 bg-black/60 backdrop-blur-2xl sticky top-0 z-40">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
-          <a href="/copytrading" className="text-xl font-bold tracking-tight">
+          <a href="/ea-trading" className="text-xl font-bold tracking-tight">
             EA Trading
           </a>
           <div className="flex items-center gap-4 text-sm text-neutral-400">
             <a href="/" className="hover:text-white transition-colors">Home</a>
             <a href="/KRtrades" className="hover:text-white transition-colors">KR Trades</a>
-            <a href="/copytrading" className="hover:text-white transition-colors cursor-pointer">&larr; Back</a>
+            <a href="/ea-trading" className="hover:text-white transition-colors cursor-pointer">&larr; Back</a>
           </div>
         </div>
       </nav>
@@ -203,7 +203,7 @@ export default function ManageEATradingSubscription() {
           <nav className="flex items-center gap-4">
             <a href="/" className="hover:text-white transition-colors">Home</a>
             <a href="/KRtrades" className="hover:text-white transition-colors">KR Trades</a>
-            <a href="/copytrading" className="hover:text-white transition-colors">EA Trading</a>
+            <a href="/ea-trading" className="hover:text-white transition-colors">EA Trading</a>
             <a href="/vps" className="hover:text-white transition-colors">VPS</a>
           </nav>
           <div className="flex items-center gap-4">

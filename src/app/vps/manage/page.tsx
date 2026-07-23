@@ -203,7 +203,7 @@ export default function ManageVPSSubscription() {
           <nav className="flex items-center gap-4">
             <a href="/" className="hover:text-white transition-colors">Home</a>
             <a href="/KRtrades" className="hover:text-white transition-colors">KR Trades</a>
-            <a href="/copytrading" className="hover:text-white transition-colors">EA Trading</a>
+            <a href="/ea-trading" className="hover:text-white transition-colors">EA Trading</a>
             <a href="/vps" className="hover:text-white transition-colors">VPS</a>
           </nav>
           <div className="flex items-center gap-4">
