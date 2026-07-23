@@ -375,11 +375,20 @@
         .social-name{font-weight:600;font-size:.85rem;position:relative;z-index:1}
 
         /* ── Footer ── */
-        .footer{border-top:1px solid var(--border);background:rgba(255,255,255,.02);padding:4rem 0 2rem;text-align:center}
-        .footer-links{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
-        .footer-links a{color:var(--text3);text-decoration:none;font-size:.82rem;font-weight:500;transition:color .3s}
-        .footer-links a:hover{color:var(--accent)}
+        .footer{border-top:1px solid var(--border);background:#000;padding:3.5rem 0 2rem;overflow:hidden}
+        .footer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;margin-bottom:3.5rem;text-align:left}
+        .footer-col-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);margin-bottom:.9rem}
+        .footer-col{display:flex;flex-direction:column;gap:.55rem}
+        .footer-col a{color:var(--text2);text-decoration:none;font-size:.85rem;font-weight:500;transition:color .3s}
+        .footer-col a:hover{color:var(--accent)}
+        .footer-brand-wrap{position:relative;user-select:none;text-align:left}
+        .footer-accent-dot{position:absolute;top:0;right:8%;width:14px;height:14px;background:var(--accent);border-radius:3px;box-shadow:0 0 12px var(--accent-glow)}
+        .footer-brand{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;line-height:.85;letter-spacing:-2px;margin:0;font-size:clamp(3.5rem,15vw,11rem);background-image:linear-gradient(to bottom,rgba(255,255,255,.85),rgba(255,255,255,0));-webkit-background-clip:text;background-clip:text;color:transparent}
+        .footer-bottom{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;text-align:left}
         .footer-copy{color:var(--text3);font-size:.8rem}
+        .footer-backtotop{display:inline-flex;align-items:center;gap:.6rem;color:var(--text3);text-decoration:none;font-size:.8rem;transition:color .3s}
+        .footer-backtotop:hover{color:var(--accent)}
+        .footer-backtotop span{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center}
 
         /* ── Floating Particles ── */
         .particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
@@ -434,6 +443,7 @@
             .social-grid{grid-template-columns:repeat(2,1fr)}
             .blog-grid{grid-template-columns:1fr}
             .cursor{display:none!important}
+            .footer-grid{grid-template-columns:1fr;gap:2rem}
         }
         @media(max-width:480px){
             .container{padding:0 1rem}
@@ -808,27 +818,37 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-links">
-                <a href="#hero">Home</a>
-                <a href="#about">About</a>
-                <a href="#experience">Experience</a>
-                <a href="#community">Community</a>
-                <a href="#recognition">Recognition</a>
-                <a href="#media">Media</a>
-                <a href="#book">Book</a>
-                <a href="#gallery">Gallery</a>
-                <a href="#connect">Connect</a>
-                <a href="/KRtrades">KR Trades</a>
-                <a href="/ea-trading">EA Trading</a>
-                <a href="/vps">VPS</a>
-                <a href="/riskandearning">Risk Disclaimer</a>
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-col-label">Contact</div>
+                    <a href="https://wa.me/919547774580" target="_blank" rel="noopener noreferrer">+91 95477 74580</a>
+                    <a href="mailto:teamkoushikranjit@gmail.com">teamkoushikranjit@gmail.com</a>
+                </div>
+                <div class="footer-col">
+                    <div class="footer-col-label">Links</div>
+                    <a href="#hero">Home</a>
+                    <a href="/KRtrades">KR Trades</a>
+                    <a href="/ea-trading">EA Trading</a>
+                    <a href="/vps">VPS</a>
+                    <a href="/riskandearning">Risk Disclaimer</a>
+                </div>
+                <div class="footer-col">
+                    <div class="footer-col-label">Socials</div>
+                    <a href="https://www.instagram.com/koushik_ranjit" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://x.com/koushik_ranjit" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+                    <a href="https://discord.gg/sffdu4wXx2" target="_blank" rel="noopener noreferrer">Discord</a>
+                </div>
             </div>
-            <p class="footer-copy">&copy; 2026 Koushik Ranjit. All rights reserved. | Nasdaq Futures & GOLD</p>
-            <p class="footer-copy" style="margin-top:.5rem">
-                <a href="https://wa.me/919547774580" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">+91 95477 74580</a>
-                &nbsp;&middot;&nbsp;
-                <a href="mailto:teamkoushikranjit@gmail.com" style="color:inherit;text-decoration:none">teamkoushikranjit@gmail.com</a>
-            </p>
+
+            <div class="footer-brand-wrap">
+                <div class="footer-accent-dot" aria-hidden="true"></div>
+                <h2 class="footer-brand">Koushik</h2>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copy">&copy; 2026 Koushik Ranjit. All rights reserved.</p>
+                <a href="#hero" class="footer-backtotop">Back to Top <span>&uarr;</span></a>
+            </div>
         </div>
     </footer>
 

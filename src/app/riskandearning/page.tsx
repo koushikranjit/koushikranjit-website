@@ -643,18 +643,59 @@ export default function RiskAndEarningPage() {
             </p>
           </main>
 
-          <footer className="border-t border-white/[0.06] bg-white/[0.02] py-6 px-4">
-            <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
-              <nav className="flex flex-wrap items-center justify-center gap-4">
-                <a href="/" className="hover:text-white transition-colors">Home</a>
-                <a href="/KRtrades" className="hover:text-white transition-colors">KR Trades</a>
-                <a href="/ea-trading" className="hover:text-white transition-colors">EA Trading</a>
-                <a href="/vps" className="hover:text-white transition-colors">VPS</a>
-                <a href="/riskandearning" className="hover:text-white transition-colors">Risk Disclaimer</a>
-              </nav>
-              <div className="flex items-center gap-4">
-                <a href="https://wa.me/919547774580" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">+91 95477 74580</a>
-                <a href="mailto:teamkoushikranjit@gmail.com" className="hover:text-emerald-400 transition-colors">teamkoushikranjit@gmail.com</a>
+          <footer className="relative border-t border-white/[0.06] bg-black overflow-hidden">
+            <div className="max-w-6xl mx-auto px-6 sm:px-10 pt-14 pb-8">
+              <div className="grid sm:grid-cols-3 gap-10 sm:gap-6 mb-14 sm:mb-20">
+                <div>
+                  <p className="text-[11px] uppercase tracking-wider text-gray-600 mb-3">Contact</p>
+                  <div className="space-y-2 text-sm">
+                    <a href="https://wa.me/919547774580" target="_blank" rel="noopener noreferrer" className="block text-gray-300 hover:text-emerald-400 transition-colors">+91 95477 74580</a>
+                    <a href="mailto:teamkoushikranjit@gmail.com" className="block text-gray-300 hover:text-emerald-400 transition-colors">teamkoushikranjit@gmail.com</a>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase tracking-wider text-gray-600 mb-3">Links</p>
+                  <div className="space-y-2 text-sm">
+                    <a href="/" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Home</a>
+                    <a href="/KRtrades" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">KR Trades</a>
+                    <a href="/ea-trading" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">EA Trading</a>
+                    <a href="/vps" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">VPS</a>
+                    <a href="/riskandearning" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Risk Disclaimer</a>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase tracking-wider text-gray-600 mb-3">Socials</p>
+                  <div className="space-y-2 text-sm">
+                    <a href="https://www.instagram.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Instagram</a>
+                    <a href="https://x.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">X (Twitter)</a>
+                    <a href="https://discord.gg/sffdu4wXx2" target="_blank" rel="noopener noreferrer" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Discord</a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative select-none">
+                <span className="absolute -top-1 sm:top-0 right-[8%] w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 bg-emerald-400 rounded-sm shadow-[0_0_12px_rgba(16,185,129,0.6)]" aria-hidden="true" />
+                <h2
+                  className="italic font-bold leading-[0.85] tracking-tight"
+                  style={{
+                    fontFamily: "Georgia, 'Times New Roman', serif",
+                    fontSize: 'clamp(3.5rem, 15vw, 11rem)',
+                    backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,0.85), rgba(255,255,255,0))',
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    color: 'transparent',
+                  }}
+                >
+                  Koushik
+                </h2>
+              </div>
+
+              <div className="mt-4 sm:mt-6 pt-6 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+                <p>&copy; 2026 <span className="text-gray-300 font-medium">Koushik Ranjit</span>. All rights reserved.</p>
+                <a href="#" className="flex items-center gap-2 hover:text-emerald-400 transition-colors">
+                  Back to Top
+                  <span className="w-7 h-7 rounded-full border border-white/10 flex items-center justify-center">↑</span>
+                </a>
               </div>
             </div>
           </footer>
