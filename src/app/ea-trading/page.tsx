@@ -702,11 +702,11 @@ export default function CopyTradingPage() {
 
         <footer className="border-t border-white/[0.06] bg-white/[0.02] py-6 px-4 relative z-[2]">
           <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
-            <nav className="flex items-center gap-4">
+            <nav className="flex flex-wrap items-center justify-center gap-4">
               <a href="/" className="hover:text-white transition-colors">Home</a>
               <a href="/KRtrades" className="hover:text-white transition-colors">KR Trades</a>
+              <a href="/ea-trading" className="hover:text-white transition-colors">EA Trading</a>
               <a href="/vps" className="hover:text-white transition-colors">VPS</a>
-              <a href="/ea-trading/manage" className="hover:text-white transition-colors">Manage</a>
               <a href="/riskandearning" className="hover:text-white transition-colors">Risk Disclaimer</a>
             </nav>
             <div className="flex items-center gap-4">

@@ -198,16 +198,17 @@ export default function ManageVPSSubscription() {
         </p>
       </div>
 
-      <footer className="border-t border-white/5 mt-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-500">
-          <nav className="flex items-center gap-4">
+      <footer className="border-t border-white/[0.06] bg-white/[0.02] py-6 px-4">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+          <nav className="flex flex-wrap items-center justify-center gap-4">
             <a href="/" className="hover:text-white transition-colors">Home</a>
             <a href="/KRtrades" className="hover:text-white transition-colors">KR Trades</a>
             <a href="/ea-trading" className="hover:text-white transition-colors">EA Trading</a>
             <a href="/vps" className="hover:text-white transition-colors">VPS</a>
+            <a href="/riskandearning" className="hover:text-white transition-colors">Risk Disclaimer</a>
           </nav>
           <div className="flex items-center gap-4">
-            <a href="tel:+919547774580" className="hover:text-emerald-400 transition-colors">+91 95477 74580</a>
+            <a href="https://wa.me/919547774580" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">+91 95477 74580</a>
             <a href="mailto:teamkoushikranjit@gmail.com" className="hover:text-emerald-400 transition-colors">teamkoushikranjit@gmail.com</a>
           </div>
         </div>

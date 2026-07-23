@@ -643,17 +643,18 @@ export default function RiskAndEarningPage() {
             </p>
           </main>
 
-          <footer style={{borderTop:'1px solid rgba(255,255,255,0.05)', marginTop: '2rem'}}>
-            <div style={{maxWidth: 760, margin: '0 auto', padding: '24px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 12, fontSize: 12, color: '#475569'}}>
-              <nav style={{display: 'flex', gap: 16}}>
-                <a href="/" style={{color: 'inherit', textDecoration: 'none'}}>Home</a>
-                <a href="/KRtrades" style={{color: 'inherit', textDecoration: 'none'}}>KR Trades</a>
-                <a href="/ea-trading" style={{color: 'inherit', textDecoration: 'none'}}>EA Trading</a>
-                <a href="/vps" style={{color: 'inherit', textDecoration: 'none'}}>VPS</a>
+          <footer className="border-t border-white/[0.06] bg-white/[0.02] py-6 px-4">
+            <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+              <nav className="flex flex-wrap items-center justify-center gap-4">
+                <a href="/" className="hover:text-white transition-colors">Home</a>
+                <a href="/KRtrades" className="hover:text-white transition-colors">KR Trades</a>
+                <a href="/ea-trading" className="hover:text-white transition-colors">EA Trading</a>
+                <a href="/vps" className="hover:text-white transition-colors">VPS</a>
+                <a href="/riskandearning" className="hover:text-white transition-colors">Risk Disclaimer</a>
               </nav>
-              <div style={{display: 'flex', gap: 16}}>
-                <a href="tel:+919547774580" style={{color: 'inherit', textDecoration: 'none'}}>+91 95477 74580</a>
-                <a href="mailto:teamkoushikranjit@gmail.com" style={{color: 'inherit', textDecoration: 'none'}}>teamkoushikranjit@gmail.com</a>
+              <div className="flex items-center gap-4">
+                <a href="https://wa.me/919547774580" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">+91 95477 74580</a>
+                <a href="mailto:teamkoushikranjit@gmail.com" className="hover:text-emerald-400 transition-colors">teamkoushikranjit@gmail.com</a>
               </div>
             </div>
           </footer>
