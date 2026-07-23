@@ -195,8 +195,10 @@
         .hero-bg.loaded{transform:scale(1)}
         .hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,5,5,.85) 0%,rgba(5,5,5,.5) 50%,rgba(5,5,5,.2) 100%)}
         .hero-content{position:relative;z-index:2;max-width:600px;padding:8rem 0}
-        .hero-tag{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1.2rem;border:1px solid rgba(0,232,123,.3);border-radius:100px;font-size:.75rem;font-weight:600;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:2rem;backdrop-filter:blur(10px);background:rgba(0,232,123,.05)}
-        .hero-tag::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse-dot 2s infinite}
+        .hero-tag{display:inline-flex;flex-direction:column;align-items:flex-start;gap:.3rem;padding:.65rem 1.4rem;border:1px solid rgba(0,232,123,.3);border-radius:16px;color:var(--accent);margin-bottom:2rem;backdrop-filter:blur(10px);background:rgba(0,232,123,.05)}
+        .hero-tag-main{display:inline-flex;align-items:center;gap:.5rem;font-size:.75rem;font-weight:600;letter-spacing:2px;text-transform:uppercase}
+        .hero-tag-main::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse-dot 2s infinite}
+        .hero-tag-sub{font-size:.62rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);padding-left:.9rem}
         @keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.3}}
         .hero h1{font-family:'Playfair Display',serif;font-size:clamp(3.2rem,7vw,6rem);font-weight:700;line-height:1.05;letter-spacing:-3px;margin-bottom:2rem}
         .hero h1 .line{display:block;overflow:hidden}
@@ -498,7 +500,10 @@
         <div class="hero-overlay"></div>
         <div class="container">
             <div class="hero-content">
-                <div class="hero-tag">Trader</div>
+                <div class="hero-tag">
+                    <span class="hero-tag-main">Trader</span>
+                    <span class="hero-tag-sub">Nasdaq Futures & GOLD</span>
+                </div>
                 <h1>
                     <span class="line"><span class="line-inner">Koushik</span></span>
                     <span class="line"><span class="line-inner">Ranjit</span></span>
