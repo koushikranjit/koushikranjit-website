@@ -230,15 +230,15 @@ function HowItWorks() {
           href={VANTAGE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 h-11 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold transition-colors flex items-center justify-center"
+          className="flex-1 min-h-[44px] rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-[13px] sm:text-sm font-semibold transition-colors flex items-center justify-center gap-1 text-center whitespace-nowrap px-3 py-2.5"
         >
-          Register With Vantage →
+          Register With Vantage <span aria-hidden="true">→</span>
         </a>
         <a
           href={DISCORD}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 h-11 rounded-xl bg-[#5865F2] hover:bg-[#4752c4] text-white text-sm font-semibold transition-colors flex items-center justify-center"
+          className="flex-1 min-h-[44px] rounded-xl bg-[#5865F2] hover:bg-[#4752c4] text-white text-[13px] sm:text-sm font-semibold transition-colors flex items-center justify-center text-center whitespace-nowrap px-3 py-2.5"
         >
           Open A Discord Ticket
         </a>
