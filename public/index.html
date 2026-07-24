@@ -25,7 +25,7 @@
     <link rel="preload" as="image" href="https://github.com/koushikranjit/KR-Website/blob/7e7cb92568a6b3d64b2b0eb1f1071c48cd2b7508/full%20fit%20hero%20image.jpg?raw=true" type="image/jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Person Schema (Google Knowledge Panel) -->
     <script type="application/ld+json">
@@ -171,7 +171,7 @@
         .nav{position:fixed;top:0;width:100%;z-index:1000;padding:1.2rem 0;transition:all .4s cubic-bezier(.4,0,.2,1)}
         .nav.scrolled{background:rgba(5,5,5,.92);backdrop-filter:blur(30px);border-bottom:1px solid var(--border);padding:.8rem 0}
         .nav-inner{display:flex;justify-content:space-between;align-items:center}
-        .logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-.5px}
+        .logo{font-family:'Inter',sans-serif;font-size:1.4rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-.5px}
         .logo span{color:var(--accent)}
         .nav-links{display:flex;gap:2.5rem;list-style:none}
         .nav-links a{color:var(--text2);text-decoration:none;font-size:.82rem;font-weight:500;letter-spacing:.5px;text-transform:uppercase;transition:color .3s;position:relative}
@@ -198,7 +198,7 @@
         .hero-tag{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1.2rem;border:1px solid rgba(0,232,123,.3);border-radius:100px;font-size:.75rem;font-weight:600;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:2rem;backdrop-filter:blur(10px);background:rgba(0,232,123,.05)}
         .hero-tag::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse-dot 2s infinite}
         @keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.3}}
-        .hero h1{font-family:'Playfair Display',serif;font-size:clamp(3.2rem,7vw,6rem);font-weight:700;line-height:1.05;letter-spacing:-3px;margin-bottom:2rem}
+        .hero h1{font-family:'Inter',sans-serif;font-size:clamp(3.2rem,7vw,6rem);font-weight:700;line-height:1.05;letter-spacing:-3px;margin-bottom:2rem}
         .hero h1 .line{display:block;overflow:hidden}
         .hero h1 .line-inner{display:block;transform:translateY(110%);animation:revealLine .9s cubic-bezier(.4,0,.2,1) forwards}
         .hero h1 .line:nth-child(2) .line-inner{animation-delay:.15s}
@@ -224,7 +224,7 @@
         .section-label::before,.section-label::after{content:'';position:absolute;top:50%;width:1.5rem;height:1px;background:var(--accent)}
         .section-label::before{left:0}
         .section-label::after{right:0}
-        .section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:600;letter-spacing:-1.5px;line-height:1.2}
+        .section-title{font-family:'Inter',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:600;letter-spacing:-1.5px;line-height:1.2}
         .section-sub{color:var(--text2);font-size:1rem;margin-top:1rem;max-width:550px;margin-left:auto;margin-right:auto}
 
         /* ── Reveal Animations ── */
@@ -248,10 +248,10 @@
         .about-badge{position:absolute;bottom:1.5rem;left:1.5rem;background:rgba(5,5,5,.85);backdrop-filter:blur(20px);border:1px solid var(--border);padding:.8rem 1.2rem;border-radius:var(--radius2);display:flex;align-items:center;gap:.6rem}
         .about-badge-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;animation:pulse-dot 2s infinite}
         .about-badge span{font-size:.75rem;font-weight:600;color:var(--text2);letter-spacing:1px;text-transform:uppercase}
-        .about-content h3{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:1.5rem;letter-spacing:-1px}
+        .about-content h3{font-family:'Inter',sans-serif;font-size:2rem;margin-bottom:1.5rem;letter-spacing:-1px}
         .about-content p{color:var(--text2);font-size:1.05rem;line-height:1.9}
         .about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:2.5rem;padding-top:2.5rem;border-top:1px solid var(--border)}
-        .stat-item .stat-num{font-size:2rem;font-weight:800;color:var(--accent);font-family:'Playfair Display',serif}
+        .stat-item .stat-num{font-size:2rem;font-weight:800;color:var(--accent);font-family:'Inter',sans-serif}
         .stat-item .stat-label{font-size:.75rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:.3rem}
 
         /* ── Experience ── */
@@ -261,7 +261,7 @@
         .exp-card:hover{border-color:rgba(0,232,123,.2);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
         .exp-card:hover::before{opacity:1}
         .exp-year{font-size:.8rem;font-weight:700;color:var(--accent);letter-spacing:1px;margin-bottom:.8rem}
-        .exp-role{font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:1rem;letter-spacing:-.5px}
+        .exp-role{font-family:'Inter',sans-serif;font-size:1.4rem;margin-bottom:1rem;letter-spacing:-.5px}
         .exp-desc{color:var(--text2);font-size:.92rem;line-height:1.7}
         .exp-status{display:inline-flex;align-items:center;gap:.4rem;margin-top:1.2rem;font-size:.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase}
         .exp-status.active{color:var(--accent)}
@@ -272,11 +272,11 @@
         .community-card{background:var(--glass);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;max-width:1000px;margin:0 auto}
         .community-top{display:grid;grid-template-columns:1fr 1fr;gap:3rem;padding:3rem;align-items:center}
         .community-banner{width:100%;border-radius:var(--radius2);box-shadow:0 10px 40px rgba(0,0,0,.3)}
-        .community-info h3{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:1rem;letter-spacing:-.5px}
+        .community-info h3{font-family:'Inter',sans-serif;font-size:1.8rem;margin-bottom:1rem;letter-spacing:-.5px}
         .community-info p{color:var(--text2);margin-bottom:2rem;line-height:1.7}
         .divider{height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:0 3rem}
         .certs-section{padding:2.5rem 3rem}
-        .certs-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--accent);text-align:center;margin-bottom:1.5rem}
+        .certs-title{font-family:'Inter',sans-serif;font-size:1.2rem;color:var(--accent);text-align:center;margin-bottom:1.5rem}
         .certs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
         .cert-item{border-radius:var(--radius2);overflow:hidden;border:1px solid var(--border);transition:all .4s;background:var(--bg2)}
         .cert-item:hover{border-color:rgba(0,232,123,.3);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
@@ -287,10 +287,10 @@
         .recognition-top{display:grid;grid-template-columns:250px 1fr;gap:3rem;padding:3rem;align-items:center}
         .magazine-cover{width:100%;border-radius:var(--radius2);box-shadow:0 15px 50px rgba(0,0,0,.4);transition:transform .5s}
         .magazine-cover:hover{transform:rotate(-2deg) scale(1.02)}
-        .recognition-info h3{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:1rem;letter-spacing:-.5px}
+        .recognition-info h3{font-family:'Inter',sans-serif;font-size:1.8rem;margin-bottom:1rem;letter-spacing:-.5px}
         .recognition-info p{color:var(--text2);margin-bottom:2rem;line-height:1.7}
         .memories-section{padding:2.5rem 3rem}
-        .memories-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--accent);text-align:center;margin-bottom:1.5rem}
+        .memories-title{font-family:'Inter',sans-serif;font-size:1.2rem;color:var(--accent);text-align:center;margin-bottom:1.5rem}
         .memories-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
         .memory-item{border-radius:var(--radius2);overflow:hidden;border:1px solid var(--border);transition:all .4s;background:var(--bg2)}
         .memory-item:hover{border-color:rgba(0,232,123,.3);transform:translateY(-3px)}
@@ -310,7 +310,7 @@
         .media-card:hover{border-color:rgba(0,232,123,.15);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.3)}
         .media-card:hover::after{opacity:1}
         .media-source{font-size:.72rem;font-weight:700;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem}
-        .media-title{font-family:'Playfair Display',serif;font-size:1.15rem;line-height:1.4;margin-bottom:1rem;letter-spacing:-.3px}
+        .media-title{font-family:'Inter',sans-serif;font-size:1.15rem;line-height:1.4;margin-bottom:1rem;letter-spacing:-.3px}
         .media-desc{color:var(--text2);font-size:.88rem;line-height:1.6;margin-bottom:1.5rem}
         .read-link{color:var(--accent);text-decoration:none;font-weight:600;font-size:.82rem;display:inline-flex;align-items:center;gap:.4rem;transition:gap .3s}
         .read-link:hover{gap:.8rem}
@@ -323,9 +323,9 @@
         .book-cover-wrap:hover{border-color:rgba(0,232,123,.2);box-shadow:0 20px 60px rgba(0,0,0,.4)}
         .book-img{width:220px;height:300px;border-radius:var(--radius2);overflow:hidden;margin:0 auto;box-shadow:0 25px 50px rgba(0,0,0,.5)}
         .book-img img{width:100%;height:100%;object-fit:cover}
-        .book-info h3{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:.5rem;letter-spacing:-.5px}
+        .book-info h3{font-family:'Inter',sans-serif;font-size:2rem;margin-bottom:.5rem;letter-spacing:-.5px}
         .book-info h3 span{color:var(--accent)}
-        .book-subtitle{font-family:'Playfair Display',serif;font-style:italic;color:var(--text2);font-size:.95rem;margin-bottom:1.5rem;line-height:1.6}
+        .book-subtitle{font-family:'Inter',sans-serif;color:var(--text2);font-size:.95rem;margin-bottom:1.5rem;line-height:1.6}
         .book-meta{display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.5rem;padding:1.2rem;background:var(--glass);border-radius:var(--radius2);border:1px solid var(--border)}
         .book-meta-item{font-size:.8rem;color:var(--text2)}
         .book-meta-item strong{color:var(--text);font-weight:600}
@@ -353,7 +353,7 @@
         .blog-card:hover .blog-thumb img{transform:scale(1.06)}
         .blog-body{padding:1.5rem;flex:1;display:flex;flex-direction:column}
         .blog-tag{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
-        .blog-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;line-height:1.4;margin-bottom:.5rem}
+        .blog-title{font-family:'Inter',sans-serif;font-size:1.1rem;font-weight:600;line-height:1.4;margin-bottom:.5rem}
         .blog-excerpt{color:var(--text2);font-size:.82rem;line-height:1.6;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
         .blog-meta{display:flex;align-items:center;justify-content:space-between;margin-top:1rem;padding-top:.8rem;border-top:1px solid var(--border);font-size:.72rem;color:var(--text3)}
         .blog-read{color:var(--accent);font-weight:600;font-size:.78rem;display:flex;align-items:center;gap:.3rem;transition:gap .3s}
