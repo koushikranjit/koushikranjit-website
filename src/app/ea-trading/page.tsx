@@ -197,6 +197,12 @@ function PageDescription() {
 
 // ─── HowItWorks ─────────────────────────────────────────────────────────────
 function HowItWorks() {
+  const [copied, setCopied] = useState(false)
+  const handleCopy = () => {
+    navigator.clipboard.writeText(VANTAGE_CODE)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
   return (
     <section className="px-4 py-5" role="region" aria-label="How it works">
       <h2 className="text-lg font-bold mb-3">How It Works</h2>
@@ -243,7 +249,26 @@ function HowItWorks() {
           Open A Discord Ticket
         </a>
       </div>
-      <p className="text-gray-500 text-xs mt-2.5">Vantage referral code: <span className="text-gray-300 font-medium">{VANTAGE_CODE}</span></p>
+      <div className="mt-2.5 flex items-center gap-2 text-xs text-gray-500">
+        <span>Vantage referral code: <span className="text-gray-300 font-medium">{VANTAGE_CODE}</span></span>
+        <button
+          type="button"
+          onClick={handleCopy}
+          className="inline-flex items-center gap-1 rounded-md border border-white/10 bg-white/[0.05] px-2 py-1 text-[11px] font-medium text-gray-300 hover:text-emerald-400 hover:border-emerald-400/40 transition-colors"
+        >
+          {copied ? (
+            <>
+              <svg viewBox="0 0 24 24" className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M20 6L9 17l-5-5"/></svg>
+              Copied
+            </>
+          ) : (
+            <>
+              <svg viewBox="0 0 24 24" className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </>
+          )}
+        </button>
+      </div>
     </section>
   )
 }
