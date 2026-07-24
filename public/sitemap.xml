@@ -1,10 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.sitemaps.org/schemas/sitemap-image/1.1">
   <url>
     <loc>https://koushikranjit.in</loc>
-    <lastmod>2026-07-19</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://github.com/koushikranjit/KR-Website/blob/263a05f4d358b149a5714d3e6ee42d37cc82ca33/KR%20Headshot%20.jpg?raw=true</image:loc>
+      <image:caption>Koushik Ranjit - Indian Proprietary Day Trader Headshot</image:caption>
+      <image:title>Koushik Ranjit</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%201.jpg?raw=true</image:loc>
+      <image:caption>Koushik Ranjit - Indian Day Trader Portrait 1</image:caption>
+      <image:title>Koushik Ranjit</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%202.jpg?raw=true</image:loc>
+      <image:caption>Koushik Ranjit - Nasdaq Futures Trader 2</image:caption>
+      <image:title>Koushik Ranjit</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%203.jpg?raw=true</image:loc>
+      <image:caption>Koushik Ranjit - Proprietary Trader 3</image:caption>
+      <image:title>Koushik Ranjit</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%204.jpg?raw=true</image:loc>
+      <image:caption>Koushik Ranjit - Day Trader India 4</image:caption>
+      <image:title>Koushik Ranjit</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%205.jpg?raw=true</image:loc>
+      <image:caption>Koushik Ranjit - Futures Investor 5</image:caption>
+      <image:title>Koushik Ranjit</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://github.com/koushikranjit/KR-Website/blob/bbd54b78edb80f35f3c8977a3f19ac9d64399595/KR%20image%206.jpg?raw=true</image:loc>
+      <image:caption>Koushik Ranjit - Trader Kolkata 6</image:caption>
+      <image:title>Koushik Ranjit</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://github.com/koushikranjit/KR-Website/blob/47cf2dac2e19f508531c0115ed27d562b5df691d/book%20nd%201.jpg?raw=true</image:loc>
+      <image:caption>Nobboi Doshok Book by Koushik Ranjit - Bengali Author</image:caption>
+      <image:title>Koushik Ranjit</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://koushikranjit.in/KRtrades</loc>
