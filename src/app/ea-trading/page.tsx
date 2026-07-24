@@ -553,7 +553,6 @@ function DesktopSidebar({ paying, onSubscribe }: { paying: boolean; onSubscribe:
           <span className="text-[28px] font-bold">$100</span>
           <span className="text-gray-400 text-[15px]">/ month</span>
         </div>
-        <p className="text-gray-400 text-xs mb-1">billed as ₹{MONTHLY_INR.toLocaleString('en-IN')}/month · + ${MIN_DEPOSIT} min. deposit</p>
 
         <a href="/ea-trading/manage" className="text-sm text-emerald-400 inline-block mb-5">Manage subscription</a>
 
