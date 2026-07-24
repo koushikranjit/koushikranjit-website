@@ -204,14 +204,14 @@ export default function ManageSubscription() {
         <div className="max-w-6xl mx-auto px-6 sm:px-10 pt-14 pb-8">
           <div className="grid sm:grid-cols-3 gap-10 sm:gap-6 mb-14 sm:mb-20">
             <div>
-              <p className="text-[11px] uppercase tracking-wider text-gray-600 mb-3">Contact</p>
+              <p className="text-[11px] uppercase tracking-wider text-gray-400 mb-3">Contact</p>
               <div className="space-y-2 text-sm">
                 <a href="https://wa.me/919547774580" target="_blank" rel="noopener noreferrer" className="block text-gray-300 hover:text-emerald-400 transition-colors">+91 95477 74580</a>
                 <a href="mailto:teamkoushikranjit@gmail.com" className="block text-gray-300 hover:text-emerald-400 transition-colors">teamkoushikranjit@gmail.com</a>
               </div>
             </div>
             <div>
-              <p className="text-[11px] uppercase tracking-wider text-gray-600 mb-3">Links</p>
+              <p className="text-[11px] uppercase tracking-wider text-gray-400 mb-3">Links</p>
               <div className="space-y-2 text-sm">
                 <a href="/" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Home</a>
                 <a href="/KRtrades" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">KR Trades</a>
@@ -221,7 +221,7 @@ export default function ManageSubscription() {
               </div>
             </div>
             <div>
-              <p className="text-[11px] uppercase tracking-wider text-gray-600 mb-3">Socials</p>
+              <p className="text-[11px] uppercase tracking-wider text-gray-400 mb-3">Socials</p>
               <div className="space-y-2 text-sm">
                 <a href="https://share.google/hot7O7ZcHmkO79csu" target="_blank" rel="noopener noreferrer" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Google</a>
                 <a href="https://www.instagram.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Instagram</a>
@@ -232,7 +232,7 @@ export default function ManageSubscription() {
             </div>
           </div>
 
-          <div className="mt-4 sm:mt-6 pt-6 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+          <div className="mt-4 sm:mt-6 pt-6 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
             <p>&copy; 2026 <span className="text-gray-300 font-medium">Koushik Ranjit</span>. All rights reserved.</p>
             <a href="#" className="flex items-center gap-2 hover:text-emerald-400 transition-colors">
               Back to Top

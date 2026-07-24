@@ -96,7 +96,7 @@ export default function VPSCheckoutPage() {
               <span className="text-3xl font-bold">₹{(1200 * quantity).toLocaleString('en-IN')}</span>
               <span className="text-gray-400 text-sm">/ month</span>
             </div>
-            <p className="text-gray-500 text-xs mb-6">₹1,200 per quantity</p>
+            <p className="text-gray-400 text-xs mb-6">₹1,200 per quantity</p>
 
             <div className="flex items-center justify-between mb-5 bg-white/[0.05] border border-white/[0.1] rounded-lg h-11 px-2">
               <span className="text-sm text-gray-400 pl-2">Quantity</span>
@@ -129,14 +129,14 @@ export default function VPSCheckoutPage() {
                 placeholder="Full name"
                 value={name}
                 onChange={e => setName(e.target.value)}
-                className="w-full h-11 px-4 rounded-lg bg-white/[0.05] border border-white/[0.1] text-sm placeholder:text-gray-500 focus:outline-none focus:border-emerald-500/60"
+                className="w-full h-11 px-4 rounded-lg bg-white/[0.05] border border-white/[0.1] text-sm placeholder:text-gray-400 focus:outline-none focus:border-emerald-500/60"
               />
               <input
                 type="email"
                 placeholder="Email address"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                className="w-full h-11 px-4 rounded-lg bg-white/[0.05] border border-white/[0.1] text-sm placeholder:text-gray-500 focus:outline-none focus:border-emerald-500/60"
+                className="w-full h-11 px-4 rounded-lg bg-white/[0.05] border border-white/[0.1] text-sm placeholder:text-gray-400 focus:outline-none focus:border-emerald-500/60"
               />
             </div>
 
@@ -149,7 +149,7 @@ export default function VPSCheckoutPage() {
             >
               {paying ? 'Processing...' : 'Subscribe & Pay'}
             </button>
-            <p className="text-center text-gray-500 text-xs mt-3">Secure payment via Razorpay · Cancel anytime</p>
+            <p className="text-center text-gray-400 text-xs mt-3">Secure payment via Razorpay · Cancel anytime</p>
             <p className="text-center text-xs mt-2">
               <a href="/vps/manage" className="text-emerald-400 hover:underline">Manage existing subscription</a>
             </p>
@@ -162,14 +162,14 @@ export default function VPSCheckoutPage() {
         <div className="max-w-6xl mx-auto px-6 sm:px-10 pt-14 pb-8">
           <div className="grid sm:grid-cols-3 gap-10 sm:gap-6 mb-14 sm:mb-20">
             <div>
-              <p className="text-[11px] uppercase tracking-wider text-gray-600 mb-3">Contact</p>
+              <p className="text-[11px] uppercase tracking-wider text-gray-400 mb-3">Contact</p>
               <div className="space-y-2 text-sm">
                 <a href="https://wa.me/919547774580" target="_blank" rel="noopener noreferrer" className="block text-gray-300 hover:text-emerald-400 transition-colors">+91 95477 74580</a>
                 <a href="mailto:teamkoushikranjit@gmail.com" className="block text-gray-300 hover:text-emerald-400 transition-colors">teamkoushikranjit@gmail.com</a>
               </div>
             </div>
             <div>
-              <p className="text-[11px] uppercase tracking-wider text-gray-600 mb-3">Links</p>
+              <p className="text-[11px] uppercase tracking-wider text-gray-400 mb-3">Links</p>
               <div className="space-y-2 text-sm">
                 <a href="/" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Home</a>
                 <a href="/KRtrades" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">KR Trades</a>
@@ -179,7 +179,7 @@ export default function VPSCheckoutPage() {
               </div>
             </div>
             <div>
-              <p className="text-[11px] uppercase tracking-wider text-gray-600 mb-3">Socials</p>
+              <p className="text-[11px] uppercase tracking-wider text-gray-400 mb-3">Socials</p>
               <div className="space-y-2 text-sm">
                 <a href="https://share.google/hot7O7ZcHmkO79csu" target="_blank" rel="noopener noreferrer" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Google</a>
                 <a href="https://www.instagram.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Instagram</a>
@@ -190,7 +190,7 @@ export default function VPSCheckoutPage() {
             </div>
           </div>
 
-          <div className="mt-4 sm:mt-6 pt-6 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+          <div className="mt-4 sm:mt-6 pt-6 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
             <p>&copy; 2026 <span className="text-gray-300 font-medium">Koushik Ranjit</span>. All rights reserved.</p>
             <a href="#" className="flex items-center gap-2 hover:text-emerald-400 transition-colors">
               Back to Top

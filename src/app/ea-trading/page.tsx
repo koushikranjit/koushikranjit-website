@@ -136,7 +136,7 @@ function ProductInfo({ paying, onSubscribe, ctaRef }: { paying: boolean; onSubsc
         <span className="text-[28px] font-bold">$100</span>
         <span className="text-gray-400 text-[15px]">/ month</span>
       </div>
-      <p className="text-gray-500 text-xs mt-0.5">billed as ₹{MONTHLY_INR.toLocaleString('en-IN')}/month via Razorpay · + ${MIN_DEPOSIT} min. deposit with Vantage</p>
+      <p className="text-gray-400 text-xs mt-0.5">billed as ₹{MONTHLY_INR.toLocaleString('en-IN')}/month via Razorpay · + ${MIN_DEPOSIT} min. deposit with Vantage</p>
 
       <a href="/ea-trading/manage" className="text-sm text-emerald-400 mt-2 inline-block">Manage subscription</a>
 
@@ -226,7 +226,7 @@ function HowItWorks() {
           { label: 'Account Currency', value: 'USD' },
         ].map(row => (
           <div key={row.label} className={`rounded-xl ${GLASS_SM} px-4 py-3 text-center`}>
-            <p className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">{row.label}</p>
+            <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-1">{row.label}</p>
             <p className="text-sm font-semibold text-emerald-400">{row.value}</p>
           </div>
         ))}
@@ -249,7 +249,7 @@ function HowItWorks() {
           Open A Discord Ticket
         </a>
       </div>
-      <div className="mt-2.5 flex items-center gap-2 text-xs text-gray-500">
+      <div className="mt-2.5 flex items-center gap-2 text-xs text-gray-400">
         <span>Vantage referral code: <span className="text-gray-300 font-medium">{VANTAGE_CODE}</span></span>
         <button
           type="button"
@@ -278,7 +278,7 @@ function TradeHistoryMarquee({ onImageClick }: { onImageClick: (i: number) => vo
   return (
     <section className="py-5 overflow-hidden" role="region" aria-label="Real trade history">
       <h2 className="text-lg font-bold px-4 mb-1">Real Trade History</h2>
-      <p className="text-gray-500 text-xs px-4 mb-3">Not mockups — actual MetaTrader screenshots, unedited.</p>
+      <p className="text-gray-400 text-xs px-4 mb-3">Not mockups — actual MetaTrader screenshots, unedited.</p>
       <div style={{ overflow: 'hidden', width: '100%', maxWidth: '100vw' }}>
         <div className="flex gap-2.5 px-4 animate-marquee-v hover:[animation-play-state:paused]" style={{ width: 'max-content' }}>
           {[...TRADE_SCREENSHOTS, ...TRADE_SCREENSHOTS].map((shot, i) => (
@@ -307,14 +307,14 @@ function SystemsTable() {
     <section className="px-4 py-5" role="region" aria-label="Live performance across all accounts">
       <div className="flex items-center justify-between mb-1">
         <h2 className="text-lg font-bold">Live Performance</h2>
-        <span className="text-[11px] text-gray-500">as of {LIVE_STATS_DATE}</span>
+        <span className="text-[11px] text-gray-400">as of {LIVE_STATS_DATE}</span>
       </div>
-      <p className="text-gray-500 text-xs mb-3">Every account currently running the system — wins and losses both, nothing hidden.</p>
+      <p className="text-gray-400 text-xs mb-3">Every account currently running the system — wins and losses both, nothing hidden.</p>
       <div className={`rounded-2xl ${GLASS} overflow-hidden`}>
         <div className="overflow-x-auto">
           <table className="w-full text-sm min-w-[560px]">
             <thead>
-              <tr className="text-[11px] uppercase tracking-wider text-gray-500 border-b border-white/[0.06]">
+              <tr className="text-[11px] uppercase tracking-wider text-gray-400 border-b border-white/[0.06]">
                 <th className="text-left font-medium px-4 py-3">Name</th>
                 <th className="text-right font-medium px-3 py-3">Gain</th>
                 <th className="text-right font-medium px-3 py-3">Drawdown</th>
@@ -336,7 +336,7 @@ function SystemsTable() {
           </table>
         </div>
         <div className="p-4 flex items-center justify-between gap-3 border-t border-white/[0.06]">
-          <p className="text-xs text-gray-500">Numbers change daily — treat as a reference, not a live feed.</p>
+          <p className="text-xs text-gray-400">Numbers change daily — treat as a reference, not a live feed.</p>
           <a href={MYFXBOOK} target="_blank" rel="noopener noreferrer" className="shrink-0 text-emerald-400 text-sm font-semibold hover:underline">View Live →</a>
         </div>
       </div>
@@ -507,7 +507,7 @@ function CheckoutModal({
             {paying ? 'Processing...' : 'Continue to Payment'}
           </button>
         </div>
-        <p className="text-center text-gray-500 text-xs mt-3">Secure payment via Razorpay · cancel anytime</p>
+        <p className="text-center text-gray-400 text-xs mt-3">Secure payment via Razorpay · cancel anytime</p>
       </div>
     </div>
   )
@@ -553,7 +553,7 @@ function DesktopSidebar({ paying, onSubscribe }: { paying: boolean; onSubscribe:
           <span className="text-[28px] font-bold">$100</span>
           <span className="text-gray-400 text-[15px]">/ month</span>
         </div>
-        <p className="text-gray-500 text-xs mb-1">billed as ₹{MONTHLY_INR.toLocaleString('en-IN')}/month · + ${MIN_DEPOSIT} min. deposit</p>
+        <p className="text-gray-400 text-xs mb-1">billed as ₹{MONTHLY_INR.toLocaleString('en-IN')}/month · + ${MIN_DEPOSIT} min. deposit</p>
 
         <a href="/ea-trading/manage" className="text-sm text-emerald-400 inline-block mb-5">Manage subscription</a>
 
@@ -564,12 +564,12 @@ function DesktopSidebar({ paying, onSubscribe }: { paying: boolean; onSubscribe:
         >
           {paying ? 'Processing...' : 'Subscribe & Pay'}
         </button>
-        <p className="text-center text-gray-500 text-xs mt-2">Secure payment via Razorpay</p>
+        <p className="text-center text-gray-400 text-xs mt-2">Secure payment via Razorpay</p>
       </div>
 
       <div className="flex items-center justify-center gap-1.5 mt-4">
         <div className="w-4 h-4 rounded bg-emerald-400 flex items-center justify-center text-[9px] font-black text-black">K</div>
-        <span className="text-gray-500 text-[13px]">Powered by KR Auto Trading</span>
+        <span className="text-gray-400 text-[13px]">Powered by KR Auto Trading</span>
       </div>
     </aside>
   )
@@ -713,7 +713,7 @@ export default function CopyTradingPage() {
 
             {/* Risk note */}
             <section className="px-4 pb-6">
-              <p className="text-center text-xs text-gray-500 leading-relaxed">
+              <p className="text-center text-xs text-gray-400 leading-relaxed">
                 Automated EA trading involves substantial risk of loss and is not suitable for all investors. Past performance shown on Myfxbook is not indicative of future results.
                 By signing up you agree to the <a href="/riskandearning" className="text-emerald-400 hover:underline">Risk &amp; Earning Disclaimer</a>.
               </p>
@@ -729,14 +729,14 @@ export default function CopyTradingPage() {
           <div className="max-w-6xl mx-auto px-6 sm:px-10 pt-14 pb-8">
             <div className="grid sm:grid-cols-3 gap-10 sm:gap-6 mb-14 sm:mb-20">
               <div>
-                <p className="text-[11px] uppercase tracking-wider text-gray-600 mb-3">Contact</p>
+                <p className="text-[11px] uppercase tracking-wider text-gray-400 mb-3">Contact</p>
                 <div className="space-y-2 text-sm">
                   <a href="https://wa.me/919547774580" target="_blank" rel="noopener noreferrer" className="block text-gray-300 hover:text-emerald-400 transition-colors">+91 95477 74580</a>
                   <a href="mailto:teamkoushikranjit@gmail.com" className="block text-gray-300 hover:text-emerald-400 transition-colors">teamkoushikranjit@gmail.com</a>
                 </div>
               </div>
               <div>
-                <p className="text-[11px] uppercase tracking-wider text-gray-600 mb-3">Links</p>
+                <p className="text-[11px] uppercase tracking-wider text-gray-400 mb-3">Links</p>
                 <div className="space-y-2 text-sm">
                   <a href="/" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Home</a>
                   <a href="/KRtrades" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">KR Trades</a>
@@ -746,7 +746,7 @@ export default function CopyTradingPage() {
                 </div>
               </div>
               <div>
-                <p className="text-[11px] uppercase tracking-wider text-gray-600 mb-3">Socials</p>
+                <p className="text-[11px] uppercase tracking-wider text-gray-400 mb-3">Socials</p>
                 <div className="space-y-2 text-sm">
                   <a href="https://share.google/hot7O7ZcHmkO79csu" target="_blank" rel="noopener noreferrer" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Google</a>
                   <a href="https://www.instagram.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Instagram</a>
@@ -757,7 +757,7 @@ export default function CopyTradingPage() {
               </div>
             </div>
 
-            <div className="mt-4 sm:mt-6 pt-6 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+            <div className="mt-4 sm:mt-6 pt-6 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
               <p>&copy; 2026 <span className="text-gray-300 font-medium">Koushik Ranjit</span>. All rights reserved.</p>
               <a href="#" className="flex items-center gap-2 hover:text-emerald-400 transition-colors">
                 Back to Top
