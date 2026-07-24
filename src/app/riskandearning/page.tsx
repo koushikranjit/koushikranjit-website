@@ -675,23 +675,6 @@ export default function RiskAndEarningPage() {
                 </div>
               </div>
 
-              <div className="relative select-none">
-                <span className="absolute -top-1 sm:top-0 right-[8%] w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 bg-emerald-400 rounded-sm shadow-[0_0_12px_rgba(16,185,129,0.6)]" aria-hidden="true" />
-                <h2
-                  className="italic font-bold leading-[0.85] tracking-tight"
-                  style={{
-                    fontFamily: "Georgia, 'Times New Roman', serif",
-                    fontSize: 'clamp(3.5rem, 15vw, 11rem)',
-                    backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,0.85), rgba(255,255,255,0))',
-                    WebkitBackgroundClip: 'text',
-                    backgroundClip: 'text',
-                    color: 'transparent',
-                  }}
-                >
-                  Koushik
-                </h2>
-              </div>
-
               <div className="mt-4 sm:mt-6 pt-6 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
                 <p>&copy; 2026 <span className="text-gray-300 font-medium">Koushik Ranjit</span>. All rights reserved.</p>
                 <a href="#" className="flex items-center gap-2 hover:text-emerald-400 transition-colors">
