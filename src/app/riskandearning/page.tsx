@@ -651,7 +651,6 @@ export default function RiskAndEarningPage() {
                   <div className="space-y-2 text-sm">
                     <a href="https://wa.me/919547774580" target="_blank" rel="noopener noreferrer" className="block text-gray-300 hover:text-emerald-400 transition-colors">+91 95477 74580</a>
                     <a href="mailto:teamkoushikranjit@gmail.com" className="block text-gray-300 hover:text-emerald-400 transition-colors">teamkoushikranjit@gmail.com</a>
-                    <a href="mailto:koushikranjit8@gmail.com" className="block text-gray-300 hover:text-emerald-400 transition-colors">koushikranjit8@gmail.com</a>
                   </div>
                 </div>
                 <div>
