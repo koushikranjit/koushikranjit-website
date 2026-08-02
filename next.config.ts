@@ -12,8 +12,12 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      { source: "/copytrading", destination: "/ea-trading", permanent: true },
-      { source: "/copytrading/manage", destination: "/ea-trading/manage", permanent: true },
+      { source: "/copytrading", destination: "/", permanent: true },
+      { source: "/copytrading/manage", destination: "/", permanent: true },
+      { source: "/ea-trading", destination: "/", permanent: true },
+      { source: "/ea-trading/manage", destination: "/", permanent: true },
+      { source: "/vps", destination: "/", permanent: true },
+      { source: "/vps/manage", destination: "/", permanent: true },
     ];
   },
 };

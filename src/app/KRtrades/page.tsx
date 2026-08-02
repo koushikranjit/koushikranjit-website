@@ -850,8 +850,6 @@ export default function KRTradesPage() {
                 <div className="space-y-2 text-sm">
                   <a href="/" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Home</a>
                   <a href="/KRtrades" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">KR Trades</a>
-                  <a href="/ea-trading" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">EA Trading</a>
-                  <a href="/vps" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">VPS</a>
                   <a href="/riskandearning" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Risk Disclaimer</a>
                 </div>
               </div>

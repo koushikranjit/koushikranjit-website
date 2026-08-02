@@ -31,6 +31,16 @@
 
 ## Latest Changes
 
+### 2026-08-02 — `/ea-trading` and `/vps` removed entirely (products discontinued)
+- **Both products fully removed** per explicit request: pages, manage/cancel pages, and all API routes deleted — `src/app/ea-trading/` (+ `/manage`), `src/app/vps/` (+ `/manage`), `src/app/api/ea-trading/*`, `src/app/api/vps/*`. Existing subscribers can no longer self-serve cancel via the site — cancel directly in Razorpay or contact them manually if anyone is still subscribed.
+- **Webhook cleaned up** — `src/app/api/webhook/razorpay/route.ts` had its `VPS_PLAN_ID`/`EA_PLAN_ID` branches (and the now-unused `sendEmail`/Resend helper that only those branches called) removed. KR Trades plan logic untouched.
+- **Old URLs redirect home, not to each other** — `next.config.ts` redirects updated: `/copytrading`, `/copytrading/manage`, `/ea-trading`, `/ea-trading/manage`, `/vps`, `/vps/manage` all now permanently redirect to `/` (previously `/copytrading` → `/ea-trading`, which would have pointed at a now-dead page).
+- **Nav links removed everywhere:** homepage footer (`public/index.html`), `/KRtrades`, `/KRtrades/manage`, `/riskandearning` — "EA Trading" and "VPS" links dropped from each footer Links column.
+- **`sitemap.xml`** — removed `/ea-trading` and `/vps` entries.
+- **Not touched:** `/riskandearning`'s "Automated EA Trading Risks" disclosure content itself (legal text, previously user-approved) — only the dead nav links pointing at the deleted page were removed. If the product is gone for good, that section's content may need a follow-up rewrite/removal — ask before touching, per this page's standing rule of always showing proposed legal text for approval first.
+- **Env vars now orphaned** (harmless to leave, but unused going forward): `RAZORPAY_VPS_PLAN_ID`, `RAZORPAY_EA_PLAN_ID`, `RESEND_API_KEY` (was only used by the VPS/EA webhook branches — KR Trades doesn't send email). Not removed from Vercel env vars this session — low priority cleanup.
+- Verified with `npm run build` (0 errors, `/ea-trading` and `/vps` absent from route list) before pushing; `node_modules` + `.next` deleted after, per storage rules.
+
 ### 2026-07-19 — /copytrading rebuilt as automated EA trading, then renamed to /ea-trading
 - **`/copytrading` recreated from scratch** (previously fully deleted per 2026-07-17 entry below) as a new product: **automated EA trading** on XAU/USD, not copy trading. Went through several iterations this session before landing on the current shape — worth knowing if reading old commit messages out of order.
 - **Route renamed `/copytrading` → `/ea-trading`** (and `/api/copytrading/*` → `/api/ea-trading/*`) later the same session, via `git mv` + find/replace of all internal fetch paths and site-wide nav links (homepage, KRtrades/manage, vps, vps/manage, riskandearning). Added permanent redirects in `next.config.ts` (`/copytrading` → `/ea-trading`, `/copytrading/manage` → `/ea-trading/manage`) so nothing shared earlier breaks. **If you see `/copytrading` referenced anywhere going forward, it's stale — the live route is `/ea-trading`.**
