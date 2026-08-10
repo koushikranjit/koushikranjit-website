@@ -145,7 +145,7 @@ export default function H1BreakoutStrategyPage() {
         }
         .h1b-nav-link:hover { color: #10B981; }
 
-        .h1b-header { padding: 56px 24px 40px; max-width: 780px; margin: 0 auto; text-align: center; }
+        .h1b-header { padding: 56px 24px 40px; max-width: 860px; margin: 0 auto; text-align: center; }
 
         .h1b-eyebrow {
           display: inline-flex; align-items: center; gap: 8px;
@@ -154,50 +154,50 @@ export default function H1BreakoutStrategyPage() {
           padding: 6px 16px; border-radius: 20px; margin-bottom: 22px;
         }
 
-        .h1b-h1 { font-size: clamp(28px, 6vw, 46px); font-weight: 900; letter-spacing: -0.04em; line-height: 1.1; color: #FFFFFF; margin-bottom: 14px; }
-        .h1b-sub { font-size: 16px; color: #64748B; line-height: 1.7; max-width: 600px; margin: 0 auto 22px; }
+        .h1b-h1 { font-size: clamp(28px, 5vw, 54px); font-weight: 900; letter-spacing: -0.04em; line-height: 1.1; color: #FFFFFF; margin-bottom: 16px; }
+        .h1b-sub { font-size: clamp(16px, 1.4vw, 18px); color: #64748B; line-height: 1.7; max-width: 660px; margin: 0 auto 22px; }
 
         .h1b-meta { display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; font-size: 12px; color: #475569; margin-bottom: 8px; }
         .h1b-meta span { display: flex; align-items: center; gap: 6px; }
         .h1b-tag { color: #10B981; font-weight: 700; }
 
-        .h1b-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 700px; margin: 32px auto 0; }
-        .h1b-stat { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 18px 14px; text-align: left; }
-        .h1b-stat-label { font-size: 11px; color: #475569; margin-bottom: 8px; }
-        .h1b-stat-num { font-size: 26px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.03em; }
+        .h1b-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 780px; margin: 32px auto 0; }
+        .h1b-stat { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 20px 18px; text-align: left; }
+        .h1b-stat-label { font-size: 12px; color: #475569; margin-bottom: 10px; }
+        .h1b-stat-num { font-size: 30px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.03em; }
         .h1b-stat-num.green { color: #10B981; }
-        .h1b-stat-sub { font-size: 11px; color: #475569; margin-top: 6px; }
-        .h1b-stat-caption { font-size: 11px; color: #334155; text-align: center; max-width: 700px; margin: 12px auto 0; }
+        .h1b-stat-sub { font-size: 12px; color: #475569; margin-top: 7px; }
+        .h1b-stat-caption { font-size: 12px; color: #334155; text-align: center; max-width: 780px; margin: 14px auto 0; }
 
-        .h1b-dl { max-width: 700px; margin: 28px auto 0; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .h1b-dl { max-width: 780px; margin: 28px auto 0; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
         .h1b-btn {
           display: inline-flex; align-items: center; gap: 8px;
-          font-family: 'DM Sans', inherit; font-weight: 700; font-size: 14px;
+          font-family: 'DM Sans', inherit; font-weight: 700; font-size: 15px;
           border: none; border-radius: 10px; cursor: pointer; text-decoration: none;
-          padding: 12px 22px; transition: transform 0.18s, box-shadow 0.18s;
+          padding: 13px 24px; transition: transform 0.18s, box-shadow 0.18s;
         }
         .h1b-btn-green { background: linear-gradient(135deg, #059669, #10B981); color: #fff; box-shadow: 0 4px 20px rgba(5,150,105,0.3); }
         .h1b-btn-green:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(5,150,105,0.4); }
         .h1b-btn-ghost { background: rgba(255,255,255,0.03); color: #94A3B8; border: 1px solid rgba(255,255,255,0.08); }
         .h1b-btn-ghost:hover { color: #CBD5E1; border-color: rgba(255,255,255,0.16); }
 
-        .h1b-toc { max-width: 780px; margin: 44px auto 0; padding: 0 24px; }
-        .h1b-toc-inner { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 24px; }
-        .h1b-toc-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #475569; margin-bottom: 16px; }
+        .h1b-toc { max-width: 860px; margin: 44px auto 0; padding: 0 24px; }
+        .h1b-toc-inner { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 28px; }
+        .h1b-toc-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: #475569; margin-bottom: 18px; }
         .h1b-toc-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
         .h1b-toc-item a {
-          display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; color: #64748B;
-          text-decoration: none; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.04); transition: color 0.18s;
+          display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; color: #64748B;
+          text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); transition: color 0.18s;
         }
         .h1b-toc-item:last-child a { border-bottom: none; }
         .h1b-toc-item a:hover { color: #10B981; }
-        .h1b-toc-num { font-size: 11px; font-weight: 700; color: #334155; min-width: 20px; }
+        .h1b-toc-num { font-size: 12px; font-weight: 700; color: #334155; min-width: 22px; }
 
-        .h1b-body { max-width: 780px; margin: 0 auto; padding: 40px 24px 80px; display: flex; flex-direction: column; gap: 28px; }
+        .h1b-body { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; display: flex; flex-direction: column; gap: 28px; }
 
         .h1b-card {
           background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px;
-          padding: 32px; position: relative; overflow: hidden;
+          padding: 36px 40px; position: relative; overflow: hidden;
         }
         .h1b-card::before {
           content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
@@ -206,65 +206,65 @@ export default function H1BreakoutStrategyPage() {
         .h1b-card.legal { background: rgba(239,68,68,0.03); border-color: rgba(239,68,68,0.1); }
         .h1b-card.legal::before { background: linear-gradient(90deg, transparent, rgba(239,68,68,0.3), transparent); }
 
-        .h1b-card-num { font-size: 11px; font-weight: 700; color: #10B981; letter-spacing: 0.08em; margin-bottom: 6px; }
-        .h1b-card-title { font-size: 19px; font-weight: 800; letter-spacing: -0.03em; color: #FFFFFF; margin-bottom: 18px; }
+        .h1b-card-num { font-size: 12px; font-weight: 700; color: #10B981; letter-spacing: 0.08em; margin-bottom: 8px; }
+        .h1b-card-title { font-size: 22px; font-weight: 800; letter-spacing: -0.03em; color: #FFFFFF; margin-bottom: 20px; }
 
-        .h1b-para { font-size: 14px; color: #94A3B8; line-height: 1.75; margin-bottom: 12px; }
+        .h1b-para { font-size: 15.5px; color: #94A3B8; line-height: 1.75; margin-bottom: 12px; }
         .h1b-para:last-child { margin-bottom: 0; }
 
-        .h1b-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-        .h1b-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #94A3B8; line-height: 1.6; }
-        .h1b-dot { flex-shrink: 0; width: 5px; height: 5px; border-radius: 50%; background: #10B981; margin-top: 7px; box-shadow: 0 0 6px rgba(16,185,129,0.4); }
+        .h1b-list { list-style: none; display: flex; flex-direction: column; gap: 13px; }
+        .h1b-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 15.5px; color: #94A3B8; line-height: 1.65; }
+        .h1b-dot { flex-shrink: 0; width: 5px; height: 5px; border-radius: 50%; background: #10B981; margin-top: 9px; box-shadow: 0 0 6px rgba(16,185,129,0.4); }
 
         .h1b-callout {
           margin-top: 16px; background: rgba(16,185,129,0.05); border: 1px solid rgba(16,185,129,0.18);
-          border-radius: 12px; padding: 16px 18px; font-size: 13px; color: #A7F3D0; font-weight: 600; line-height: 1.6;
+          border-radius: 12px; padding: 18px 20px; font-size: 14.5px; color: #A7F3D0; font-weight: 600; line-height: 1.6;
         }
 
-        .h1b-steps { list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 14px; }
-        .h1b-steps li { counter-increment: step; display: flex; align-items: flex-start; gap: 14px; font-size: 14px; color: #94A3B8; line-height: 1.6; }
+        .h1b-steps { list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 16px; }
+        .h1b-steps li { counter-increment: step; display: flex; align-items: flex-start; gap: 14px; font-size: 15.5px; color: #94A3B8; line-height: 1.65; }
         .h1b-steps li::before {
-          content: counter(step); flex-shrink: 0; width: 26px; height: 26px; border-radius: 8px;
+          content: counter(step); flex-shrink: 0; width: 28px; height: 28px; border-radius: 8px;
           background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.25); color: #10B981;
-          font-weight: 800; font-size: 12px; display: flex; align-items: center; justify-content: center;
+          font-weight: 800; font-size: 13px; display: flex; align-items: center; justify-content: center;
         }
 
         .h1b-table { width: 100%; border-collapse: collapse; margin-top: 4px; }
-        .h1b-table th, .h1b-table td { text-align: left; padding: 12px 10px; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .h1b-table th { color: #475569; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; }
+        .h1b-table th, .h1b-table td { text-align: left; padding: 14px 12px; font-size: 14.5px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .h1b-table th { color: #475569; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 11px; }
         .h1b-table td { color: #CBD5E1; }
         .h1b-table td.dist { color: #10B981; font-weight: 700; }
         .h1b-table tr:last-child td { border-bottom: none; }
-        .h1b-table-note { font-size: 12px; color: #475569; margin-top: 12px; line-height: 1.6; }
+        .h1b-table-note { font-size: 13px; color: #475569; margin-top: 12px; line-height: 1.6; }
 
         .h1b-charts { display: flex; flex-direction: column; gap: 20px; }
         .h1b-chart img { width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); display: block; }
         .h1b-chart-cap { font-size: 12px; color: #475569; line-height: 1.6; margin-top: 8px; }
 
-        .h1b-filters { display: flex; flex-direction: column; gap: 18px; }
-        .h1b-filter-title { font-size: 14px; font-weight: 700; color: #F1F5F9; margin-bottom: 6px; }
-        .h1b-filter-text { font-size: 13px; color: #64748B; line-height: 1.7; }
+        .h1b-filters { display: flex; flex-direction: column; gap: 20px; }
+        .h1b-filter-title { font-size: 15.5px; font-weight: 700; color: #F1F5F9; margin-bottom: 6px; }
+        .h1b-filter-text { font-size: 14.5px; color: #64748B; line-height: 1.7; }
 
-        .h1b-checklist-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #10B981; margin: 22px 0 12px; }
+        .h1b-checklist-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #10B981; margin: 24px 0 14px; }
         .h1b-checklist-title:first-child { margin-top: 0; }
-        .h1b-check { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-        .h1b-check li { display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; color: #94A3B8; line-height: 1.6; }
+        .h1b-check { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+        .h1b-check li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; color: #94A3B8; line-height: 1.6; }
         .h1b-check-box {
           flex-shrink: 0; width: 16px; height: 16px; margin-top: 2px; border-radius: 4px;
           border: 1px solid rgba(16,185,129,0.4); background: rgba(16,185,129,0.06);
         }
 
-        .h1b-legal-text { font-size: 13px; color: #64748B; font-weight: 500; line-height: 1.8; margin-bottom: 12px; }
+        .h1b-legal-text { font-size: 14px; color: #64748B; font-weight: 500; line-height: 1.8; margin-bottom: 12px; }
         .h1b-legal-text:last-child { margin-bottom: 0; }
-        .h1b-legal-sub { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #FCA5A5; margin: 16px 0 6px; }
+        .h1b-legal-sub { font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #FCA5A5; margin: 16px 0 6px; }
         .h1b-legal-sub:first-child { margin-top: 0; }
 
         .h1b-cta {
           background: rgba(16,185,129,0.04); border: 1px solid rgba(16,185,129,0.12); border-radius: 14px;
-          padding: 28px; text-align: center;
+          padding: 36px; text-align: center;
         }
-        .h1b-cta-title { font-size: 16px; font-weight: 700; color: #FFFFFF; margin-bottom: 8px; }
-        .h1b-cta-text { font-size: 13px; color: #64748B; line-height: 1.7; max-width: 480px; margin: 0 auto 18px; }
+        .h1b-cta-title { font-size: 18px; font-weight: 700; color: #FFFFFF; margin-bottom: 8px; }
+        .h1b-cta-text { font-size: 14.5px; color: #64748B; line-height: 1.7; max-width: 520px; margin: 0 auto 20px; }
 
         .h1b-updated { text-align: center; font-size: 11px; color: #1E293B; padding: 0 24px 40px; }
 

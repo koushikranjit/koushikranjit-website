@@ -53,22 +53,22 @@ export default function BlogIndexPage() {
         }
         .bl-nav-link:hover { color: #10B981; }
 
-        .bl-header { padding: 56px 24px 40px; max-width: 780px; margin: 0 auto; text-align: center; }
+        .bl-header { padding: 56px 24px 40px; max-width: 860px; margin: 0 auto; text-align: center; }
         .bl-eyebrow {
           display: inline-flex; align-items: center; gap: 8px;
           font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
           color: #10B981; background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2);
           padding: 6px 16px; border-radius: 20px; margin-bottom: 22px;
         }
-        .bl-h1 { font-size: clamp(28px, 6vw, 46px); font-weight: 900; letter-spacing: -0.04em; line-height: 1.1; color: #FFFFFF; margin-bottom: 14px; }
-        .bl-sub { font-size: 16px; color: #64748B; line-height: 1.7; max-width: 560px; margin: 0 auto; }
+        .bl-h1 { font-size: clamp(28px, 5vw, 54px); font-weight: 900; letter-spacing: -0.04em; line-height: 1.1; color: #FFFFFF; margin-bottom: 16px; }
+        .bl-sub { font-size: clamp(16px, 1.4vw, 18px); color: #64748B; line-height: 1.7; max-width: 620px; margin: 0 auto; }
 
-        .bl-body { max-width: 780px; margin: 0 auto; padding: 24px 24px 100px; display: flex; flex-direction: column; gap: 18px; }
+        .bl-body { max-width: 860px; margin: 0 auto; padding: 24px 24px 100px; display: flex; flex-direction: column; gap: 18px; }
 
         .bl-card {
           display: block; text-decoration: none; color: inherit;
           background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px;
-          padding: 28px; position: relative; overflow: hidden; transition: border-color 0.2s, transform 0.2s;
+          padding: 34px; position: relative; overflow: hidden; transition: border-color 0.2s, transform 0.2s;
         }
         .bl-card::before {
           content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
@@ -76,10 +76,10 @@ export default function BlogIndexPage() {
         }
         .bl-card:hover { border-color: rgba(16,185,129,0.25); transform: translateY(-2px); }
 
-        .bl-card-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #10B981; margin-bottom: 10px; }
-        .bl-card-title { font-size: 19px; font-weight: 800; letter-spacing: -0.02em; color: #FFFFFF; margin-bottom: 10px; line-height: 1.35; }
-        .bl-card-excerpt { font-size: 13.5px; color: #64748B; line-height: 1.7; margin-bottom: 16px; }
-        .bl-card-meta { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 12px; color: #475569; }
+        .bl-card-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #10B981; margin-bottom: 12px; }
+        .bl-card-title { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: #FFFFFF; margin-bottom: 12px; line-height: 1.35; }
+        .bl-card-excerpt { font-size: 15px; color: #64748B; line-height: 1.7; margin-bottom: 18px; }
+        .bl-card-meta { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 13px; color: #475569; }
         .bl-card-read { color: #10B981; font-weight: 700; display: flex; align-items: center; gap: 4px; }
 
         .bl-empty { text-align: center; padding: 60px 24px; color: #475569; font-size: 14px; }
