@@ -40,12 +40,27 @@ export default function BlogIndexPage() {
           position: relative;
         }
 
-        .bl-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+        .bl-video { display: none; }
+        @media (min-width: 1024px) {
+          .bl-video {
+            display: block; position: fixed; inset: 0; width: 100vw; height: 100vh;
+            object-fit: cover; z-index: 0; pointer-events: none; opacity: 0.32;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .bl-video { display: none; }
+        }
+        .bl-video-overlay {
+          position: fixed; inset: 0; z-index: 1; pointer-events: none;
+          background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.8) 45%, rgba(0,0,0,0.98) 75%, #000 100%);
+        }
+
+        .bl-bg { position: fixed; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; }
         .bl-orb { position: absolute; border-radius: 50%; filter: blur(90px); }
         .bl-orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(5,150,105,0.07), transparent 70%); top: -150px; right: -150px; }
         .bl-orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(5,150,105,0.05), transparent 70%); bottom: 10%; left: -150px; }
 
-        .bl-content { position: relative; z-index: 1; }
+        .bl-content { position: relative; z-index: 3; }
 
         .bl-nav {
           position: sticky; top: 0; z-index: 50;
@@ -179,6 +194,11 @@ export default function BlogIndexPage() {
       `}</style>
 
       <div className="bl">
+        <video className="bl-video" autoPlay muted loop playsInline aria-hidden="true">
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_171521_25968ba2-b594-4b32-aab7-f6b69398a6fa.mp4" type="video/mp4" />
+        </video>
+        <div className="bl-video-overlay" aria-hidden="true" />
+
         <div className="bl-bg" aria-hidden="true">
           <div className="bl-orb bl-orb-1" />
           <div className="bl-orb bl-orb-2" />
