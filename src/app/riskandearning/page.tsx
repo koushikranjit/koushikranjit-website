@@ -513,11 +513,11 @@ export default function RiskAndEarningPage() {
             <a href="/" className="rk-logo" aria-label="KR Trades Home">
               KR <span className="rk-logo-g">Trades</span>
             </a>
-            <a href="/KRtrades" className="rk-nav-link" aria-label="Back to KR Trades">
+            <a href="/" className="rk-nav-link" aria-label="Back to Home">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M10 4l-4 4 4 4"/>
               </svg>
-              KR Trades
+              Home
             </a>
           </header>
 
@@ -626,13 +626,10 @@ export default function RiskAndEarningPage() {
                 By using KR Trades services — including our Telegram channel, website, and copy trading signals — you confirm that you have read, understood, and agreed to this Risk &amp; Earning Disclaimer.
               </p>
               <div className="rk-cta-row">
-                <a href="/KRtrades" className="rk-btn rk-btn-green" aria-label="Go to KR Trades">
+                <a href="/" className="rk-btn rk-btn-green" aria-label="Return to home">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <polyline points="9 18 15 12 9 6"/>
                   </svg>
-                  I Understand — Continue
-                </a>
-                <a href="/" className="rk-btn rk-btn-ghost" aria-label="Return to home">
                   Return Home
                 </a>
               </div>
@@ -657,7 +654,6 @@ export default function RiskAndEarningPage() {
                   <p className="text-[11px] uppercase tracking-wider text-gray-400 mb-3">Links</p>
                   <div className="space-y-2 text-sm">
                     <a href="/" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Home</a>
-                    <a href="/KRtrades" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">KR Trades</a>
                     <a href="/blog" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Blog</a>
                     <a href="/riskandearning" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Risk Disclaimer</a>
                   </div>

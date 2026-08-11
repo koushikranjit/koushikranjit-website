@@ -155,7 +155,6 @@ export default function BlogIndexPage() {
                   <p className="text-[11px] uppercase tracking-wider text-gray-400 mb-3">Links</p>
                   <div className="space-y-2 text-sm">
                     <a href="/" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Home</a>
-                    <a href="/KRtrades" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">KR Trades</a>
                     <a href="/blog" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Blog</a>
                     <a href="/riskandearning" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Risk Disclaimer</a>
                   </div>
