@@ -159,3 +159,33 @@
     transform: rotate(360deg);
   }
 }
+
+.wa-float-btn {
+  position: fixed;
+  left: 20px;
+  bottom: 88px;
+  z-index: 200;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.wa-float-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+.wa-float-btn svg {
+  width: 30px;
+  height: 30px;
+  fill: #ffffff;
+}
+@media (min-width: 1024px) {
+  .wa-float-btn {
+    bottom: 24px;
+  }
+}
