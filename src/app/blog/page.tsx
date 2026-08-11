@@ -18,6 +18,13 @@ const posts = [
       { label: 'Trades Logged', value: '2,762' },
     ],
   },
+  {
+    slug: 'fair-value-gap',
+    tag: 'Trading Concepts',
+    title: 'Fair Value Gap (FVG) Explained — Lesson 4',
+    excerpt: 'Displacement creates imbalances — these are Fair Value Gaps. How they form, why they overlap with order blocks, and why the same zones show up whether you trade EMAs, support/resistance, supply/demand, or order flow.',
+    meta: 'Market Structure',
+  },
 ];
 
 const [featured, ...rest] = posts;
@@ -179,6 +186,30 @@ export default function BlogIndexPage() {
         .bl-card-meta { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 12px; color: #475569; }
         .bl-card-read { color: #10B981; font-weight: 700; display: flex; align-items: center; gap: 4px; }
 
+        /* Discord promo */
+        .bl-discord {
+          display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+          background: rgba(88,101,242,0.06); border: 1px solid rgba(88,101,242,0.2); border-radius: 16px;
+          padding: 24px 28px;
+        }
+        .bl-discord-text { display: flex; align-items: center; gap: 14px; }
+        .bl-discord-icon {
+          flex-shrink: 0; width: 40px; height: 40px; border-radius: 10px;
+          background: rgba(88,101,242,0.15); display: flex; align-items: center; justify-content: center;
+          color: #A5AEFF;
+        }
+        .bl-discord-icon svg { width: 22px; height: 22px; }
+        .bl-discord-title { font-size: 14.5px; font-weight: 700; color: #F1F5F9; margin-bottom: 2px; }
+        .bl-discord-sub { font-size: 13px; color: #64748B; }
+        .bl-discord-btn {
+          display: inline-flex; align-items: center; gap: 8px; text-decoration: none; flex-shrink: 0;
+          font-size: 14px; font-weight: 700; color: #fff;
+          background: #5865F2; padding: 11px 20px; border-radius: 10px;
+          transition: transform 0.18s, box-shadow 0.18s;
+        }
+        .bl-discord-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(88,101,242,0.4); }
+        .bl-discord-btn svg { width: 16px; height: 16px; }
+
         @media (max-width: 860px) {
           .bl-feature-grid { grid-template-columns: 1fr; }
           .bl-feature-visual { display: none; }
@@ -190,6 +221,8 @@ export default function BlogIndexPage() {
           .bl-feature-main { padding: 26px 22px 24px; }
           .bl-feature-footer { align-items: flex-start; }
           .bl-read-cta { width: 100%; justify-content: center; }
+          .bl-discord { padding: 20px; }
+          .bl-discord-btn { width: 100%; justify-content: center; }
         }
       `}</style>
 
@@ -249,7 +282,7 @@ export default function BlogIndexPage() {
                       <p className="bl-feature-excerpt">{featured.excerpt}</p>
 
                       <div className="bl-stat-row" aria-label="Strategy performance snapshot">
-                        {featured.stats.map((s) => (
+                        {featured.stats?.map((s) => (
                           <div className="bl-stat-chip" key={s.label}>
                             <span className="bl-stat-chip-value">{s.value}</span>
                             <span className="bl-stat-chip-label">{s.label}</span>
@@ -321,6 +354,26 @@ export default function BlogIndexPage() {
                   </div>
                 )}
 
+                <div className="bl-discord">
+                  <div className="bl-discord-text">
+                    <span className="bl-discord-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.099.246.197.373.291a.077.077 0 0 1-.006.128 12.3 12.3 0 0 1-1.873.892.076.076 0 0 0-.04.106c.36.698.772 1.362 1.225 1.994a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.057c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028z"/>
+                      </svg>
+                    </span>
+                    <div>
+                      <p className="bl-discord-title">Join the Discord community</p>
+                      <p className="bl-discord-sub">Ask questions, see live chart breakdowns, and get notified of new posts.</p>
+                    </div>
+                  </div>
+                  <a href="https://discord.gg/sffdu4wXx2" target="_blank" rel="noopener noreferrer" className="bl-discord-btn">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.099.246.197.373.291a.077.077 0 0 1-.006.128 12.3 12.3 0 0 1-1.873.892.076.076 0 0 0-.04.106c.36.698.772 1.362 1.225 1.994a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.057c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028z"/>
+                    </svg>
+                    Join Discord
+                  </a>
+                </div>
+
                 <div className="bl-more">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
@@ -352,6 +405,7 @@ export default function BlogIndexPage() {
                 <div>
                   <p className="text-[11px] uppercase tracking-wider text-gray-400 mb-3">Socials</p>
                   <div className="space-y-2 text-sm">
+                    <a href="https://discord.gg/sffdu4wXx2" target="_blank" rel="noopener noreferrer" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Discord</a>
                     <a href="https://share.google/hot7O7ZcHmkO79csu" target="_blank" rel="noopener noreferrer" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Google</a>
                     <a href="https://www.instagram.com/koushik_ranjit" target="_blank" rel="noopener noreferrer" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">Instagram</a>
                     <a href="https://www.linkedin.com/in/koushik-ranjit-011957188/" target="_blank" rel="noopener noreferrer" className="block text-gray-200 font-medium hover:text-emerald-400 transition-colors">LinkedIn</a>
