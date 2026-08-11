@@ -1,9 +1,3 @@
 {
-  "framework": "nextjs",
-  "crons": [
-    {
-      "path": "/api/cron/check-subs?secret=krtrades-cron-2026",
-      "schedule": "0 8 * * *"
-    }
-  ]
+  "framework": "nextjs"
 }
