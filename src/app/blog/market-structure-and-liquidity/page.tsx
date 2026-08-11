@@ -10,6 +10,7 @@ const toc = [
   { id: 'premium', title: 'Premium & Discount' },
   { id: 'blocks', title: 'Order Blocks & Breaker Blocks' },
   { id: 'bias', title: 'Daily Bias & the Weekly Cycle' },
+  { id: 'walkthrough', title: 'Putting It Together — A Walkthrough' },
   { id: 'risk', title: 'Sizing Risk Around Drawdown' },
   { id: 'disclaimer', title: 'Risk Disclosure & Disclaimer' },
 ];
@@ -150,6 +151,20 @@ export default function MarketStructureLiquidityPage() {
 
         .msl-updated { text-align: center; font-size: 11px; color: #1E293B; padding: 0 24px 40px; }
 
+        .msl-diagram { margin-top: 16px; background: rgba(255,255,255,0.015); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 16px; }
+        .msl-diagram svg { width: 100%; height: auto; display: block; }
+        .msl-diagram-cap { font-size: 12px; color: #475569; line-height: 1.6; margin-top: 10px; text-align: center; }
+
+        .msl-steps { display: flex; flex-direction: column; gap: 16px; margin-top: 4px; }
+        .msl-step { display: flex; gap: 14px; }
+        .msl-step-num {
+          flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: rgba(16,185,129,0.1);
+          border: 1px solid rgba(16,185,129,0.3); color: #10B981; font-size: 12px; font-weight: 800;
+          display: flex; align-items: center; justify-content: center;
+        }
+        .msl-step-text { font-size: 14.5px; color: #94A3B8; line-height: 1.7; padding-top: 3px; }
+        .msl-step-text b { color: #E2E8F0; font-weight: 700; }
+
         @media (max-width: 600px) {
           .msl-header { padding: 44px 20px 32px; }
           .msl-card { padding: 22px 18px; }
@@ -197,6 +212,12 @@ export default function MarketStructureLiquidityPage() {
             </div>
 
             <div className="msl-dl">
+              <a href="/downloads/market-structure-and-liquidity.pdf" className="msl-btn msl-btn-green" download aria-label="Download this lesson as a PDF">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Download as PDF
+              </a>
               <a href="https://discord.gg/sffdu4wXx2" target="_blank" rel="noopener noreferrer" className="msl-btn msl-btn-discord" aria-label="Join the Discord community">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.099.246.197.373.291a.077.077 0 0 1-.006.128 12.3 12.3 0 0 1-1.873.892.076.076 0 0 0-.04.106c.36.698.772 1.362 1.225 1.994a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.057c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028z"/>
@@ -259,6 +280,41 @@ export default function MarketStructureLiquidityPage() {
                 Rule of thumb I use: if price barely clears a level and stalls, I treat it as a sweep. If it clears
                 a level and keeps moving with one-sided candles, I treat it as the real move.
               </div>
+              <div className="msl-diagram">
+                <svg viewBox="0 0 440 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="manipDisplTitle">
+                  <title id="manipDisplTitle">Diagram comparing a manipulation sweep that fails to hold a level against a displacement move that breaks through and continues</title>
+                  <text x="95" y="20" textAnchor="middle" fontSize="12" fontWeight="700" fill="#F1F5F9">Manipulation</text>
+                  <line x1="10" y1="70" x2="175" y2="70" stroke="#EF4444" strokeWidth="1.5" strokeDasharray="4 4" />
+                  <text x="12" y="64" fontSize="9" fill="#F87171">level</text>
+                  <line x1="25" y1="120" x2="25" y2="170" stroke="#64748B" strokeWidth="2" />
+                  <rect x="20" y="130" width="10" height="30" fill="#475569" />
+                  <line x1="55" y1="90" x2="55" y2="140" stroke="#64748B" strokeWidth="2" />
+                  <rect x="50" y="100" width="10" height="30" fill="#475569" />
+                  <line x1="85" y1="55" x2="85" y2="110" stroke="#10B981" strokeWidth="2" />
+                  <rect x="80" y="70" width="10" height="30" fill="#10B981" />
+                  <line x1="115" y1="35" x2="115" y2="95" stroke="#EF4444" strokeWidth="2" />
+                  <rect x="110" y="75" width="10" height="20" fill="#EF4444" />
+                  <line x1="145" y1="85" x2="145" y2="140" stroke="#EF4444" strokeWidth="2" />
+                  <rect x="140" y="90" width="10" height="35" fill="#EF4444" />
+                  <text x="95" y="182" textAnchor="middle" fontSize="10.5" fill="#64748B">Sweeps the level, fails to hold</text>
+
+                  <text x="345" y="20" textAnchor="middle" fontSize="12" fontWeight="700" fill="#F1F5F9">Displacement</text>
+                  <line x1="260" y1="70" x2="425" y2="70" stroke="#10B981" strokeWidth="1.5" strokeDasharray="4 4" />
+                  <text x="262" y="64" fontSize="9" fill="#6EE7B7">level</text>
+                  <line x1="275" y1="120" x2="275" y2="170" stroke="#64748B" strokeWidth="2" />
+                  <rect x="270" y="130" width="10" height="30" fill="#475569" />
+                  <line x1="305" y1="90" x2="305" y2="140" stroke="#64748B" strokeWidth="2" />
+                  <rect x="300" y="100" width="10" height="30" fill="#475569" />
+                  <line x1="335" y1="45" x2="335" y2="105" stroke="#10B981" strokeWidth="2" />
+                  <rect x="330" y="60" width="10" height="40" fill="#10B981" />
+                  <line x1="365" y1="15" x2="365" y2="65" stroke="#10B981" strokeWidth="2" />
+                  <rect x="360" y="20" width="10" height="40" fill="#10B981" />
+                  <line x1="395" y1="0" x2="395" y2="30" stroke="#10B981" strokeWidth="2" />
+                  <rect x="390" y="3" width="10" height="22" fill="#10B981" />
+                  <text x="345" y="182" textAnchor="middle" fontSize="10.5" fill="#64748B">Breaks the level, keeps going</text>
+                </svg>
+                <p className="msl-diagram-cap">My own sketch of the idea, not a chart of a real move — a stalled poke through a level vs. a clean break that keeps expanding.</p>
+              </div>
             </article>
 
             <article id="liquidity" className="msl-card">
@@ -274,6 +330,12 @@ export default function MarketStructureLiquidityPage() {
                 Price is always doing one of two things: reaching for external liquidity, or filling in internal
                 liquidity on its way there. Once you start viewing every chart through that lens, most of the
                 &ldquo;random&rdquo; wicks and pullbacks start to make a lot more sense.
+              </p>
+              <p className="msl-para">
+                In a bullish leg, I&rsquo;m buying from sellers whose stops sit below the recent lows — that pool of
+                orders is what gets swept before a real move up. In a bearish leg, it&rsquo;s the mirror: I&rsquo;m
+                selling to buyers whose stops sit above the recent highs. Large participants need that liquidity to
+                fill their own size, which is exactly why sweeps happen before the real move, not after.
               </p>
             </article>
 
@@ -291,6 +353,21 @@ export default function MarketStructureLiquidityPage() {
                 not magic, it&rsquo;s just where the last batch of buyers or sellers stopped being willing to pay
                 up (or sell down) any further.
               </p>
+              <div className="msl-diagram">
+                <svg viewBox="0 0 440 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="premDiscTitle">
+                  <title id="premDiscTitle">Diagram of a price range split into a premium zone above the midpoint and a discount zone below it</title>
+                  <rect x="140" y="15" width="160" height="80" fill="rgba(239,68,68,0.12)" stroke="rgba(239,68,68,0.35)" />
+                  <rect x="140" y="95" width="160" height="80" fill="rgba(16,185,129,0.12)" stroke="rgba(16,185,129,0.35)" />
+                  <line x1="140" y1="95" x2="300" y2="95" stroke="#94A3B8" strokeWidth="1.5" strokeDasharray="4 4" />
+                  <text x="310" y="30" fontSize="13" fontWeight="700" fill="#F87171">Premium</text>
+                  <text x="310" y="46" fontSize="10" fill="#64748B">sell here</text>
+                  <text x="310" y="130" fontSize="13" fontWeight="700" fill="#34D399">Discount</text>
+                  <text x="310" y="146" fontSize="10" fill="#64748B">buy here</text>
+                  <text x="20" y="99" fontSize="10" fill="#94A3B8">Equilibrium (50%)</text>
+                  <line x1="130" y1="95" x2="115" y2="95" stroke="#475569" strokeWidth="1" />
+                </svg>
+                <p className="msl-diagram-cap">My own sketch of the idea — top half of a price leg is premium, bottom half is discount, split at the midpoint.</p>
+              </div>
             </article>
 
             <article id="blocks" className="msl-card">
@@ -307,6 +384,12 @@ export default function MarketStructureLiquidityPage() {
                 support to resistance (or vice versa) once price closes back through it. I pay closer attention to
                 breaker blocks around the times of day I already expect a liquidity sweep, since that&rsquo;s when
                 they tend to produce the cleanest entries.
+              </p>
+              <p className="msl-para">
+                Order blocks aren&rsquo;t permanent. If price closes back through one with real conviction — the
+                same displacement signature from earlier — I treat it as invalidated and stop expecting it to hold.
+                That failure is exactly what turns it into the breaker block described above, so a &ldquo;failed&rdquo;
+                order block isn&rsquo;t a dead level, it&rsquo;s just relabeled.
               </p>
             </article>
 
@@ -344,8 +427,56 @@ export default function MarketStructureLiquidityPage() {
               </div>
             </article>
 
-            <article id="risk" className="msl-card">
+            <article id="walkthrough" className="msl-card">
               <p className="msl-card-num">07</p>
+              <h2 className="msl-card-title">Putting It Together — A Walkthrough</h2>
+              <p className="msl-para" style={{marginBottom: '18px'}}>
+                None of this means much as separate rules — it&rsquo;s meant to be read top to bottom, in order.
+                Here&rsquo;s a simplified, hypothetical walk-through of how the pieces stack for me on a single
+                session:
+              </p>
+              <div className="msl-steps">
+                <div className="msl-step">
+                  <span className="msl-step-num">1</span>
+                  <p className="msl-step-text"><b>Bias first.</b> Going into the New York AM session, my daily bias is bullish — the prior day closed strong and the overnight range held above the previous day&rsquo;s low.</p>
+                </div>
+                <div className="msl-step">
+                  <span className="msl-step-num">2</span>
+                  <p className="msl-step-text"><b>Wait for the sweep.</b> Early in the session, price dips below the London low — that&rsquo;s external liquidity being taken. On its own this tells me nothing about direction yet.</p>
+                </div>
+                <div className="msl-step">
+                  <span className="msl-step-num">3</span>
+                  <p className="msl-step-text"><b>Confirm displacement.</b> Price reverses off that sweep and pushes back through the recent swing high with one-sided candles, leaving an imbalance behind. That&rsquo;s the signal the sweep was manipulation, not the real move.</p>
+                </div>
+                <div className="msl-step">
+                  <span className="msl-step-num">4</span>
+                  <p className="msl-step-text"><b>Locate the zone.</b> I mark the order block that produced the displacement, and check it sits in discount relative to the new leg — it does, so bias, liquidity, and price all agree.</p>
+                </div>
+                <div className="msl-step">
+                  <span className="msl-step-num">5</span>
+                  <p className="msl-step-text"><b>Wait for the retrace.</b> Price pulls back into that order block on a lower timeframe. I want to see the pullback lose momentum here, not blow straight through it.</p>
+                </div>
+                <div className="msl-step">
+                  <span className="msl-step-num">6</span>
+                  <p className="msl-step-text"><b>Entry and stop.</b> Entry near the order block, stop just beyond it — invalidated if price closes back through with the same kind of displacement that built it.</p>
+                </div>
+                <div className="msl-step">
+                  <span className="msl-step-num">7</span>
+                  <p className="msl-step-text"><b>Size around recent form.</b> If this is my first trade after a clean stretch, I take full size. If it follows a couple of losses, I cut size back regardless of how good the setup looks — see the risk section below.</p>
+                </div>
+                <div className="msl-step">
+                  <span className="msl-step-num">8</span>
+                  <p className="msl-step-text"><b>Target the next pool.</b> The target is the next external liquidity — the prior day&rsquo;s high — not an arbitrary number of pips.</p>
+                </div>
+              </div>
+              <div className="msl-note">
+                This is an illustrative example to show how the pieces connect, not a trade recommendation or a
+                signal to copy on any specific instrument or session.
+              </div>
+            </article>
+
+            <article id="risk" className="msl-card">
+              <p className="msl-card-num">08</p>
               <h2 className="msl-card-title">Sizing Risk Around Drawdown</h2>
               <p className="msl-para">
                 Structure and liquidity only tell me where to look — they don&rsquo;t protect the account. The part
@@ -366,7 +497,7 @@ export default function MarketStructureLiquidityPage() {
             </article>
 
             <article id="disclaimer" className="msl-card legal">
-              <p className="msl-card-num" style={{color: '#EF4444'}}>08</p>
+              <p className="msl-card-num" style={{color: '#EF4444'}}>09</p>
               <h2 className="msl-card-title">Risk Disclosure &amp; Disclaimer</h2>
 
               <p className="msl-legal-sub">Educational Content</p>
@@ -407,10 +538,16 @@ export default function MarketStructureLiquidityPage() {
             <div className="msl-cta">
               <p className="msl-cta-title">Want to go deeper on this?</p>
               <p className="msl-cta-text">
-                Come ask questions and see live chart breakdowns of structure, liquidity, and risk sizing in the
-                Discord community.
+                Grab the lesson as a PDF, or come ask questions and see live chart breakdowns of structure,
+                liquidity, and risk sizing in the Discord community.
               </p>
               <div className="msl-dl">
+                <a href="/downloads/market-structure-and-liquidity.pdf" className="msl-btn msl-btn-green" download>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                  </svg>
+                  Download as PDF
+                </a>
                 <a href="https://discord.gg/sffdu4wXx2" target="_blank" rel="noopener noreferrer" className="msl-btn msl-btn-discord">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                     <path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.099.246.197.373.291a.077.077 0 0 1-.006.128 12.3 12.3 0 0 1-1.873.892.076.076 0 0 0-.04.106c.36.698.772 1.362 1.225 1.994a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.057c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028z"/>
