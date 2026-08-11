@@ -162,7 +162,7 @@
 
 .wa-float-btn {
   position: fixed;
-  left: 20px;
+  right: 20px;
   bottom: 88px;
   z-index: 200;
   width: 56px;
