@@ -79,7 +79,7 @@ export default function RiskAndEarningPage() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900&display=swap');
 
-        .rk *:not(footer, footer *) { box-sizing: border-box; margin: 0; padding: 0; }
+        .rk *:not(:where(footer, footer *)) { box-sizing: border-box; margin: 0; padding: 0; }
 
         .rk {
           font-family: 'DM Sans', system-ui, sans-serif;
