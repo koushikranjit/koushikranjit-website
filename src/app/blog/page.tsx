@@ -25,13 +25,6 @@ const posts = [
     excerpt: 'Displacement creates imbalances — these are Fair Value Gaps. How they form, why they overlap with order blocks, and why the same zones show up whether you trade EMAs, support/resistance, supply/demand, or order flow.',
     meta: 'Market Structure',
   },
-  {
-    slug: 'market-structure-and-liquidity',
-    tag: 'Trading Concepts',
-    title: 'Market Structure & Liquidity — Lesson 5',
-    excerpt: 'My own framework for reading price: manipulation vs displacement, external vs internal liquidity, premium and discount, order blocks and breaker blocks, daily bias, and how I size risk around drawdown.',
-    meta: 'Risk Management',
-  },
 ];
 
 const [featured, ...rest] = posts;
