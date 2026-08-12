@@ -26,6 +26,13 @@ const posts = [
     meta: 'Market Structure',
   },
   {
+    slug: 'power-of-3',
+    tag: 'Trading Concepts',
+    title: 'Power of 3 (AMD) Explained — Lesson 6',
+    excerpt: 'Accumulation, Manipulation, Distribution — a simple framework for visualizing how price behaves across a session. The sell model, the buy model, and how to read the overnight and morning sessions.',
+    meta: 'Market Maker Models',
+  },
+  {
     slug: 'market-structure-and-liquidity',
     tag: 'Trading Concepts',
     title: 'Market Structure & Liquidity — Lesson 5',
